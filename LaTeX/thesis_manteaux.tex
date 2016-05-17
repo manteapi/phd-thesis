@@ -12,7 +12,7 @@
 			doi=false,
 			url=false,
 			backref=false,
-			firstinits=false, 
+			giveninits=false, 
 			maxcitenames=2,
 			maxbibnames=100]{biblatex}
 \usepackage{csquotes}
@@ -74,8 +74,9 @@
 \maketitle
 
 \frontmatter
-\chapter{Remerciements}
-Merci
+
+%\chapter{Remerciements}
+%Merci
 
 \chapter{R\'esum\'e}
 Dans ce document nous pr\'esentons des techniques pour la simulation efficace et le contr\^ole de ph\'enom\`enes physiques.
@@ -91,10 +92,28 @@ In this document we present techniques for the efficient simulation and control 
 An introduction.
 
 \section{Problems}
-Problems I was interested in during my PhD.
+\begin{itemize}
+    \item Non-intrusive adaptive techniques for physics-based animation.
+    \item Plausible and efficient simulation of detailed topological changes with very few degrees of freedom.
+    \item Study of adaptive models for physics-based animation.
+    \item Modeling of animations from existing animations.
+\end{itemize}
 
 \section{Contributions}
-Contributions I made during my PhD.
+\begin{itemize}
+    \item Transfer of adaptive techniques from Nanosystems simulation to Computer Graphics.
+    \item Algorithm for the efficient cutting of thin deformable objects using the frame-based model.
+    \item Algorithm for the modeling of fluid animation.
+\end{itemize}
+
+\section{Collaborations}
+
+\begin{itemize}
+    \item Wei-Lun Sun
+    \item Julio Toss
+    \item Thibault Lejemble, Amélie Fondevilla, Thibault Blanc-Beyne, Nicolas Durin
+    \item Ulysse Vimont
+\end{itemize}
 
 \section{Structure of the document}
 Overview of the manuscript
@@ -107,8 +126,146 @@ Some publications.
     \item \cite{Manteaux2015}
 \end{itemize}
 
+\chapter{Notation}
+
+\begin{table}[!h]
+\begin{tabular}{ll}
+$t$ & time \\
+$m$ &  mass \\
+$\mathbf{x}$ & position \\
+$\mathbf{v}$ & velocity \\
+$\mathbf{f}$ & total forces \\
+$\mathbf{f}_{int}$ & internal forces \\
+$\mathbf{f}_{ext}$ & external forces \\
+\end{tabular}
+\end{table}
+
 \chapter{State of the art}
 A nice state of the art.
+
+\section[A quick \& dirty introduction to fluid dynamics]{A quick \& dirty introduction to computational fluid dynamics}
+
+\subsection{Navier-Stokes equation}
+
+\paragraph{Mass conservation}
+The conservation of mass is quite explicit. The mass of the fluid cannot change. Mathematically, it is expressed by stating that the variation of the mass in a given volume is equal to the flux of mass going through the border of the volume.
+\begin{equation}
+    \label{eq:massConservation}
+    \frac{d}{dt}\left( \int_{\mathcal{V}} \rho dx \right)
+    =
+    - \int_{\mathcal{\partial V}}\rho \mathbf{v} \mathbf{n} ds
+\end{equation}
+
+\paragraph{Constitutive Law}
+The constitutive law describes how the fluid react to a deformation. For an incompressible fluid, the fluid reacts to pressure and viscosity and can be written:
+\begin{equation}
+\sigma = -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right)
+\end{equation}
+
+\paragraph{Incompressibility}
+This states that the mass should not vary over time. Then the mass conservation can be rewritten as:
+\begin{equation}
+\nabla \cdot u = 0
+\end{equation}
+
+\paragraph{Momentum conservation}
+
+Also called Newton's second law, it states:
+\begin{equation}
+\label{eq:momentumConservation}
+\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{V} \mathbf{f} dx
+\end{equation}
+
+Two kind of forces are generally applied on a fluid, the \emph{external} forces and the \emph{internal} forces.
+
+External forces describe the action of the surrounding environment on the fluid, the simplest example is the gravity:
+\begin{equation}
+\int_{\mathcal{V}} \rho \mathbf{g} dx
+\end{equation}
+
+Internal forces describe the reaction of the fluid to an external deformation. A general way to describe them is by using a tensor notation:
+\begin{equation}
+\int_{\mathcal{V}} \sigma \mathbf{n} ds
+\end{equation}
+By applying the Stokes' formula we can describe it with respect to the volume:
+\begin{equation}
+\int_{\mathcal{V}} \sigma \mathbf{n} ds =
+\int_{\mathcal{V}} \nabla \cdot \sigma dx
+\end{equation}
+
+Conservation of momentum can then be rewritten:
+\begin{equation}
+\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{V} \rho \mathbf{g} + \nabla. \sigma dx
+\end{equation}
+
+Then we have:
+\begin{equation}
+\nabla \cdot \sigma = \nabla \cdot \left( -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right) \right) = -\nabla p + \Delta \mathbf{v}
+\end{equation}
+
+With internal forces, we have the Navier-Stokes equation for an incompressible fluid:
+
+\begin{equation}
+\begin{array}{ll}
+\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{V} \rho \mathbf{g} -\nabla p + \eta \Delta \mathbf{v} dx
+\nabla. \mathbf{u} = 0
+\end{array}
+\end{equation}
+
+\paragraph{Lagrangian vs Eulerian}
+
+Lagrangian: You follow the river. The river is discretized into particles which carries and update fluid properties such as position and velocity. 
+
+Eulerian : You stand in the middle of a river. The river is discretized into a fixed grid from where you can measure the velocity of the flow passing through the point of the grid.
+
+The material derivative:
+\begin{equation}
+\frac{D\mathbf{u}}{Dt} = \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla v)
+\end{equation}
+
+In a lagrangian framework, the positions of the particles at a specific time $t$ is known, so the material derivative is just the time derivative.
+
+\begin{equation}
+\frac{D\mathbf{u}}{Dt} = \frac{\partial u}{\partial t}
+\end{equation}
+
+\subsection{Discretization}
+
+Once equations of motion have been set, they can be discretized in space and time and integrated.
+
+\subsection{Discretization: The Smoothed Hydrodynamics Particles model}
+Smoothed Particles Hydrodynamics is an interpolation method that can be used to discretize the Navier-Stokes equation in a Lagrangian way. The fluid is discretized into particles which represent a small volume of the whole fluid and each quantity is interpolated using SPH.
+
+The interpolation of a function $f$ at a position $\mathbf{x}$ is :
+\begin{equation}
+f(\mathbf{x}) = \int_{V} f(\mathbf{x'})W(\mathbf{x}-\mathbf{x'}, h)dx'
+\end{equation}
+where $W$ is a function called \emph{kernel} which has several properties
+\begin{itemize}
+\item $W$ tend to the delta function when the length scale $h$ tends to $0$.
+\begin{equation}
+\int_{\mathcal{V}} W(\mathbf{x},h) dx = 1
+\end{equation}
+\end{itemize}
+
+
+%\paragraph{Eulerian grid}
+%\paragraph{Lagrangian particles}
+%\paragraph{Hybrid method}
+%\paragraph{Smoothed Hydrodynamics Particles model}
+
+\section[A quick \& dirty introduction to continuum mechanics]{A quick \& dirty introduction to continuum mechanics}
+\subsection{Momentum conservation}
+\subsection{Material law}
+\subsection{Discretizations}
+\paragraph{Frame-based deformable model}
+
+\section{Adaptive techniques and model for physics-based animation}
+
+\section{Control of physics-based animation}
+
+\section{Modeling of animated physical phenomena}
+
 
 \chapter{ARPS}
 

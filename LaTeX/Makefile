@@ -35,6 +35,7 @@ clean:
 	rm *.loa 2>/dev/null; true
 	rm *.lof 2>/dev/null; true
 	rm *.lot 2>/dev/null; true
+	rm *.synctex.gz 2>/dev/null; true
 
 mrproper:
 	rm *.log 2>/dev/null; true
