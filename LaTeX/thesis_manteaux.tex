@@ -236,18 +236,125 @@ Once equations of motion have been set, they can be discretized in space and tim
 \subsection{Discretization: The Smoothed Hydrodynamics Particles model}
 Smoothed Particles Hydrodynamics is an interpolation method that can be used to discretize the Navier-Stokes equation in a Lagrangian way. The fluid is discretized into particles which represent a small volume of the whole fluid and each quantity is interpolated using SPH.
 
+\paragraph{SPH interpolation}
 The interpolation of a function $f$ at a position $\mathbf{x}$ is :
 \begin{equation}
 f(\mathbf{x}) = \int_{V} f(\mathbf{x'})W(\mathbf{x}-\mathbf{x'}, h)dx'
 \end{equation}
-where $W$ is a function called \emph{kernel} which has several properties
+where $W$ is a function called \emph{kernel}. 
+
+If the fluid is discretized into particles with a mass $m$, a density $\rho$ and a volume $V$, then we can discretize the SPH interpolation as:
+\begin{equation}
+f(\mathbf{x}) = \sum_{p} f(\mathbf{x}_{p})V_{p} W(\mathbf{x}-\mathbf{x_{p}},h) = \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} W(\mathbf{x}-\mathbf{x_{p}},h)
+\end{equation}
+
+Then derivatives can be computed and discretized the same way:
+\begin{equation}
+D^{\alpha} f(\mathbf{x}) = \int_{\mathcal{V}} f(\mathbf{x'}) D^{\alpha} W(\mathbf{x}-\mathbf{x'}, h)dx'
+\end{equation}
+
+\begin{equation}
+D^{\alpha} f(\mathbf{x})= \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} D^{\alpha} W(\mathbf{x}-\mathbf{x_{p}},h)
+\end{equation}
+
+However, for first derivatives, the approximation does not vanish if $f$ is constant. A quick way to ensure that is to use a differentiable function $\Phi$ (in practice we use the density $\rho$) to re-write the derivative using the derivative of a product :
+\begin{equation}
+\nabla f(x) = \frac{1}{\Phi}\left(\nabla (f \Phi) - f \nabla \Phi \right)
+\end{equation}
+
+\paragraph{How to choose the kernel}
+The properties of $W$ can vary with respect to the properties of the function to be interpolated. In general, $W$ meet the following properties:
 \begin{itemize}
-\item $W$ tend to the delta function when the length scale $h$ tends to $0$.
+\item $W$ is normalized. Thus, constants are interpolated exactly.
+\item $W$ has a compact support.
+\begin{equation}
+\parallel \mathbf{x} \parallel \geq h \rightarrow W(\mathbf{x},h) = 0 
+\end{equation}
 \begin{equation}
 \int_{\mathcal{V}} W(\mathbf{x},h) dx = 1
 \end{equation}
+\item $W$ tend to the delta function when the length scale $h$ tends to $0$.
+\begin{equation}
+\lim_{h \rightarrow 0} W(x,h) = \delta(x)
+\end{equation}
+\item $W$ should be symmetric to enforce invariance under rotation
+\begin{equation}
+W(-x,h) = W(x,h)
+\end{equation}
+\item Depending on the function to interpolate the kernel should be positive to prevent unphysical interpolated value.
+\begin{equation}
+W \geq 0
+\end{equation}
 \end{itemize}
 
+The cubic kernel from Monaghan is a good choice in practice.
+
+\paragraph{Applications to Navier-Stokes}
+
+\begin{equation}
+\rho_{i} = \sum_{j} m_{j}W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+\end{equation}
+
+\begin{equation}
+\left(\nabla p\right)_{i} = \sum_{j} \frac{m_{j}}{\rho_{j}} p_{j} \nabla W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+\end{equation}
+
+However linear and angular momentum are not conserved as the formula is not symmetric. By using the previous technique with $\Phi = \frac{1}{\rho}$, it can be symmetrized:
+
+\begin{equation}
+\left(\nabla p\right)_{i} = 
+\frac{1}{\rho_{i}}
+\sum_{j} m_{j} \left( \frac{p_{i}}{\rho_{i}^{2}} + \frac{p_{j}}{\rho_{j}^{2}} \right) \nabla W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+\end{equation}
+
+\begin{equation}
+\left(\Delta \mathbf{v}\right)_{i} = \sum_{j} \frac{m_{j}}{\rho_{j}} \mathbf{v}_{j} \Delta W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+\end{equation}
+
+Same as for the pressure gradient, this is not symmetric. Here it can be symmetrized by using $\Phi = \rho$.
+
+\begin{equation}
+\left(\Delta \mathbf{v}\right)_{i} = \frac{1}{\rho_{i}}\sum_{j} m_{j} \left( \mathbf{v}_{j}-\mathbf{v}_{i}\right) \Delta W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+\end{equation}
+
+In practice, the evaluation of the laplacian is not accurate. Another form of viscosity based on the gradient was proposed. This is still an area of research.
+
+\begin{equation}
+\left(\Delta v\right)_{i} = 
+\frac{1}{\rho_{i}}
+\sum_{j} m_{j} \Pi_{ij} \nabla W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+\end{equation}
+
+where 
+
+\begin{equation}
+\Pi_{ij} = -\frac{2hc_{s}}{\rho_{i}+\rho_{j}}\frac{v_{ij}^{T}x_{ij}}{\vert x_{ij} \vert^{2} + \epsilon h^{2}}
+\end{equation}
+
+Now if we discretize Navier-Stokes for one particle $i$, we have:
+
+\begin{equation}
+m_{i}\frac{d}{dt}v_{i}(t) = m_{i}\mathbf{g} - m_{i}(\nabla p)_{i} + m_{i}(\delta \mathbf{v})_{i}
+\end{equation}
+
+This equation can now be discretized in time and integrated. In practice we use the euler symplectic integrator:
+
+\begin{equation}
+\begin{array}{ll}
+v_{i}(t+\Delta t) = v_{i}(t) + \Delta t \frac{d}{dt}v_{i}(t) \\
+x_{i}(t+\Delta t) = x_{i}(t) + \Delta t v_{i}(t+\Delta t)
+\end{array}
+\end{equation}
+
+Several interesting implementation problems arise when dealing with particle system and more particularly particle-based fluid simulations:
+
+\begin{itemize}
+\item Boundary handling 
+\item Surface reconstruction
+\item Optimization (acceleration structure for spatial query)
+\end{itemize}
+
+Faire un tableau avec les références et ce que l'on peut y trouver d'intéressant.
 
 %\paragraph{Eulerian grid}
 %\paragraph{Lagrangian particles}
