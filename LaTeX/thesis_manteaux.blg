@@ -1,0 +1,25 @@
+[0] Config.pm:340> INFO - This is Biber 2.4
+[0] Config.pm:343> INFO - Logfile is 'thesis_manteaux.blg'
+[36] biber:290> INFO - === lun. mai 23, 2016, 20:56:22
+[48] Biber.pm:347> INFO - Reading 'thesis_manteaux.bcf'
+[138] Biber.pm:741> INFO - Found 62 citekeys in bib section 0
+[147] Biber.pm:3150> INFO - Processing section 0
+[182] Biber.pm:3307> INFO - Looking for bibtex format file './bib/manteaux.bib' for section 0
+[183] bibtex.pm:1124> INFO - Decoding LaTeX character macros into UTF-8
+[184] bibtex.pm:985> INFO - Found BibTeX data source './bib/manteaux.bib'
+[238] Biber.pm:3307> INFO - Looking for bibtex format file './bib/arps-vriphys2013.bib' for section 0
+[242] bibtex.pm:1124> INFO - Decoding LaTeX character macros into UTF-8
+[246] bibtex.pm:985> INFO - Found BibTeX data source './bib/arps-vriphys2013.bib'
+[589] Biber.pm:3307> INFO - Looking for bibtex format file './bib/cutting-mig2015.bib' for section 0
+[592] bibtex.pm:1124> INFO - Decoding LaTeX character macros into UTF-8
+[596] bibtex.pm:985> INFO - Found BibTeX data source './bib/cutting-mig2015.bib'
+[596] Utils.pm:147> WARN - Duplicate entry key: 'Baraff1998' in file './bib/cutting-mig2015.bib', skipping ...
+[597] Utils.pm:147> WARN - Duplicate entry key: 'Lejemble2015' in file './bib/cutting-mig2015.bib', skipping ...
+[787] Utils.pm:147> WARN - The field 'pages' in entry 'Wu2015' cannot be null, deleting it
+[1617] UCollate.pm:65> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1617] UCollate.pm:65> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1617] Biber.pm:3027> INFO - Sorting list 'anyt/global' of type 'entry' with scheme 'anyt' and locale 'en-US'
+[1618] Biber.pm:3031> INFO - No sort tailoring available for locale 'en-US'
+[1734] bbl.pm:519> INFO - Writing 'thesis_manteaux.bbl' with encoding 'UTF-8'
+[1742] bbl.pm:615> INFO - Output to thesis_manteaux.bbl
+[1742] Biber.pm:108> INFO - WARNINGS: 3

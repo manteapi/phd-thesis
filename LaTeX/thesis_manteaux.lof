@@ -1,0 +1,57 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\addvspace {10pt}
+\defcounter {refsection}{0}\relax 
+\addvspace {10pt}
+\defcounter {refsection}{0}\relax 
+\addvspace {10pt}
+\defcounter {refsection}{0}\relax 
+\addvspace {10pt}
+\defcounter {refsection}{0}\relax 
+\addvspace {10pt}
+\defcounter {refsection}{0}\relax 
+\addvspace {10pt}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Mass conservation. $M(t_{1}) = M(t_{0}) + M_{added} + M_{removed}$\relax }}{4}{figure.caption.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Momentum conservation.\relax }}{5}{figure.caption.7}
+\defcounter {refsection}{0}\relax 
+\addvspace {10pt}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.1}{\ignorespaces A dam break simulation with 5000 particles simulated with WCSPH (on the left) and with our adaptive method (on the right). On the right image, blue corresponds to full-dynamics particles, green to transition particles and red to restrained particles.\relax }}{15}{figure.caption.22}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Phase portrait of a harmonic oscillator. The red dotted ellipse corresponds to standard Hamiltonian mechanics, while the solid black line corresponds to ARPS. During restrained dynamics momentum is accumulated. Then a transition deals with the accumulated energy before getting back to the full dynamics.\relax }}{20}{figure.caption.27}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Phase portrait of our damping approach in ARPS. As with a classic damped oscillator we obtain a spiral phase portrait.\relax }}{22}{figure.caption.30}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.4}{\ignorespaces A permanent flow simulation with 4240 particles. (a) is a classic WCSPH simulation. (b) is our adaptive method at the same time of (a) with restrained particles in red. (c) is our adaptive method once the permanent flow is installed.\relax }}{23}{figure.caption.32}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Phase portrait of a harmonic oscillator simulated using implicit ARPS.\relax }}{25}{figure.caption.34}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Hanging cloth. Left: traditional implicit simulation. Right: implicit ARPS simulation with a varying set of active and inactive particles. \relax }}{26}{figure.caption.37}
+\defcounter {refsection}{0}\relax 
+\addvspace {10pt}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Progressive cutting of a spiral using only five control frames (a). Simulating complex deformations resulting from Kirigami cutting (b).\relax }}{30}{figure.caption.39}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Comparison between shape functions computed on a uniform grid and on a non-manifold grid. (a) The underlying mesh (black lines) is cut by spiral (red line) and sampled with five control frames (blue circle). (b) The shape functions for each of the frame with a uniform grid (top row) and with a non-manifold grid (bottom row). Values range from $1$ to $0$ and are respectively depicted from red to blue. We can observe that shape functions computed on the non-manifold grid strictly preserve the details and topology of the underlying mesh.\relax }}{31}{figure.caption.40}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Illustrations of Voronoi shape function computation. (a) Starting from samples (blue circles), we build a Voronoi diagram using Dijkstra's shortest path algorithm. (b) Then, for each frame and its region $V_{i}$, we compute the maximum distance $d_{max}$ to its Voronoi boundary $V_{b}$. We extend $V_{i}$ to twice $d_{max}$ which gives $V_{e}$. (c) Finally for each grid cell $j$ in $V_{e}$ we linearly interpolate using distance to the frame position and distance to $V_{b}$.\relax }}{33}{figure.caption.41}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Illustrations of different possibilities for a non-manifold cell with eight connectivity (a). In (b), the cell is simply cut into two cells. Each duplicate of the cut cell has a specific connectivity that represent the cut topology. In (c), multiple disconnected components can be contained inside one cell. The cell is duplicated four times. Three of the duplicates have no connectivity. However they can embed complex geometry and then be simulated by adding new frames for each of the component. The fourth duplicate keeps its eight neighbors and remains independent from the three other.\relax }}{34}{figure.caption.42}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.5}{\ignorespaces We describe the building of the non-manifold grid for the center cell of the grid. (a) The mesh is embedded in a uniform grid. (b) First, we store the overlapping geometry in the cell. (c) Then we detect disconnected parts using a flood fill algorithm. (d) Finally the cell is duplicated. For each duplicate, we look for other duplicates that share geometry and establish its connectivity.\relax }}{38}{figure.caption.43}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.6}{\ignorespaces (a) Several highly detailed shapes are cut in a deformable sheet. Each disconnected part is automatically re-sampled with additional control frames. (b) Simulation of a highly detailed cut that falls under gravity and remains attached to the main part by a thin piece of paper. (c) Two cuts intersect to form a vortex shape. This illustrates the abilities of the non-manifold grid to handle multiple intersecting cuts.\relax }}{40}{figure.caption.44}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Illustration of our remeshing algorithm. (a) For remeshing, we start from an input mesh and a polyline that represents the cut. (b) First we re-mesh along the polyline so that the mesh is conform with the cut. (c) Then we split the mesh vertices along the polyline.\relax }}{44}{figure.caption.47}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Illustrations for edge splitting and vertex insertions. (a) The input mesh. (b) After edge splitting. (c) After vertex insertions.\relax }}{44}{figure.caption.48}
+\defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Illustrations for the vertex splitting operation. (a) A mesh which is conform with the polyline (in red). (b) We start by assigning each triangle arround the vertex to split to one side of the polyline. (c) We duplicate the vertex and modify each of the triangles accordingly to its side.\relax }}{44}{figure.caption.49}
+\defcounter {refsection}{0}\relax 
+\addvspace {10pt}
+\defcounter {refsection}{0}\relax 
+\addvspace {10pt}
+\defcounter {refsection}{0}\relax 
+\addvspace {10pt}

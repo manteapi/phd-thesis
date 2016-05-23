@@ -1,0 +1,2552 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.6 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \sortlist[entry]{anyt/global}
+    \entry{Adams:2007:ASP}{article}{}
+      \name{author}{4}{}{%
+        {{hash=8f97879b07b6aa89f58d9729cc5ea136}{%
+           family={Adams},
+           family_i={A\bibinitperiod},
+           given={Bart},
+           given_i={B\bibinitperiod}}}%
+        {{hash=f27430fa205103cec8dd42ab86c2ba53}{%
+           family={Pauly},
+           family_i={P\bibinitperiod},
+           given={Mark},
+           given_i={M\bibinitperiod}}}%
+        {{hash=8f1f9d8a3b02a9194488ce073535ae95}{%
+           family={Keiser},
+           family_i={K\bibinitperiod},
+           given={Richard},
+           given_i={R\bibinitperiod}}}%
+        {{hash=5fd23aab2c255b0c106ecfbaf9d59f12}{%
+           family={Guibas},
+           family_i={G\bibinitperiod},
+           given={Leonidas\bibnamedelima J.},
+           given_i={L\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{67b97a2af3c64725ebbdd3f9d92e7304}
+      \strng{fullhash}{3b4b2b882caf485b69217af0a57893f5}
+      \field{labelalpha}{Ada+07}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0730-0301}
+      \field{journaltitle}{ACM Trans. Graph.}
+      \field{month}{07}
+      \field{number}{3}
+      \field{title}{Adaptively sampled particle fluids}
+      \field{volume}{26}
+      \field{year}{2007}
+      \verb{doi}
+      \verb 10.1145/1276377.1276437
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/1276377.1276437
+      \endverb
+    \endentry
+    \entry{Artemova2012}{article}{}
+      \name{author}{2}{}{%
+        {{hash=53426350ffe1c94c26df072053909d2e}{%
+           family={Artemova},
+           family_i={A\bibinitperiod},
+           given={Svetlana},
+           given_i={S\bibinitperiod}}}%
+        {{hash=dedff282f4478fa22c5d2cc4c9dbd116}{%
+           family={Redon},
+           family_i={R\bibinitperiod},
+           given={Stephane},
+           given_i={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Physical Society}%
+      }
+      \strng{namehash}{7bbf7c4fc64a3b9a8e15ae5ce8ccc72b}
+      \strng{fullhash}{7bbf7c4fc64a3b9a8e15ae5ce8ccc72b}
+      \field{labelalpha}{AR12}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issue}{19}
+      \field{journaltitle}{Phys. Rev. Lett.}
+      \field{month}{11}
+      \field{title}{Adaptively Restrained Particle Simulations}
+      \field{volume}{109}
+      \field{year}{2012}
+      \field{pages}{190201}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevLett.109.190201
+      \endverb
+      \verb{url}
+      \verb http://link.aps.org/doi/10.1103/PhysRevLett.109.190201
+      \endverb
+    \endentry
+    \entry{Tetflip2013}{article}{}
+      \name{author}{3}{}{%
+        {{hash=cc1dcc156231dcdf664473f91ab7f6f1}{%
+           family={Ando},
+           family_i={A\bibinitperiod},
+           given={Ryoichi},
+           given_i={R\bibinitperiod}}}%
+        {{hash=ac5ec4979f19b8e864841c136532764e}{%
+           family={Thürey},
+           family_i={T\bibinitperiod},
+           given={Nils},
+           given_i={N\bibinitperiod}}}%
+        {{hash=771037dae66e7a013b7efb2583b4c438}{%
+           family={Wojtan},
+           family_i={W\bibinitperiod},
+           given={Chris},
+           given_i={C\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Anaheim, CA, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{126107bba28b22b27ba31f1ded2b71bf}
+      \strng{fullhash}{d452cba562651fe5f5aeffb3513c3fbb}
+      \field{labelalpha}{ATW13}
+      \field{sortinit}{A}
+      \field{sortinithash}{b685c7856330eaee22789815b49de9bb}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACM Trans. Graph. (Proc. SIGGRAPH 2013)}
+      \field{month}{07}
+      \field{title}{Highly Adaptive Liquid Simulations on Tetrahedral Meshes}
+      \field{year}{2013}
+    \endentry
+    \entry{Bargteil:2007}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=d768d713b6d0aa69266e379821f77d2f}{%
+           family={Bargteil},
+           family_i={B\bibinitperiod},
+           given={Adam\bibnamedelima W.},
+           given_i={A\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=771037dae66e7a013b7efb2583b4c438}{%
+           family={Wojtan},
+           family_i={W\bibinitperiod},
+           given={Chris},
+           given_i={C\bibinitperiod}}}%
+        {{hash=77dfe0215ec4c8eadf46dad4bfb6e04c}{%
+           family={Hodgins},
+           family_i={H\bibinitperiod},
+           given={Jessica\bibnamedelima K.},
+           given_i={J\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=c651f32f7f9707025c958764a1842afd}{%
+           family={Turk},
+           family_i={T\bibinitperiod},
+           given={Greg},
+           given_i={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{f963f4a810cad1a3146e764ec64c2b06}
+      \strng{fullhash}{28128a9670f13b5a4ab119907c9b1767}
+      \field{labelalpha}{Bar+07}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{ACM Transactions on Graphics (Proc. SIGGRAPH)}
+      \field{title}{A finite element method for animating large viscoplastic flow}
+      \field{volume}{26}
+      \field{year}{2007}
+    \endentry
+    \entry{BenDeu12}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=97874e24e149ca0ddbd194fb257ea4c5}{%
+           family={Bender},
+           family_i={B\bibinitperiod},
+           given={Jan},
+           given_i={J\bibinitperiod}}}%
+        {{hash=c0c7eb9662ea73a54445e9877a5565af}{%
+           family={Deul},
+           family_i={D\bibinitperiod},
+           given={Crispin},
+           given_i={C\bibinitperiod}}}%
+      }
+      \name{editor}{4}{}{%
+        {{hash=97874e24e149ca0ddbd194fb257ea4c5}{%
+           family={Bender},
+           family_i={B\bibinitperiod},
+           given={Jan},
+           given_i={J\bibinitperiod}}}%
+        {{hash=cfa3d27979af68e8822a2079d34bff45}{%
+           family={Kuijper},
+           family_i={K\bibinitperiod},
+           given={Arjan},
+           given_i={A\bibinitperiod}}}%
+        {{hash=03aac977e47d532855d1854195b3c273}{%
+           family={Fellner},
+           family_i={F\bibinitperiod},
+           given={Dieter},
+           given_i={D\bibinitperiod}}}%
+        {{hash=2627962950f77ced933562b526fae203}{%
+           family={Guérin},
+           family_i={G\bibinitperiod},
+           given={Éric},
+           given_i={É\bibinitperiod}}}%
+      }
+      \strng{namehash}{8bf78ca1d2ff9460d5091846f4f84d42}
+      \strng{fullhash}{8bf78ca1d2ff9460d5091846f4f84d42}
+      \field{labelalpha}{BD12}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Virtual Reality Interactions and Physical Simulations (VRIPhys)}
+      \field{title}{Efficient cloth simulation using an adaptive finite element method}
+      \field{year}{2012}
+    \endentry
+    \entry{Busaryev2013}{article}{}
+      \name{author}{3}{}{%
+        {{hash=41da72252832422cc3d8b359028b24e1}{%
+           family={Busaryev},
+           family_i={B\bibinitperiod},
+           given={Oleksiy},
+           given_i={O\bibinitperiod}}}%
+        {{hash=36ff4cf3da94bd2da76e81847195c4ed}{%
+           family={Dey},
+           family_i={D\bibinitperiod},
+           given={Tamal\bibnamedelima K.},
+           given_i={T\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+        {{hash=ba614cbdf43fcd9d48ffc750af539bab}{%
+           family={Wang},
+           family_i={W\bibinitperiod},
+           given={Huamin},
+           given_i={H\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{417faf2c85727a12afa6b094b2fa1b1c}
+      \strng{fullhash}{22a1d65b409b3117d758b6802e532b24}
+      \field{labelalpha}{BDW13}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0730-0301}
+      \field{journaltitle}{ACM Trans. Graph.}
+      \field{month}{07}
+      \field{number}{4}
+      \field{title}{Adaptive Fracture Simulation of Multi-layered Thin Plates}
+      \field{volume}{32}
+      \field{year}{2013}
+      \field{pages}{52:1\bibrangedash 52:6}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1145/2461912.2461920
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/2461912.2461920
+      \endverb
+      \keyw{FEM,adaptive remeshing,fracture simulation,layers,thin plates}
+    \endentry
+    \entry{Barbic2005}{article}{}
+      \name{author}{2}{}{%
+        {{hash=7df4416ec12b85123d30d233043f80fd}{%
+           family={Barbič},
+           family_i={B\bibinitperiod},
+           given={Jernej},
+           given_i={J\bibinitperiod}}}%
+        {{hash=51929796c595c4e785ab99d69a33a7e5}{%
+           family={James},
+           family_i={J\bibinitperiod},
+           given={Doug\bibnamedelima L.},
+           given_i={D\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{baac0bcb3fff842a84e42f2c108d2aa4}
+      \strng{fullhash}{baac0bcb3fff842a84e42f2c108d2aa4}
+      \field{labelalpha}{BJ05}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0730-0301}
+      \field{journaltitle}{ACM Trans. Graph.}
+      \field{month}{07}
+      \field{number}{3}
+      \field{title}{Real-Time Subspace Integration for St. Venant-Kirchhoff Deformable Models}
+      \field{volume}{24}
+      \field{year}{2005}
+      \field{pages}{982\bibrangedash 990}
+      \range{pages}{9}
+      \verb{doi}
+      \verb 10.1145/1073204.1073300
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/1073204.1073300
+      \endverb
+      \keyw{animation,deformation,finite element method,haptics,interactive,model reduction,precomputation,simulation}
+    \endentry
+    \entry{Becker2007WCSPH}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=289f7783ec708dc87fc345ccf5c8fb25}{%
+           family={Becker},
+           family_i={B\bibinitperiod},
+           given={Markus},
+           given_i={M\bibinitperiod}}}%
+        {{hash=f11935ee15f7a87cffdf63cabfe0954f}{%
+           family={Teschner},
+           family_i={T\bibinitperiod},
+           given={Matthias},
+           given_i={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {San Diego, California}%
+      }
+      \list{publisher}{1}{%
+        {Eurographics Association}%
+      }
+      \strng{namehash}{85db3254c458a47ee735fd18c5ed0d7b}
+      \strng{fullhash}{85db3254c458a47ee735fd18c5ed0d7b}
+      \field{labelalpha}{BT07}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 2007 ACM SIGGRAPH/Eurographics symposium on Computer animation}
+      \field{isbn}{978-1-59593-624-0}
+      \field{series}{SCA '07}
+      \field{title}{Weakly compressible SPH for free surface flows}
+      \field{year}{2007}
+      \field{pages}{209\bibrangedash 217}
+      \range{pages}{9}
+      \verb{url}
+      \verb http://dl.acm.org/citation.cfm?id=1272690.1272719
+      \endverb
+      \keyw{Tait equation,fluid dynamics,physically-based simulation,smoothed particle hydrodynamics,surface tension,volume preservation}
+    \endentry
+    \entry{Baraff1998}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=1cb27745beb07c33e43b92cf14f092c4}{%
+           family={Baraff},
+           family_i={B\bibinitperiod},
+           given={David},
+           given_i={D\bibinitperiod}}}%
+        {{hash=44155a0ddcfd558a665a16833a7cfca7}{%
+           family={Witkin},
+           family_i={W\bibinitperiod},
+           given={Andrew},
+           given_i={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{9751fb3d565e4ce0ea3991c3d13fe034}
+      \strng{fullhash}{9751fb3d565e4ce0ea3991c3d13fe034}
+      \field{labelalpha}{BW98}
+      \field{sortinit}{B}
+      \field{sortinithash}{4ecbea03efd0532989d3836d1a048c32}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 25th annual conference on Computer graphics and interactive techniques}
+      \field{isbn}{0-89791-999-8}
+      \field{series}{SIGGRAPH '98}
+      \field{title}{Large steps in cloth simulation}
+      \field{year}{1998}
+      \field{pages}{43\bibrangedash 54}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1145/280814.280821
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/280814.280821
+      \endverb
+      \keyw{cloth,constraints,implicit integration,physically-based modeling,simulation}
+    \endentry
+    \entry{cotin_hybrid}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=74354ea19d8418ba83acd092c99b72f4}{%
+           family={Cotin},
+           family_i={C\bibinitperiod},
+           given={S.},
+           given_i={S\bibinitperiod}}}%
+        {{hash=08623f22189cd0de360ca0e7953d6ba0}{%
+           family={Delingette},
+           family_i={D\bibinitperiod},
+           given={H.},
+           given_i={H\bibinitperiod}}}%
+        {{hash=5b2d7b5f6e2fe68aef4508d44ef62a87}{%
+           family={Ayache},
+           family_i={A\bibinitperiod},
+           given={N.},
+           given_i={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{6e0a203697e130d23c9b9e8bb181ee9f}
+      \strng{fullhash}{66f62c3b47e7b10391dc73707e5f88a2}
+      \field{labelalpha}{CDA00}
+      \field{sortinit}{C}
+      \field{sortinithash}{59f25d509f3381b07695554a9f35ecb2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{The Visual Computer}
+      \field{title}{A Hybrid Elastic Model allowing Real-Time Cutting, Deformations and Force-Feedback for Surgery Training and Simulation}
+      \field{volume}{16}
+      \field{year}{2000}
+    \endentry
+    \entry{Chen2014}{article}{}
+      \name{author}{4}{}{%
+        {{hash=06629bd0a519126c2a95b26fc1bf3287}{%
+           family={Chen},
+           family_i={C\bibinitperiod},
+           given={Zhili},
+           given_i={Z\bibinitperiod}}}%
+        {{hash=cd676fa5eff305afccbe80d2c52eabbe}{%
+           family={Yao},
+           family_i={Y\bibinitperiod},
+           given={Miaojun},
+           given_i={M\bibinitperiod}}}%
+        {{hash=6a94ae937120106429c7e160e44d0dca}{%
+           family={Feng},
+           family_i={F\bibinitperiod},
+           given={Renguo},
+           given_i={R\bibinitperiod}}}%
+        {{hash=ba614cbdf43fcd9d48ffc750af539bab}{%
+           family={Wang},
+           family_i={W\bibinitperiod},
+           given={Huamin},
+           given_i={H\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{86023edc10ab27c1725db9bacd937ca2}
+      \strng{fullhash}{68cc22fa9e04dce1d0bbce15a3fe19d6}
+      \field{labelalpha}{Che+14}
+      \field{sortinit}{C}
+      \field{sortinithash}{59f25d509f3381b07695554a9f35ecb2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0730-0301}
+      \field{journaltitle}{ACM Trans. Graph.}
+      \field{month}{07}
+      \field{number}{4}
+      \field{title}{Physics-inspired Adaptive Fracture Refinement}
+      \field{volume}{33}
+      \field{year}{2014}
+      \field{pages}{113:1\bibrangedash 113:7}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1145/2601097.2601115
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/2601097.2601115
+      \endverb
+      \keyw{adaptive refinement,animation control,artistic design,discrete gradient flow,fracture animation,material strength}
+    \endentry
+    \entry{Desbrun:1996:SPN}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=9e47369dae07290555d7bd0a8b0bfd22}{%
+           family={Desbrun},
+           family_i={D\bibinitperiod},
+           given={Mathieu},
+           given_i={M\bibinitperiod}}}%
+        {{hash=3124339f30a77a5c803fb7dd19d418e6}{%
+           family={Cani},
+           family_i={C\bibinitperiod},
+           given={Marie-Paule},
+           given_i={M\bibinithyphendelim P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Poitiers, France}%
+      }
+      \list{publisher}{1}{%
+        {Springer-Verlag New York, Inc.}%
+      }
+      \strng{namehash}{9790047b0e40a200e47705fe9203ae40}
+      \strng{fullhash}{9790047b0e40a200e47705fe9203ae40}
+      \field{labelalpha}{DC96}
+      \field{sortinit}{D}
+      \field{sortinithash}{78f7c4753a2004675f316a80bdb31742}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the Eurographics workshop on Computer animation and simulation '96}
+      \field{isbn}{3-211-82885-0}
+      \field{title}{Smoothed particles: a new paradigm for animating highly deformable bodies}
+      \field{year}{1996}
+      \field{pages}{61\bibrangedash 76}
+      \range{pages}{16}
+      \verb{url}
+      \verb http://dl.acm.org/citation.cfm?id=274976.274981
+      \endverb
+    \endentry
+    \entry{DDCB01}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=69ed643aeb844b2649d5953b9b4da22e}{%
+           family={Debunne},
+           family_i={D\bibinitperiod},
+           given={G.},
+           given_i={G\bibinitperiod}}}%
+        {{hash=9278725cbb633e8ac6ff3865add025df}{%
+           family={Desbrun},
+           family_i={D\bibinitperiod},
+           given={M.},
+           given_i={M\bibinitperiod}}}%
+        {{hash=f3e05dbc04092685b1e454b7228b54e0}{%
+           family={Cani},
+           family_i={C\bibinitperiod},
+           given={M-P.},
+           given_i={M\bibinithyphendelim P\bibinitperiod}}}%
+        {{hash=5f3b0e88274e6d0bc058fdb43cca2c9e}{%
+           family={Barr},
+           family_i={B\bibinitperiod},
+           given={A.\bibnamedelimi H.},
+           given_i={A\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+      }
+      \strng{namehash}{d6e840b224d195e06ff6c8eea318715a}
+      \strng{fullhash}{408155691996309fec97236855bc916b}
+      \field{labelalpha}{Deb+01}
+      \field{sortinit}{D}
+      \field{sortinithash}{78f7c4753a2004675f316a80bdb31742}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proc. ACM SIGGRAPH}
+      \field{title}{Dynamic Real-Time Deformations using Space and Time Adaptive Sampling}
+      \field{year}{2001}
+    \endentry
+    \entry{DDBC99}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=6eceee56fde6f9207588330cd1fce795}{%
+           family={Debunne},
+           family_i={D\bibinitperiod},
+           given={Gilles},
+           given_i={G\bibinitperiod}}}%
+        {{hash=9e47369dae07290555d7bd0a8b0bfd22}{%
+           family={Desbrun},
+           family_i={D\bibinitperiod},
+           given={Mathieu},
+           given_i={M\bibinitperiod}}}%
+        {{hash=1f341e81c9835f8328f5920c3f852a8e}{%
+           family={Barr},
+           family_i={B\bibinitperiod},
+           given={Alan\bibnamedelima H.},
+           given_i={A\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=3124339f30a77a5c803fb7dd19d418e6}{%
+           family={Cani},
+           family_i={C\bibinitperiod},
+           given={Marie-Paule},
+           given_i={M\bibinithyphendelim P\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=bb200d9cd161cb4b27f1fae4107113e3}{%
+           family={Magnenat-Thalmann},
+           family_i={M\bibinithyphendelim T\bibinitperiod},
+           given={Nadia},
+           given_i={N\bibinitperiod}}}%
+        {{hash=24f20de24938c18a3655f419579d0900}{%
+           family={Thalmann},
+           family_i={T\bibinitperiod},
+           given={Daniel},
+           given_i={D\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Milan, Italie}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{7f8f9271417a4e4aeca0dc4c0e55b0db}
+      \strng{fullhash}{d60f1afaa64d4819226fc22c71c7f574}
+      \field{labelalpha}{Deb+99}
+      \field{sortinit}{D}
+      \field{sortinithash}{78f7c4753a2004675f316a80bdb31742}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Eurographics Workshop on Computer Animation and Simulation'99, September, 1999}
+      \field{month}{09}
+      \field{series}{Computer Science}
+      \field{title}{Interactive multiresolution animation of deformable models}
+      \field{year}{1999}
+      \field{pages}{133\bibrangedash 144}
+      \range{pages}{12}
+      \keyw{animation,multiresolution,deformable models}
+    \endentry
+    \entry{Faure2011}{article}{}
+      \name{author}{4}{}{%
+        {{hash=dea8a0ba978ffc6021c51592555385fc}{%
+           family={Faure},
+           family_i={F\bibinitperiod},
+           given={François},
+           given_i={F\bibinitperiod}}}%
+        {{hash=b6b3f6cbcb134871c1c2d7bf7859bf64}{%
+           family={Gilles},
+           family_i={G\bibinitperiod},
+           given={Benjamin},
+           given_i={B\bibinitperiod}}}%
+        {{hash=909c7df8fbb4f048429b55b3ff0589f9}{%
+           family={Bousquet},
+           family_i={B\bibinitperiod},
+           given={Guillaume},
+           given_i={G\bibinitperiod}}}%
+        {{hash=68dc2251406ffd57dbe91436f26fcb2d}{%
+           family={Pai},
+           family_i={P\bibinitperiod},
+           given={Dinesh\bibnamedelima K.},
+           given_i={D\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery (ACM)}%
+      }
+      \strng{namehash}{2072a32867094e44004ab402d5a7d4ae}
+      \strng{fullhash}{efd9e50f8a7954da61389d284cd4bb13}
+      \field{labelalpha}{Fau+11}
+      \field{sortinit}{F}
+      \field{sortinithash}{c6a7d9913bbd7b20ea954441c0460b78}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{{ACM Transactions on Graphics}}
+      \field{month}{07}
+      \field{number}{4}
+      \field{series}{Proceedings of SIGGRAPH'2011}
+      \field{title}{{Sparse Meshless Models of Complex Deformable Solids}}
+      \field{volume}{30}
+      \field{year}{2011}
+      \field{pages}{Article No. 73}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1145/2010324.1964968
+      \endverb
+      \verb{file}
+      \verb https://hal.inria.fr/inria-00589204/file/main.pdf
+      \endverb
+      \verb{url}
+      \verb https://hal.inria.fr/inria-00589204
+      \endverb
+      \keyw{Motion}
+    \endentry
+    \entry{ganovelli99multires}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=e7a70f54593fa3ee83902261b54aaccd}{%
+           family={Ganovelli},
+           family_i={G\bibinitperiod},
+           given={F.},
+           given_i={F\bibinitperiod}}}%
+        {{hash=e19153b2c4570f19dfbf8ab5376efb04}{%
+           family={Cignoni},
+           family_i={C\bibinitperiod},
+           given={P.},
+           given_i={P\bibinitperiod}}}%
+        {{hash=1522e783799c37eb8172524a01dfd49f}{%
+           family={Scopigno},
+           family_i={S\bibinitperiod},
+           given={R.},
+           given_i={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{50c48f385121d7c7e721303513bf93af}
+      \strng{fullhash}{813c918412abd9e54e39924a3eaeb46d}
+      \field{labelalpha}{GCS99}
+      \field{sortinit}{G}
+      \field{sortinithash}{1c854ef9177a91bf894e66485bdbd3ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{ACM Spring Conference on Computer Graphics}
+      \field{title}{Introducing multiresolution representation in deformable object modeling}
+      \field{year}{1999}
+    \endentry
+    \entry{Gilles2011}{article}{}
+      \name{author}{4}{}{%
+        {{hash=b6b3f6cbcb134871c1c2d7bf7859bf64}{%
+           family={Gilles},
+           family_i={G\bibinitperiod},
+           given={Benjamin},
+           given_i={B\bibinitperiod}}}%
+        {{hash=909c7df8fbb4f048429b55b3ff0589f9}{%
+           family={Bousquet},
+           family_i={B\bibinitperiod},
+           given={Guillaume},
+           given_i={G\bibinitperiod}}}%
+        {{hash=dea8a0ba978ffc6021c51592555385fc}{%
+           family={Faure},
+           family_i={F\bibinitperiod},
+           given={François},
+           given_i={F\bibinitperiod}}}%
+        {{hash=c790d20cc7f3c1482e4131ca006585ed}{%
+           family={Pai},
+           family_i={P\bibinitperiod},
+           given={Dinesh},
+           given_i={D\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery (ACM)}%
+      }
+      \strng{namehash}{4e65bbcfa28c8d22324f4d97a6b0bcf8}
+      \strng{fullhash}{ea13742a99d966077d931064c834a687}
+      \field{labelalpha}{Gil+11}
+      \field{sortinit}{G}
+      \field{sortinithash}{1c854ef9177a91bf894e66485bdbd3ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{{ACM Transactions on Graphics}}
+      \field{month}{04}
+      \field{number}{2}
+      \field{title}{{Frame-based Elastic Models}}
+      \field{volume}{30}
+      \field{year}{2011}
+      \field{pages}{Article No. 15}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1145/1944846.1944855
+      \endverb
+      \verb{file}
+      \verb https://hal.inria.fr/inria-00589199/file/main.pdf
+      \endverb
+      \verb{url}
+      \verb https://hal.inria.fr/inria-00589199
+      \endverb
+      \keyw{Physically based animation ; deformable solids ; meshless models ; Motion}
+    \endentry
+    \entry{CHARMS}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=592cb4a159c63f592d458feacf4936fd}{%
+           family={Grinspun},
+           family_i={G\bibinitperiod},
+           given={Eitan},
+           given_i={E\bibinitperiod}}}%
+        {{hash=d112a0c6069e91ce8fc6d240c48313b4}{%
+           family={Krysl},
+           family_i={K\bibinitperiod},
+           given={Petr},
+           given_i={P\bibinitperiod}}}%
+        {{hash=aff2d50d22a268c0b1b9ab454f36b729}{%
+           family={Schröder},
+           family_i={S\bibinitperiod},
+           given={Peter},
+           given_i={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{bc4f4d760aa84ff33f6ee494906b783e}
+      \strng{fullhash}{c1d075acbe9c50c2cfb78ecd93dbdde4}
+      \field{labelalpha}{GKS02}
+      \field{sortinit}{G}
+      \field{sortinithash}{1c854ef9177a91bf894e66485bdbd3ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{ACM Transactions on Graphics (Proc. SIGGRAPH)}
+      \field{title}{CHARMS: a simple framework for adaptive simulation}
+      \field{volume}{21}
+      \field{year}{2002}
+    \endentry
+    \entry{Goswami2011}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=d89e4039ad3afbe5d79329f545df88da}{%
+           family={Goswami},
+           family_i={G\bibinitperiod},
+           given={Prashant},
+           given_i={P\bibinitperiod}}}%
+        {{hash=bc282d754aec5ead54debf7220259483}{%
+           family={Pajarola},
+           family_i={P\bibinitperiod},
+           given={Renato},
+           given_i={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{32ecea46a215a2cca1dbba70b0abef82}
+      \strng{fullhash}{32ecea46a215a2cca1dbba70b0abef82}
+      \field{labelalpha}{GP11}
+      \field{sortinit}{G}
+      \field{sortinithash}{1c854ef9177a91bf894e66485bdbd3ed}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings Eurographics Workshop on Virtual Reality Interaction and Physical Simulation}
+      \field{title}{Time Adaptive Approximate {SPH}}
+      \field{year}{2011}
+    \endentry
+    \entry{Harmon:2009:ACM}{article}{}
+      \name{author}{5}{}{%
+        {{hash=ab854cde92deea7748ff243fe4ff635f}{%
+           family={Harmon},
+           family_i={H\bibinitperiod},
+           given={David},
+           given_i={D\bibinitperiod}}}%
+        {{hash=627d88c3cf5d09a7722adc405f80fb6a}{%
+           family={Vouga},
+           family_i={V\bibinitperiod},
+           given={Etienne},
+           given_i={E\bibinitperiod}}}%
+        {{hash=5189de0e17943c0bf3add4d6e833bcbe}{%
+           family={Smith},
+           family_i={S\bibinitperiod},
+           given={Breannan},
+           given_i={B\bibinitperiod}}}%
+        {{hash=4a3f035a91cb7084db26916a8f19fe5e}{%
+           family={Tamstorf},
+           family_i={T\bibinitperiod},
+           given={Rasmus},
+           given_i={R\bibinitperiod}}}%
+        {{hash=592cb4a159c63f592d458feacf4936fd}{%
+           family={Grinspun},
+           family_i={G\bibinitperiod},
+           given={Eitan},
+           given_i={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{aee5cf3016c0d1c7cce97cf8286a50d1}
+      \strng{fullhash}{9d3a3985042a72822af24219faeffb2f}
+      \field{labelalpha}{Har+09}
+      \field{sortinit}{H}
+      \field{sortinithash}{82012198d5dfa657b8c4a168793268a6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{SIGGRAPH (ACM Transactions on Graphics)}
+      \field{month}{08}
+      \field{number}{3}
+      \field{title}{{A}synchronous {C}ontact {M}echanics}
+      \field{volume}{28}
+      \field{year}{2009}
+    \endentry
+    \entry{Hutchinson97AdaptiveMassspring}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=e89cc14107b19d1fcff140c619634d82}{%
+           family={Hutchinson},
+           family_i={H\bibinitperiod},
+           given={D.},
+           given_i={D\bibinitperiod}}}%
+        {{hash=5c9fb91ef0967cbb237c0266b2a01efc}{%
+           family={Preston},
+           family_i={P\bibinitperiod},
+           given={M.},
+           given_i={M\bibinitperiod}}}%
+        {{hash=7f051a7794b054ebe0d9f34424bd33db}{%
+           family={Hewitt},
+           family_i={H\bibinitperiod},
+           given={T.},
+           given_i={T\bibinitperiod}}}%
+      }
+      \strng{namehash}{a3e30f4fd15cab696d42c6eac84a9046}
+      \strng{fullhash}{71f990a313cbfcab0fac15e1981520e3}
+      \field{labelalpha}{HPH96}
+      \field{sortinit}{H}
+      \field{sortinithash}{82012198d5dfa657b8c4a168793268a6}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Eurographics Workshop on Computer Animation and Simulation}
+      \field{title}{Adaptive refinement for mass/spring simulations}
+      \field{year}{1996}
+      \field{pages}{31\bibrangedash 45}
+      \range{pages}{15}
+    \endentry
+    \entry{Bender_boundaryhandling}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=6d8a96e06d334e1b81b365d17e231c81}{%
+           family={Ihmsen},
+           family_i={I\bibinitperiod},
+           given={Markus},
+           given_i={M\bibinitperiod}}}%
+        {{hash=424ea18033d75ffa4805ffdd50d6a7f7}{%
+           family={Akinci},
+           family_i={A\bibinitperiod},
+           given={Nadir},
+           given_i={N\bibinitperiod}}}%
+        {{hash=bd92269f40575b8dd26c9405e532c81d}{%
+           family={Gissler},
+           family_i={G\bibinitperiod},
+           given={Marc},
+           given_i={M\bibinitperiod}}}%
+        {{hash=f11935ee15f7a87cffdf63cabfe0954f}{%
+           family={Teschner},
+           family_i={T\bibinitperiod},
+           given={Matthias},
+           given_i={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{256c6b960914648f2c3218526f81bbf6}
+      \strng{fullhash}{d96c4295eea5b9c369e8cec9e243067e}
+      \field{labelalpha}{Ihm+10}
+      \field{sortinit}{I}
+      \field{sortinithash}{25e99d37ba90f7c4fb20baf4e310faf3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of Vriphys}
+      \field{title}{Boundary handling and adaptive time-stepping for PCISPH}
+      \field{year}{2010}
+    \endentry
+    \entry{implicitSPH}{article}{}
+      \name{author}{5}{}{%
+        {{hash=6d8a96e06d334e1b81b365d17e231c81}{%
+           family={Ihmsen},
+           family_i={I\bibinitperiod},
+           given={Markus},
+           given_i={M\bibinitperiod}}}%
+        {{hash=1ad9d987c68d148016f99cf21ab481fc}{%
+           family={Cornelis},
+           family_i={C\bibinitperiod},
+           given={Jens},
+           given_i={J\bibinitperiod}}}%
+        {{hash=1b2149ad300f2fa2543ab0292070bf34}{%
+           family={Solenthaler},
+           family_i={S\bibinitperiod},
+           given={Barbara},
+           given_i={B\bibinitperiod}}}%
+        {{hash=c2413419ede90830c79d56abe1ff8979}{%
+           family={Horvath},
+           family_i={H\bibinitperiod},
+           given={Christopher},
+           given_i={C\bibinitperiod}}}%
+        {{hash=f11935ee15f7a87cffdf63cabfe0954f}{%
+           family={Teschner},
+           family_i={T\bibinitperiod},
+           given={Matthias},
+           given_i={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Los Alamitos, CA, USA}%
+      }
+      \list{publisher}{1}{%
+        {IEEE Computer Society}%
+      }
+      \strng{namehash}{256c6b960914648f2c3218526f81bbf6}
+      \strng{fullhash}{b2dcd3056593cfcace21e4c5211a9804}
+      \field{labelalpha}{Ihm+13}
+      \field{sortinit}{I}
+      \field{sortinithash}{25e99d37ba90f7c4fb20baf4e310faf3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1077-2626}
+      \field{journaltitle}{IEEE Transactions on Visualization and Computer Graphics}
+      \field{number}{PrePrints}
+      \field{title}{Implicit Incompressible SPH}
+      \field{volume}{99}
+      \field{year}{2013}
+      \field{pages}{1}
+      \range{pages}{1}
+    \endentry
+    \entry{Kaufmann2009}{article}{}
+      \name{author}{5}{}{%
+        {{hash=1ebce09bb677a1dcf03e7a36fbb6406c}{%
+           family={Kaufmann},
+           family_i={K\bibinitperiod},
+           given={Peter},
+           given_i={P\bibinitperiod}}}%
+        {{hash=42140bed387cd26fd3811f989c395453}{%
+           family={Martin},
+           family_i={M\bibinitperiod},
+           given={Sebastian},
+           given_i={S\bibinitperiod}}}%
+        {{hash=a0765e06ad46483a64643f0c7a324057}{%
+           family={Botsch},
+           family_i={B\bibinitperiod},
+           given={Mario},
+           given_i={M\bibinitperiod}}}%
+        {{hash=592cb4a159c63f592d458feacf4936fd}{%
+           family={Grinspun},
+           family_i={G\bibinitperiod},
+           given={Eitan},
+           given_i={E\bibinitperiod}}}%
+        {{hash=89835485884945e38712de8162277435}{%
+           family={Gross},
+           family_i={G\bibinitperiod},
+           given={Markus},
+           given_i={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{5d1eaee741ed51b53fe7e321d85856f7}
+      \strng{fullhash}{ee2442cf93e17224291eb94fa4ae3396}
+      \field{labelalpha}{Kau+09}
+      \field{sortinit}{K}
+      \field{sortinithash}{a7d5b3aec5a0890aae7baf85a209abfc}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0730-0301}
+      \field{journaltitle}{ACM Trans. Graph.}
+      \field{month}{07}
+      \field{number}{3}
+      \field{title}{Enrichment Textures for Detailed Cutting of Shells}
+      \field{volume}{28}
+      \field{year}{2009}
+      \field{pages}{50:1\bibrangedash 50:10}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1145/1531326.1531356
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/1531326.1531356
+      \endverb
+    \endentry
+    \entry{Kim:2009:SSD}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=7efc54bb547748d6ef558a71418b1e04}{%
+           family={Kim},
+           family_i={K\bibinitperiod},
+           given={Theodore},
+           given_i={T\bibinitperiod}}}%
+        {{hash=51929796c595c4e785ab99d69a33a7e5}{%
+           family={James},
+           family_i={J\bibinitperiod},
+           given={Doug\bibnamedelima L.},
+           given_i={D\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+      }
+      \strng{namehash}{f2de76095f6e650abcca289dfe65a7d4}
+      \strng{fullhash}{f2de76095f6e650abcca289dfe65a7d4}
+      \field{labelalpha}{KJ09}
+      \field{sortinit}{K}
+      \field{sortinithash}{a7d5b3aec5a0890aae7baf85a209abfc}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{ACM Transactions on Graphics (Proc. SIGGRAPH Asia)}
+      \field{title}{Skipping steps in deformable simulation with online model reduction}
+      \field{volume}{28}
+      \field{year}{2009}
+    \endentry
+    \entry{Lejemble2015}{inproceedings}{}
+      \name{author}{8}{}{%
+        {{hash=335e51e831817304173afe8f9d002dda}{%
+           family={Lejemble},
+           family_i={L\bibinitperiod},
+           given={Thibault},
+           given_i={T\bibinitperiod}}}%
+        {{hash=1d7137ace936ed8ec8438e138033dc95}{%
+           family={Fondevilla},
+           family_i={F\bibinitperiod},
+           given={Amélie},
+           given_i={A\bibinitperiod}}}%
+        {{hash=75cc66b5505d51083e030e16e5aa50b6}{%
+           family={Durin},
+           family_i={D\bibinitperiod},
+           given={Nicolas},
+           given_i={N\bibinitperiod}}}%
+        {{hash=c6535765b28f1ee912ff78b0d6ab99b0}{%
+           family={Blanc-Beyne},
+           family_i={B\bibinithyphendelim B\bibinitperiod},
+           given={Thibault},
+           given_i={T\bibinitperiod}}}%
+        {{hash=c7b3e0a23e1ba349808cbb846aae3a71}{%
+           family={Schreck},
+           family_i={S\bibinitperiod},
+           given={Camille},
+           given_i={C\bibinitperiod}}}%
+        {{hash=8fd845039eb1ba185117161a7ae7acf2}{%
+           family={Manteaux},
+           family_i={M\bibinitperiod},
+           given={Pierre-Luc},
+           given_i={P\bibinithyphendelim L\bibinitperiod}}}%
+        {{hash=f878c83a9ffab322035b6cf059964236}{%
+           family={Kry},
+           family_i={K\bibinitperiod},
+           given={Paul\bibnamedelima G.},
+           given_i={P\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=3124339f30a77a5c803fb7dd19d418e6}{%
+           family={Cani},
+           family_i={C\bibinitperiod},
+           given={Marie-Paule},
+           given_i={M\bibinithyphendelim P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Paris, France}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{ac2750038aff319e4bd018bed8b76fa4}
+      \strng{fullhash}{448086e255fbd484cddd2ad585c158db}
+      \field{labelalpha}{Lej+15}
+      \field{sortinit}{L}
+      \field{sortinithash}{872351f18d0f736066eda0bf18bfa4f7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 8th ACM SIGGRAPH Conference on Motion in Games}
+      \field{isbn}{978-1-4503-3991-9}
+      \field{series}{MIG '15}
+      \field{title}{Interactive Procedural Simulation of Paper Tearing with Sound}
+      \field{year}{2015}
+      \field{pages}{143\bibrangedash 149}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1145/2822013.2822029
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/2822013.2822029
+      \endverb
+      \keyw{paper,real-time,sound,tearing}
+    \endentry
+    \entry{Lenoir:spline:2005}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=c1fc187791e753cd90833dfe016606cb}{%
+           family={Lenoir},
+           family_i={L\bibinitperiod},
+           given={Julien},
+           given_i={J\bibinitperiod}}}%
+        {{hash=ad4721504d3cec9b16daf00dc350d31d}{%
+           family={Grisoni},
+           family_i={G\bibinitperiod},
+           given={Laurent},
+           given_i={L\bibinitperiod}}}%
+        {{hash=bc19aa98af411d56db4b1b8a3ea127a7}{%
+           family={Chaillou},
+           family_i={C\bibinitperiod},
+           given={Christophe},
+           given_i={C\bibinitperiod}}}%
+        {{hash=060a01f9a43a3f6e1c5348a6e36e694f}{%
+           family={Meseure},
+           family_i={M\bibinitperiod},
+           given={Philippe},
+           given_i={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{105cfdce3686a960dcf4e1635a7c2234}
+      \strng{fullhash}{b7a4e54d3149b6f6cbdf496966bda1ba}
+      \field{labelalpha}{Len+05}
+      \field{sortinit}{L}
+      \field{sortinithash}{872351f18d0f736066eda0bf18bfa4f7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proc. ACM GRAPHITE}
+      \field{title}{Adaptive resolution of 1D mechanical B-spline}
+      \field{year}{2005}
+    \endentry
+    \entry{Manteaux2013}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=8fd845039eb1ba185117161a7ae7acf2}{%
+           family={Manteaux},
+           family_i={M\bibinitperiod},
+           given={Pierre-Luc},
+           given_i={P\bibinithyphendelim L\bibinitperiod}}}%
+        {{hash=dea8a0ba978ffc6021c51592555385fc}{%
+           family={Faure},
+           family_i={F\bibinitperiod},
+           given={François},
+           given_i={F\bibinitperiod}}}%
+        {{hash=dedff282f4478fa22c5d2cc4c9dbd116}{%
+           family={Redon},
+           family_i={R\bibinitperiod},
+           given={Stephane},
+           given_i={S\bibinitperiod}}}%
+        {{hash=3124339f30a77a5c803fb7dd19d418e6}{%
+           family={Cani},
+           family_i={C\bibinitperiod},
+           given={Marie-Paule},
+           given_i={M\bibinithyphendelim P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Lille, France}%
+      }
+      \list{publisher}{1}{%
+        {Eurographics Association}%
+      }
+      \strng{namehash}{58c8daafefe86653b75b7782752f037b}
+      \strng{fullhash}{20cf713ec1b70daebe23dd0a225f158b}
+      \field{labelalpha}{Man+13}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{VRIPHYS 2013 - 10th Workshop on Virtual Reality Interaction and Physical Simulation}
+      \field{series}{VRIPHYS 2013 - 10th Workshop on Virtual Reality Interaction and Physical Simulation}
+      \field{title}{Exploring the Use of Adaptively Restrained Particles for Graphics Simulations}
+      \field{year}{2013}
+      \field{pages}{17\bibrangedash 24}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.2312/PE.vriphys.vriphys13.017-024
+      \endverb
+      \verb{url}
+      \verb https://hal.inria.fr/hal-00914653
+      \endverb
+      \keyw{Motion,Physically based modeling,Adaptivity,Particle system}
+    \endentry
+    \entry{Manteaux2015}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{hash=8fd845039eb1ba185117161a7ae7acf2}{%
+           family={Manteaux},
+           family_i={M\bibinitperiod},
+           given={Pierre-Luc},
+           given_i={P\bibinithyphendelim L\bibinitperiod}}}%
+        {{hash=239738002ca11c2735be6dc89e3d9d3d}{%
+           family={Sun},
+           family_i={S\bibinitperiod},
+           given={Wei-Lun},
+           given_i={W\bibinithyphendelim L\bibinitperiod}}}%
+        {{hash=dea8a0ba978ffc6021c51592555385fc}{%
+           family={Faure},
+           family_i={F\bibinitperiod},
+           given={François},
+           given_i={F\bibinitperiod}}}%
+        {{hash=3124339f30a77a5c803fb7dd19d418e6}{%
+           family={Cani},
+           family_i={C\bibinitperiod},
+           given={Marie-Paule},
+           given_i={M\bibinithyphendelim P\bibinitperiod}}}%
+        {{hash=3bef85c8c4ba13b33205d481e616603e}{%
+           family={O'Brien},
+           family_i={O\bibinitperiod},
+           given={James\bibnamedelima F.},
+           given_i={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Paris, France}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{58c8daafefe86653b75b7782752f037b}
+      \strng{fullhash}{0292ca4ecdc1a20f0938051a6e0c9686}
+      \field{labelalpha}{Man+15}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 8th ACM SIGGRAPH Conference on Motion in Games}
+      \field{isbn}{978-1-4503-3991-9}
+      \field{series}{MIG '15}
+      \field{title}{Interactive Detailed Cutting of Thin Sheets}
+      \field{year}{2015}
+      \field{pages}{125\bibrangedash 132}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1145/2822013.2822018
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/2822013.2822018
+      \endverb
+      \keyw{cutting,interactive,physics-based animation,thin sheets}
+    \endentry
+    \entry{Martin:PolyhedralFEM:2008}{inproceedings}{}
+      \name{author}{5}{}{%
+        {{hash=42140bed387cd26fd3811f989c395453}{%
+           family={Martin},
+           family_i={M\bibinitperiod},
+           given={Sebastian},
+           given_i={S\bibinitperiod}}}%
+        {{hash=1ebce09bb677a1dcf03e7a36fbb6406c}{%
+           family={Kaufmann},
+           family_i={K\bibinitperiod},
+           given={Peter},
+           given_i={P\bibinitperiod}}}%
+        {{hash=a0765e06ad46483a64643f0c7a324057}{%
+           family={Botsch},
+           family_i={B\bibinitperiod},
+           given={Mario},
+           given_i={M\bibinitperiod}}}%
+        {{hash=8f71c897f89022a26511a6fbbd6108b6}{%
+           family={Wicke},
+           family_i={W\bibinitperiod},
+           given={Martin},
+           given_i={M\bibinitperiod}}}%
+        {{hash=89835485884945e38712de8162277435}{%
+           family={Gross},
+           family_i={G\bibinitperiod},
+           given={Markus},
+           given_i={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{8431c8c7aaf3efce363682466aae0c6e}
+      \strng{fullhash}{39cf036e145211e0f8d0bbe5151b8f2b}
+      \field{labelalpha}{Mar+08}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proc. Eurographics Symposium on Geometry Processing}
+      \field{title}{Polyhedral finite elements using harmonic basis functions}
+      \field{year}{2008}
+    \endentry
+    \entry{Molino2004}{article}{}
+      \name{author}{3}{}{%
+        {{hash=6b06a6f6348f478a06c1b1a1e38c2edb}{%
+           family={Molino},
+           family_i={M\bibinitperiod},
+           given={Neil},
+           given_i={N\bibinitperiod}}}%
+        {{hash=61ef933991df16798bfddea7a09e5d51}{%
+           family={Bao},
+           family_i={B\bibinitperiod},
+           given={Zhaosheng},
+           given_i={Z\bibinitperiod}}}%
+        {{hash=1e5dedbc7c28ee0f22bca7423f6f273f}{%
+           family={Fedkiw},
+           family_i={F\bibinitperiod},
+           given={Ron},
+           given_i={R\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{4881cf0fde50300e190219dadda9667e}
+      \strng{fullhash}{7e019d95b1fab586b24d9f043eac4e0d}
+      \field{labelalpha}{MBF04}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0730-0301}
+      \field{journaltitle}{ACM Trans. Graph.}
+      \field{month}{08}
+      \field{number}{3}
+      \field{title}{A Virtual Node Algorithm for Changing Mesh Topology During Simulation}
+      \field{volume}{23}
+      \field{year}{2004}
+      \field{pages}{385\bibrangedash 392}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1145/1015706.1015734
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/1015706.1015734
+      \endverb
+      \keyw{changing mesh topology,finite elements,fracture,sculpting,virtual surgery}
+    \endentry
+    \entry{Muller2003}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=81a3feeb579a36f8ed14c22d7264cf2c}{%
+           family={Müller},
+           family_i={M\bibinitperiod},
+           given={Matthias},
+           given_i={M\bibinitperiod}}}%
+        {{hash=23cb6e60d6319d91c77cc4220912bfbe}{%
+           family={Charypar},
+           family_i={C\bibinitperiod},
+           given={David},
+           given_i={D\bibinitperiod}}}%
+        {{hash=89835485884945e38712de8162277435}{%
+           family={Gross},
+           family_i={G\bibinitperiod},
+           given={Markus},
+           given_i={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {San Diego, California}%
+      }
+      \list{publisher}{1}{%
+        {Eurographics Association}%
+      }
+      \strng{namehash}{a60c046cae2056b528852224c016e125}
+      \strng{fullhash}{2e2eb4a11f4f6b0e255e694dd01638a1}
+      \field{labelalpha}{MCG03}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the 2003 ACM SIGGRAPH/Eurographics symposium on Computer animation}
+      \field{isbn}{1-58113-659-5}
+      \field{series}{SCA '03}
+      \field{title}{Particle-based fluid simulation for interactive applications}
+      \field{year}{2003}
+      \field{pages}{154\bibrangedash 159}
+      \range{pages}{6}
+      \verb{url}
+      \verb http://dl.acm.org/citation.cfm?id=846276.846298
+      \endverb
+    \endentry
+    \entry{Monaghan2005}{article}{}
+      \name{author}{1}{}{%
+        {{hash=944b5ccbec296c38cc483b36a942c6d0}{%
+           family={Monaghan},
+           family_i={M\bibinitperiod},
+           given={J\bibnamedelima J},
+           given_i={J\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \strng{namehash}{944b5ccbec296c38cc483b36a942c6d0}
+      \strng{fullhash}{944b5ccbec296c38cc483b36a942c6d0}
+      \field{labelalpha}{Mon05}
+      \field{sortinit}{M}
+      \field{sortinithash}{2684bec41e9697b92699b46491061da2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0034-4885}
+      \field{journaltitle}{Reports on Progress in Physics}
+      \field{month}{08}
+      \field{number}{8}
+      \field{title}{{Smoothed particle hydrodynamics}}
+      \field{volume}{68}
+      \field{year}{2005}
+      \field{pages}{1703\bibrangedash 1759}
+      \range{pages}{57}
+      \verb{doi}
+      \verb 10.1088/0034-4885/68/8/R01
+      \endverb
+      \verb{file}
+      \verb :home/chardon/.local/share/data/Mendeley Ltd./Mendeley Desktop/Downloaded/Monaghan - 2005 - Smoothed particle hydrodynamics.pdf:pdf
+      \endverb
+      \verb{url}
+      \verb http://stacks.iop.org/0034-4885/68/i=8/a=R01?key=crossref.c562820df517a049ca7f11d0aefe49b4
+      \endverb
+    \endentry
+    \entry{Nesme2009}{article}{}
+      \name{author}{4}{}{%
+        {{hash=2355c7a5e1cc63840c268a2404ac23dd}{%
+           family={Nesme},
+           family_i={N\bibinitperiod},
+           given={Matthieu},
+           given_i={M\bibinitperiod}}}%
+        {{hash=68d1137e37cc6199808b81c300515f34}{%
+           family={Kry},
+           family_i={K\bibinitperiod},
+           given={Paul},
+           given_i={P\bibinitperiod}}}%
+        {{hash=a07a0300431691907558c6e52a64aff1}{%
+           family={Jerabkova},
+           family_i={J\bibinitperiod},
+           given={Lenka},
+           given_i={L\bibinitperiod}}}%
+        {{hash=dea8a0ba978ffc6021c51592555385fc}{%
+           family={Faure},
+           family_i={F\bibinitperiod},
+           given={François},
+           given_i={F\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Association for Computing Machinery (ACM)}%
+      }
+      \strng{namehash}{954b719423616dabe80c862fa6b981cc}
+      \strng{fullhash}{0c685cf099f9e428c76231377da653f9}
+      \field{labelalpha}{Nes+09}
+      \field{sortinit}{N}
+      \field{sortinithash}{925374ca63e7594de7fafdb83e64d41d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{{ACM Transactions on Graphics}}
+      \field{month}{08}
+      \field{number}{3}
+      \field{series}{Proceedings of ACM SIGGRAPH 2009}
+      \field{title}{{Preserving Topology and Elasticity for Embedded Deformable Models}}
+      \field{volume}{28}
+      \field{year}{2009}
+      \field{pages}{Article No. 52}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1145/1531326.1531358
+      \endverb
+      \verb{file}
+      \verb https://hal.inria.fr/inria-00394451/file/composite.pdf
+      \endverb
+      \verb{url}
+      \verb https://hal.inria.fr/inria-00394451
+      \endverb
+    \endentry
+    \entry{Narain:2013:FCA}{article}{}
+      \name{author}{3}{}{%
+        {{hash=815e10fb2150b880d193377ca7adde85}{%
+           family={Narain},
+           family_i={N\bibinitperiod},
+           given={Rahul},
+           given_i={R\bibinitperiod}}}%
+        {{hash=a726408819b6f955652c3ffaaedef966}{%
+           family={Pfaff},
+           family_i={P\bibinitperiod},
+           given={Tobias},
+           given_i={T\bibinitperiod}}}%
+        {{hash=3bef85c8c4ba13b33205d481e616603e}{%
+           family={O'Brien},
+           family_i={O\bibinitperiod},
+           given={James\bibnamedelima F.},
+           given_i={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{6e82adea15cb691c9fd67835c997a582}
+      \strng{fullhash}{bfc9eb41244f28b2b983b6e89018b90e}
+      \field{labelalpha}{NPO13}
+      \field{sortinit}{N}
+      \field{sortinithash}{925374ca63e7594de7fafdb83e64d41d}
+      \field{extraalpha}{1}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACM Transactions on Graphics}
+      \field{month}{07}
+      \field{note}{Proceedings of ACM SIGGRAPH 2013, Anaheim}
+      \field{number}{4}
+      \field{title}{Folding and Crumpling Adaptive Sheets}
+      \field{volume}{32}
+      \field{year}{2013}
+      \field{pages}{xxx:1\bibrangedash 8}
+      \range{pages}{-1}
+      \verb{url}
+      \verb http://graphics.berkeley.edu/papers/Narain-FCA-2013-07/
+      \endverb
+    \endentry
+    \entry{Narain2013}{article}{}
+      \name{author}{3}{}{%
+        {{hash=815e10fb2150b880d193377ca7adde85}{%
+           family={Narain},
+           family_i={N\bibinitperiod},
+           given={Rahul},
+           given_i={R\bibinitperiod}}}%
+        {{hash=a726408819b6f955652c3ffaaedef966}{%
+           family={Pfaff},
+           family_i={P\bibinitperiod},
+           given={Tobias},
+           given_i={T\bibinitperiod}}}%
+        {{hash=3bef85c8c4ba13b33205d481e616603e}{%
+           family={O'Brien},
+           family_i={O\bibinitperiod},
+           given={James\bibnamedelima F.},
+           given_i={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{6e82adea15cb691c9fd67835c997a582}
+      \strng{fullhash}{bfc9eb41244f28b2b983b6e89018b90e}
+      \field{labelalpha}{NPO13}
+      \field{sortinit}{N}
+      \field{sortinithash}{925374ca63e7594de7fafdb83e64d41d}
+      \field{extraalpha}{2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACM Transactions on Graphics}
+      \field{month}{07}
+      \field{note}{Proceedings of ACM SIGGRAPH 2013, Anaheim}
+      \field{number}{4}
+      \field{title}{Folding and Crumpling Adaptive Sheets}
+      \field{volume}{32}
+      \field{year}{2013}
+      \field{pages}{51:1\bibrangedash 8}
+      \range{pages}{-1}
+      \verb{url}
+      \verb http://graphics.berkeley.edu/papers/Narain-FCA-2013-07/
+      \endverb
+    \endentry
+    \entry{Narain:2012:AAR}{article}{}
+      \name{author}{3}{}{%
+        {{hash=815e10fb2150b880d193377ca7adde85}{%
+           family={Narain},
+           family_i={N\bibinitperiod},
+           given={Rahul},
+           given_i={R\bibinitperiod}}}%
+        {{hash=716f83c23c5b7d4a384333100a791607}{%
+           family={Samii},
+           family_i={S\bibinitperiod},
+           given={Armin},
+           given_i={A\bibinitperiod}}}%
+        {{hash=3bef85c8c4ba13b33205d481e616603e}{%
+           family={O'Brien},
+           family_i={O\bibinitperiod},
+           given={James\bibnamedelima F.},
+           given_i={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{6e82adea15cb691c9fd67835c997a582}
+      \strng{fullhash}{4329c63acd852929b09791304e4dde0e}
+      \field{labelalpha}{NSO12}
+      \field{sortinit}{N}
+      \field{sortinithash}{925374ca63e7594de7fafdb83e64d41d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACM Transactions on Graphics}
+      \field{month}{11}
+      \field{note}{Proceedings of ACM SIGGRAPH Asia 2012, Singapore}
+      \field{number}{6}
+      \field{title}{Adaptive Anisotropic Remeshing for Cloth Simulation}
+      \field{volume}{31}
+      \field{year}{2012}
+      \field{pages}{147:1\bibrangedash 10}
+      \range{pages}{-1}
+      \verb{url}
+      \verb http://graphics.berkeley.edu/papers/Narain-AAR-2012-11/
+      \endverb
+    \endentry
+    \entry{OBrien2002}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=3bef85c8c4ba13b33205d481e616603e}{%
+           family={O'Brien},
+           family_i={O\bibinitperiod},
+           given={James\bibnamedelima F.},
+           given_i={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=d768d713b6d0aa69266e379821f77d2f}{%
+           family={Bargteil},
+           family_i={B\bibinitperiod},
+           given={Adam\bibnamedelima W.},
+           given_i={A\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+        {{hash=77dfe0215ec4c8eadf46dad4bfb6e04c}{%
+           family={Hodgins},
+           family_i={H\bibinitperiod},
+           given={Jessica\bibnamedelima K.},
+           given_i={J\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {San Antonio, Texas}%
+      }
+      \list{publisher}{1}{%
+        {ACM Press}%
+      }
+      \strng{namehash}{6eb41e327f84ad801ce744d1b3e8c0c4}
+      \strng{fullhash}{9584b064c1fd6f497a3ddb79e63ad03f}
+      \field{labelalpha}{OBH02}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of ACM SIGGRAPH 2002}
+      \field{month}{08}
+      \field{title}{Graphical Modeling and Animation of Ductile Fracture}
+      \field{year}{2002}
+      \field{pages}{291\bibrangedash 294}
+      \range{pages}{4}
+      \verb{url}
+      \verb http://graphics.cs.berkeley.edu/papers/Obrien-GMA-2002-08/
+      \endverb
+    \endentry
+    \entry{OBrien1999}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=3bef85c8c4ba13b33205d481e616603e}{%
+           family={O'Brien},
+           family_i={O\bibinitperiod},
+           given={James\bibnamedelima F.},
+           given_i={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=77dfe0215ec4c8eadf46dad4bfb6e04c}{%
+           family={Hodgins},
+           family_i={H\bibinitperiod},
+           given={Jessica\bibnamedelima K.},
+           given_i={J\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {ACM Press/Addison-Wesley Publishing Co.}%
+      }
+      \strng{namehash}{9ecde477f5acfc1a37877ccf7816576b}
+      \strng{fullhash}{9ecde477f5acfc1a37877ccf7816576b}
+      \field{labelalpha}{OH99}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of ACM SIGGRAPH 1999}
+      \field{month}{08}
+      \field{title}{Graphical Modeling and Animation of Brittle Fracture}
+      \field{year}{1999}
+      \field{pages}{137\bibrangedash 146}
+      \range{pages}{10}
+      \verb{doi}
+      \verb http://doi.acm.org/10.1145/311535.311550
+      \endverb
+      \verb{url}
+      \verb http://graphics.cs.berkeley.edu/papers/Obrien-GMA-1999-08/
+      \endverb
+    \endentry
+    \entry{Orthmann:2012:TBA:2393476.2393484}{article}{}
+      \name{author}{2}{}{%
+        {{hash=8fdd1ff93bc81d069bfba3c057431baa}{%
+           family={Orthmann},
+           family_i={O\bibinitperiod},
+           given={Jens},
+           given_i={J\bibinitperiod}}}%
+        {{hash=f4195dc26f57b130791772dba2a6d789}{%
+           family={Kolb},
+           family_i={K\bibinitperiod},
+           given={Andreas},
+           given_i={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {John Wiley \& Sons, Inc.}%
+      }
+      \strng{namehash}{dc975dd019dbcedb342810b866decb74}
+      \strng{fullhash}{dc975dd019dbcedb342810b866decb74}
+      \field{labelalpha}{OK12}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0167-7055}
+      \field{journaltitle}{Comp. Graph. Forum}
+      \field{month}{12}
+      \field{number}{8}
+      \field{title}{Temporal Blending for Adaptive SPH}
+      \field{volume}{31}
+      \field{year}{2012}
+      \field{pages}{2436\bibrangedash 2449}
+      \range{pages}{14}
+      \verb{doi}
+      \verb 10.1111/j.1467-8659.2012.03186.x
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1111/j.1467-8659.2012.03186.x
+      \endverb
+      \keyw{I.3.7 [Computer Graphics]: Three-Dimensional Graphics and Realism-Animation}
+    \endentry
+    \entry{Otaduymultigrid}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=e5ce97fee77d097821d10eab71538283}{%
+           family={Otaduy},
+           family_i={O\bibinitperiod},
+           given={Miguel\bibnamedelima A.},
+           given_i={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=f782c5461a11115e196de13aad709023}{%
+           family={Germann},
+           family_i={G\bibinitperiod},
+           given={Daniel},
+           given_i={D\bibinitperiod}}}%
+        {{hash=dedff282f4478fa22c5d2cc4c9dbd116}{%
+           family={Redon},
+           family_i={R\bibinitperiod},
+           given={Stephane},
+           given_i={S\bibinitperiod}}}%
+        {{hash=89835485884945e38712de8162277435}{%
+           family={Gross},
+           family_i={G\bibinitperiod},
+           given={Markus},
+           given_i={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{b5af7c134b32362b16b3bba761312478}
+      \strng{fullhash}{f3c4334db325240b0d269072402c4059}
+      \field{labelalpha}{Ota+07}
+      \field{sortinit}{O}
+      \field{sortinithash}{7803d2715d5e795e70382b084ab8d00e}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proc. ACM SIGGRAPH/Eurographics Symposium on Computer animation}
+      \field{title}{Adaptive deformations with fast tight bounds}
+      \field{year}{2007}
+    \endentry
+    \entry{Pauly2005}{article}{}
+      \name{author}{6}{}{%
+        {{hash=f27430fa205103cec8dd42ab86c2ba53}{%
+           family={Pauly},
+           family_i={P\bibinitperiod},
+           given={Mark},
+           given_i={M\bibinitperiod}}}%
+        {{hash=8f1f9d8a3b02a9194488ce073535ae95}{%
+           family={Keiser},
+           family_i={K\bibinitperiod},
+           given={Richard},
+           given_i={R\bibinitperiod}}}%
+        {{hash=8f97879b07b6aa89f58d9729cc5ea136}{%
+           family={Adams},
+           family_i={A\bibinitperiod},
+           given={Bart},
+           given_i={B\bibinitperiod}}}%
+        {{hash=9f3abb569222aeb33a990dc1f35cd482}{%
+           family={Dutré},
+           family_i={D\bibinitperiod},
+           given={Philip},
+           given_i={P\bibinitperiod}}}%
+        {{hash=89835485884945e38712de8162277435}{%
+           family={Gross},
+           family_i={G\bibinitperiod},
+           given={Markus},
+           given_i={M\bibinitperiod}}}%
+        {{hash=5fd23aab2c255b0c106ecfbaf9d59f12}{%
+           family={Guibas},
+           family_i={G\bibinitperiod},
+           given={Leonidas\bibnamedelima J.},
+           given_i={L\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{640ae2572c861be039a0b90910e26b02}
+      \strng{fullhash}{d6d8b14da5ccf2f6bee28ef9ba6b4172}
+      \field{labelalpha}{Pau+05}
+      \field{sortinit}{P}
+      \field{sortinithash}{c0a4896d0e424f9ca4d7f14f2b3428e7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0730-0301}
+      \field{journaltitle}{ACM Trans. Graph.}
+      \field{month}{07}
+      \field{number}{3}
+      \field{title}{Meshless Animation of Fracturing Solids}
+      \field{volume}{24}
+      \field{year}{2005}
+      \field{pages}{957\bibrangedash 964}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1145/1073204.1073296
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/1073204.1073296
+      \endverb
+      \keyw{elasticity,fracture,meshless methods,physics-based animation,plasticity}
+    \endentry
+    \entry{Pfaff2014}{article}{}
+      \name{author}{4}{}{%
+        {{hash=a726408819b6f955652c3ffaaedef966}{%
+           family={Pfaff},
+           family_i={P\bibinitperiod},
+           given={Tobias},
+           given_i={T\bibinitperiod}}}%
+        {{hash=815e10fb2150b880d193377ca7adde85}{%
+           family={Narain},
+           family_i={N\bibinitperiod},
+           given={Rahul},
+           given_i={R\bibinitperiod}}}%
+        {{hash=3bcd4d495000fa914c7a1e447ec37c87}{%
+           prefix={de},
+           prefix_i={d\bibinitperiod},
+           family={Joya},
+           family_i={J\bibinitperiod},
+           given={Juan\bibnamedelima Miguel},
+           given_i={J\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=3bef85c8c4ba13b33205d481e616603e}{%
+           family={O'Brien},
+           family_i={O\bibinitperiod},
+           given={James\bibnamedelima F.},
+           given_i={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{27055f9d7ff2885284c907973547bedf}
+      \strng{fullhash}{28f0c1da439ccdd398c163011e1dd932}
+      \field{labelalpha}{Pfa+14}
+      \field{sortinit}{P}
+      \field{sortinithash}{c0a4896d0e424f9ca4d7f14f2b3428e7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{ACM Transactions on Graphics}
+      \field{month}{07}
+      \field{note}{To be presented at SIGGRAPH 2014, Vancouver}
+      \field{number}{4}
+      \field{title}{Adaptive Tearing and Cracking of Thin Sheets}
+      \field{volume}{33}
+      \field{year}{2014}
+      \field{pages}{xx:1\bibrangedash 9}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 0.1145/2601097.2601132
+      \endverb
+      \verb{url}
+      \verb http://graphics.berkeley.edu/papers/Pfaff-ATC-2014-07/
+      \endverb
+    \endentry
+    \entry{Parker2009}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=3d3029d312e071eb809513c934c9e1da}{%
+           family={Parker},
+           family_i={P\bibinitperiod},
+           given={Eric\bibnamedelima G.},
+           given_i={E\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=3bef85c8c4ba13b33205d481e616603e}{%
+           family={O'Brien},
+           family_i={O\bibinitperiod},
+           given={James\bibnamedelima F.},
+           given_i={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{27679f0f52d7efc4f5d587676e74398d}
+      \strng{fullhash}{27679f0f52d7efc4f5d587676e74398d}
+      \field{labelalpha}{PO09}
+      \field{sortinit}{P}
+      \field{sortinithash}{c0a4896d0e424f9ca4d7f14f2b3428e7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of the ACM SIGGRAPH/Eurographics Symposium on Computer Animation}
+      \field{month}{08}
+      \field{title}{Real-Time Deformation and Fracture in a Game Environment}
+      \field{year}{2009}
+      \field{pages}{156\bibrangedash 166}
+      \range{pages}{11}
+      \verb{url}
+      \verb http://graphics.berkeley.edu/papers/Parker-RTD-2009-08/
+      \endverb
+    \endentry
+    \entry{Press:1992:NRC:148286}{book}{}
+      \name{author}{4}{}{%
+        {{hash=e25935343805f5bc8cf8924629f02376}{%
+           family={Press},
+           family_i={P\bibinitperiod},
+           given={William\bibnamedelima H.},
+           given_i={W\bibinitperiod\bibinitdelim H\bibinitperiod}}}%
+        {{hash=860156a7102b745ba7a9dddf4d5bfb8c}{%
+           family={Teukolsky},
+           family_i={T\bibinitperiod},
+           given={Saul\bibnamedelima A.},
+           given_i={S\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=12ba825dc296f78b21b90f645ff266b9}{%
+           family={Vetterling},
+           family_i={V\bibinitperiod},
+           given={William\bibnamedelima T.},
+           given_i={W\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=15807a7b15e1cd89dfa546bd8385a36f}{%
+           family={Flannery},
+           family_i={F\bibinitperiod},
+           given={Brian\bibnamedelima P.},
+           given_i={B\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{21c96521d50e44757fcf123ac89a147c}
+      \strng{fullhash}{d431675d310aa326c8a50833d56c0d51}
+      \field{labelalpha}{Pre+92}
+      \field{sortinit}{P}
+      \field{sortinithash}{c0a4896d0e424f9ca4d7f14f2b3428e7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{0-521-43108-5}
+      \field{title}{Numerical recipes in C (2nd ed.): the art of scientific computing}
+      \field{year}{1992}
+    \endentry
+    \entry{Redon:adaptivearticulated:2005}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=dedff282f4478fa22c5d2cc4c9dbd116}{%
+           family={Redon},
+           family_i={R\bibinitperiod},
+           given={Stephane},
+           given_i={S\bibinitperiod}}}%
+        {{hash=9ab5f5d235dca68592fb6feb7e2ba6f5}{%
+           family={Galoppo},
+           family_i={G\bibinitperiod},
+           given={Nico},
+           given_i={N\bibinitperiod}}}%
+        {{hash=09ddb06c86489f6ce620363037720982}{%
+           family={Lin},
+           family_i={L\bibinitperiod},
+           given={Ming\bibnamedelima C.},
+           given_i={M\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{b313d11969f3074c4613c0d66696e547}
+      \strng{fullhash}{4ed02d9472e8c46ffdf8f01b98a762ab}
+      \field{labelalpha}{RGL05}
+      \field{sortinit}{R}
+      \field{sortinithash}{c7387613477035a752d935acfc3e3ea2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{ACM Transactions on Graphics (Proc. SIGGRAPH)}
+      \field{title}{Adaptive dynamics of articulated bodies}
+      \field{volume}{24}
+      \field{year}{2005}
+    \endentry
+    \entry{Remillard2013}{article}{}
+      \name{author}{2}{}{%
+        {{hash=e3a7f038b1858b7580b35f126af91454}{%
+           family={Rémillard},
+           family_i={R\bibinitperiod},
+           given={Olivier},
+           given_i={O\bibinitperiod}}}%
+        {{hash=f878c83a9ffab322035b6cf059964236}{%
+           family={Kry},
+           family_i={K\bibinitperiod},
+           given={Paul\bibnamedelima G.},
+           given_i={P\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{d0677bbe30ab2664b1e03a4865101624}
+      \strng{fullhash}{d0677bbe30ab2664b1e03a4865101624}
+      \field{labelalpha}{RK13}
+      \field{sortinit}{R}
+      \field{sortinithash}{c7387613477035a752d935acfc3e3ea2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0730-0301}
+      \field{journaltitle}{ACM Trans. Graph.}
+      \field{month}{07}
+      \field{number}{4}
+      \field{title}{Embedded Thin Shells for Wrinkle Simulation}
+      \field{volume}{32}
+      \field{year}{2013}
+      \field{pages}{50:1\bibrangedash 50:8}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1145/2461912.2462018
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/2461912.2462018
+      \endverb
+      \keyw{constraints,finite elements,shape functions,shells}
+    \endentry
+    \entry{Lacoursiere:wire:tvcg11}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=1885fccacbf556713e6ff4708401b63c}{%
+           family={Servin},
+           family_i={S\bibinitperiod},
+           given={M.},
+           given_i={M\bibinitperiod}}}%
+        {{hash=f9b1346e63383f6f5174ee713fe1c734}{%
+           family={Lacoursière},
+           family_i={L\bibinitperiod},
+           given={C.},
+           given_i={C\bibinitperiod}}}%
+        {{hash=22f6fc7a47cf47247af023da3f3b57d6}{%
+           family={Nordfelth},
+           family_i={N\bibinitperiod},
+           given={F.},
+           given_i={F\bibinitperiod}}}%
+        {{hash=6de61a58e4900d9cd42ea3e32e3e4028}{%
+           family={Bodin},
+           family_i={B\bibinitperiod},
+           given={K.},
+           given_i={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{7ee00834001423a90ddde78f998ea200}
+      \strng{fullhash}{e612aa92d77c599e670a821d3e7daf94}
+      \field{labelalpha}{Ser+11}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{IEEE Transactions on Visualization and Computer Graphics}
+      \field{title}{Hybrid, Multiresolution Wires with Massless Frictional Contacts}
+      \field{volume}{17}
+      \field{year}{2011}
+    \endentry
+    \entry{Solenthaler:2011:TPS:2010324.1964976}{article}{}
+      \name{author}{2}{}{%
+        {{hash=1b2149ad300f2fa2543ab0292070bf34}{%
+           family={Solenthaler},
+           family_i={S\bibinitperiod},
+           given={Barbara},
+           given_i={B\bibinitperiod}}}%
+        {{hash=89835485884945e38712de8162277435}{%
+           family={Gross},
+           family_i={G\bibinitperiod},
+           given={Markus},
+           given_i={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, NY, USA}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{098ab55e0c60ffac452977e57c3418f5}
+      \strng{fullhash}{098ab55e0c60ffac452977e57c3418f5}
+      \field{labelalpha}{SG11}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{0730-0301}
+      \field{journaltitle}{ACM Trans. Graph.}
+      \field{month}{07}
+      \field{number}{4}
+      \field{title}{Two-scale particle simulation}
+      \field{volume}{30}
+      \field{year}{2011}
+      \field{pages}{81:1\bibrangedash 81:8}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1145/2010324.1964976
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/2010324.1964976
+      \endverb
+      \keyw{SPH,fluid simulation,level of detail,two-scale}
+    \endentry
+    \entry{Sifakisy:hybrid:2007}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=89ddd8fcc613bef1832df0d1487da74c}{%
+           family={Sifakis},
+           family_i={S\bibinitperiod},
+           given={Eftychios},
+           given_i={E\bibinitperiod}}}%
+        {{hash=c624e9490256b4086771d2baffb08880}{%
+           family={Shinar},
+           family_i={S\bibinitperiod},
+           given={Tamar},
+           given_i={T\bibinitperiod}}}%
+        {{hash=edc6964c6549e1839ca94d3d61e03f76}{%
+           family={Irving},
+           family_i={I\bibinitperiod},
+           given={Geoffrey},
+           given_i={G\bibinitperiod}}}%
+        {{hash=73fcba443bcb76d103964120ede9df59}{%
+           family={Fedkiw},
+           family_i={F\bibinitperiod},
+           given={Ronald},
+           given_i={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{20a23f40e811b6b0670907cc821a90a3}
+      \strng{fullhash}{3d3ab48d078ce53933bcdc947a43c8ce}
+      \field{labelalpha}{Sif+07}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proc. ACM SIGGRAPH/Eurographics Symposium on Computer Animation}
+      \field{title}{Hybrid Simulation of Deformable Solids}
+      \field{year}{2007}
+    \endentry
+    \entry{Steinemann:adaptiveshapematching:2008}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=425ffbd38af167ba0c9f9e8f73eb0b10}{%
+           family={Steinemann},
+           family_i={S\bibinitperiod},
+           given={Denis},
+           given_i={D\bibinitperiod}}}%
+        {{hash=e5ce97fee77d097821d10eab71538283}{%
+           family={Otaduy},
+           family_i={O\bibinitperiod},
+           given={Miguel\bibnamedelima A.},
+           given_i={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=89835485884945e38712de8162277435}{%
+           family={Gross},
+           family_i={G\bibinitperiod},
+           given={Markus},
+           given_i={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{47f0b1964e556743e943f18a5fa0cc05}
+      \strng{fullhash}{95f2206d65a6bd06b70c1e52fe906ad2}
+      \field{labelalpha}{SOG08}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proc. ACM SIGGRAPH/Eurographics Symposium on Computer Animation}
+      \field{title}{Fast adaptive shape matching deformations}
+      \field{year}{2008}
+    \endentry
+    \entry{Steinemann2009}{article}{}
+      \name{author}{3}{}{%
+        {{hash=425ffbd38af167ba0c9f9e8f73eb0b10}{%
+           family={Steinemann},
+           family_i={S\bibinitperiod},
+           given={Denis},
+           given_i={D\bibinitperiod}}}%
+        {{hash=e5ce97fee77d097821d10eab71538283}{%
+           family={Otaduy},
+           family_i={O\bibinitperiod},
+           given={Miguel\bibnamedelima A.},
+           given_i={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=89835485884945e38712de8162277435}{%
+           family={Gross},
+           family_i={G\bibinitperiod},
+           given={Markus},
+           given_i={M\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {San Diego, CA, USA}%
+      }
+      \list{publisher}{1}{%
+        {Academic Press Professional, Inc.}%
+      }
+      \strng{namehash}{47f0b1964e556743e943f18a5fa0cc05}
+      \strng{fullhash}{95f2206d65a6bd06b70c1e52fe906ad2}
+      \field{labelalpha}{SOG09}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1524-0703}
+      \field{journaltitle}{Graph. Models}
+      \field{month}{11}
+      \field{number}{6}
+      \field{title}{Splitting Meshless Deforming Objects with Explicit Surface Tracking}
+      \field{volume}{71}
+      \field{year}{2009}
+      \field{pages}{209\bibrangedash 220}
+      \range{pages}{12}
+      \verb{doi}
+      \verb 10.1016/j.gmod.2008.12.004
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1016/j.gmod.2008.12.004
+      \endverb
+      \keyw{Computer animation,Cutting,Deformable objects,Fracture,Meshless discretization,Topological changes}
+    \endentry
+    \entry{Solenthaler2009}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=90b3b9561a7b792dd8699661d480f354}{%
+           family={Solenthaler},
+           family_i={S\bibinitperiod},
+           given={B.},
+           given_i={B\bibinitperiod}}}%
+        {{hash=67a8ac44478fb46545e438195a5a1fd8}{%
+           family={Pajarola},
+           family_i={P\bibinitperiod},
+           given={R.},
+           given_i={R\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New Orleans, Louisiana}%
+      }
+      \list{publisher}{1}{%
+        {ACM}%
+      }
+      \strng{namehash}{b62910fc098ea031ac3c5ec073726403}
+      \strng{fullhash}{b62910fc098ea031ac3c5ec073726403}
+      \field{labelalpha}{SP09}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{ACM SIGGRAPH 2009 papers}
+      \field{isbn}{978-1-60558-726-4}
+      \field{series}{SIGGRAPH '09}
+      \field{title}{Predictive-corrective incompressible SPH}
+      \field{year}{2009}
+      \field{pages}{40:1\bibrangedash 40:6}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1145/1576246.1531346
+      \endverb
+      \verb{url}
+      \verb http://doi.acm.org/10.1145/1576246.1531346
+      \endverb
+      \keyw{SPH,fluid simulation,incompressibility}
+    \endentry
+    \entry{Spillmann:rods:08}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=24bf5b174d02372edd1e73d212167452}{%
+           family={Spillmann},
+           family_i={S\bibinitperiod},
+           given={Jonas},
+           given_i={J\bibinitperiod}}}%
+        {{hash=f11935ee15f7a87cffdf63cabfe0954f}{%
+           family={Teschner},
+           family_i={T\bibinitperiod},
+           given={Matthias},
+           given_i={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{387e0a7f7e9ea627689ac1aa585ef126}
+      \strng{fullhash}{387e0a7f7e9ea627689ac1aa585ef126}
+      \field{labelalpha}{ST08}
+      \field{sortinit}{S}
+      \field{sortinithash}{fd1e7c5ab79596b13dbbb67f8d70fb5a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Computer Graphics Forum (Proc. Eurographics)}
+      \field{title}{An Adaptive Contact Model for the Robust Simulation of Knots}
+      \field{volume}{27}
+      \field{year}{2008}
+    \endentry
+    \entry{Tournier2014}{article}{}
+      \name{author}{4}{}{%
+        {{hash=e7399790f37702addcd26b586f9bc70a}{%
+           family={Tournier},
+           family_i={T\bibinitperiod},
+           given={Maxime},
+           given_i={M\bibinitperiod}}}%
+        {{hash=2355c7a5e1cc63840c268a2404ac23dd}{%
+           family={Nesme},
+           family_i={N\bibinitperiod},
+           given={Matthieu},
+           given_i={M\bibinitperiod}}}%
+        {{hash=dea8a0ba978ffc6021c51592555385fc}{%
+           family={Faure},
+           family_i={F\bibinitperiod},
+           given={François},
+           given_i={F\bibinitperiod}}}%
+        {{hash=b6b3f6cbcb134871c1c2d7bf7859bf64}{%
+           family={Gilles},
+           family_i={G\bibinitperiod},
+           given={Benjamin},
+           given_i={B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{2b4d1a8268f0f367f959b54e39467b9b}
+      \strng{fullhash}{1a130b2531d67f2341176ad64a5ac9ec}
+      \field{labelalpha}{Tou+14}
+      \field{sortinit}{T}
+      \field{sortinithash}{423d138a005a533b47e6475e39378bf2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{{Computers and Graphics}}
+      \field{month}{12}
+      \field{title}{{Velocity-based Adaptivity of Deformable Models}}
+      \field{volume}{45}
+      \field{year}{2014}
+      \field{pages}{75\bibrangedash 85}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.1016/j.cag.2014.08.004
+      \endverb
+      \verb{file}
+      \verb https://hal.inria.fr/hal-01076338/file/si-gi-2014.pdf
+      \endverb
+      \verb{url}
+      \verb https://hal.inria.fr/hal-01076338
+      \endverb
+      \keyw{Computer Animation ; Physically-based Animation ; Deformable Solids ; Adaptive Kinematics}
+    \endentry
+    \entry{Wang2014}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=8867ec7ba406060d80adc69093d45bd2}{%
+           family={Wang},
+           family_i={W\bibinitperiod},
+           given={Yuting},
+           given_i={Y\bibinitperiod}}}%
+        {{hash=e23acb91338712715b1e858a29723c6b}{%
+           family={Jiang},
+           family_i={J\bibinitperiod},
+           given={Chenfanfu},
+           given_i={C\bibinitperiod}}}%
+        {{hash=4134fc1456383ff09545fc73a9fc6407}{%
+           family={Schroeder},
+           family_i={S\bibinitperiod},
+           given={Craig},
+           given_i={C\bibinitperiod}}}%
+        {{hash=607723b8a48656868aeb4efee654160d}{%
+           family={Teran},
+           family_i={T\bibinitperiod},
+           given={Joseph},
+           given_i={J\bibinitperiod}}}%
+      }
+      \name{editor}{2}{}{%
+        {{hash=9025300f43a193cfed8e10e924f2a117}{%
+           family={Koltun},
+           family_i={K\bibinitperiod},
+           given={Vladlen},
+           given_i={V\bibinitperiod}}}%
+        {{hash=89ddd8fcc613bef1832df0d1487da74c}{%
+           family={Sifakis},
+           family_i={S\bibinitperiod},
+           given={Eftychios},
+           given_i={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {The Eurographics Association}%
+      }
+      \strng{namehash}{f6e623c15f04245bf881a14e8731c0f1}
+      \strng{fullhash}{cc511fa78a72d2716f445635bc971093}
+      \field{labelalpha}{Wan+14}
+      \field{sortinit}{W}
+      \field{sortinithash}{99e3ba1b3f78bb6f073e7fa7ac11636b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Eurographics/ ACM SIGGRAPH Symposium on Computer Animation}
+      \field{isbn}{978-3-905674-61-3}
+      \field{issn}{1727-5288}
+      \field{title}{{An Adaptive Virtual Node Algorithm with Robust Mesh Cutting}}
+      \field{year}{2014}
+      \verb{doi}
+      \verb 10.2312/sca.20141125
+      \endverb
+    \endentry
+    \entry{Witkin2001}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=44155a0ddcfd558a665a16833a7cfca7}{%
+           family={Witkin},
+           family_i={W\bibinitperiod},
+           given={Andrew},
+           given_i={A\bibinitperiod}}}%
+        {{hash=1cb27745beb07c33e43b92cf14f092c4}{%
+           family={Baraff},
+           family_i={B\bibinitperiod},
+           given={David},
+           given_i={D\bibinitperiod}}}%
+        {{hash=18bc86314ac2b2bc6cb8810eead32abc}{%
+           family={Kass},
+           family_i={K\bibinitperiod},
+           given={Michael},
+           given_i={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{9bff5ebda3eebe1afaba9ff9ab71d9db}
+      \strng{fullhash}{9ba03a2d27b11eb822e2dcff95e81804}
+      \field{labelalpha}{WBK01}
+      \field{sortinit}{W}
+      \field{sortinithash}{99e3ba1b3f78bb6f073e7fa7ac11636b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Online SIGGRAPH Course Notes}
+      \field{title}{Physically Based Modeling}
+      \field{year}{2001}
+      \verb{url}
+      \verb http://www.pixar.com/companyinfo/research/pbm2001/
+      \endverb
+    \endentry
+    \entry{Wu2011}{inproceedings}{}
+      \name{author}{3}{}{%
+        {{hash=aaf4818e3816b53809f264b2c1b2ecae}{%
+           family={Wu},
+           family_i={W\bibinitperiod},
+           given={Jun},
+           given_i={J\bibinitperiod}}}%
+        {{hash=a22d6a7210969575471d46eba0df827c}{%
+           family={Dick},
+           family_i={D\bibinitperiod},
+           given={Christian},
+           given_i={C\bibinitperiod}}}%
+        {{hash=c00f68e0027a0118ca2aa59ae43124c6}{%
+           family={Westermann},
+           family_i={W\bibinitperiod},
+           given={Rüdiger},
+           given_i={R\bibinitperiod}}}%
+      }
+      \strng{namehash}{24485726fb023b68e63d57d174e325bc}
+      \strng{fullhash}{fd6b712d4db2d86e9e06c93f8ebe40e4}
+      \field{labelalpha}{WDW11}
+      \field{sortinit}{W}
+      \field{sortinithash}{99e3ba1b3f78bb6f073e7fa7ac11636b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Proceedings of 8th Workshop on Virtual Reality Interaction and Physical Simulation (VRIPHYS) 2011}
+      \field{title}{Interactive High-Resolution Boundary Surfaces for Deformable Bodies with Changing Topology}
+      \field{year}{2011}
+      \field{pages}{29\bibrangedash 38}
+      \range{pages}{10}
+    \endentry
+    \entry{Wicke:2010}{inproceedings}{}
+      \name{author}{6}{}{%
+        {{hash=8f71c897f89022a26511a6fbbd6108b6}{%
+           family={Wicke},
+           family_i={W\bibinitperiod},
+           given={Martin},
+           given_i={M\bibinitperiod}}}%
+        {{hash=1fa70370b9d7ff157273bf542b2b6518}{%
+           family={Ritchie},
+           family_i={R\bibinitperiod},
+           given={Daniel},
+           given_i={D\bibinitperiod}}}%
+        {{hash=e1b90b966a0476bb34c5dfc92cf8d7a5}{%
+           family={Klingner},
+           family_i={K\bibinitperiod},
+           given={Bryan\bibnamedelima M.},
+           given_i={B\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=4ec350d5f3c326c4630b46a6306efb69}{%
+           family={Burke},
+           family_i={B\bibinitperiod},
+           given={Sebastian},
+           given_i={S\bibinitperiod}}}%
+        {{hash=e22c5a7164a6c1dc327e5a6951693115}{%
+           family={Shewchuk},
+           family_i={S\bibinitperiod},
+           given={Jonathan\bibnamedelima R.},
+           given_i={J\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+        {{hash=3bef85c8c4ba13b33205d481e616603e}{%
+           family={O'Brien},
+           family_i={O\bibinitperiod},
+           given={James\bibnamedelima F.},
+           given_i={J\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{9f4774ab85a3d39c44409ad83cc75c1a}
+      \strng{fullhash}{035ad1f82a74e1f477e6047cb7b96ef3}
+      \field{labelalpha}{Wic+10}
+      \field{sortinit}{W}
+      \field{sortinithash}{99e3ba1b3f78bb6f073e7fa7ac11636b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{ACM Transactions on Graphics (Proc. SIGGRAPH)}
+      \field{title}{Dynamic Local Remeshing for Elastoplastic Simulation}
+      \field{volume}{29}
+      \field{year}{2010}
+    \endentry
+    \entry{Wojtan:2008}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=771037dae66e7a013b7efb2583b4c438}{%
+           family={Wojtan},
+           family_i={W\bibinitperiod},
+           given={Chris},
+           given_i={C\bibinitperiod}}}%
+        {{hash=c651f32f7f9707025c958764a1842afd}{%
+           family={Turk},
+           family_i={T\bibinitperiod},
+           given={Greg},
+           given_i={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{20c1459b2bbf8fe88385bb16b5baee23}
+      \strng{fullhash}{20c1459b2bbf8fe88385bb16b5baee23}
+      \field{labelalpha}{WT08}
+      \field{sortinit}{W}
+      \field{sortinithash}{99e3ba1b3f78bb6f073e7fa7ac11636b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{ACM Transactions on Graphics (Proc. SIGGRAPH)}
+      \field{title}{Fast viscoelastic behavior with thin features}
+      \field{volume}{27}
+      \field{year}{2008}
+    \endentry
+    \entry{wu01adaptive}{inproceedings}{}
+      \name{author}{4}{}{%
+        {{hash=382bf973ecd5aa2e4cf2a2b38badafda}{%
+           family={Wu},
+           family_i={W\bibinitperiod},
+           given={Xunlei},
+           given_i={X\bibinitperiod}}}%
+        {{hash=0336fe4f1fe6bda09f818aa06eb1bb64}{%
+           family={Downes},
+           family_i={D\bibinitperiod},
+           given={Michael\bibnamedelima S.},
+           given_i={M\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=516903a1e2871dbe91e6aad1a7d2d4a0}{%
+           family={Goktekin},
+           family_i={G\bibinitperiod},
+           given={Tolga},
+           given_i={T\bibinitperiod}}}%
+        {{hash=771384355821da51a30eb48390581ee6}{%
+           family={Tendick},
+           family_i={T\bibinitperiod},
+           given={Frank},
+           given_i={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{3c8c6c68f88604d388c13e9d4ab0c3b9}
+      \strng{fullhash}{b8abc1f5df4f55ce86d2df30d631278e}
+      \field{labelalpha}{Wu+01}
+      \field{sortinit}{W}
+      \field{sortinithash}{99e3ba1b3f78bb6f073e7fa7ac11636b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Computer Graphics Forum (Proc. Eurographics)}
+      \field{title}{Adaptive Nonlinear Finite Elements for Deformable Body Simulation Using Dynamic Progressive Meshes}
+      \field{volume}{20}
+      \field{year}{2001}
+    \endentry
+    \entry{Wu2015}{article}{}
+      \name{author}{3}{}{%
+        {{hash=aaf4818e3816b53809f264b2c1b2ecae}{%
+           family={Wu},
+           family_i={W\bibinitperiod},
+           given={Jun},
+           given_i={J\bibinitperiod}}}%
+        {{hash=c00f68e0027a0118ca2aa59ae43124c6}{%
+           family={Westermann},
+           family_i={W\bibinitperiod},
+           given={Rüdiger},
+           given_i={R\bibinitperiod}}}%
+        {{hash=a22d6a7210969575471d46eba0df827c}{%
+           family={Dick},
+           family_i={D\bibinitperiod},
+           given={Christian},
+           given_i={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{24485726fb023b68e63d57d174e325bc}
+      \strng{fullhash}{ab990d4b900fe3974faa49f3bfe7c8c9}
+      \field{labelalpha}{WWD15}
+      \field{sortinit}{W}
+      \field{sortinithash}{99e3ba1b3f78bb6f073e7fa7ac11636b}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1467-8659}
+      \field{journaltitle}{Computer Graphics Forum}
+      \field{title}{A Survey of Physically Based Simulation of Cuts in Deformable Bodies}
+      \field{year}{2015}
+      \verb{doi}
+      \verb 10.1111/cgf.12528
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1111/cgf.12528
+      \endverb
+      \keyw{virtual cutting,deformable bodies,physically based modelling,finite elements,surgery simulation,I.3.5 [Computer Graphics]: Computational Geometry and Object Modelling-Physically based modelling,I.3.7 [Computer Graphics]: Three-Dimensional Graphics and Realism-Animation,I.3.8 [Computer Graphics]: Applications}
+    \endentry
+  \endsortlist
+\endrefsection
+\endinput
+
