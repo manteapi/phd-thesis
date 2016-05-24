@@ -92,14 +92,20 @@
 \frontmatter
 
 %\chapter{Remerciements}
-%Merci
+%\begin{itemize}
+%    \item Collaboration with Wei-Lun Sun, PhD student at Berkeley. We worked together on how to perform detailed cutting in a frame-based simulation framework. Results were published at Motion In Games \cite{Manteaux2015}.
+%    \item Collaboration with Julio Toss, PhD student at Inria. We shared knowledges about parallel computing and frame-based simulation.
+%    \item Thibault Lejemble, Amélie Fondevilla, Thibault Blanc-Beyne, Nicolas Durin
+%    \item Ulysse Vimont
+%\end{itemize}
 
-\chapter{TODO}
+
+\chapter{Questions}
 
 \begin{itemize}
-\item L'intégration des reprères dans le temps. Similarités avec les rigides ?
-\item Le calcul de la matrice de masse pour les repères et son utilisation lors de l'intégration explicite ?
-\item L'intégration des forces
+\item Comment les repères sont intégrés dans le temps ? (vitesse angulaire, torque, matrice d'inertie)
+\item Comment est calculée la matrice de masse ? Pourquoi varie t-ele au cours du temps ?
+\item Comment sont intégrées les forces ?
 \end{itemize}
 
 \chapter{R\'esum\'e}
@@ -113,9 +119,25 @@ In this document we present techniques for the efficient simulation and control 
 \mainmatter
 
 \chapter{Introduction}
-An introduction.
+\label{chap:introdution}
 
-\section{Problems}
+\section{A short story of physics-based animation}
+Animation is the art of creating motion. A sequence of images is created and when looking at them one after another, object start to move and behave as if they were alive, sometime in a realistic manner, sometime not. Anything can be animated, from a bouncing ball to a stormy ocean, depending on the skills of the animator artist.
+
+Originally the images of an animation were drawn by hand. Years and years of learning and expertise were required in order to draw the $25$ images of a $1$ second sequence. Usually this tedious work was divided. The animator leader used to draw the key images of a sequence and animators would  do the in-betweening, the images between the key images.
+
+Animation of natural phenomena was certainly one of the most difficult thing to animate due to its visual complexity.
+
+With computers, a lot of things changed for the creation of animation. Computer proved to be a great help when computing the in-betweens. They also proved to be very useful to compute physics motion as they are able to handle a large complexity.
+
+\section{Classical mechanics and physics-based animation}
+Physics-based animation has the great advantage of begin a new field with a great grandfather, classical mechanics.
+
+Physics-based animation is often inspired by classical mechanics but not restrained to it. It takes a lot of freedom to reach artistic goals.
+
+It is a unilateral relationship ? Is physics-based animation doom to follow the advances of classical mechanics ? I do not think so. First of all, physics-based animation interacts more and more with other fields such as machine learning. Second, I think the relationship is bilateral. Classical mechanics inspired physics-based animation and physics-based animation inspired classical mechanics. This can be simply confirmed by the growing number of similar publications in both engineering field and computer graphics.
+
+\section{Open problems in physics-based animation}
 \begin{itemize}
     \item Non-intrusive adaptive techniques for physics-based animation.
     \item Plausible and efficient simulation of detailed topological changes with very few degrees of freedom.
@@ -130,27 +152,48 @@ An introduction.
     \item Algorithm for the modeling of fluid animation.
 \end{itemize}
 
-\section{Collaborations}
-
-\begin{itemize}
-    \item Wei-Lun Sun
-    \item Julio Toss
-    \item Thibault Lejemble, Amélie Fondevilla, Thibault Blanc-Beyne, Nicolas Durin
-    \item Ulysse Vimont
-\end{itemize}
-
 \section{Structure of the document}
-Overview of the manuscript
+
+\subsection*{Chapter \ref{chap:star}}
+We first introduce basics of continuum mechanics that we think are necessary for the whole understanding of the manuscript. Then we present a detailed description of state of the art adaptive physics-based model. Finally we provide a survey of methods allowing to control a physics-based animation. \\
+
+\subsection*{Chapter \ref{chap:arps}}
+We describe a non-intrusive adaptive technique for the efficient simulatio of liquids. Instead of relying on classical splitting/merging schemes, we used a method from nanosystems research called ARPS to automatically activate/deactivate degrees of freedom according to some criteria. \\
+
+\subsection*{Chapter \ref{chap:cutting}}
+We describe a technique to perform detailed cutting of thin deformable objects while keeping a very low number of degrees of freedom. The frame-based model is leveraged for its ability to simulate deformable objects with very few degrees of freedom. We show that by updating shape functions with respect to the cuts we can simulate detailed cutting with a quasi-constant number of degrees of freedom. \\
+
+\subsection*{Chapter \ref{chap:fluidsculpting}}
+We describe an alternative to the control of physics-based animation. We propose a sculpting system where the user would edit the output of a physics-based simulation. Tools for an easy selection of animation parts are proposed as well as high level editing tools. \\
+
+\subsection*{Chapter \ref{chap:fluidstoryboard}}
+Not done yet...\\
+
+\subsection*{Chapter \ref{chap:conclusion}}
+We conclude.
 
 \section{Related publications}
-Some publications.
 \begin{itemize}
-    \item \cite{Manteaux2013}
-    \item \cite{Lejemble2015}
-    \item \cite{Manteaux2015}
+    \item \cite{Manteaux2013} \emph{Exploring the Use of Adaptively Restrained Particles for Graphics Simulations} \\
+    Workshop on Virtual Reality Interaction and Physical Simulation (VRIPHYS), 2013 (see chapter \ref{chap:arps})\\
+    Pierre-Luc Manteaux, François Faure, Stephane Redon, Marie-Paule Cani
+    \item \cite{Lejemble2015} \emph{Interactive Procedural Simulation of Paper Tearing with Sound} \\
+    ACM SIGGRAPH Conference on Motion in Games (MIG), 2015 \\
+    Thibault Legemble, Amélie Fondevilla, Nicolas Durin, Thibault Blanc-Beyne, Camille Schreck, Pierre-Luc Manteaux, Paul G. Kry, Marie-Paule Cani
+    \item \cite{Manteaux2015} \emph{Interactive detailed cutting of thin sheets} \\
+        ACM SIGGRAPH Conference on Motion in Games (MIG), 2015 (see chapter \ref{chap:cutting})\\
+        Pierre-Luc Manteaux, Wei-Lun Sun, François Faure, Marie-Paule Cani, James F. O'Brien
+	\item STAR to be published in 2016 (see chapter \ref{chap:star})
 \end{itemize}
 
-\chapter{Notation}
+\chapter{State of the art}
+\label{chap:star}
+
+\section{Continuum mechanics}
+
+Continuum mechanics allows to define general equations of motion for a wide range of phenomena from liquids to deformable solids. In this chapter we describe the basics that allow to formulate general equations of motion, we explain the different steps that allows to numerically solve these equations and we detail the discretization for incompressible fluid using SPH and deformable solids using the frame-based model.
+
+\subsection{Notation}
 
 \begin{table}[!h]
 \begin{tabular}{ll}
@@ -168,12 +211,6 @@ $\mathbf{\sigma}$ & Stress tensor \\
 $\mathbf{\Psi}$ & Energy density
 \end{tabular}
 \end{table}
-
-\chapter{State of the art}
-
-\section{Continuum mechanics}
-
-Continuum mechanics allows to define general equations of motion for a wide range of phenomena from liquids to deformable solids. In this chapter we describe the basics that allow to formulate general equations of motion, we explain the different steps that allows to numerically solve these equations and we detail the discretization for incompressible fluid using SPH and deformable solids using the frame-based model.
 
 \subsection{Equations of motion}
 
@@ -1059,6 +1096,7 @@ Sujets non évoqués:
 
 
 \chapter{ARPS}
+\label{chap:arps}
 
 \begin{figure}[!h]
     \begin{tabular}{cc}
@@ -1647,7 +1685,7 @@ In the case of stiff material, we have obtained promising results for implicit i
 Another interesting avenue is to employ non-physically-based transition criteria. The current one, based on kinetic energy, is well adapted to molecular dynamics simulation. In Computer Graphics, however, we are more interested in visual results. In future work, we thus plan to investigate the tuning of the transition thresholds based on visibility or distance to the camera, to even more focus the computational power where it most contributes to the quality of the result.
 
 \chapter{Frame-based cutting}
-
+\label{chap:cutting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -2188,12 +2226,15 @@ As stated previously, the mesh is only used for visualization. Simulation robust
 
 
 \chapter{Fluid sculpting}
+\label{chap:fluidsculpting}
 Interactive fluid sculpting.
 
 \chapter{Storyboarding physical animations}
+\label{chap:fluidstoryboard}
 Semantic for physics-based animation.
 
 \chapter{Conclusion}
+\label{chap:conclusion}
 A conclusion
 
 %\appendix
