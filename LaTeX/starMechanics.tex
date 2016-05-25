@@ -144,10 +144,9 @@ In mesh-based methods, the degrees of freedom are the vertices of a mesh. Depend
 In mesh-less methods, the sampling of degrees of freedom might be completely unstructured. For Lagrangian fluids, particles of fluid will often change of neighborhood, the structure is quasi-inexistant. For Lagrangian elastic solids, particles will keep the same neighborhood as long as the object does not undergo topological changes. The two most common interpolation methods are SPH and Moving Least Squares. Weights are often computed using cubic kernel. However if the sampling of degrees of freedom is very sparse, Voronoi-base shape functions are a good alternative.
 
 \subparagraph{Integration}
-
-\begin{itemize}
-\item Midpoint rule
-\end{itemize}
+A common choice in physics-based animation is to use the midpoint rule.
+In mesh-based methods, one integration point is sampled at the center of each element and integrated over the volume of the element.
+In mesh-less methods, when the sampling of the degrees of freedom is dense, integration points often co-located with them degrees of freedom an integrated over their associated volume. When the sampling is sparse, a dense independent sampling of integration points is used.
 
 \paragraph{Temporal integration}
 
