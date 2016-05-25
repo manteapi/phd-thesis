@@ -35,7 +35,7 @@ Our approach to decoupling the samplings of the physical geometric models, is to
 \includegraphics[width=\linewidth]{images/cutting-mig2015/Kirigami.pdf}
 \caption{\label{fig:kirigami}}
 \end{subfigure}
-\caption{\label{fig:teaser} Progressive cutting of a spiral using only five control frames (a). Simulating complex deformations resulting from Kirigami cutting (b).}
+\caption[Frame-based cutting: Spiral and Kirigami cutting examples]{\label{fig:teaser} Progressive cutting of a spiral using only five control frames (a). Simulating complex deformations resulting from Kirigami cutting (b).}
 \end{figure}
 
 To achieve user-driven cuts in a frame-based simulation, we allow cuts to be performed on the underlying mesh.
@@ -61,7 +61,7 @@ Our method can be used to simulate a wide variety of objects, such as stretchabl
 \includegraphics[width=\linewidth]{images/cutting-mig2015/sfRender_ff/weightShow.pdf}
 \caption{\label{fig:weightShow}}
 \end{subfigure}
-\caption{\label{fig:spiralWeight}
+\caption[Frame-based cutting: Comparison of shape functions]{\label{fig:spiralWeight}
 Comparison between shape functions computed on a uniform grid and on a non-manifold grid. (a) The underlying mesh (black lines) is cut by spiral (red line) and sampled with five control frames (blue circle). (b) The shape functions for each of the frame with a uniform grid (top row) and with a non-manifold grid (bottom row). Values range from $1$ to $0$ and are respectively depicted from red to blue. We can observe that shape functions computed on the non-manifold grid strictly preserve the details and topology of the underlying mesh.}
 \end{figure*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -102,7 +102,7 @@ Few models have been proposed that simulate detailed deformable objects using a 
 \includegraphics[width=\linewidth]{images/cutting-mig2015/buildSF_3.pdf}
 \caption{\label{fig:buildSF3}}
 \end{subfigure}
-\caption{\label{fig:shapefunctionconstruction}
+\caption[Frame-based cutting: Voronoi shapefunction computation]{\label{fig:shapefunctionconstruction}
 Illustrations of Voronoi shape function computation. (a) Starting from samples (blue circles), we build a Voronoi diagram using Dijkstra's shortest path algorithm. (b) Then, for each frame and its region $V_{i}$, we compute the maximum distance $d_{max}$ to its Voronoi boundary $V_{b}$. We extend $V_{i}$ to twice $d_{max}$ which gives $V_{e}$. (c) Finally for each grid cell $j$ in $V_{e}$ we linearly interpolate using distance to the frame position and distance to $V_{b}$.}
 \end{figure*}
 
@@ -115,7 +115,7 @@ To transfer the cuts from the mesh to the frames, we continuously adapt the shap
 We detail the computation of the shape functions, motivate the use of a non-manifold grid and explain how to build it (Section \ref{sec:adaptivesf}). When several parts are disconnected, we need to make sure that they contain control frames. We present a simple method to detect those regions and re-sample them (Section \ref{sec:resampling}). Even with such a low resolution physics model, it would be overkilling to update the whole system at each cut. Fortunately, cutting is often a local event. We leverage this fact and propose simple strategies to incrementally update the different components of the simulation (Section \ref{sec:incremental}). We illustrate our method in different scenarios (Section \ref{sec:results}) and discuss limitations and future work (Section \ref{sec:discussion}). We summarize our simulation loop in Algorithm~\ref{alg:simulationLoop} and detail our remeshing algorithm in appendix~\ref{appendix:remeshing}.
 
 \begin{algorithm}[h]
-\caption{\label{alg:simulationLoop}Simulation loop}
+\caption[Frame-based cutting: Simulation loop]{\label{alg:simulationLoop}Simulation loop}
 \begin{algorithmic}[0]
 \For{each time step}
 	\State perform a frame-based simulation step
@@ -154,7 +154,7 @@ We detail the computation of the shape functions, motivate the use of a non-mani
 %\includegraphics[width=\linewidth]{images/cutting-mig2015/multi_cut.pdf}
 %\caption{\label{fig:multicut}}
 %\end{subfigure}
-\caption{\label{fig:nonmanifoldgridillustration}
+\caption[Frame-based cutting: Non-manifold grid illustration]{\label{fig:nonmanifoldgridillustration}
 Illustrations of different possibilities for a non-manifold cell with eight connectivity (a). In (b), the cell is simply cut into two cells. Each duplicate of the cut cell has a specific connectivity that represent the cut topology. In (c), multiple disconnected components can be contained inside one cell. The cell is duplicated four times. Three of the duplicates have no connectivity. However they can embed complex geometry and then be simulated by adding new frames for each of the component. The fourth duplicate keeps its eight neighbors and remains independent from the three other.}
 \end{figure*}
 
@@ -177,7 +177,7 @@ First, we compute the maximal distance $d_{max}$ from the control node to its Vo
 In practice, Voronoi diagram is computed using Dijkstra's shortest path algorithm on a grid in order to preserve geodesic distances. For each frame, the shape function is computed on the whole grid. As the grid resolution can be quite coarse, this is particularly fast. Negative values are clamped and weights are normalized to form a partition of unity. Then least-square approximation is performed to evaluate the shape function and its derivatives at specific position.
 
 \begin{algorithm}[h]
-\caption{\label{alg:shapefunctioncomputation}Shapefunction computation}
+\caption[Frame-based cutting: Shapefunction computation]{\label{alg:shapefunctioncomputation}Shapefunction computation}
 \begin{algorithmic}[1]
 \Procedure{Compute$\_$Shapefunction}{}
 \For{each frame $i$}
@@ -227,7 +227,7 @@ Non-manifold grids are used by many other cutting methods to embed fine geometri
 There are several ways to compute this non-manifold grid. In our method, we start by embedding the mesh in a uniform grid. Mesh elements that overlap a grid cell are detected using intersections tests and are assigned to it. Then, for each grid cell, we use a flood fill algorithm to detect the disconnected parts of the mesh. This informs about how many duplicates need to be created for the cell. Finally, for each duplicate we establish its connectivity by comparing its geometry with the geometry of the neighbor cells duplicates. We summarize our method in Algorithm~\ref{alg:nonmanifoldbuilding} and illustrate the main steps in Figure~\ref{fig:nonmanifoldgridbuilding}.
 
 \begin{algorithm}[!ht]
-\caption{\label{alg:nonmanifoldbuilding}Non-manifold grid building}
+\caption[Frame-based cutting: Non-manifold grid building]{\label{alg:nonmanifoldbuilding}Non-manifold grid building}
 \begin{algorithmic}[1]
 \Procedure{Build$\_$Non$\_$Manifold$\_$Grid}{grid $G$, mesh $M$}
 \State \textsc{Build$\_$Grid$\_$Geometry}($G$,$M$)
@@ -291,7 +291,7 @@ There are several ways to compute this non-manifold grid. In our method, we star
 \includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_4.pdf}
 \caption{\label{fig:buildNMG4}}
 \end{subfigure}
-\caption{\label{fig:nonmanifoldgridbuilding}
+\caption[Frame-based cutting: Non-manifold grid building]{\label{fig:nonmanifoldgridbuilding}
 We describe the building of the non-manifold grid for the center cell of the grid. (a) The mesh is embedded in a uniform grid. (b) First, we store the overlapping geometry in the cell. (c) Then we detect disconnected parts using a flood fill algorithm. (d) Finally the cell is duplicated. For each duplicate, we look for other duplicates that share geometry and establish its connectivity.}
 \end{figure*}
 
@@ -350,7 +350,7 @@ Weights and derivatives are interpolated from the grid to positions of the diffe
 \includegraphics[width=\linewidth]{images/cutting-mig2015/Vortex.pdf}
 \caption{\label{fig:vortex}}
 \end{subfigure}
-\caption{\label{fig:result} (a) Several highly detailed shapes are cut in a deformable sheet. Each disconnected part is automatically re-sampled with additional control frames. (b) Simulation of a highly detailed cut that falls under gravity and remains attached to the main part by a thin piece of paper. (c) Two cuts intersect to form a vortex shape. This illustrates the abilities of the non-manifold grid to handle multiple intersecting cuts.}
+\caption[Frame-based cutting: Examples of detailed cutting]{\label{fig:result} (a) Several highly detailed shapes are cut in a deformable sheet. Each disconnected part is automatically re-sampled with additional control frames. (b) Simulation of a highly detailed cut that falls under gravity and remains attached to the main part by a thin piece of paper. (c) Two cuts intersect to form a vortex shape. This illustrates the abilities of the non-manifold grid to handle multiple intersecting cuts.}
 \end{figure*}
 
 \addtolength{\tabcolsep}{-1.5pt}
@@ -365,7 +365,7 @@ Patchwork (Fig. \ref{fig:patchwork}) & $50 \times 50$ & $5$ & $12$ & $4225$ & $8
 Vortex (Fig. \ref{fig:vortex}) & $68 \times 68$ & $5$ & $5$ & $4225$ & $4889$ & $200$ & $200$ & $45$ & $7.2$ & $35.7$\\
 FallingGuy (Fig. \ref{fig:fallingguy}) & $100 \times 50$ & $10$ & $10$ & $289$ & $861$ & $500$ & $500$ & $60$ & $8.2$ & $60$\\
 \end{tabular}
-\caption{\label{tab:performance} Resolution of the different components of the simulation and timings.}
+\caption[Frame-based cutting: Resolution \& timings]{\label{tab:performance} Resolution of the different components of the simulation and timings.}
 \end{table*}
 \addtolength{\tabcolsep}{1.5pt}
 
@@ -380,7 +380,7 @@ Patchwork (Fig. \ref{fig:patchwork}) & $0.02$ & $2.78$ & $4.33$ & $2.55$ & $7.15
 Vortex (Fig. \ref{fig:vortex}) & $0.08$ & $10.3$ & $12.8$ & $9.2$ & $24.2$\\
 FallingGuy (Fig. \ref{fig:fallingguy}) & $0.09$ & $5.84$ & $11.4$ & $5.77$ & $14.9$\\
 \end{tabular}
-\caption{\label{tab:incrementalUpdate} Percentage of updated data in a cutting time step. We averaged the percentage for the whole cutting time. We notice that even if very few grid cell are affected, it implies important changes on the shape functions and the samples that are associated to these values.}
+\caption[Frame-based cutting: Incremental update timings]{\label{tab:incrementalUpdate} Percentage of updated data in a cutting time step. We averaged the percentage for the whole cutting time. We notice that even if very few grid cell are affected, it implies important changes on the shape functions and the samples that are associated to these values.}
 \end{table*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -425,7 +425,7 @@ In future, we first plan to extend our work to 3D. The implementation of our cur
 As stated previously, the mesh is only used for visualization. Simulation robustness will not be determined by its elements' quality. Therefore we used an extremely simple remeshing algorithm. The input are the mesh and a polyline that represents the cut. We start by remeshing along the polyline so that the mesh  conforms with it. Then we duplicate the mesh vertices along this polyline to create the crack. The whole procedure is summarized in algorithm \ref{alg:remeshing} and illustrated in Figure \ref{fig:remeshing}. The remeshing part uses vertex insertion and edge split operations (see Figure \ref{fig:operations}). The splitting part only uses vertex split operation (see Figure \ref{fig:vertexSplitting}).
 
 \begin{algorithm}[hp]
-\caption{\label{alg:remeshing}Remeshing Algorithm}
+\caption[Frame-based cutting: Remeshing algorithm]{\label{alg:remeshing}Remeshing Algorithm}
 \begin{algorithmic}[1]
 \Procedure{Cut$\_$Along$\_$Segment}{Segment $S$, mesh $M$}
 \State \textsc{Insert$\_$Segment}($S$, $M$)
@@ -476,7 +476,7 @@ As stated previously, the mesh is only used for visualization. Simulation robust
 \includegraphics[height=2.2cm]{images/cutting-mig2015/remeshing_3.pdf}
 \caption{\label{fig:remeshing3}}
 \end{subfigure}
-\caption{\label{fig:remeshing} Illustration of our remeshing algorithm. (a) For remeshing, we start from an input mesh and a polyline that represents the cut. (b) First we re-mesh along the polyline so that the mesh is conform with the cut. (c) Then we split the mesh vertices along the polyline.}
+\caption[Frame-based cutting: Remeshing algorithm]{\label{fig:remeshing} Illustration of our remeshing algorithm. (a) For remeshing, we start from an input mesh and a polyline that represents the cut. (b) First we re-mesh along the polyline so that the mesh is conform with the cut. (c) Then we split the mesh vertices along the polyline.}
 \end{figure}
 
 \begin{figure}[p]
@@ -498,7 +498,7 @@ As stated previously, the mesh is only used for visualization. Simulation robust
 \includegraphics[height=2.2cm]{images/cutting-mig2015/vertex_insertion.pdf}
 \caption{\label{fig:vertexInsertion}}
 \end{subfigure}
-\caption{\label{fig:operations} Illustrations for edge splitting and vertex insertions. (a) The input mesh. (b) After edge splitting. (c) After vertex insertions.}
+\caption[Frame-based cutting: Edge splitting and vertex insertion]{\label{fig:operations} Illustrations for edge splitting and vertex insertions. (a) The input mesh. (b) After edge splitting. (c) After vertex insertions.}
 \end{figure}
 
 \begin{figure}[p]
@@ -518,5 +518,5 @@ As stated previously, the mesh is only used for visualization. Simulation robust
 \includegraphics[height=2.2cm]{images/cutting-mig2015/vertex_splitting_3.pdf}
 \caption{\label{fig:vertexSplitting3}}
 \end{subfigure}
-\caption{\label{fig:vertexSplitting} Illustrations for the vertex splitting operation. (a) A mesh which is conform with the polyline (in red). (b) We start by assigning each triangle arround the vertex to split to one side of the polyline. (c) We duplicate the vertex and modify each of the triangles accordingly to its side.}
+\caption[Frame-based cutting: Vertex splitting]{\label{fig:vertexSplitting} Illustrations for the vertex splitting operation. (a) A mesh which is conform with the polyline (in red). (b) We start by assigning each triangle arround the vertex to split to one side of the polyline. (c) We duplicate the vertex and modify each of the triangles accordingly to its side.}
 \end{figure}

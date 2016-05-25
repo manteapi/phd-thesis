@@ -100,7 +100,7 @@ These adaptive simulation techniques are the focus of this report.
     \draw[color=black] (spatial3.south) -- (spatial32.north);
 
     \end{tikzpicture}
-    \caption{\label{fig:taxonomy}Taxonomy of adaptive physically-based models in Computer Graphics. In this report, we discuss in detail the two most widely used adaptive techniques: Temporal adaptivity in Section \ref{sec t adaptivity} and geometric adaptivity in Section \ref{sec:spatial_refinement}. We also discuss less common spatial adaptive techniques that proved to be very promising: Basis refinement in Section \ref{sec:basis_refinement}, moving grids in Section \ref{sec:movingMesh} and mixed models in Section \ref{sec:mixed-models}.}
+    \caption[STAR adaptivity: Taxonomy]{\label{fig:taxonomy}Taxonomy of adaptive physically-based models in Computer Graphics. In this report, we discuss in detail the two most widely used adaptive techniques: Temporal adaptivity in Section \ref{sec t adaptivity} and geometric adaptivity in Section \ref{sec:spatial_refinement}. We also discuss less common spatial adaptive techniques that proved to be very promising: Basis refinement in Section \ref{sec:basis_refinement}, moving grids in Section \ref{sec:movingMesh} and mixed models in Section \ref{sec:mixed-models}.}
 \end{figure*}
 
 We call a model or simulation method \emph{adaptive} if it automatically adapts the underlying mathematical representation, data structure and/or algorithm at run time, based on the evolving state of the simulated system.
@@ -312,7 +312,7 @@ As long as the number of ill-shaped elements is low, this relaxes the time step 
 \includegraphics[scale=0.8, angle=0]{images/starAdaptivity-cgf2016/freezing-graph.png}
 \caption{\label{fig:graphFreezing}}
 \end{subfigure}
-\caption{
+\caption[STAR adaptivity: Rigid body freezing]{
 \label{fig:freezingTechniques}
 Freezing techniques applied to rigid bodies stacking. At the stage of contact solving, those methods can save computational time while ensuring a plausible motion.
 In (a), quiescent rigid bodies are frozen (in hatched red) in a stacking configuration. A collision event then awakes one of the rigid bodies, and the active rigid body (in blue) propagates the information to its neighbors.
@@ -354,7 +354,7 @@ Once it is reactivated, the information is propagated to all its direct neighbor
 
 \begin{figure*}[t]
 \includegraphics[width=\linewidth]{./images/starAdaptivity-cgf2016/WMComparisonNoLabels.png}
-\caption{ View-dependent dynamics of articulated bodies. Top: the algorithm proposed by Kim et al. \cite{Kim2008Collision} automatically simplifies the dynamics of a falling character as
+\caption[STAR adaptivity: Articulated rigid body freezing]{ View-dependent dynamics of articulated bodies. Top: the algorithm proposed by Kim et al. \cite{Kim2008Collision} automatically simplifies the dynamics of a falling character as
 its distance to the viewer increases. Bottom: corresponding rigidification at this time step (one color per rigid group). \label{fig:ViewDependentArticulatedBodies}}
 \end{figure*}
 
@@ -391,7 +391,7 @@ Gayle et al. \cite{Gayle2006} demonstrate how to perform contact handling with s
 \includegraphics[width=.32\linewidth]{images/starAdaptivity-cgf2016/PermanentFlowARPSColor2.png} \\
 (a) & (b) & (c)
 \end{tabular}
-\caption{\label{fig:SPHfreezing}
+\caption[STAR adaptivity: SPH fluid freezing]{\label{fig:SPHfreezing}
 (a) shows a classic SPH simulation of a 2D scenario with inflow and outflow boundary conditions at the walls above a chasm. (b) shows at the same time the effect of the ARPS method from Manteaux et al.~\cite{Manteaux2013}. Blue particles are active, red particles are inactive, and green particles are transitive. Large regions quickly become inactive (c), allowing to save significant computational time as numerous particles' neighborhoods do not need to be updated anymore.}
 \end{figure*}
 
@@ -464,7 +464,7 @@ The matrix $\mathbf M$ is defined in such a way that it has large eigenvalues in
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{images/starAdaptivity-cgf2016/mesh-plastic.png}
-  \caption{Elastoplastic simulation with dynamic local remeshing \cite{Wicke2010}. By using the strain gradient as the refinement criterion, regions undergoing severe deformation are refined locally.}
+  \caption[STAR adaptivity: Tetrahedral remeshing]{Elastoplastic simulation with dynamic local remeshing \cite{Wicke2010}. By using the strain gradient as the refinement criterion, regions undergoing severe deformation are refined locally.}
   \label{fig:Wicke2010}
 \end{figure}
 
@@ -546,7 +546,7 @@ Employing these ideas, Wojtan and Turk \cite{Wojtan2008} use an adaptive non-con
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{images/starAdaptivity-cgf2016/WT2008_BCC.png}
-\caption{A high resolution surface mesh (blue) embedded into a deforming low resolution spatially-adaptive tetrahedral mesh based on a BCC lattice (gold). The bottom row shows the cross section of the tetrahedral mesh, illustrating the BCC structure. Image from Wojtan and Turk \cite{Wojtan2008}.}
+\caption[STAR adaptivity: Body-centered cubic mesh]{A high resolution surface mesh (blue) embedded into a deforming low resolution spatially-adaptive tetrahedral mesh based on a BCC lattice (gold). The bottom row shows the cross section of the tetrahedral mesh, illustrating the BCC structure. Image from Wojtan and Turk \cite{Wojtan2008}.}
 \label{fig:WT_BCC}
 \end{figure}
 
@@ -583,7 +583,7 @@ In addition to concentrating detail in important regions, this method also appro
 \includegraphics[width=\linewidth]{images/starAdaptivity-cgf2016/remeshing-local.png}
 \caption{\label{fig:remeshing-local}}
 \end{subfigure}
-\caption{   \label{fig:remeshing-schemes}
+\caption[STAR adaptivity: Refinement schemes for unstructured meshes]{   \label{fig:remeshing-schemes}
 Overview of refinement schemes for unstructured meshes. In (a) and (b), the right half of a mesh is refined using (a) $\sqrt3$ refinement and (b) hierarchical edge bisection, with inserted nodes highlighted in red. In (c), we illustrate two levels of non-nested meshes. In (d), the three primitive operations of local remeshing are applied to the middle edge: in reading order, we show the original mesh, after an edge split, after an edge flip, and after one of two possible edge collapses.}
 \end{figure*}
 
@@ -648,7 +648,7 @@ This viewpoint allows element quality metrics and Delaunay properties defined fo
   \centering
   \includegraphics[width=0.48\linewidth]{images/starAdaptivity-cgf2016/cloth-render.png}
   \includegraphics[width=0.48\linewidth]{images/starAdaptivity-cgf2016/cloth-wire-zoom.png}
-  \caption{The anisotropic remeshing algorithm of Narain et al. \cite{Narain2012} allows detailed wrinkles in cloth to be resolved accurately with fine elements (red), while much coarser elements (blue/green) are used in flat regions. Long, narrow folds are best represented using anisotropic elements (yellow) aligned with the curvature direction.}
+  \caption[STAR adaptivity: Anisotropic remeshing of triangular meshes]{The anisotropic remeshing algorithm of Narain et al. \cite{Narain2012} allows detailed wrinkles in cloth to be resolved accurately with fine elements (red), while much coarser elements (blue/green) are used in flat regions. Long, narrow folds are best represented using anisotropic elements (yellow) aligned with the curvature direction.}
   \label{fig:Narain2012}
 \end{figure}
 
@@ -705,7 +705,7 @@ Beyond the traditional remeshing operations that work within a single dimensiona
 \includegraphics[width=\linewidth]{images/starAdaptivity-cgf2016/particles-hierarchy.png}
 \caption{\label{fig:meshless-hierarchy}}
 \end{subfigure}
-\caption{\label{fig:particleOverview}
+\caption[STAR adaptivity: Meshless techniques]{\label{fig:particleOverview}
 Overview of adaptive meshless techniques.
 (a) Dynamic local resampling applies splitting and coalescing operators to degrees of freedom in order to locally refine and coarsen regions of interests (b) Multiscale methods couple several simulations with different resolutions. Coarser simulations are used as boundary conditions for the finer resolutions. Feedbacks from the finer resolutions are used to avoid divergences between two different resolutions. (c) Hierarchical refinement dynamically activates or deactivates levels of a precomputed hierarchy between degrees of freedom.}
 \end{figure*}
@@ -743,7 +743,7 @@ The first one consists in accurately describing material discontinuities. Most o
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{images/starAdaptivity-cgf2016/Ando2013_3.png}
-\caption{Ando et al. \cite{Ando2013} simulate liquid by combining adaptively-sized FLIP particles (bottom, front) with an adaptive tetrahedral mesh for the pressure solve (top, back).}
+\caption[STAR adaptivity: Hybrid refinement of meshes and particles]{Ando et al. \cite{Ando2013} simulate liquid by combining adaptively-sized FLIP particles (bottom, front) with an adaptive tetrahedral mesh for the pressure solve (top, back).}
 \label{fig:Ando2013}
 \end{figure}
 
@@ -786,7 +786,7 @@ This makes adaptivity much easier and general.
     \includegraphics[width=0.45\linewidth]{images/starAdaptivity-cgf2016/tjunction-grid.png} \\
 (a) & (b)
 \end{tabular}
-\caption{\label{fig:tjunctions} Refinement by element subdivision is attractive by its simplicity for 2D and 3D meshes, however it introduces T-junctions (in red) at interface between resolutions with different sizes. Bookkeeping or extra-remeshing operations are required to take care of these non-independant degrees of freedom.}
+\caption[STAR adaptivity: T-junction]{\label{fig:tjunctions} Refinement by element subdivision is attractive by its simplicity for 2D and 3D meshes, however it introduces T-junctions (in red) at interface between resolutions with different sizes. Bookkeeping or extra-remeshing operations are required to take care of these non-independant degrees of freedom.}
 \end{figure}
 
 \begin{figure*}[t]
@@ -802,7 +802,7 @@ This makes adaptivity much easier and general.
 \includegraphics[width=\linewidth]{images/starAdaptivity-cgf2016/quadratic.png}
 \caption{\label{fig:quadratic_fem}}
 \end{subfigure}
-\caption{\label{fig:padaptivity}
+\caption[STAR adaptivity: p-adaptive techniques]{\label{fig:padaptivity}
 Illustrations of p-adaptive techniques for (a) fluids and (b) deformable solids.
 In (a) Each fluid cell uses a different approximation space depending on its distance to surface (blue line). Surface cells (in red) use fourth order polynomial to precisely approximate pressure. A smooth grading of the approximation is performed inside the fluid (lighter cells) that allows to save computational time.
 In (b) the canonical tetrahedron with quadratic control points and next to it the quadratic deformation induced by the deformed control mesh. Such a deformation would require many linear elements.
@@ -841,7 +841,7 @@ The virtual node algorithm uses basis enrichment to stabilize fracture and cutti
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{images/starAdaptivity-cgf2016/xfem.png}
-\caption{\label{fig:basisenrichment}
+\caption[STAR adaptivity: XFEM illustration]{\label{fig:basisenrichment}
 A one-dimensional element with linear basis functions can simulate a fracture by enriching its basis. Here, the new basis functions drop off to zero on the other side of the fracture site indicated by the dashed line, directly encoding the severed connection.
 }
 \end{figure}
