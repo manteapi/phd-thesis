@@ -1,0 +1,74 @@
+\chapter{Introduction}
+\label{chap:introdution}
+
+\section{A short story of physics-based animation}
+Animation is the art of creating motion. A sequence of images is created and when looking at them one after another, object start to move and behave as if they were alive, sometime in a realistic manner, sometime not. Anything can be animated, from a bouncing ball to a stormy ocean, depending on the skills of the animator artist.
+
+Originally the images of an animation were drawn by hand. Years and years of learning and expertise were required in order to draw the $25$ images of a $1$ second sequence. Usually this tedious work was divided. The animator leader used to draw the key images of a sequence and animators would  do the in-betweening, the images between the key images.
+
+Animation of natural phenomena was certainly one of the most difficult thing to animate due to its visual complexity.
+
+With computers, a lot of things changed for the creation of animation. Computer proved to be a great help when computing the in-betweens. They also proved to be very useful to compute physics motion as they are able to handle a large complexity.
+
+\section{Classical mechanics and physics-based animation}
+Physics-based animation has the great advantage of begin a new field with a great grandfather, classical mechanics.
+
+Physics-based animation is often inspired by classical mechanics but not restrained to it. It takes a lot of freedom to reach artistic goals.
+
+It is a unilateral relationship ? Is physics-based animation doom to follow the advances of classical mechanics ? I do not think so. First of all, physics-based animation interacts more and more with other fields such as machine learning. Second, I think the relationship is bilateral. Classical mechanics inspired physics-based animation and physics-based animation inspired classical mechanics. This can be simply confirmed by the growing number of similar publications in both engineering field and computer graphics.
+
+\section{Open problems in physics-based animation}
+
+\subsection{Adaptivity}
+
+\subsection{Detailed toplogical changes}
+
+\subsection{Simulation control}
+
+\begin{itemize}
+    \item Non-intrusive adaptive techniques for physics-based animation.
+    \item Plausible and efficient simulation of detailed topological changes with very few degrees of freedom.
+    \item Study of adaptive models for physics-based animation.
+    \item Modeling of animations from existing animations.
+\end{itemize}
+
+\section{Contributions}
+\begin{itemize}
+    \item Transfer of adaptive techniques from Nanosystems simulation to Computer Graphics.
+    \item Algorithm for the efficient cutting of thin deformable objects using the frame-based model.
+    \item Algorithm for the modeling of fluid animation.
+\end{itemize}
+
+\section{Structure of the document}
+
+\subsection*{Chapter \ref{chap:star}}
+We first introduce basics of continuum mechanics that we think are necessary for the whole understanding of the manuscript. Then we present a detailed description of state of the art adaptive physics-based model. Finally we provide a survey of methods allowing to control a physics-based animation. \\
+
+\subsection*{Chapter \ref{chap:arps}}
+We describe a non-intrusive adaptive technique for the efficient simulatio of liquids. Instead of relying on classical splitting/merging schemes, we used a method from nanosystems research called ARPS to automatically activate/deactivate degrees of freedom according to some criteria. \\
+
+\subsection*{Chapter \ref{chap:cutting}}
+We describe a technique to perform detailed cutting of thin deformable objects while keeping a very low number of degrees of freedom. The frame-based model is leveraged for its ability to simulate deformable objects with very few degrees of freedom. We show that by updating shape functions with respect to the cuts we can simulate detailed cutting with a quasi-constant number of degrees of freedom. \\
+
+\subsection*{Chapter \ref{chap:fluidsculpting}}
+We describe an alternative to the control of physics-based animation. We propose a sculpting system where the user would edit the output of a physics-based simulation. Tools for an easy selection of animation parts are proposed as well as high level editing tools. \\
+
+\subsection*{Chapter \ref{chap:fluidstoryboard}}
+Not done yet...\\
+
+\subsection*{Chapter \ref{chap:conclusion}}
+We conclude.
+
+\section{Related publications}
+\begin{itemize}
+    \item \cite{Manteaux2013} \emph{Exploring the Use of Adaptively Restrained Particles for Graphics Simulations} \\
+    Workshop on Virtual Reality Interaction and Physical Simulation (VRIPHYS), 2013 (see chapter \ref{chap:arps})\\
+    Pierre-Luc Manteaux, François Faure, Stephane Redon, Marie-Paule Cani
+    \item \cite{Lejemble2015} \emph{Interactive Procedural Simulation of Paper Tearing with Sound} \\
+    ACM SIGGRAPH Conference on Motion in Games (MIG), 2015 \\
+    Thibault Legemble, Amélie Fondevilla, Nicolas Durin, Thibault Blanc-Beyne, Camille Schreck, Pierre-Luc Manteaux, Paul G. Kry, Marie-Paule Cani
+    \item \cite{Manteaux2015} \emph{Interactive detailed cutting of thin sheets} \\
+        ACM SIGGRAPH Conference on Motion in Games (MIG), 2015 (see chapter \ref{chap:cutting})\\
+        Pierre-Luc Manteaux, Wei-Lun Sun, François Faure, Marie-Paule Cani, James F. O'Brien
+	\item STAR to be published in 2016 (see chapter \ref{chap:star})
+\end{itemize}

@@ -1,0 +1,905 @@
+\section{Continuum mechanics}
+
+Continuum mechanics allows to define general equations of motion for a wide range of phenomena from liquids to deformable solids. In this chapter we describe the basics that allow to formulate general equations of motion, we explain the different steps that allows to numerically solve these equations and we detail the discretization for incompressible fluid using SPH and deformable solids using the frame-based model.
+
+\subsection{Notation}
+
+\begin{table}[!h]
+\begin{tabular}{ll}
+$t$ & time \\
+$m$ &  mass \\
+$\rho$ & mass density \\
+$\mathbf{x}$ & position \\
+$\mathbf{v}$ & velocity \\
+$\mathbf{f}$ & total forces \\
+$\mathbf{f}_{int}$ & internal forces \\
+$\mathbf{f}_{ext}$ & external forces \\
+$\mathbf{F}$ & Deformation gradient \\
+$\mathbf{\epsilon}$ & Strain tensor \\
+$\mathbf{\sigma}$ & Stress tensor \\
+$\mathbf{\Psi}$ & Energy density
+\end{tabular}
+\end{table}
+
+\subsection{Equations of motion}
+
+\subsubsection{Conservation of mass}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.5]{images/continuum_mechanics/massConservation.png}
+\caption{\label{fig:massConservation} Mass conservation. $M(t_{1}) = M(t_{0}) + M_{added} + M_{removed}$}
+\end{figure}
+
+The conservation of mass is quite explicit. Mass cannot be created or destroyed. If we look at a small volume $\mathcal{V}$ of the domain $\Omega$, the variation of mass in $\mathcal{V}$ should be equal to the flux of mass going through the border of the volume.
+\begin{equation}
+    \label{eq:massConservation}
+    \frac{d}{dt}\left( \int_{\mathcal{V}} \rho dx \right)
+    =
+    - \int_{\mathcal{\partial V}}\rho \mathbf{v} \cdot \mathbf{n} ds
+\end{equation}
+
+From Stokes' formula, we have
+
+\begin{equation}
+\int_{\partial \mathcal{V}} \rho \cdot \mathbf{v} \mathbf{n} ds =
+\int_{\mathcal{V}} \nabla \cdot \left( \rho \mathbf{v} \right)
+\end{equation}
+
+then the conservation of mass can be rewritten as
+
+\begin{equation}
+\int_{\mathcal{V}} \frac{d}{dt} \rho + \nabla \cdot \left( \rho  \mathbf{v} \right) dx = 0
+\end{equation}
+
+\subsubsection{Conservation of momentum}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.5]{images/continuum_mechanics/momentumConservation.png}
+\caption{\label{fig:momentumConservation} Momentum conservation.}
+\end{figure}
+
+Also called Newton's second law, it states:
+\begin{equation}
+\label{eq:momentumConservation}
+\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{V} \mathbf{f} dx
+\end{equation}
+
+Two kind of forces are generally applied on an object, the \emph{external} forces and the \emph{internal} forces.
+
+External forces describe the action of the surrounding environment on the object, the simplest example is the gravity:
+\begin{equation}
+\int_{\mathcal{V}} \rho \mathbf{g} dx
+\end{equation}
+
+Internal forces describe the reaction of the object to an external deformation. A general way to describe them is by using a tensor notation:
+\begin{equation}
+\int_{\mathcal{V}} \sigma \mathbf{n} ds
+\end{equation}
+By applying the Stokes' formula we can describe it with respect to the volume:
+\begin{equation}
+\int_{\mathcal{V}} \sigma \mathbf{n} ds =
+\int_{\mathcal{V}} \nabla \cdot \sigma dx
+\end{equation}
+
+Conservation of momentum can then be rewritten:
+\begin{equation}
+\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{V} \rho \mathbf{g} + \nabla. \sigma dx
+\end{equation}
+
+\subsubsection{Lagrangian vs. Eulerian}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.5]{images/continuum_mechanics/eulerianVsLagrangian.png}
+\caption{\label{fig:eulerianVsLagrangian} Eulerian vs. Lagrangian viewpoint}
+\end{figure}
+
+Lagrangian: You follow the river. The river is discretized into particles which carries and update fluid properties such as position and velocity. 
+
+Eulerian : You stand in the middle of a river. The river is discretized into a fixed grid from where you can measure the velocity of the flow passing through the point of the grid.
+
+The material derivative:
+\begin{equation}
+\frac{D\mathbf{u}}{Dt} = \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla v)
+\end{equation}
+
+In a lagrangian framework, the positions of the particles at a specific time $t$ is known, so the material derivative is just the time derivative.
+
+\begin{equation}
+\frac{D\mathbf{u}}{Dt} = \frac{\partial u}{\partial t}
+\end{equation}
+
+Moreover, if we assume that the mass of the particles is constant through the simulation, then conservation of mass is granted and we can omit its numerical solving. However, in practice it does not ensure that the divergence of the velocity will be null, new methods were proposed to enforce the null divergence condition. In this work we keep the first approximation and do not enforce the null divergence condition.
+
+\subsubsection{Spatial discretization}
+
+In order to solve for the equations of motion, we need three ingredients:
+\begin{itemize}
+\item Degrees of freedom to discretize the equations of motion.
+\item An interpolation method to approximate the continuous field discretized on the degrees of freedom.
+\item An integration method to integrate data over the whole object.
+\end{itemize}
+
+\paragraph{Degrees of freedom}
+\begin{itemize}
+\item Points
+\item Frame
+\end{itemize}
+
+\paragraph{Interpolation}
+
+Spatial discretization are divided into two categories: mesh-based and meshfree. For both of them, different kind of degrees of freedom can be chosen. For both of them, different interpolation methods can be chosen. 
+
+\begin{itemize}
+\item Mesh-based interpolation
+\begin{itemize}
+\item Bilinear interpolation
+\item Barycentric interpolation
+\end{itemize}
+\item Mesh-less interpolation
+\begin{itemize}
+\item SPH interpolation
+\item Voronoi interpolation
+\end{itemize}
+\end{itemize}
+
+\paragraph{Integration}
+
+\begin{itemize}
+\item Midpoint rule
+\end{itemize}
+
+\subsubsection{Temporal integration}
+
+\paragraph{Explicit}
+\begin{itemize}
+\item Easy to discretize, implement
+\item Stability might be an issue
+\end{itemize}
+
+\paragraph{Implicit}
+\begin{itemize}
+\item Harder to implement
+\item Unconditionally stable
+\end{itemize}
+
+\subsection{Fluid mechanics}
+
+\subsubsection{Constitutive Law}
+
+Fluid may be subject to an additional constraint whether they are incompressible or not. Incompressibility states that the mass should not vary over time. Then the mass conservation can be rewritten as:
+\begin{equation}
+\nabla \cdot \mathbf{v} = 0
+\end{equation}
+
+For an incompressible fluid, the fluid reacts to pressure and viscosity and thus the constitutive law can be written as:
+\begin{equation}
+\sigma = -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right)
+\end{equation}
+
+Then we have:
+\begin{equation}
+\nabla \cdot \sigma = \nabla \cdot \left( -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right) \right) = -\nabla p + \Delta \mathbf{v}
+\end{equation}
+
+With internal forces, we have the Navier-Stokes equation for an incompressible fluid:
+
+\begin{equation}
+\begin{array}{ll}
+\displaystyle
+\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{V} \rho \mathbf{g} -\nabla p + \eta \Delta \mathbf{v} dx \\ \\
+\displaystyle
+\nabla. \mathbf{v} = 0
+\end{array}
+\end{equation}
+
+\subsubsection{SPH model}
+Smoothed Particles Hydrodynamics is an interpolation method that can be used to discretize the Navier-Stokes equation in a Lagrangian way. The fluid is discretized into particles which represent a small volume of the whole fluid and each quantity is interpolated using SPH.
+
+\paragraph{SPH interpolation}
+The interpolation of a function $f$ at a position $\mathbf{x}$ is :
+\begin{equation}
+f(\mathbf{x}) = \int_{V} f(\mathbf{x'})W(\mathbf{x}-\mathbf{x'}, h)dx'
+\end{equation}
+where $W$ is a function called \emph{kernel}. 
+
+If the fluid is discretized into particles with a mass $m$, a density $\rho$ and a volume $V$, then we can discretize the SPH interpolation as:
+\begin{equation}
+f(\mathbf{x}) = \sum_{p} f(\mathbf{x}_{p})V_{p} W(\mathbf{x}-\mathbf{x_{p}},h) = \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} W(\mathbf{x}-\mathbf{x_{p}},h)
+\end{equation}
+
+Then derivatives can be computed and discretized the same way:
+\begin{equation}
+D^{\alpha} f(\mathbf{x}) = \int_{\mathcal{V}} f(\mathbf{x'}) D^{\alpha} W(\mathbf{x}-\mathbf{x'}, h)dx'
+\end{equation}
+
+\begin{equation}
+D^{\alpha} f(\mathbf{x})= \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} D^{\alpha} W(\mathbf{x}-\mathbf{x_{p}},h)
+\end{equation}
+
+However, for first derivatives, the approximation does not vanish if $f$ is constant. A quick way to ensure that is to use a differentiable function $\Phi$ (in practice we use the density $\rho$) to re-write the derivative using the derivative of a product :
+\begin{equation}
+\nabla f(x) = \frac{1}{\Phi}\left(\nabla (f \Phi) - f \nabla \Phi \right)
+\end{equation}
+
+\paragraph{How to choose the kernel}
+The properties of $W$ can vary with respect to the properties of the function to be interpolated. In general, $W$ meet the following properties:
+\begin{itemize}
+\item $W$ is normalized. Thus, constants are interpolated exactly.
+\item $W$ has a compact support.
+\begin{equation}
+\parallel \mathbf{x} \parallel \geq h \rightarrow W(\mathbf{x},h) = 0 
+\end{equation}
+\begin{equation}
+\int_{\mathcal{V}} W(\mathbf{x},h) dx = 1
+\end{equation}
+\item $W$ tend to the delta function when the length scale $h$ tends to $0$.
+\begin{equation}
+\lim_{h \rightarrow 0} W(x,h) = \delta(x)
+\end{equation}
+\item $W$ should be symmetric to enforce invariance under rotation
+\begin{equation}
+W(-x,h) = W(x,h)
+\end{equation}
+\item Depending on the function to interpolate the kernel should be positive to prevent unphysical interpolated value.
+\begin{equation}
+W \geq 0
+\end{equation}
+\end{itemize}
+
+The cubic kernel from Monaghan is a good choice in practice.
+
+\paragraph{Applications to Navier-Stokes}
+
+\begin{equation}
+\rho_{i} = \sum_{j} m_{j}W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+\end{equation}
+
+\begin{equation}
+\left(\nabla p\right)_{i} = \sum_{j} \frac{m_{j}}{\rho_{j}} p_{j} \nabla W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+\end{equation}
+
+However linear and angular momentum are not conserved as the formula is not symmetric. By using the previous technique with $\Phi = \frac{1}{\rho}$, it can be symmetrized:
+
+\begin{equation}
+\left(\nabla p\right)_{i} = 
+\frac{1}{\rho_{i}}
+\sum_{j} m_{j} \left( \frac{p_{i}}{\rho_{i}^{2}} + \frac{p_{j}}{\rho_{j}^{2}} \right) \nabla W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+\end{equation}
+
+\begin{equation}
+\left(\Delta \mathbf{v}\right)_{i} = \sum_{j} \frac{m_{j}}{\rho_{j}} \mathbf{v}_{j} \Delta W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+\end{equation}
+
+Same as for the pressure gradient, this is not symmetric. Here it can be symmetrized by using $\Phi = \rho$.
+
+\begin{equation}
+\left(\Delta \mathbf{v}\right)_{i} = \frac{1}{\rho_{i}}\sum_{j} m_{j} \left( \mathbf{v}_{j}-\mathbf{v}_{i}\right) \Delta W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+\end{equation}
+
+In practice, the evaluation of the laplacian is not accurate. Another form of viscosity based on the gradient was proposed. This is still an area of research.
+
+\begin{equation}
+\left(\Delta v\right)_{i} = 
+\frac{1}{\rho_{i}}
+\sum_{j} m_{j} \Pi_{ij} \nabla W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+\end{equation}
+
+where 
+
+\begin{equation}
+\Pi_{ij} = -\frac{2hc_{s}}{\rho_{i}+\rho_{j}}\frac{v_{ij}^{T}x_{ij}}{\vert x_{ij} \vert^{2} + \epsilon h^{2}}
+\end{equation}
+
+Now if we discretize Navier-Stokes for one particle $i$, we have:
+
+\begin{equation}
+m_{i}\frac{d}{dt}\mathbf{v}_{i}(t) = m_{i}\mathbf{g} - m_{i}(\nabla p)_{i} + m_{i}(\delta \mathbf{v})_{i}
+\end{equation}
+
+This equation can now be discretized in time and integrated. In practice we use the euler symplectic integrator:
+
+\begin{equation}
+\begin{array}{ll}
+\displaystyle \mathbf{v}_{i}(t+\Delta t) = \mathbf{v}_{i}(t) + \Delta t \frac{d}{dt}\mathbf{v}_{i}(t) \\ \\
+\displaystyle \mathbf{x}_{i}(t+\Delta t) = \mathbf{x}_{i}(t) + \Delta t \mathbf{v}_{i}(t+\Delta t)
+\end{array}
+\end{equation}
+
+Several interesting implementation problems arise when dealing with particle system and more particularly particle-based fluid simulations:
+
+\begin{itemize}
+\item Boundary handling 
+\item Surface reconstruction
+\item Optimization (acceleration structure for spatial query)
+\end{itemize}
+
+Faire un tableau avec les références et ce que l'on peut y trouver d'intéressant.
+
+%\paragraph{Eulerian grid}
+%\paragraph{Lagrangian particles}
+%\paragraph{Hybrid method}
+%\paragraph{Smoothed Hydrodynamics Particles model}
+
+\subsection{Solid mechanics}
+
+\subsubsection{Constitutive Law}
+A common way to describe the stress tensor for elastic materials is to use a constitutive density energy:
+\begin{equation}
+\sigma = \frac{\partial \Psi}{\partial \epsilon}
+\end{equation}
+
+There are many forms of enery. For a classical Hookean material, the density energy is
+\begin{equation}
+\Psi = \frac{1}{2}H\epsilon^{2}
+\end{equation}
+
+Then the stress tensor is
+\begin{equation}
+\sigma = H\epsilon
+\end{equation}
+
+H is called the stiffness tensor and is a $3\times3\times3\times3$ tensor. For isotropic materials, the number of material parameters can be reduced to two, the Young's modulus $E$ and the Poisson's ratio $\nu$. Also, the strain and stress tensor being symmetric, the constitutive law can be simplified:
+\begin{equation}
+\sigma = 
+\begin{bmatrix}
+\sigma_{11} \\
+\sigma_{22} \\
+\sigma_{33} \\
+\sigma_{23} \\
+\sigma_{13} \\
+\sigma_{12}
+\end{bmatrix}
+=
+\tilde{H}
+\begin{bmatrix}
+\epsilon_{11} \\
+\epsilon_{22} \\
+\epsilon_{33} \\
+2\epsilon_{23} \\
+2\epsilon_{13} \\
+2\epsilon_{12}
+\end{bmatrix}
+\end{equation}
+
+where
+
+\begin{equation}
+\tilde{H} =
+\frac{E}{\left(1+\nu\right)\left(1-2\nu\right)}
+\begin{bmatrix}
+1-\nu & \nu & \nu & 0 & 0 & 0 \\ 
+\nu & 1-\nu & \nu & 0 & 0 & 0 \\
+\nu & \nu & 1-\nu & 0 & 0 & 0 \\
+0 & 0 & 0 & \frac{1-2\nu}{2} & 0 & 0 \\
+0 & 0 & 0 & 0 & \frac{1-2\nu}{2} & 0 \\
+0 & 0 & 0 & 0 & 0 & \frac{1-2\nu}{2} \\
+\end{bmatrix}
+\end{equation}
+
+The strain is used to measure the relative deformation with respect to the rest position of the object: elongation, compression. Therefore it is  linked to the variation of position of the object. In 3D, this position is described by 3 coordinates which can be derived with respect to each direction, then the strain should be represented by a $3\times3$ matrix.
+
+An object is deformed if it has been compressed, stretched or sheared. The strain should measure this deformation and be $0$ when the object is at its rest position. This constraint can be expressed as:
+\begin{equation}
+\epsilon = \mathbf{F}^{T}\mathbf{F}-I
+\end{equation}
+
+where $F$ is called the deformation gradient:
+\begin{equation}
+\mathbf{F} = \frac{\partial \Phi}{\partial \mathbf{x_{0}}}
+\end{equation}
+
+and $\Phi$ is the displacement field, the mapping between the rest shape $\Omega_{0}$ and the deformed shape of the object $\Omega$. 
+
+\begin{equation}
+\begin{array}{llll}
+\Phi & \Omega_{0} & \longrightarrow & \Omega \\
+	 & \mathbf{x_{0}} & \longrightarrow & \mathbf{x}
+\end{array}
+\end{equation}
+
+For elastic object, as the position is always relative to the rest position, it can be written using a displacement vector:
+\begin{equation}
+\Phi(\mathbf{x_{0}}) = \mathbf{x}_{0} + \mathbf{u}
+\end{equation}
+
+Then the strain relation becomes
+\begin{equation}
+\epsilon = \nabla \mathbf{u} + \left( \nabla \mathbf{u} \right)^{T} + \left(\nabla \mathbf{u}\right)^{T}\nabla \mathbf{u}
+\end{equation}
+
+It is called the Green-Lagrange strain and its linearized version the Cauchy strain.
+
+\begin{equation}
+\epsilon = \nabla \mathbf{u} + \left( \nabla \mathbf{u} \right)^{T}
+\end{equation}
+
+The strain measurement is the big difference with respect to fluid dynamics because it is the link between the deformed object and its rest shape whereas there are no such thing when computing the stress for a fluid.
+
+\subsubsection{Frame-based model}
+
+\paragraph{Degrees of freedom}
+The object is uniformly sampled with affine frames as degrees of freedom. Affine frames $T=(A,t)$ represent $12$ degree of freedoms, $3$ for translation $\mathbf{t}$, $9$ for the matrix $\mathbf{A}$ combining rotation, scaling and shearing. Affine frames are represented with respect to an initial configuration $T_{0} = \left(A_{0}, t_{0}\right)$.
+
+\paragraph{Interpolation}
+Linear blend skinning is used to interpolate the displacement field. A deformed position $\mathbf{x}$ can be interpolated as a weighted sum of the affine transformations applied to the rest position $\mathbf{x_{0}}$.
+
+\begin{equation}
+\mathbf{x} = \sum_{i} w_{i}(\mathbf{x_{0}})\left(t_{i}+A_{i}\mathbf{x_{0}^{rel}}\right)
+\end{equation}
+
+where $\mathbf{x_{0}^{rel}}$ is the relative position of $x_{0}$ in the frame defined by $T_{0}$, in other words:
+
+\begin{equation}
+\mathbf{x_{0}}^{rel} = A_{0}^{-1}\left( \mathbf{x_{0}} - \mathbf{t_{0}} \right)
+\end{equation}
+
+Deformation gradient can then be easily derived:
+\begin{equation}
+F = \frac{\partial \mathbf{x}}{\partial \mathbf{x_{0}}} =
+\nabla w_{i}(\mathbf{x_{0}}) \left( t_{i}+A_{i}x_{0}^{rel}\right) + 
+w_{i}\left( A_{i}A_{0}^{-1} \right)
+\end{equation}
+
+\paragraph{Voronoi shape function}
+
+Different weights can be used. Three properties are important in order to represent a physical behavior:
+
+\begin{itemize}
+\item Weights should linearly decrease with respect to distance in the material.
+\item Weights should be positive.
+\item Weights should form a partition of unity.
+\end{itemize}
+
+\begin{itemize}
+\item Description du calcul des poids
+\end{itemize}
+
+\paragraph{Spatial integration}
+
+Any quadrature rule can be used. Here, for the sake of simplicity, we suppose that the integration points are collocated with the frames and that we use the midpoint rule. Thus, the integral of a function $f$ over the object states:
+\begin{equation}
+\int_{V} f(x)  = \sum_{i} V_{i} f(x_{i})
+\end{equation}
+
+Let's describe how internal forces are computed. A nice way to compute the forces is to decompose its energy formulation.
+\begin{equation}
+\mathbf{f} = - \int_{V} \left( \frac{\partial \Psi}{\partial \mathbf{x}} \right)^{T} =
+- \int_{V} 
+\left( \frac{\partial \mathbf{F}}{\partial \mathbf{x}} \right)^{T}
+\left( \frac{\partial \epsilon}{\partial \mathbf{F}} \right)^{T}
+\left( \frac{\partial \Psi}{\partial \mathbf{\epsilon}} \right)^{T}
+\end{equation}
+Thus we decomposed the computation with respect to the different mappings involved in a physical system:
+\begin{itemize}
+\item The deformation gradient mapping $F$.
+\item The strain mapping $\epsilon$.
+\item The energy mapping $\psi$.
+\end{itemize}
+
+Thus, the internal force on one frame $f_{i}$ are:
+\begin{equation}
+f_{i} = - \sum_{i} V_{i} \left( \frac{\partial \mathbf{F}}{\partial \mathbf{x}} \right)^{T}
+\left( \frac{\partial \epsilon}{\partial \mathbf{F}} \right)^{T}
+\left( \frac{\partial \Psi}{\partial \mathbf{\epsilon}} \right)^{T}
+\end{equation}
+
+\begin{itemize}
+\item Partir de l'hypothèse d'un point d'intégration par région de voronoi.
+\item Décrire le calcul des forces de manière généralisée.
+\end{itemize}
+
+Each term can be computed in a separate dedicated module with its own rules, type and resolution.
+
+\paragraph{Temporal integration}
+
+This needs to be developed.
+Also, the mass matrix computation should be described.
+\begin{equation}
+\begin{array}{l}
+t(t+\Delta t) = t(t) + \frac{1}{m_{i}}f(t) \\ \\
+A(t+\Delta t) = A(t) + I(t)\tau(t)
+\end{array}
+\end{equation}
+
+where $I(t)$ is the inertia tensor:
+
+\begin{equation}
+I(t) = M^{-1}(t) = R(t)M(t)R(t)^{T} 
+\end{equation}
+
+\paragraph{Multi-layer physical framework}
+
+\begin{itemize}
+\item Common components in simulation framework
+\item Lack of usability
+\item Lack of modularity
+\item Lack of granularity
+\item A solution: layering
+\end{itemize}
+
+Four different layers are used in the frame-based framework.
+\begin{itemize}
+\item Degrees of freedom layer
+\item Integration layer
+\item Visualization layer
+\item Collision layer
+\end{itemize}
+
+Each of them communicates using mapping.
+It allows an easier repartition of resources and computational task.
+
+Sujets non évoqués:
+\begin{itemize}
+\item Collision detection and response
+\item Strain rate (viscosity)
+\end{itemize}
+
+%\section[A quick \& dirty introduction to fluid dynamics]{A quick \& dirty introduction to computational fluid dynamics}
+%
+%\subsection{Navier-Stokes equation}
+%
+%\paragraph{Mass conservation}
+%The conservation of mass is quite explicit. The mass of the fluid cannot change. Mathematically, it is expressed by stating that the variation of the mass in a given volume is equal to the flux of mass going through the border of the volume.
+%\begin{equation}
+%    \label{eq:massConservation}
+%    \frac{d}{dt}\left( \int_{\mathcal{V}} \rho dx \right)
+%    =
+%    - \int_{\mathcal{\partial V}}\rho \mathbf{v} \mathbf{n} ds
+%\end{equation}
+%
+%From Stokes' formula, we have
+%
+%\begin{equation}
+%\int_{\partial \mathcal{V}} \rho \mathbf{v} \mathbf{n} ds =
+%\int_{\mathcal{V}} \nabla \cdot \left( \rho \mathbf{v} \right)
+%\end{equation}
+%
+%then the conservation of mass can be rewritten as
+%
+%\begin{equation}
+%\int_{\mathcal{V}} \frac{d}{dt} \rho + \nabla \cdot \left( \rho  \mathbf{v} \right) dx = 0
+%\end{equation}
+%
+%\paragraph{Constitutive Law}
+%The constitutive law describes how the fluid react to a deformation. For an incompressible fluid, the fluid reacts to pressure and viscosity and can be written:
+%\begin{equation}
+%\sigma = -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right)
+%\end{equation}
+%
+%\paragraph{Incompressibility}
+%This states that the mass should not vary over time. Then the mass conservation can be rewritten as:
+%\begin{equation}
+%\nabla \cdot u = 0
+%\end{equation}
+%
+%\paragraph{Momentum conservation}
+%
+%Also called Newton's second law, it states:
+%\begin{equation}
+%\label{eq:momentumConservation}
+%\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{V} \mathbf{f} dx
+%\end{equation}
+%
+%Two kind of forces are generally applied on a fluid, the \emph{external} forces and the \emph{internal} forces.
+%
+%External forces describe the action of the surrounding environment on the fluid, the simplest example is the gravity:
+%\begin{equation}
+%\int_{\mathcal{V}} \rho \mathbf{g} dx
+%\end{equation}
+%
+%Internal forces describe the reaction of the fluid to an external deformation. A general way to describe them is by using a tensor notation:
+%\begin{equation}
+%\int_{\mathcal{V}} \sigma \mathbf{n} ds
+%\end{equation}
+%By applying the Stokes' formula we can describe it with respect to the volume:
+%\begin{equation}
+%\int_{\mathcal{V}} \sigma \mathbf{n} ds =
+%\int_{\mathcal{V}} \nabla \cdot \sigma dx
+%\end{equation}
+%
+%Conservation of momentum can then be rewritten:
+%\begin{equation}
+%\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{V} \rho \mathbf{g} + \nabla. \sigma dx
+%\end{equation}
+%
+%Then we have:
+%\begin{equation}
+%\nabla \cdot \sigma = \nabla \cdot \left( -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right) \right) = -\nabla p + \Delta \mathbf{v}
+%\end{equation}
+%
+%With internal forces, we have the Navier-Stokes equation for an incompressible fluid:
+%
+%\begin{equation}
+%\begin{array}{ll}
+%\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{V} \rho \mathbf{g} -\nabla p + \eta \Delta \mathbf{v} dx \\
+%\nabla. \mathbf{u} = 0
+%\end{array}
+%\end{equation}
+%
+%\paragraph{Lagrangian vs Eulerian}
+%
+%Lagrangian: You follow the river. The river is discretized into particles which carries and update fluid properties such as position and velocity. 
+%
+%Eulerian : You stand in the middle of a river. The river is discretized into a fixed grid from where you can measure the velocity of the flow passing through the point of the grid.
+%
+%The material derivative:
+%\begin{equation}
+%\frac{D\mathbf{u}}{Dt} = \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla v)
+%\end{equation}
+%
+%In a lagrangian framework, the positions of the particles at a specific time $t$ is known, so the material derivative is just the time derivative.
+%
+%\begin{equation}
+%\frac{D\mathbf{u}}{Dt} = \frac{\partial u}{\partial t}
+%\end{equation}
+%
+%Moreover, if we assume that the mass of the particles is constant through the simulation, then conservation of mass is granted and we can omit its numerical solving. However, in practice it does not ensure that the divergence of the velocity will be null, new methods were proposed to enforce the null divergence condition. In this work we keep the first approximation and do not enforce the null divergence condition.
+%
+%\subsection{Discretization}
+%
+%Once equations of motion have been set, they can be discretized in space and time and integrated.
+%
+%\subsection{Discretization: The Smoothed Hydrodynamics Particles model}
+%Smoothed Particles Hydrodynamics is an interpolation method that can be used to discretize the Navier-Stokes equation in a Lagrangian way. The fluid is discretized into particles which represent a small volume of the whole fluid and each quantity is interpolated using SPH.
+%
+%\paragraph{SPH interpolation}
+%The interpolation of a function $f$ at a position $\mathbf{x}$ is :
+%\begin{equation}
+%f(\mathbf{x}) = \int_{V} f(\mathbf{x'})W(\mathbf{x}-\mathbf{x'}, h)dx'
+%\end{equation}
+%where $W$ is a function called \emph{kernel}. 
+%
+%If the fluid is discretized into particles with a mass $m$, a density $\rho$ and a volume $V$, then we can discretize the SPH interpolation as:
+%\begin{equation}
+%f(\mathbf{x}) = \sum_{p} f(\mathbf{x}_{p})V_{p} W(\mathbf{x}-\mathbf{x_{p}},h) = \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} W(\mathbf{x}-\mathbf{x_{p}},h)
+%\end{equation}
+%
+%Then derivatives can be computed and discretized the same way:
+%\begin{equation}
+%D^{\alpha} f(\mathbf{x}) = \int_{\mathcal{V}} f(\mathbf{x'}) D^{\alpha} W(\mathbf{x}-\mathbf{x'}, h)dx'
+%\end{equation}
+%
+%\begin{equation}
+%D^{\alpha} f(\mathbf{x})= \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} D^{\alpha} W(\mathbf{x}-\mathbf{x_{p}},h)
+%\end{equation}
+%
+%However, for first derivatives, the approximation does not vanish if $f$ is constant. A quick way to ensure that is to use a differentiable function $\Phi$ (in practice we use the density $\rho$) to re-write the derivative using the derivative of a product :
+%\begin{equation}
+%\nabla f(x) = \frac{1}{\Phi}\left(\nabla (f \Phi) - f \nabla \Phi \right)
+%\end{equation}
+%
+%\paragraph{How to choose the kernel}
+%The properties of $W$ can vary with respect to the properties of the function to be interpolated. In general, $W$ meet the following properties:
+%\begin{itemize}
+%\item $W$ is normalized. Thus, constants are interpolated exactly.
+%\item $W$ has a compact support.
+%\begin{equation}
+%\parallel \mathbf{x} \parallel \geq h \rightarrow W(\mathbf{x},h) = 0 
+%\end{equation}
+%\begin{equation}
+%\int_{\mathcal{V}} W(\mathbf{x},h) dx = 1
+%\end{equation}
+%\item $W$ tend to the delta function when the length scale $h$ tends to $0$.
+%\begin{equation}
+%\lim_{h \rightarrow 0} W(x,h) = \delta(x)
+%\end{equation}
+%\item $W$ should be symmetric to enforce invariance under rotation
+%\begin{equation}
+%W(-x,h) = W(x,h)
+%\end{equation}
+%\item Depending on the function to interpolate the kernel should be positive to prevent unphysical interpolated value.
+%\begin{equation}
+%W \geq 0
+%\end{equation}
+%\end{itemize}
+%
+%The cubic kernel from Monaghan is a good choice in practice.
+%
+%\paragraph{Applications to Navier-Stokes}
+%
+%\begin{equation}
+%\rho_{i} = \sum_{j} m_{j}W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+%\end{equation}
+%
+%\begin{equation}
+%\left(\nabla p\right)_{i} = \sum_{j} \frac{m_{j}}{\rho_{j}} p_{j} \nabla W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+%\end{equation}
+%
+%However linear and angular momentum are not conserved as the formula is not symmetric. By using the previous technique with $\Phi = \frac{1}{\rho}$, it can be symmetrized:
+%
+%\begin{equation}
+%\left(\nabla p\right)_{i} = 
+%\frac{1}{\rho_{i}}
+%\sum_{j} m_{j} \left( \frac{p_{i}}{\rho_{i}^{2}} + \frac{p_{j}}{\rho_{j}^{2}} \right) \nabla W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+%\end{equation}
+%
+%\begin{equation}
+%\left(\Delta \mathbf{v}\right)_{i} = \sum_{j} \frac{m_{j}}{\rho_{j}} \mathbf{v}_{j} \Delta W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+%\end{equation}
+%
+%Same as for the pressure gradient, this is not symmetric. Here it can be symmetrized by using $\Phi = \rho$.
+%
+%\begin{equation}
+%\left(\Delta \mathbf{v}\right)_{i} = \frac{1}{\rho_{i}}\sum_{j} m_{j} \left( \mathbf{v}_{j}-\mathbf{v}_{i}\right) \Delta W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+%\end{equation}
+%
+%In practice, the evaluation of the laplacian is not accurate. Another form of viscosity based on the gradient was proposed. This is still an area of research.
+%
+%\begin{equation}
+%\left(\Delta v\right)_{i} = 
+%\frac{1}{\rho_{i}}
+%\sum_{j} m_{j} \Pi_{ij} \nabla W(\mathbf{x_{j}}-\mathbf{x_{j}},h)
+%\end{equation}
+%
+%where 
+%
+%\begin{equation}
+%\Pi_{ij} = -\frac{2hc_{s}}{\rho_{i}+\rho_{j}}\frac{v_{ij}^{T}x_{ij}}{\vert x_{ij} \vert^{2} + \epsilon h^{2}}
+%\end{equation}
+%
+%Now if we discretize Navier-Stokes for one particle $i$, we have:
+%
+%\begin{equation}
+%m_{i}\frac{d}{dt}v_{i}(t) = m_{i}\mathbf{g} - m_{i}(\nabla p)_{i} + m_{i}(\delta \mathbf{v})_{i}
+%\end{equation}
+%
+%This equation can now be discretized in time and integrated. In practice we use the euler symplectic integrator:
+%
+%\begin{equation}
+%\begin{array}{ll}
+%v_{i}(t+\Delta t) = v_{i}(t) + \Delta t \frac{d}{dt}v_{i}(t) \\
+%x_{i}(t+\Delta t) = x_{i}(t) + \Delta t v_{i}(t+\Delta t)
+%\end{array}
+%\end{equation}
+%
+%Several interesting implementation problems arise when dealing with particle system and more particularly particle-based fluid simulations:
+%
+%\begin{itemize}
+%\item Boundary handling 
+%\item Surface reconstruction
+%\item Optimization (acceleration structure for spatial query)
+%\end{itemize}
+%
+%Faire un tableau avec les références et ce que l'on peut y trouver d'intéressant.
+%
+%%\paragraph{Eulerian grid}
+%%\paragraph{Lagrangian particles}
+%%\paragraph{Hybrid method}
+%%\paragraph{Smoothed Hydrodynamics Particles model}
+
+%\section[A quick \& dirty introduction to continuum mechanics]{A quick \& dirty introduction to continuum mechanics}
+
+%The behavior of an elastic deformable model is described by conservation laws and a constitutive law.
+%
+%The first conservation law is the conservation of mass.
+%
+%The second conservation law is the conservation of momentum.
+%
+%The constitutive law depict the behavior of the object with respect to a deformation.
+%
+%\begin{equation}
+%\begin{array}{ll}
+%\int_{\mathcal{V}} \frac{d\mathbf{v}}{dt} = \int_{\mathcal{V}} \rho \mathbf{g} + \nabla \cdot \sigma dx 
+%\\
+%\int_{\mathcal{V}} \nabla \cdot u = 0
+%\end{array}
+%\end{equation} 
+%
+%A common way to describe the stress tensor for elastic materials is to use a constitutive density energy:
+%\begin{equation}
+%\sigma = \frac{\partial \Psi}{\partial \epsilon}
+%\end{equation}
+%
+%There are many forms of enery. For a classical Hookean material, the density energy is
+%\begin{equation}
+%\Psi = \frac{1}{2}H\epsilon^{2}
+%\end{equation}
+%
+%Then the stress tensor is
+%\begin{equation}
+%\sigma = H\epsilon
+%\end{equation}
+%
+%H is called the stiffness tensor and is a $3\times3\times3\times3$ tensor. For isotropic materials, the number of material parameters can be reduced to two, the Young's modulus $E$ and the Poisson's ratio $\nu$. Also, the strain and stress tensor being symmetric, the constitutive law can be simplified:
+%\begin{equation}
+%\sigma = 
+%\begin{bmatrix}
+%\sigma_{11} \\
+%\sigma_{22} \\
+%\sigma_{33} \\
+%\sigma_{23} \\
+%\sigma_{13} \\
+%\sigma_{12}
+%\end{bmatrix}
+%=
+%\tilde{H}
+%\begin{bmatrix}
+%\epsilon_{11} \\
+%\epsilon_{22} \\
+%\epsilon_{33} \\
+%2\epsilon_{23} \\
+%2\epsilon_{13} \\
+%2\epsilon_{12}
+%\end{bmatrix}
+%\end{equation}
+%
+%where
+%
+%\begin{equation}
+%\tilde{H} =
+%\frac{E}{\left(1+\nu\right)\left(1-2\nu\right)}
+%\begin{bmatrix}
+%1-\nu & \nu & \nu & 0 & 0 & 0 \\ 
+%\nu & 1-\nu & \nu & 0 & 0 & 0 \\
+%\nu & \nu & 1-\nu & 0 & 0 & 0 \\
+%0 & 0 & 0 & \frac{1-2\nu}{2} & 0 & 0 \\
+%0 & 0 & 0 & 0 & \frac{1-2\nu}{2} & 0 \\
+%0 & 0 & 0 & 0 & 0 & \frac{1-2\nu}{2} \\
+%\end{bmatrix}
+%\end{equation}
+%
+%The strain is used to measure the relative deformation with respect to the rest position of the object: elongation, compression. Therefore it is  linked to the variation of position of the object. In 3D, this position is described by 3 coordinates which can be derived with respect to each direction, then the strain should be represented by a $3\times3$ matrix.
+%
+%An object is deformed if it has been compressed, stretched or sheared. The strain should measure this deformation and be $0$ when the object is at its rest position. This constraint can be expressed as:
+%\begin{equation}
+%\epsilon = \left( \nabla \mathbf{x} \right)^{T} \nabla \mathbf{x} - I
+%\end{equation}
+%
+%$\nabla \mathbf{x}$ is also called deformation gradient.
+%
+%For elastic object, the position is always relative to the rest position. Therefore, a displacement vector is often used to depict the current position.
+%\begin{equation}
+%\mathbf{x} = \mathbf{x}_{0} + \mathbf{u}
+%\end{equation}
+%
+%Then the strain relation becomes
+%\begin{equation}
+%\epsilon = \nabla \mathbf{u} + \left( \nabla \mathbf{u} \right)^{T} + \left(\nabla \mathbf{u}\right)^{T}\nabla \mathbf{u}
+%\end{equation}
+%
+%It is called the Green-Lagrange strain and its linearized version the Cauchy strain.
+%
+%\begin{equation}
+%\epsilon = \nabla \mathbf{u} + \left( \nabla \mathbf{u} \right)^{T}
+%\end{equation}
+%
+%The strain measurement is the big difference with respect to fluid dynamics because it is the link between the deformed object and its rest shape whereas there are no such thing when computing the stress for a fluid.
+%
+%Now we are ready to discretize the equations of motion in space and time.
+%
+%\paragraph{Discretization}
+%
+%Now that we have a clear description of the equation of motions, we can discretize them in space and time. Here a large number of methods can be used. 
+%
+%Spatial discretization are divided into two categories: mesh-based and meshfree. For both of them, different kind of degrees of freedom can be chosen. For both of them, different interpolation methods can be chosen. 
+%
+%Here we focus on a method called the frame-based model. The degrees of freedom are affine frames and the interpolation method is based on a method called linear blend skinning.
+%
+%Affine frames represent $9$ degree of freedoms, $3$ for translation, $3$ for rotation and $3$ for scaling. They uniformly sample the object and are used to compute the dynamics.
+%
+%For elastic objects, we need to build a mapping between the rest shape $\Omega_{0}$ and the deformed shape of the object $\Omega$ in order to compute the deformation gradient, this is called the displacement field $\Phi$.
+%
+%\begin{equation}
+%\begin{array}{llll}
+%f & \Omega_{0} & \longrightarrow & \Omega \\
+%	 & \mathbf{x_{0}} & \longrightarrow & \mathbf{x}
+%\end{array}
+%\end{equation}
+%
+%In order to approximate this mapping, we use a set of functions called the shape functions $\left\lbrace \Phi \right\rbrace_{i}$. This set of functions should be consistent, i.e form a partition of unity :
+%\begin{equation}
+%f(\mathbf{x}) = \sum_{i} \Phi_{i}(\mathbf{x}) f(\mathbf{x}_{i})
+%\end{equation}
+%
+%For derivatives, computation becomes straightforward:
+%\begin{equation}
+%D^{\alpha}f(\mathbf{x}) = \sum_{i} D^{\alpha}\Phi_{i}(\mathbf{x}) f(\mathbf{x}_{i})
+%\end{equation}
+%
+%\begin{itemize}
+%\item Collision detection and response
+%\item Strain rate (viscosity)
+%\end{itemize}

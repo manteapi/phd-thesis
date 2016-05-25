@@ -1,0 +1,72 @@
+\section{Control of physics-based animation}
+
+\subsection{Classical animation vs. Physics-based animation}
+
+\begin{itemize}
+\item Designing an only physics-based animation is hard.
+\item Boundary conditions need to be placed by hand.
+\item Physical parameters need to be tweaked.
+\item Reaching a specific pose at a specific time is a nightmare.
+\item Each change of the initial configuration need a new run of the simulation to see the result.
+\item It is tempting to create tools that allow a higher level of control on the design of a physics-based animation.
+\end{itemize}
+
+\begin{itemize}
+\item Physics allow to resolve details that would be extremely hard to describe manually.
+\item It is tempting to enhance an existing animation by adding physics.
+\item It required to find a tradeoff between the artist-designed animation and a physical solution.
+\end{itemize}
+
+\begin{itemize}
+\item Physics-based secondary motion
+\item Example-based simulation
+\item Guiding shapes for the global motion
+\item Interactive trial/error editing of boundary conditions
+\item Global deformation of existing animation
+\end{itemize}
+
+\subsection{General approaches}
+
+\subsubsection{Mixing input animations with physics}
+
+\paragraph{Control of rigid objects}
+\cite{Popovic2000}, \cite{Popovic2003}
+
+\paragraph{Control of deformable objects}
+\cite{Kondo2005}, \cite{Bergou2007}, \cite{Martin2011}, \cite{Barbic2012}, \cite{Coros2012}, \cite{Hahn2012}, \cite{Hildebrandt2012}, \cite{Hahn2013}, \cite{Liu2013}, \cite{Li2014}
+
+\subsubsection{Designing physics-based animation}
+
+\subsubsection{Editing physics-based animation}
+\cite{Pighin2004}
+
+\subsection{Control of fluid simulation}
+
+\subsubsection{Problems}
+
+\subsubsection{Interactive design}
+
+\subsubsection{Guiding shapes}
+
+\subsubsection{Interactive editing}
+
+The standard pipeline for controlling a simulation is mainly based on trial and error. Fluid parameters and boundary conditions are first set up by the user. The parameters are then tweaked and the simulation is re-run until reaching the expected behavior. As noticed previously, the control is indirect, for instance the user cannot control the trajectory nor the shape of the fluid. Moreover, the non-linear nature of the fluid behavior prevents the user from interactively controlling a low-resolution simulation and then achieving similar behaviors with the same parameters at a higher resolution.
+
+To overcome these limitations, several methods propose to guide the fluid behavior by using geometric proxies which are easier to control than the high resolution fluid simulation variables themselves.
+For example, artists can use a triangle mesh to specify a target shape for the fluid by adding artificial attraction forces based on the distance to the mesh surface. Similar approaches have been successfully developed to drive smoke~\cite{Fattal2004,Hong2004,Shi2005a} and liquid simulations~\cite{Shi2005b,Raveendran2012}. These meshes can also define specific keyframes from a global animation~\cite{Treuille2003,McNamara2004}.
+Fluid trajectories can also be controlled with user-defined velocity fields~\cite{Kim2006}, distance fields~\cite{Yang2013}, or specific control particles~\cite{Thurey2006,Madill2013}. 
+
+Taking this strategy further, the attracting surface itself can defined by a low-resolution fluid simulation. To achieve this, the artist quickly sets up a coarse simulation and uses the output geometry to guide the main features of a full resolution simulation.
+Several approaches modify a high-resolution smoke simulation using optimization~\cite{Nielsen2009,Nielsen2010}, patterns extracted as skeleton~\cite{Yuan2011}, or sparse sampling~\cite{Huang2013}.
+For liquid simulations, Nielsen and Bridson~\cite{Nielsen2011} propose to restrict the high resolution simulation to a thin layer around a guiding coarse animation.
+
+Although each of these approaches are able to successfully guide a fluid simulation, they do not enable direct control of the resulting fluid. Designing precise timing or feature scaling would therefore still require iterative trial-and-error steps to converge toward a desired animation.
+Few attempts have been made to enable direct control on the simulation. Schpok et al.~\cite{Schpok2005} proposed to extract and parameterize features such as vortices, uniform advection, sinks, and sources to allow the user to modify the parameters in a smoke simulation. In the context of liquid simulation, Pan et al.~\cite{Pan2013} propose a method to deform wave shapes by sketching their profiles. This approach enables direct spatial deformation but does not allow temporal editing, and the simulation needs to be re-computed from the modified frame onwards.
+
+Editing fluid animation is usually handled through indirect control, by adjusting physically based simulation parameters and degrees of freedom~\cite{stam1999,ihmsen2014}, or by editing control parameters of procedural generation models for ocean and waves~\cite{Fournier1986,hinsinger2002,Tessendorf2004,jeschke2015water}. 
+
+Direct editing of simulation has been addressed in the contexts of rigid bodies and of deformable objects~\cite{Chenney2000,wojtan2006keyframe,Twigg2007,Barbic2009,Barbic2012,Schulz2014,Li2014}, but only few works have focused on fluid surfaces, due to the fact that the constantly changing shape and topology makes the output geometry inaccessible to standard deformation tools.
+
+In this section, we focus on the design of fluid animation: firstly by \emph{controlling the simulation}, secondly by \emph{editing the animation}. 
+
+\subsubsection{Open problems}
