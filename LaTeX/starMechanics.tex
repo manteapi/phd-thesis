@@ -2,6 +2,10 @@
 
 Continuum mechanics allows to define general equations of motion for a wide range of phenomena from liquids to deformable solids. In this chapter we describe the basics that allow to formulate general equations of motion, we explain the different steps that allows to numerically solve these equations and we detail the discretization for incompressible fluid using SPH and deformable solids using the frame-based model.
 
+\begin{itemize}
+\item We present a force-based framework.
+\end{itemize}
+
 \subsection{Notation}
 
 \begin{table}[!h]
@@ -150,17 +154,79 @@ In mesh-less methods, when the sampling of the degrees of freedom is dense, inte
 
 \paragraph{Temporal integration}
 
-\subparagraph{Explicit}
-\begin{itemize}
-\item Easy to discretize, implement
-\item Stability might be an issue
-\end{itemize}
+Once physical quantities have been spatially integrated, they can be integrated over time. 
 
-\subparagraph{Implicit}
-\begin{itemize}
-\item Harder to implement
-\item Unconditionally stable
-\end{itemize}
+\begin{equation}
+\label{eq:timeIntegration1}
+\displaystyle
+\int_{t_{n}}^{t_{n+1}}
+\rho \frac{d\mathbf{v}}{dt}
+=
+\int_{t_{n}}^{t_{n+1}}\mathbf{f}
+\end{equation}
+
+Many integrations scheme can be used. Most of them can be explained simply by the Taylor expansion.
+
+\begin{equation}
+\label{eq:taylorExpansion}
+\displaystyle
+f(x) = \sum_{k=0}^{n}\frac{\left(x-a\right)^{k}}{k!}f^{(k)}(a) + \int_{a}^{x}\frac{\left(x-t\right)^{n}}{n!}f^{(n+1)}(t)dt
+\end{equation}
+
+Applied to equation (\ref{eq:timeIntegration1}), this gives:
+
+\begin{equation}
+\label{eq:timeIntegration2}
+\displaystyle
+\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \int_{t_{n}}^{t_{n+1}}\frac{1}{\rho}\frac{d\mathbf{v}}{dt}
+\end{equation}
+
+The expression can be further expanded in order to get more accurate result. In Computer Graphics, this is the most used expansion. Generally, the integral term is computed with the rectangle quadrature rule.
+
+For a left rectangle method, we get an explicit integration of the velocity:
+\begin{equation}
+\label{eq:explicitIntegration}
+\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \left(t_{n+1}-t_{n}\right) \frac{\mathbf{f}(t_{n})}{\rho}
+\end{equation}
+
+For a right rectangle method, we get an implicit integration of the velocity:
+\begin{equation}
+\label{eq:implicitIntegration}
+\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \left(t_{n+1}-t_{n}\right) \frac{\mathbf{f}(t_{n+1})}{\rho}
+\end{equation}
+
+The same rule applies for the integration of other physical quantities. In a Lagrangian system, velocity and position both needs to be integrated. In general, three different schemes are used: forward Euler, symplectic Euler and backward Euler.
+
+Forward euler is the explicit integration of both position and velocity:
+\begin{equation}
+\label{eq:explicitEuler}
+\begin{array}{l}
+\displaystyle x(t+\Delta t) = x(t) + \Delta t \mathbf{v}(t) \\ \\
+\displaystyle v(t+\Delta t) = v(t) + \Delta t \frac{\mathbf{f(t)}}{\rho}(t)
+\end{array}
+\end{equation}
+
+Symplectic euler is the explicit integration of velocity and implicit integration of position:
+\begin{equation}
+\label{eq:symplecticEuler}
+\begin{array}{l}
+\displaystyle v(t+\Delta t) = v(t) + \Delta t \frac{\mathbf{f}(t)}{\rho} \\ \\
+\displaystyle x(t+\Delta t) = x(t) + \Delta t \mathbf{v}(t+\Delta t)
+\end{array}
+\end{equation}
+
+Backward euler is the implicit integration of both position and velocity
+\begin{equation}
+\label{eq:backwardEuler}
+\begin{array}{ll}
+\displaystyle v(t+\Delta t) = v(t) + \Delta t \frac{\mathbf{f}(t)}{\rho}(t+\Delta t) \\ \\
+\displaystyle x(t+\Delta t) = x(t) + \Delta t \mathbf{v}(t+\Delta t)
+\end{array}
+\end{equation}
+
+Forward and symplectic Euler are among the easiest integration scheme. They are easy cheap and easy to implement. However stability is guaranteed for a restricted range of time steps. Implicit euler is more expensive as it results in solving an equation. However unconditional stability is guaranteed which means that large time steps can be used resulting in a significant speed-up of the simulation. 
+
+A nice way to solve the equation of backward Euler is to expand the force expression in order to fall back to solving a linear system. There, efficient iterative methods such as the conjugate gradient can be used.
 
 \subsection{Fluid mechanics}
 
@@ -492,13 +558,20 @@ Each term can be computed in a separate dedicated module with its own rules, typ
 
 \paragraph{Temporal integration}
 
-This needs to be developed.
-Also, the mass matrix computation should be described.
+Assuming we use explicit Euler, we simply have:
 \begin{equation}
-\begin{array}{l}
-t(t+\Delta t) = t(t) + \frac{1}{m_{i}}f(t) \\ \\
-A(t+\Delta t) = A(t) + I(t)\tau(t)
-\end{array}
+\begin{pmatrix}
+t(t+\Delta t) \\
+A(t+\Delta t)
+\end{pmatrix} 
+=
+\begin{pmatrix}
+t(t) \\
+A(t)
+\end{pmatrix} 
++
+\Delta t
+\mathbf{f}(t)
 \end{equation}
 
 where $I(t)$ is the inertia tensor:

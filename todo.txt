@@ -1,0 +1,21 @@
+Administratif
+=============
+-Reprendre les infos. de Zilora pour la soutenance
+-Prendre rdv avec François au sujet du jury de thèse
+-Débuter les démarches
+
+Scientifique
+============
+-Introduction
+-Interpolation 
+-Intégration
+-Frame-based method
+-Control of physics-based animation
+-Trouver des titres faciles à comprendre !
+
+LaTeXing
+=========
+
+Figures
+=======
+-Time integration
