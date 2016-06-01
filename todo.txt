@@ -11,6 +11,7 @@ Scientifique
 -Intégration
 -Frame-based method
 -Control of physics-based animation
+-Expliquer le principe de la méthode frame-based
 -Trouver des titres faciles à comprendre !
 
 LaTeXing
@@ -19,3 +20,5 @@ LaTeXing
 Figures
 =======
 -Time integration
+-Spatial integration
+-Interpolation

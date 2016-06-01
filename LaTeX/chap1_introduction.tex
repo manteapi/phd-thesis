@@ -1,51 +1,48 @@
 \chapter{Introduction}
 \label{chap:introdution}
 
+In this introduction, I will first focus on the simulation of physical phenomena in the field of Computer Graphics. Then I will try to bridge the gap between physics-based animation and what I would call classical mechanics.
+
 \section{A short story of physics-based animation}
 
 \begin{itemize}
-\item Originally, everything is done by hand. Even animation of complex physical phenomena.
+\item Originally the images of an animation were drawn by hand. Years and years of learning and expertise were required in order to draw the $25$ images of a $1$ second sequence. Usually this tedious work was divided. The animator leader used to draw the key images of a sequence and animators would  do the in-betweening, the images between the key images. Animation of natural phenomena was certainly one of the most difficult thing to animate due to its visual complexity.
 \item Even if it is horribly hard, people love it. Animation goes on.
-\item Computers arrived. Modeling, rendering and animation are at the center of interest. Computer Graphics is born. Physics is used to create animation automatically.
+\item Computers arrived. Modeling, rendering and animation are at the center of interest. Computer Graphics is born. Physics is used to automatically create complexe animation.
+\item Animation of physical phenomena are more and more complex. The level of details of the simulated objects grows exponentially. Complex phenomena and interactions between objects of different types are simulated.
+\item Parallel to computer animation, physics simulation is developped for games, medical applications, craft prototyping (3D printers) and education.
 \end{itemize}
 
-%Animation is the art of creating motion. A sequence of images is created and when looking at them one after another, object start to move and behave as if they were alive, sometime in a realistic manner, sometime not. Anything can be animated, from a bouncing ball to a stormy ocean, depending on the skills of the animator artist.
-
-Originally the images of an animation were drawn by hand. Years and years of learning and expertise were required in order to draw the $25$ images of a $1$ second sequence. Usually this tedious work was divided. The animator leader used to draw the key images of a sequence and animators would  do the in-betweening, the images between the key images.
-
-Animation of natural phenomena was certainly one of the most difficult thing to animate due to its visual complexity.
-
-With computers, a lot of things changed for the creation of animation. Computer proved to be a great help when computing the in-betweens. They also proved to be very useful to compute physics motion as they are able to handle a large complexity.
-
 \section{Classical mechanics and physics-based animation}
-Physics-based animation has the great advantage of begin a new field with a great grandfather, classical mechanics.
 
-Physics-based animation is often inspired by classical mechanics but not restrained to it. It takes a lot of freedom to reach artistic goals.
+\begin{itemize}
+    \item Physics-based animation has the great advantage of begin a new field with a great grandfather, classical mechanics.
+    \item Physics-based animation is often inspired by classical mechanics but not restrained to it. It takes a lot of freedom to reach artistic goals.
+    \item It is a unilateral relationship ? Is physics-based animation doom to follow the advances of classical mechanics ? I do not think so. First of all, physics-based animation interacts more and more with other fields such as machine learning. Second, I think the relationship is bilateral. Classical mechanics inspired physics-based animation and physics-based animation inspired classical mechanics. This can be simply confirmed by the growing number of similar publications in both engineering field and computer graphics.
+\end{itemize}
 
-It is a unilateral relationship ? Is physics-based animation doom to follow the advances of classical mechanics ? I do not think so. First of all, physics-based animation interacts more and more with other fields such as machine learning. Second, I think the relationship is bilateral. Classical mechanics inspired physics-based animation and physics-based animation inspired classical mechanics. This can be simply confirmed by the growing number of similar publications in both engineering field and computer graphics.
-
-\section{Adressed challenges}
+\section{Three challenges in physics-based animation}
 
 \subsection{Adaptivity}
 \begin{itemize}
-\item Need for both efficient and accurate simulations.
+            \item What is the problem ? Computers are more and more powerful. However the required level of details for a physics-based animation is not fixed, it is growing. The problem remains the same: efficient and accurate simulationns are needed. 
+            \item Why is it important ?
+            \item What are the different approaches to solve this problem ? The general approach to solve this problem is to reduce the number of degrees of freedom which is directly linked to the computational cost. Today, we can see two way of doing so. The first way is to use a model reduction approach, which will perform the simulation on a carefully chosen subset of degrees of freedom, thus reducing the computational cost by several orders of magnitude. The second way is to use adaptive models. 
+            \item What are the big challenges for adaptivity today ? Strange but true. Classical adaptivity is heavily explored but feedbacks are rarely positive. They are too specific to a method. They are hard to implement and integrate in existing frameworks. They are subject to popping artefacts which is forbidden in computer animation. This push researchers to investigate new model which handles adaptivity in a more natural way and not as a feature that can be added. Adaptive methods should be the less intrusive possible.
 \end{itemize}
 
 \subsection{Detailed toplogical changes}
 \begin{itemize}
-\item Need for simulation of complexe phenomena.
+\item What is the problem ? In complex phenomena, objects undergo strong changes of state and shape. Generally this is related to topological changes. Material can flow, break, irreversibly deform. Representing these topological changes with geometrical and physical accuracy is challenging, mainly because it generally increases the computational cost of the simulation. 
+\item Why is it important ? Animation, games, simulator needs compact, detailed and efficient representation of topological changes. 
+\item What are the big challenges for topological changes ? Computational cost.
 \end{itemize}
 
 \subsection{Simulation control}
 \begin{itemize}
-\item Need for control
-\end{itemize}
-
-\begin{itemize}
-    \item Non-intrusive adaptive techniques for physics-based animation.
-    \item Plausible and efficient simulation of detailed topological changes with very few degrees of freedom.
-    \item Study of adaptive models for physics-based animation.
-    \item Modeling of animations from existing animations.
+\item What is the problem ? Controlling physics-based simulation is an extremely tedious task. Initial and boundary conditions, material parameters need to be correctly set in order to produce the desired motion. Each settings need the simulation to be re-run in order to check the result.
+\item Why is it important ? In Computer Animation, control is primordial.
+\item What are the big challenges today ? Control should be easier for the user. Complex phenomena with evolving technologies still do not have a viable designed control pipeline.
 \end{itemize}
 
 \section{Contributions}
@@ -53,6 +50,12 @@ It is a unilateral relationship ? Is physics-based animation doom to follow the 
     \item Transfer of adaptive techniques from Nanosystems simulation to Computer Graphics.
     \item Algorithm for the efficient cutting of thin deformable objects using the frame-based model.
     \item Algorithm for the modeling of fluid animation.
+\end{itemize}
+\begin{itemize}
+    \item Non-intrusive adaptive techniques for physics-based animation.
+    \item Plausible and efficient simulation of detailed topological changes with very few degrees of freedom.
+    \item Study of adaptive models for physics-based animation.
+    \item Modeling of animations from existing animations.
 \end{itemize}
 
 \section{Structure of the document}
