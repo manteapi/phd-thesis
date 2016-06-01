@@ -472,7 +472,7 @@ The strain is used to measure the relative deformation with respect to the rest 
 
 An object is deformed if it has been compressed, stretched or sheared. The strain should measure this deformation and be $0$ when the object is at its rest position. This constraint can be expressed as:
 \begin{equation}
-\epsilon = \mathbf{F}^{T}\mathbf{F}-I
+    \displaystyle \epsilon = \frac{1}{2}\left(\mathbf{F}^{T}\mathbf{F}-I\right)
 \end{equation}
 
 where $F$ is called the deformation gradient:
@@ -496,18 +496,51 @@ For elastic object, as the position is always relative to the rest position, it 
 
 Then the strain relation becomes
 \begin{equation}
-\epsilon = \nabla \mathbf{u} + \left( \nabla \mathbf{u} \right)^{T} + \left(\nabla \mathbf{u}\right)^{T}\nabla \mathbf{u}
+    \displaystyle \epsilon = \frac{1}{2}\left( \nabla \mathbf{u} + \left( \nabla \mathbf{u} \right)^{T} + \left(\nabla \mathbf{u}\right)^{T}\nabla \mathbf{u} \right)
 \end{equation}
 
 It is called the Green-Lagrange strain and its linearized version the Cauchy strain.
 
 \begin{equation}
-\epsilon = \nabla \mathbf{u} + \left( \nabla \mathbf{u} \right)^{T}
+    \displaystyle \epsilon = \frac{1}{2} \left( \nabla \mathbf{u} + \left( \nabla \mathbf{u} \right)^{T} \right)
+\end{equation}
+
+or re-written as
+
+\begin{equation}
+    \displaystyle \epsilon = \frac{1}{2}\left( \mathbf{F} + \mathbf{F}^{T} \right) - \mathbf{I}
 \end{equation}
 
 The strain measurement is the big difference with respect to fluid dynamics because it is the link between the deformed object and its rest shape whereas there are no such thing when computing the stress for a fluid.
 
 \subsubsection{Frame-based model}
+
+\paragraph{A multi-layer physical framework}
+
+\begin{itemize}
+\item Common components in simulation framework
+\item Lack of usability
+\item Lack of modularity
+\item Lack of granularity
+\item A solution: layering
+\end{itemize}
+
+Four different layers are used in the frame-based framework.
+\begin{itemize}
+\item Degrees of freedom layer
+\item Integration layer
+\item Visualization layer
+\item Collision layer
+\end{itemize}
+
+Each of them communicates using mapping.
+It allows an easier repartition of resources and computational task.
+
+Sujets non évoqués:
+\begin{itemize}
+\item Collision detection and response
+\item Strain rate (viscosity)
+\end{itemize}
 
 \paragraph{Degrees of freedom}
 The object is uniformly sampled with affine frames as degrees of freedom. Affine frames $T=(A,t)$ represent $12$ degree of freedoms, $3$ for translation $\mathbf{t}$, $9$ for the matrix $\mathbf{A}$ combining rotation, scaling and shearing. Affine frames are represented with respect to an initial configuration $T_{0} = \left(A_{0}, t_{0}\right)$.
@@ -600,32 +633,6 @@ A(t)
 \mathbf{f}(t)
 \end{equation}
 
-\paragraph{Multi-layer physical framework}
-
-\begin{itemize}
-\item Common components in simulation framework
-\item Lack of usability
-\item Lack of modularity
-\item Lack of granularity
-\item A solution: layering
-\end{itemize}
-
-Four different layers are used in the frame-based framework.
-\begin{itemize}
-\item Degrees of freedom layer
-\item Integration layer
-\item Visualization layer
-\item Collision layer
-\end{itemize}
-
-Each of them communicates using mapping.
-It allows an easier repartition of resources and computational task.
-
-Sujets non évoqués:
-\begin{itemize}
-\item Collision detection and response
-\item Strain rate (viscosity)
-\end{itemize}
 
 %\section[A quick \& dirty introduction to fluid dynamics]{A quick \& dirty introduction to computational fluid dynamics}
 %
