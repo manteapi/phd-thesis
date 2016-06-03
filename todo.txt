@@ -1,5 +1,12 @@
 Administratif
 =============
+-Récupérer les attestations de formations pour compléter les crédits
+-->Formation mathematica (mail envoyé)
+-->Ecole été simulation bio-mécanique (mail envoyé)
+-->AFIG / Ecole jeune chercheurs (mail envoyé)
+-->Sensibilisation entrepreunariat (mail envoyé)
+-->Fête de la science (mail envoyé)
+
 -Reprendre les infos. de Zilora pour la soutenance
 -Prendre rdv avec François au sujet du jury de thèse
 -Débuter les démarches
