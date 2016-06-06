@@ -414,13 +414,35 @@ Faire un tableau avec les références et ce que l'on peut y trouver d'intéress
 
 \subsection{Solid mechanics}
 
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.4]{./images/continuum_mechanics/displacementField.png}
+\caption[STAR mechanics: Displacement field]{\label{fig:displacementField}
+ The displacement field $\Phi$ maps each point $\mathbf{X}$ from the rest configuration $\Omega_{0}$ to a point $\mathbf{x}$ in the deformed configuration $\Omega$.}
+\end{figure}
+
+In this section, we focus on the simulation of elastic objects. When submitted to external forces, an elastic object reacts so that it comes back to its rest shape. In contrast with fluids, internal forces are history dependent, they depend on how much the object deformed compared to its rest shape. It becomes crucial to be able to describe the deformation of an object in order to express its reaction. Has it been compressed, strectched or sheared ?
+
+The deformation is modeled by a mapping $\Phi$ between the undeformed configuration $\Omega_{0}$ and the deformed configuration $\Omega$. $\Phi$ is called the displacement field.
+\begin{equation}
+\begin{array}{lllll}
+\Phi & : & \Omega_{0} & \longrightarrow & \Omega \\
+	 &  & \mathbf{X} & \longrightarrow & \mathbf{x}
+\end{array}
+\end{equation}
+where $\mathbf{X}$ is a point in the undeformed configuration and $\mathbf{x}=\Phi(\mathbf{X})$ is the mapped point into the deformed configuration.
+
+The deformation gradient $\mathbf{F} = \frac{\partial \Phi}{\mathbf{X}}$ measures deformation with respect to the underformed configuration. The strain tensor $\epsilon$ measures how the object has derived from its undeformed configuration. There exist different strain measures, Green-Lagrange strain can be used for instance: $\epsilon = \frac{1}{2}\left(F^{T}F - I\right)$. Or its linearized version, the Cauchy strain $\epsilon = \frac{1}{2}\left( F + F^{T} \right)-I$.
+
+The displacement field, deformation gradient and strain tensor are the main components of the constitutive law that will relate the deformation to the material properties of the object.
+
 \subsubsection{Constitutive Law}
-A common way to describe the stress tensor for elastic materials is to use a constitutive density energy:
+A common way to describe the stress tensor $\sigma$ for elastic materials is to use a constitutive density energy $\Psi$ and to derive it with respect to the strain tensor $\epsilon$:
 \begin{equation}
 \sigma = \frac{\partial \Psi}{\partial \epsilon}
 \end{equation}
 
-There are many forms of enery. For a classical Hookean material, the density energy is
+Different forms of energy exist. For a classical Hookean material, the density energy is
 \begin{equation}
 \Psi = \frac{1}{2}H\epsilon^{2}
 \end{equation}
@@ -468,50 +490,11 @@ where
 \end{bmatrix}
 \end{equation}
 
-The strain is used to measure the relative deformation with respect to the rest position of the object: elongation, compression. Therefore it is  linked to the variation of position of the object. In 3D, this position is described by 3 coordinates which can be derived with respect to each direction, then the strain should be represented by a $3\times3$ matrix.
-
-An object is deformed if it has been compressed, stretched or sheared. The strain should measure this deformation and be $0$ when the object is at its rest position. This constraint can be expressed as:
+Instead of computing internal forces as the divergence of the stress, they can be computed as the derivative of the density energy with respect to the degrees of freedom:
 \begin{equation}
-    \displaystyle \epsilon = \frac{1}{2}\left(\mathbf{F}^{T}\mathbf{F}-I\right)
+\label{eq:internalForces}
+\mathbf{f} = -\int_{V} \frac{\partial \Psi}{\partial \mathbf{x}}
 \end{equation}
-
-where $F$ is called the deformation gradient:
-\begin{equation}
-\mathbf{F} = \frac{\partial \Phi}{\partial \mathbf{x_{0}}}
-\end{equation}
-
-and $\Phi$ is the displacement field, the mapping between the rest shape $\Omega_{0}$ and the deformed shape of the object $\Omega$. 
-
-\begin{equation}
-\begin{array}{llll}
-\Phi & \Omega_{0} & \longrightarrow & \Omega \\
-	 & \mathbf{x_{0}} & \longrightarrow & \mathbf{x}
-\end{array}
-\end{equation}
-
-For elastic object, as the position is always relative to the rest position, it can be written using a displacement vector:
-\begin{equation}
-\Phi(\mathbf{x_{0}}) = \mathbf{x}_{0} + \mathbf{u}
-\end{equation}
-
-Then the strain relation becomes
-\begin{equation}
-    \displaystyle \epsilon = \frac{1}{2}\left( \nabla \mathbf{u} + \left( \nabla \mathbf{u} \right)^{T} + \left(\nabla \mathbf{u}\right)^{T}\nabla \mathbf{u} \right)
-\end{equation}
-
-It is called the Green-Lagrange strain and its linearized version the Cauchy strain.
-
-\begin{equation}
-    \displaystyle \epsilon = \frac{1}{2} \left( \nabla \mathbf{u} + \left( \nabla \mathbf{u} \right)^{T} \right)
-\end{equation}
-
-or re-written as
-
-\begin{equation}
-    \displaystyle \epsilon = \frac{1}{2}\left( \mathbf{F} + \mathbf{F}^{T} \right) - \mathbf{I}
-\end{equation}
-
-The strain measurement is the big difference with respect to fluid dynamics because it is the link between the deformed object and its rest shape whereas there are no such thing when computing the stress for a fluid.
 
 \subsubsection{Frame-based model}
 
@@ -519,89 +502,75 @@ The frame-based model was introduced by Gilles et al.~\cite{Gilles2011} to simul
 
 \paragraph{A multi-layer physical framework}
  
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.6]{./images/continuum_mechanics/multiLayeredFramework.png}
+\caption[STAR mechanics: Multi-layer framework]{\label{fig:multiLayerFramework} Each component of the simulation is isolated and communicate with other components through mapping. By doing so, the framework allows fast prototyping and comparison of a wide range of deformable model.}
+\end{figure}
+
 Most of the time, the different component of a physics-based model are described as a monolithic framework: degrees of freedom, interpolation, integration and constitutive law are put together in one formula which computes the forces applied on the degrees of freedom. On one hand, this provides a compact and implentation-friendly expression. It also suits the short format of scientific article. On the other hand, it requires assumption on each component and make it hard to distinguish what should be changed in order to integrate collisions, to embed a visual model or to test variations of the initial model.
 
 An interesting alternative is to build a multi-layer framework where each component of a physics-based model represent a layer which is able to communicate with other layers by using mappings. The framework has then a great modularity, different components can be re-used and mixed. A direct consequence is the ease at prototyping. State of the art methods can be implemented in hours instead of days. Comparison of different models is much easier. Also, it provides a way to control the granularity of a simulation. As each layer can be discretized at its own resolution, it allows for an easier repartition of resourcs and computational task.
 
-In the case of the frame-based method, the simplest setting is made of three layers and two mappings. A first layer which represents the degrees of freedom where displacement is computed, a second layer which represents the integration point where deformation gradient is computed and a third layer which represent the strain tensor, the constitutive law and computes the stress. The mapping between the degrees of freedom and the integration point is the derivative of the displacement field with respect to the initial configuration. The mapping between the integration points and the strain tensor is simply the strain formula (Green-Lagrange, Cauchy, $\dots$). In a more complete setting, there are two additional layers, one for embedding a visual model and one for handling collisions. Both communicates with the degrees of freedom through a mapping which is the displacement field.
+In the case of the frame-based method, the simplest setting is made of three layers and three mappings. A first layer which represents the degrees of freedom where displacement is computed, a second layer which represents the integration point where deformation gradient is computed and a third layer which represent the strain tensor, the constitutive law and computes the stress. The first mapping is between the degrees of freedom and the integration point. It is the derivative of the displacement field with respect to the initial configuration. The second mapping is between the integration points and the strain tensor. It is represented by the strain formula (e.g. Green-Lagrange, Cauchy, $\dots$). The third mapping is between the strain and the stress and is represented by the constitutive law (e.g. Hooke Law). In a more complete setting, there are two additional layers, one for embedding a visual model and one for handling collisions. Both communicates with the degrees of freedom through a mapping which is the displacement field.
 
 \paragraph{Degrees of freedom}
-The object is uniformly sampled with affine frames as degrees of freedom. Affine frames $T=(A,t)$ represent $12$ degree of freedoms, $3$ for translation $\mathbf{t}$, $9$ for the matrix $\mathbf{A}$ combining rotation, scaling and shearing. Affine frames are represented with respect to an initial configuration $T_{0} = \left(A_{0}, t_{0}\right)$.
+The object is uniformly sampled with affine frames as degrees of freedom. Affine frames $T=(A,t)$ represent $12$ degree of freedoms, $3$ for translation $\mathbf{t}$, $9$ for the matrix $\mathbf{A}$ combining rotation, scaling and shearing. Affine frames are represented with respect to an initial configuration ~$T_{0} = \left(A_{0}, t_{0}\right)$.
 
 \paragraph{Interpolation}
 Linear blend skinning is used to interpolate the displacement field. A deformed position $\mathbf{x}$ can be interpolated as a weighted sum of the affine transformations applied to the rest position $\mathbf{x_{0}}$.
 
 \begin{equation}
-\mathbf{x} = \sum_{i} w_{i}(\mathbf{x_{0}})\left(t_{i}+A_{i}\mathbf{x_{0}^{rel}}\right)
+\begin{array}{l}
+\displaystyle \mathbf{x} = \sum_{i} w_{i}(\mathbf{x_{0}})\left(t_{i}+A_{i}\mathbf{x_{0}^{rel}}\right) \\
+\displaystyle \mathbf{x_{0}}^{rel} = A_{0}^{-1}\left( \mathbf{x_{0}} - \mathbf{t_{0}} \right)
+\end{array}
 \end{equation}
 
-where $\mathbf{x_{0}^{rel}}$ is the relative position of $x_{0}$ in the frame defined by $T_{0}$, in other words:
+where $\mathbf{x_{0}^{rel}}$ is the relative position of $x_{0}$ in the frame defined by $T_{0}$ and $w_{i}$ is the shape function associated to the frame $i$.
 
-\begin{equation}
-\mathbf{x_{0}}^{rel} = A_{0}^{-1}\left( \mathbf{x_{0}} - \mathbf{t_{0}} \right)
-\end{equation}
+Different weights can be used. Three properties are important in order to represent a physical behavior. First, the shape function should linearly decrease with respect to distance in the material. Otherwise, the deformation will not be uniform with respect to the distance from the frame. Second, the shape function should be positive. Third, the weight should for a partition of unity. In practice, one can use harmonic weights or Voronoi-based weights which are described later.
 
-Deformation gradient can then be easily derived:
+From the description of the displacement field, the deformation gradient can then be derived:
 \begin{equation}
-F = \frac{\partial \mathbf{x}}{\partial \mathbf{x_{0}}} =
+\displaystyle
+F\left(\mathbf{x}\right) = \sum_{i} \frac{\partial \mathbf{x}}{\partial \mathbf{x_{0}}} =
 \nabla w_{i}(\mathbf{x_{0}}) \left( t_{i}+A_{i}x_{0}^{rel}\right) + 
 w_{i}\left( A_{i}A_{0}^{-1} \right)
 \end{equation}
-
-\paragraph{Voronoi shape function}
-
-Different weights can be used. Three properties are important in order to represent a physical behavior:
-
-\begin{itemize}
-\item Weights should linearly decrease with respect to distance in the material.
-\item Weights should be positive.
-\item Weights should form a partition of unity.
-\end{itemize}
-
-\begin{itemize}
-\item Description du calcul des poids
-\end{itemize}
 
 \paragraph{Spatial integration}
 
 Any quadrature rule can be used. Here, for the sake of simplicity, we suppose that we use the midpoint rule. Thus, the integral of a function $f$ over the object states:
 \begin{equation}
+\displaystyle
 \int_{V} f(x)  = \sum_{i} V_{i} f(x_{i})
 \end{equation}
+where $i$ is an integration point and $V_{i}$ its associated volume.
 
-Let's describe how internal forces are computed for one frame. A nice way to compute the forces is to decompose its energy formulation.
+From this quadrature rule, we can now explicit the computation of internal forces for one frame.
 \begin{equation}
-\mathbf{f}_{i} = - \int_{V} \left( \frac{\partial \Psi}{\partial \mathbf{x}_{i}} \right)^{T} =
-- \int_{V} 
+\displaystyle
+\mathbf{f}_{i} = - \int_{V} \left( \frac{\partial \Psi}{\partial \mathbf{x}_{i}} \right)^{T} = - \sum_{p} V_{p} \left( \frac{\partial \Psi}{\partial \mathbf{x}_{i}} \right)^{T}\left(\mathbf{x}_{p}\right)
+\end{equation}
+where $p$ is an integration point, $\mathbf{x}_{p}$ its position and $V_{p}$ its associated volume.
+
+As explained above, this expression is very compact and it is hard to distinguish the different components. By using the derivation chain rule, we can provide a modular formulation:
+\begin{equation}
+\displaystyle
+\mathbf{f}_{i}
+- \sum_{p}
 \left( \frac{\partial \mathbf{F}}{\partial \mathbf{x}_{i}} \right)^{T}
 \left( \frac{\partial \epsilon}{\partial \mathbf{F}} \right)^{T}
-\left( \frac{\partial \Psi}{\partial \mathbf{\epsilon}} \right)^{T}
+\left( \frac{\partial \Psi}{\partial \mathbf{\epsilon}} \right)^{T} \left(\mathbf{x_{p}}\right) V_{p} 
 \end{equation}
-Thus we decomposed the computation with respect to the different mappings involved in a physical system:
-\begin{itemize}
-\item The deformation gradient mapping $F$.
-\item The strain mapping $\epsilon$.
-\item The energy mapping $\psi$.
-\end{itemize}
-
-Thus, the internal force on one frame $f_{i}$ are:
-\begin{equation}
-f_{i} = - \sum_{i} V_{i} \left( \frac{\partial \mathbf{F}}{\partial \mathbf{x}_{i}} \right)^{T}
-\left( \frac{\partial \epsilon}{\partial \mathbf{F}} \right)^{T}
-\left( \frac{\partial \Psi}{\partial \mathbf{\epsilon}} \right)^{T}
-\end{equation}
-
-\begin{itemize}
-\item Partir de l'hypothèse d'un point d'intégration par région de voronoi.
-\item Décrire le calcul des forces de manière généralisée.
-\end{itemize}
-
-Each term can be computed in a separate dedicated module with its own rules, type and resolution.
+Now, we found back the different components : degrees of freedom, deformation gradient, strain and stress. And the jacobian of the different mappings.
 
 \paragraph{Temporal integration}
 
 Assuming we use explicit Euler, we simply have:
 \begin{equation}
+\displaystyle
 \begin{pmatrix}
 t(t+\Delta t) \\
 A(t+\Delta t)
@@ -613,6 +582,7 @@ A(t)
 \end{pmatrix} 
 +
 \Delta t
+\mathbf{M}^{-1}
 \mathbf{f}(t)
 \end{equation}
 
