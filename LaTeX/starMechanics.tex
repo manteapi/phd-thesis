@@ -515,32 +515,15 @@ The strain measurement is the big difference with respect to fluid dynamics beca
 
 \subsubsection{Frame-based model}
 
+The frame-based model was introduced by Gilles et al.~\cite{Gilles2011} to simulate deformable objects. In contrast to other deformable models, it allows to simulate complex object with very few degrees of freedom and to handle heteregenous materials easily \cite{Faure2011}. Additionally, this work formalized the concept of multi-layer physical framework. In the following, we first describe what is a multi-layer framework, illustrate it in the case of the frame-based model. Then we detail a standard choice for the different components of the frame-based model: degrees of freedom, interpolation, integration. We do not detail collision detection and response process as well as a more accurate formulation of viscosity via the strain rate.
+
 \paragraph{A multi-layer physical framework}
+ 
+Most of the time, the different component of a physics-based model are described as a monolithic framework: degrees of freedom, interpolation, integration and constitutive law are put together in one formula which computes the forces applied on the degrees of freedom. On one hand, this provides a compact and implentation-friendly expression. It also suits the short format of scientific article. On the other hand, it requires assumption on each component and make it hard to distinguish what should be changed in order to integrate collisions, to embed a visual model or to test variations of the initial model.
 
-\begin{itemize}
-\item Common components in simulation framework
-\item Lack of usability
-\item Lack of modularity
-\item Lack of granularity
-\item A solution: layering
-\end{itemize}
+An interesting alternative is to build a multi-layer framework where each component of a physics-based model represent a layer which is able to communicate with other layers by using mappings. The framework has then a great modularity, different components can be re-used and mixed. A direct consequence is the ease at prototyping. State of the art methods can be implemented in hours instead of days. Comparison of different models is much easier. Also, it provides a way to control the granularity of a simulation. As each layer can be discretized at its own resolution, it allows for an easier repartition of resourcs and computational task.
 
-Four different layers are used in the frame-based framework.
-\begin{itemize}
-\item Degrees of freedom layer
-\item Integration layer
-\item Visualization layer
-\item Collision layer
-\end{itemize}
-
-Each of them communicates using mapping.
-It allows an easier repartition of resources and computational task.
-
-Sujets non évoqués:
-\begin{itemize}
-\item Collision detection and response
-\item Strain rate (viscosity)
-\end{itemize}
+In the case of the frame-based method, the simplest setting is made of three layers and two mappings. A first layer which represents the degrees of freedom where displacement is computed, a second layer which represents the integration point where deformation gradient is computed and a third layer which represent the strain tensor, the constitutive law and computes the stress. The mapping between the degrees of freedom and the integration point is the derivative of the displacement field with respect to the initial configuration. The mapping between the integration points and the strain tensor is simply the strain formula (Green-Lagrange, Cauchy, $\dots$). In a more complete setting, there are two additional layers, one for embedding a visual model and one for handling collisions. Both communicates with the degrees of freedom through a mapping which is the displacement field.
 
 \paragraph{Degrees of freedom}
 The object is uniformly sampled with affine frames as degrees of freedom. Affine frames $T=(A,t)$ represent $12$ degree of freedoms, $3$ for translation $\mathbf{t}$, $9$ for the matrix $\mathbf{A}$ combining rotation, scaling and shearing. Affine frames are represented with respect to an initial configuration $T_{0} = \left(A_{0}, t_{0}\right)$.
