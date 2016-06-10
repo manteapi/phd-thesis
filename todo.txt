@@ -36,8 +36,24 @@ Réunion avec François
 Deadline pour le rapport ED
 ============================
 -Choix du jury
+Rapporteur 1: Maud Marchal
+Rapporteur 2: Paul G. Kry
+Examinateur 1: Florence Zara
+Examinateur 2: Stéphane Cotin
+
+Fabrice Jaillet en rapporteur 2 ?
+Paul G. Kry en rapporteur ?
+Christian Duriez ?
+
 -Validation du titre de la thèse
 -Validation des mots clés
 -Choix de la date de soutenance
 -Résumé de la thèse
 
+Simulation and control of physical phenomena
+Simulation and control of physical animation
+Simulation and control of mechanical model for Computer Graphics
+
+Mercredi
+=======
+Envoyer l'intro et l'état de l'art sur la simu.
