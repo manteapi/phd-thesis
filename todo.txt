@@ -29,6 +29,8 @@ LaTeXing
 
 Figures
 =======
+Figure illustrant le trial/error process
+Figure illustrant différents usages du contrôle de simulation
 
 Réunion avec François
 ======================
