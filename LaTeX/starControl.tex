@@ -12,7 +12,7 @@ As the simulation is an initial value problem, the whole behavior of the ball is
 
 First, the computational time plays a major role. This is obvious but still important to states. A real-time simulation will allow the user to quickly explore parameters whereas an offline simulation might require days and days of tuning.
 
-Second, the nonlinear behavior of most physics-based animation makes it very hard to choose the right parameters. A small changes can produce a very different result making tedious to explore the range of possible behaviors and almost impossible to respect specific artistic directions such as timing and key positions. Also, it prevents the user from running a low resolution simulation in real-time and then run an offline high resolution simulation with the same parameters.
+Second, the nonlinear behavior of most physics-based animation makes it very hard to choose the right parameters. A small changes can produce a very different result making tedious to explore the range of possible behaviors and almost impossible to respect specific artistic directions such as timing, key positions, trajectories or shapes. Also, it prevents the user from running a low resolution simulation in real-time and then run an offline high resolution simulation with the same parameters.
 
 \subsection{Space-time constraints paradigm}
 A general approach for controlling a physics-based animation is to formulate it as an optimization under constraints: "Find the parameters such that the physical behavior and user constraints are respected over the animation". Three challenges arise, what are the parameters we want to control, what are the user constraints, how to formulate them and finally how to numerically solve the problem. Witkin and Kass~\cite{Witkin1988} were among the first to introduce this formulation to the Computer Graphics community in their work \emph{Space-time constraints}.
@@ -26,26 +26,29 @@ Position, velocity, density are among the constraints that are often used for co
 \subsubsection{Numerical solving}
 In their work, Witkin and Kass~\cite{Witkin1988} dealt with small systems on short simulation time. Therefore they could afford to directly solve the optimization problem, meaning that at each iteration a whole simulation would be computed. For instance, small rigid bodies simulation could be interactively designed through this approach \cite{Popovic2000},\cite{Popovic2003}. For complex models and large simulation time, this approach tends to take forever. Windowing methods allowed to restrict the optimization to the space-time range of interests \cite{Cohen1992}. In their work \cite{McNamara2004} proposed to use the adjoint method to efficiently computing gradients in liquid simulation thus improving the performance of the optimization. The approach was used by Wojtan et al.~\cite{wojtan2006keyframe} for handling large particle systems. For elastic bodies, the use of reduced model allowed to achieve speed-ups of several order of magnitude, thus allowing to interactively edit a physics-based animation~\cite{Barbic2012},\cite{Hildebrandt2012}, \cite{Hahn2012}. Since, this approach has been further improved to be faster \cite{Schulz2014} and deal with large deformations \cite{Li2014}.
 
-\subsubsection{Alternatives}
+\subsection{Applications \& Alternatives}
+The strength of the space-time constraints paradigm relies on its very general definition. Therefore, a large number of applications and methods can be seen as offsprings of this approach. We distinguished different applications of physics-based animation control and presented alternatives to the above methods.
 
-\paragraph{Tracking}
-Closely related to the space-time constraints, tracking consists in using a dense  set of input data in order to guide a physics-based animation. We distinguished two cases where this approach is efficient. In the first case, it consists in enhancing the input animation with detailed physically-based secondary motion. In the second case it consists in enforcing the global behavior of the simulation with the input animation. 
+\subsubsection{Enriching an animation with physics}.
+Given a full animation, a simulation is run in order to enhance the input animation with detailed physically-based secondary motion. This approach was successfully applied to enhance character animation with wrinkles and folds of their skin by Bergou et al.~\cite{Bergou2007}. In their work, they compute the dynamics of thin shell on top of the simulation by using a multi-resolution approach. In fluid animation, detail enhancing brings a lot of attention as it would be easier to set up low resolution simulation and add details on top of it without loosing the global behavior. A nice approach was proposed by Mercier et al. \cite{Mercier} where they solve a Lagrangian wave simulation only at the surface of the low resolution simulation.
 
-\paragraph{Example-based deformation}
+\subsubsection{Guiding a high resolution simulation with animation}
+A large number of methods propose to guide a simulation without the need of an expensive optimization problem. Generally these methods propose to use external forces that are automatically computed from the user inputs such as keyframes or more involved data such as velocity and density field. Another proposed strategy is to use a low resolution simulation to guide a high resolution one. Thus, correct parameters can be found in a real-time simulator and be re-used for the high resolution simulation.
 
-\paragraph{Animation sampling}
+\subsubsection{Example-based simulation}
+Instead of controlling the trajectory of an object, one might want to control how it deforms when it collides with other objects. In exampled-based simulations, a set of examples that represent the desired deformations is used to build a space of preferred deformations from where internal forces will be deduced. This method was first introduced by Martin et al.~\cite{Martin2011} for elastic deformations. Jones et al.\cite{Jones2016} propose a similar method to easily incorporate plastic deformations in rigid bodies simulations.
 
-\paragraph{Animation editing} \cite{Pighin2004}
+\subsubsection{Animation sampling}
+In multibody systems, space-time constraints paradigm can hardly be used. In cause, the large number of discontinous contacts events which make the optimization problem particularly difficult to solve involving long computational time. In contrast, multibody simulators are particularly fast, so fast that it is possible to run in parallel a large number of simulations. In their work, \cite{Chenney2000} and \cite{Twigg2007} exploit this performance to sample the space of parameters of an animation and thus finding those which satisfy the user constraints. 
 
-\subsubsection{Challenges}
-Interactvity and intuitivity, \cite{Kondo2005}
-\begin{itemize}
-\item It is tempting to create tools that allow a higher level of control on the design of a physics-based animation.
-\end{itemize}
+\subsubsection{Animation editing} 
+In constrast with simulation control, animation editing consists in deforming in space and time the output of a simulator. Closely related to surface modeling it has to take into account the temporal dimension and its relation with space in order to propose new tools. Very few methods have been proposed whereas it is often the method which is the most used in movies. Among the most interesting approach, Pighin et al.\cite{Pighin2004} propose to build a space-time parameterization of a smoke animation using radial basis function. In these approaches, finding a natural way to deform an animation and ensuring temporal coherency are amongst the main challenges.
 
 \subsection{Control of fluid simulation}
 
-The standard pipeline for controlling a simulation is mainly based on trial and error. Fluid parameters and boundary conditions are first set up by the user. The parameters are then tweaked and the simulation is re-run until reaching the expected behavior. As noticed previously, the control is indirect, for instance the user cannot control the trajectory nor the shape of the fluid. Moreover, the non-linear nature of the fluid behavior prevents the user from interactively controlling a low-resolution simulation and then achieving similar behaviors with the same parameters at a higher resolution.
+In this section we focus on the control of fluid simulation.
+
+The standard pipeline for controlling a simulation is mainly based on trial and error. Fluid parameters and boundary conditions are first set up by the user. The parameters are then tweaked and the simulation is re-run until reaching the expected behavior. The control is indirect, for instance the user cannot control the trajectory nor the shape of the fluid. Moreover, the non-linear nature of the fluid behavior prevents the user from interactively controlling a low-resolution simulation and then achieving similar behaviors with the same parameters at a higher resolution.
 
 To overcome these limitations, several methods propose to guide the fluid behavior by using geometric proxies which are easier to control than the high resolution fluid simulation variables themselves.
 For example, artists can use a triangle mesh to specify a target shape for the fluid by adding artificial attraction forces based on the distance to the mesh surface. Similar approaches have been successfully developed to drive smoke~\cite{Fattal2004,Hong2004,Shi2005a} and liquid simulations~\cite{Shi2005b,Raveendran2012}. These meshes can also define specific keyframes from a global animation~\cite{Treuille2003,McNamara2004}.
@@ -60,4 +63,8 @@ Few attempts have been made to enable direct control on the simulation. Schpok e
 
 Editing fluid animation is usually handled through indirect control, by adjusting physically based simulation parameters and degrees of freedom~\cite{stam1999,ihmsen2014}, or by editing control parameters of procedural generation models for ocean and waves~\cite{Fournier1986,hinsinger2002,Tessendorf2004,jeschke2015water}. 
 
-Direct editing of simulation has been addressed in the contexts of rigid bodies and of deformable objects~\cite{Chenney2000,wojtan2006keyframe,Twigg2007,Barbic2009,Barbic2012,Schulz2014,Li2014}, but only few works have focused on fluid surfaces, due to the fact that the constantly changing shape and topology makes the output geometry inaccessible to standard deformation tools.
+%Direct editing of simulation has been addressed in the contexts of rigid bodies and of deformable objects~\cite{Chenney2000,wojtan2006keyframe,Twigg2007,Barbic2009,Barbic2012,Schulz2014,Li2014}, but only few works have focused on fluid surfaces, due to the fact that the constantly changing shape and topology makes the output geometry inaccessible to standard deformation tools.
+%Interactvity and intuitivity, \cite{Kondo2005}
+%\begin{itemize}
+%\item It is tempting to create tools that allow a higher level of control on the design of a physics-based animation.
+%\end{itemize}
