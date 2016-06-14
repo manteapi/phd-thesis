@@ -12,15 +12,10 @@ Administratif
 =============
 -Récupérer les attestations de formations pour compléter les crédits
 -->Formation mathematica (mail envoyé)
--->Ecole été simulation bio-mécanique (mail envoyé)
-
--Prendre rdv avec François au sujet du jury de thèse (mail envoyé)
--Prender rdv avec François pour discuter de l'avancement et de l'organisation
 -Débuter le dossier de soutenance !
 
 Scientifique
 ============
--Relecture ortho/grammaire intro
 -Relecture ortho/grammaire méca
 -Relecture ortho/grammaire contrôle
 -Réhabilitation de l'état de l'art

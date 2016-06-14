@@ -1,10 +1,6 @@
 \section{Continuum mechanics}
 
-Continuum mechanics allows to define general equations of motion for a wide range of phenomena from liquids to deformable solids. In this chapter we describe the basics that allow to formulate general equations of motion, we explain the different steps that allows to numerically solve these equations and we detail the discretization for incompressible fluid using SPH and deformable solids using the frame-based model.
-
-\begin{itemize}
-\item We present a force-based framework.
-\end{itemize}
+Continuum mechanics allows to define general equations of motion for a wide range of phenomena from liquids to deformable solids. In this chapter we describe the basics that allow to formulate general equations of motion, we explain the different steps that allow to numerically solve these equations and we detail the discretization for incompressible fluid using SPH and deformable solids using the frame-based deforamble model.
 
 \subsection{Notation}
 
@@ -27,18 +23,21 @@ $\mathbf{\Psi}$ & Energy density
 
 \subsection{Equations of motion}
 
+Equations of motion are generally derived from conservation's laws such as mass and momentum conservation. A constitutive law is also used to depict the intrasinc behavior of the simulated object.
+
 \subsubsection{Conservation of mass}
 
-\begin{figure}[!ht]
+\begin{figure}[!h]
 \centering
-\includegraphics[scale=0.7]{images/continuum_mechanics/massConservation.png}
-\caption[STAR mechanics: Mass conservation]{\label{fig:massConservation} Mass conservation. $M(t_{1}) = M(t_{0}) + M_{added} + M_{removed}$}
+\includegraphics[scale=0.8]{images/continuum_mechanics/massConservation.png}
+\caption[STAR mechanics: Mass conservation]{\label{fig:massConservation} Mass conservation. $M(t_{1}) = M(t_{0}) + M_{in} + M_{out}$}
 \end{figure}
 
 The conservation of mass is quite explicit. Mass cannot be created or destroyed. If we look at a small volume $\mathcal{V}$ of the domain $\Omega$, the variation of mass in $\mathcal{V}$ should be equal to the flux of mass going through the border of the volume.
 \begin{equation}
     \label{eq:massConservation}
-    \frac{d}{dt}\left( \int_{\mathcal{V}} \rho dx \right)
+    \displaystyle 
+    \frac{d}{dt}\left( \int_{\mathcal{V}} \rho dv \right)
     =
     - \int_{\mathcal{\partial V}}\rho \mathbf{v} \cdot \mathbf{n} ds
 \end{equation}
@@ -46,14 +45,17 @@ The conservation of mass is quite explicit. Mass cannot be created or destroyed.
 From Stokes' formula, we have
 
 \begin{equation}
-\int_{\partial \mathcal{V}} \rho \cdot \mathbf{v} \mathbf{n} ds =
-\int_{\mathcal{V}} \nabla \cdot \left( \rho \mathbf{v} \right)
+\displaystyle 
+\int_{\partial \mathcal{V}} \rho \mathbf{v} \cdot \mathbf{n} ds =
+\int_{\mathcal{V}} \nabla \cdot \left( \rho \mathbf{v} \right) dv =
+\int_{\mathcal{V}} \nabla \rho \cdot \mathbf{v} dv
 \end{equation}
 
 then the conservation of mass can be rewritten as
 
 \begin{equation}
-\int_{\mathcal{V}} \frac{d}{dt} \rho + \nabla \cdot \left( \rho  \mathbf{v} \right) dx = 0
+\label{eq:volumetricMassConservation}
+\displaystyle \int_{\mathcal{V}} \frac{d}{dt} \rho + \nabla \cdot \left( \rho  \mathbf{v} \right) dv = 0
 \end{equation}
 
 \subsubsection{Conservation of momentum}
@@ -67,29 +69,31 @@ then the conservation of mass can be rewritten as
 Also called Newton's second law, it states:
 \begin{equation}
 \label{eq:momentumConservation}
-\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{V} \mathbf{f} dx
+\displaystyle \int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dv = \int_{\mathcal{V}} \mathbf{f} dv
 \end{equation}
 
 Two kind of forces are generally applied on an object, the \emph{external} forces and the \emph{internal} forces.
 
 External forces describe the action of the surrounding environment on the object, the simplest example is the gravity:
 \begin{equation}
-\int_{\mathcal{V}} \rho \mathbf{g} dx
+\displaystyle \int_{\mathcal{V}} \rho \mathbf{g} dv
 \end{equation}
 
-Internal forces describe the reaction of the object to an external deformation. A general way to describe them is by using a tensor notation:
+Internal forces describe the reaction of the object to an external deformation. A general way to describe them is by using the stress tensor notation:
 \begin{equation}
-\int_{\mathcal{V}} \sigma \mathbf{n} ds
+\displaystyle \int_{\partial \mathcal{V}} \sigma \mathbf{n} ds
 \end{equation}
 By applying the Stokes' formula we can describe it with respect to the volume:
 \begin{equation}
-\int_{\mathcal{V}} \sigma \mathbf{n} ds =
-\int_{\mathcal{V}} \nabla \cdot \sigma dx
+\displaystyle 
+\int_{\mathcal{\partial V}} \sigma \mathbf{n} ds =
+\int_{\mathcal{V}} \nabla \cdot \sigma dv
 \end{equation}
 
 Conservation of momentum can then be rewritten:
 \begin{equation}
-\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{V} \rho \mathbf{g} + \nabla. \sigma dx
+\displaystyle
+\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{\mathcal{V}} \rho \mathbf{g} + \nabla. \sigma dx
 \end{equation}
 
 \subsubsection{Lagrangian vs. Eulerian}
@@ -100,22 +104,23 @@ Conservation of momentum can then be rewritten:
 \caption[STAR mechanics: Eulerian vs. Lagrangian]{\label{fig:eulerianVsLagrangian} Eulerian vs. Lagrangian viewpoint}
 \end{figure}
 
-Lagrangian: You follow the river. The river is discretized into particles which carries and update fluid properties such as position and velocity. 
+A simulation can be seen from two viewpoints. To illustrate this we can take the example of a river that we simulate (see Figure~\ref{fig:eulerianVsLagrangian}). From this simulation we want to measure the velocity of the flow. A first possibility is to discretized the river into particles that will carry and update fluid properties such as position and velocity. This is the Lagrangian viewpoint. A second possibility is to discretize the river on a fixed grid from where we can measure the velocity of the flow passing through a point of the grid. This is the Eulerian viewpoint.
 
-Eulerian : You stand in the middle of a river. The river is discretized into a fixed grid from where you can measure the velocity of the flow passing through the point of the grid.
-
-The material derivative:
+From a mathematical perspective this can be expressed in the material derivative formula. Let's compute the totale derivative of a quantity $\mathbf{u}$ which depends on time $t$ and location $\mathbf{x}$. By using the chain derivation rule, we have:
 \begin{equation}
-\frac{D\mathbf{u}}{Dt} = \frac{\partial \mathbf{u}}{\partial t} + (\mathbf{u} \cdot \nabla v)
+\frac{d}{dt}\mathbf{u}(t,\mathbf{x}) = 
+\frac{\partial \mathbf{u}}{\partial t} + \nabla \mathbf{u} \cdot \frac{d\mathbf{x}}{dt} =
+\frac{\partial \mathbf{u}}{\partial t} + \nabla \mathbf{u} \cdot \mathbf{v} 
+\end{equation}
+In this equation, the expression $\frac{\partial \mathbf{u}}{\partial t}$ is the derivative at fixed point, the Eulerian derivative. Now if the location $\mathbf{x}$ is the position of a particle, then the total derivative is called the material or Lagrangian derivative and measures the derivative for the particle location $\mathbf{x}$.
+
+Notice that equation~(\ref{eq:volumetricMassConservation}) can be rewritten in a Lagrangian way by detailing the divergence of the product between density and velocity:
+\begin{equation}
+\label{eq:lagrangianMassConservation}
+\int_{\mathcal{V}} \frac{D\rho}{Dt} + \rho \nabla \cdot \mathbf{v} dv = 0
 \end{equation}
 
-In a lagrangian framework, the positions of the particles at a specific time $t$ is known, so the material derivative is just the time derivative.
-
-\begin{equation}
-\frac{D\mathbf{u}}{Dt} = \frac{\partial u}{\partial t}
-\end{equation}
-
-Moreover, if we assume that the mass of the particles is constant through the simulation, then conservation of mass is granted and we can omit its numerical solving. However, in practice it does not ensure that the divergence of the velocity will be null, new methods were proposed to enforce the null divergence condition. In this work we keep the first approximation and do not enforce the null divergence condition.
+In Lagrangian simulations, conservation of mass is guaranteed by assuming the mass of the particles are constant over time. Then we can omit to numerically solve equation~(\ref{eq:lagrangianMassConservation}). It is worth to notice that in Lagrangian liquid simulations, conservation of the mass does not imply incompressibility. In this case, equation~\ref{eq:lagrangianMassConservation} needs to be revisited and integrated in the numerical solving, recently an approach to enforce incompressibility was proposed for SPH simulations by Bender and Koschier~\cite{Bender2015}.
 
 \subsubsection{Numerical solving}
 
