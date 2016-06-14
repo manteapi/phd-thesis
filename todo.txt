@@ -20,17 +20,22 @@ Administratif
 
 Scientifique
 ============
--Bibliographie contrôle de simulation.
--Relecture
--Introduction
+-Relecture ortho/grammaire intro
+-Relecture ortho/grammaire méca
+-Relecture ortho/grammaire contrôle
+-Réhabilitation de l'état de l'art
+-Transition des chapitres
 
 LaTeXing
 =========
 
 Figures
 =======
-Figure illustrant le trial/error process
-Figure illustrant différents usages du contrôle de simulation
+-Figure illustrant le trial/error process
+-Figure illustrant différents usages du contrôle de simulation
+-Figure illustrant l'animation traditionnelle de phénomène physique et l'animation par ordinateur
+-Figure illustrant SPH (simulation)
+-Figure illustrant le modèle des repères (simulation)
 
 Réunion avec François
 ======================
@@ -39,22 +44,19 @@ Deadline pour le rapport ED
 ============================
 -Choix du jury
 Rapporteur 1: Maud Marchal
-Rapporteur 2: Paul G. Kry
+Rapporteur 2: Stéphane Cotin
 Examinateur 1: Florence Zara
-Examinateur 2: Stéphane Cotin
-
-Fabrice Jaillet en rapporteur 2 ?
-Paul G. Kry en rapporteur ?
-Christian Duriez ?
+Examinateur 2: Paul G. Kry
 
 -Validation du titre de la thèse
 -Validation des mots clés
 -Choix de la date de soutenance
 -Résumé de la thèse
 
-Simulation and control of physical phenomena
-Simulation and control of physical animation
-Simulation and control of mechanical model for Computer Graphics
+Titres:
+-Simulation and control of physical phenomena
+-Simulation and control of physical animation
+-Simulation and control of mechanical model for Computer Graphics
 
 Mercredi
 =======
