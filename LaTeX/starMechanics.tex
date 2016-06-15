@@ -107,7 +107,7 @@ Conservation of momentum can then be rewritten:
 
 A simulation can be seen from two viewpoints. To illustrate this we can take the example of a river that we simulate (see Figure~\ref{fig:EulerianVsLagrangian}). From this simulation we want to measure the velocity of the flow. A first possibility is to discretized the river into particles that will carry and update fluid properties such as position and velocity. This is the Lagrangian viewpoint. A second possibility is to discretize the river on a fixed grid from where we can measure the velocity of the flow passing through a point of the grid. This is the Eulerian viewpoint.
 
-From a mathematical perspective this can be expressed in the material derivative formula. Let's compute the totale derivative of a quantity $\mathbf{u}$ which depends on time $t$ and location $\mathbf{x}$. By using the chain derivation rule, we have:
+From a mathematical perspective this can be expressed in the material derivative formula. Let's compute the totale derivative of a quantity $\mathbf{u}$ which depends on time $t$ and location $\mathbf{x}$. By using the derivation chain rule, we have:
 \begin{equation}
 \frac{d}{dt}\mathbf{u}(t,\mathbf{x}) = 
 \frac{\partial \mathbf{u}}{\partial t} + \nabla \mathbf{u} \cdot \frac{d\mathbf{x}}{dt} =
@@ -429,7 +429,7 @@ We described the key ingredient of the SPH model and how to use them to discreti
 
 In this section, we focus on the simulation of elastic objects. When submitted to external forces, an elastic object reacts so that it comes back to its rest shape. In contrast with fluids, internal forces are history dependent, they depend on how much the object deformed compared to its rest shape. It becomes crucial to be able to describe the deformation of an object in order to express its reaction. 
 
-The deformation is modeled by a mapping $\Phi$ between the undeformed configuration $\Omega_{0}$ and the deformed configuration $\Omega$. $\Phi$ is called the displacement field.
+The deformation is modeled by a mapping $\Phi$ between the undeformed configuration $\Omega_{0}$ and the deformed configuration $\Omega$. $\Phi$ is called the \emph{displacement field}.
 \begin{equation}
 \begin{array}{lllll}
 \Phi & : & \Omega_{0} & \longrightarrow & \Omega \\
@@ -438,7 +438,7 @@ The deformation is modeled by a mapping $\Phi$ between the undeformed configurat
 \end{equation}
 where $\mathbf{X}$ is a point in the undeformed configuration and $\mathbf{x}=\Phi(\mathbf{X})$ is the mapped point into the deformed configuration.
 
-The deformation gradient $\displaystyle \mathbf{F} = \frac{\partial \Phi}{\mathbf{X}}$ measures deformation with respect to the underformed configuration. The strain tensor $\epsilon$ measures how the object has derived from its undeformed configuration. There exist different strain measures, Green-Lagrange strain can be used for instance: $\displaystyle \epsilon = \frac{1}{2}\left(\mathbf{F}^{T}\mathbf{F} - \mathbf{I}\right)$. Or its linearized version, the Cauchy strain $\displaystyle \epsilon = \frac{1}{2}\left( \mathbf{F} + \mathbf{F}^{T} \right)-\mathbf{I}$.
+The deformation gradient $\displaystyle \mathbf{F} = \frac{\partial \Phi}{\partial \mathbf{X}}$ measures deformation with respect to the underformed configuration. The strain tensor $\epsilon$ measures how the object has derived from its undeformed configuration. There exist different strain measures, Green-Lagrange strain can be used for instance: $\displaystyle \epsilon = \frac{1}{2}\left(\mathbf{F}^{T}\mathbf{F} - \mathbf{I}\right)$. Or its linearized version, the Cauchy strain $\displaystyle \epsilon = \frac{1}{2}\left( \mathbf{F} + \mathbf{F}^{T} \right)-\mathbf{I}$.
 
 The displacement field, deformation gradient and strain tensor are the main components of the constitutive law that will relate the deformation to the material properties of the object.
 
@@ -499,66 +499,66 @@ where
 Instead of computing internal forces as the divergence of the stress, they can be computed as the derivative of the density energy with respect to the degrees of freedom:
 \begin{equation}
 \label{eq:internalForces}
-\mathbf{f} = -\int_{V} \frac{\partial \Psi}{\partial \mathbf{x}}^{T}
+\mathbf{f} = -\int_{\mathcal{V}} \frac{\partial \Psi}{\partial \mathbf{x}}^{T} dv
 \end{equation}
 
 \subsubsection{Frame-based model}
 
-The frame-based model was introduced by Gilles et al.~\cite{Gilles2011} to simulate deformable objects. In contrast to other deformable models, it allows to simulate complex object with very few degrees of freedom and to handle heteregenous materials easily \cite{Faure2011}. Additionally, this work formalized the concept of multi-layer physical framework. In the following, we first describe what is a multi-layer framework, illustrate it in the case of the frame-based model. Then we detail a standard choice for the different components of the frame-based model: degrees of freedom, interpolation, integration. We do not detail collision detection and response process as well as a more accurate formulation of viscosity via the strain rate.
+The frame-based model was introduced by Gilles et al.~\cite{Gilles2011} to simulate deformable objects. In contrast to other deformable models, it allows to simulate complex object with very few degrees of freedom and to handle heteregenous materials easily \cite{Faure2011}. Additionally, this work formalized the concept of multi-layer physical framework. In the following, we first describe what is a multi-layer framework, illustrate it in the case of the frame-based model. Then we detail a standard choice for the different components of the frame-based model: degrees of freedom, interpolation and integration. As in the previous section, we do not detail collision detection and response process as well as a more accurate formulation of viscosity via the strain rate.
 
 \paragraph{A multi-layer physical framework}
  
 \begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.6]{./images/continuum_mechanics/multiLayeredFramework.png}
-\caption[STAR mechanics: Multi-layer framework]{\label{fig:multiLayerFramework} Each component of the simulation is isolated and communicates with other components through mapping. By doing so, the framework allows fast prototyping and comparison of a wide range of deformable model.}
+\caption[STAR mechanics: Multi-layer framework]{\label{fig:multiLayerFramework} Each component of the simulation is isolated and communicates with other components through mapping. By doing so, the framework allows fast prototyping and comparison of a wide range of deformable models.}
 \end{figure}
 
-Most of the time, the different components of a physics-based model are described as a monolithic framework: degrees of freedom, interpolation, integration and constitutive law are put together in one formula which computes the forces applied on the degrees of freedom. On one hand, this provides a compact and implentation-friendly expression. It also suits the short format of scientific article. On the other hand, it requires assumption on each component and make it hard to distinguish what should be changed in order to integrate collisions, to embed a visual model or to test variations of the initial model.
+Most of the time, the different components of a physics-based model are described as a monolithic framework: degrees of freedom, interpolation, integration and constitutive law are put together in one formula which computes the forces applied on the degrees of freedom. On one hand, this provides a compact and implentation-friendly expression. It also suits the short format of scientific article. On the other hand, it requires assumptions on each component and make it hard to distinguish what should be changed in order to integrate collisions, to embed a visual model or to test variations of the initial model.
 
-An interesting alternative is to build a multi-layer framework where each component of a physics-based model represent a layer which is able to communicate with other layers by using mappings. The framework has then a great modularity, different components can be re-used and mixed. A direct consequence is the ease at prototyping. State of the art methods can be implemented in hours instead of days. Comparison of different models is much easier. Also, it provides a way to control the granularity of a simulation. As each layer can be discretized at its own resolution, it allows for an easier repartition of resourcs and computational task.
+An interesting alternative is to build a multi-layer framework where each component of a physics-based model represents a layer which is able to communicate with other layers by using mappings. The framework has then a great modularity, different components can be re-used and mixed. A direct consequence is the ease at prototyping. State of the art methods can be implemented in hours instead of days. Comparisons of different models is much easier. Also, it provides a way to control the granularity of a simulation. As each layer can be discretized at its own resolution, it allows for an easier repartition of resourcs and computational task.
 
 In their work, Gilles et al. \cite{Gilles2011} proposed such an alternative by decomposing the computation of force using the derivation chain rule:
 \begin{equation}
 \label{eq:forceChainRule}
-\mathbf{f} = -\int_{V} \left(\frac{\partial \Psi}{\partial \mathbf{x}}\right)^{T} 
+\displaystyle \mathbf{f} = -\int_{V} \left(\frac{\partial \Psi}{\partial \mathbf{x}}\right)^{T} dv
 =
 -\int_{V} \left(\frac{\partial \mathbf{F}}{\partial \mathbf{x}}\right)^{T}
 \left(\frac{\partial \epsilon}{\partial \mathbf{F}}\right)^{T}
-\left(\frac{\partial \Psi}{\partial \epsilon}\right)^{T}
+\left(\frac{\partial \Psi}{\partial \epsilon}\right)^{T} dv
 \end{equation}
-We can now distinguish the different layers: the degrees of freedom, the deformation gradient, the strain tensor and constitutive density energy. And the the jacobian of the mapping that links degrees of freedom to deformation gradient, deformation gradient to strain and strain to constitutive density energy. Layers and mappings can be implemented separately thus providing a great deal of modularity. Moreover it is straightforward to have a sampling of degrees of freedom different from the sampling of integration points that will be used to compute deformation gradient, strain and stress.
+We can now distinguish the different layers: the degrees of freedom, the deformation gradient, the strain tensor and the constitutive density energy. We can also distinguish the jacobian of the mappings that link degrees of freedom to deformation gradient, deformation gradient to strain and strain to constitutive density energy. Layers and mappings can be implemented separately thus providing a great deal of modularity. Moreover it is straightforward to have a sampling of degrees of freedom different from the sampling of integration points that will be used to compute deformation gradient, strain and stress.
 
 In the case of the frame-based method, there are two additional layers, one for embedding a visual model and one for handling collisions. Both communicates with the degrees of freedom through a mapping which is the displacement field (see Figure~\ref{fig:multiLayerFramework}).
 
 \paragraph{Degrees of freedom}
-The object is uniformly sampled with affine frames as degrees of freedom. Affine frames $T=(A,t)$ represent $12$ degree of freedoms, $3$ for translation $\mathbf{t}$, $9$ for the matrix $\mathbf{A}$ combining rotation, scaling and shearing. Affine frames are represented with respect to an initial configuration ~$T_{0} = \left(A_{0}, t_{0}\right)$.
+The object is uniformly sampled with affine frames as degrees of freedom. An affine frames $T=(\mathbf{A},\mathbf{t})$ represents $12$ degree of freedoms, $3$ for translation $\mathbf{t}$, $9$ for the matrix $\mathbf{A}$ combining rotation, scaling and shearing. Affine frames are represented with respect to an initial configuration ~$T_{0} = \left(\mathbf{A_{0}}, \mathbf{t_{0}}\right)$.
 
 \paragraph{Interpolation}
-Linear blend skinning is used to interpolate the displacement field. A deformed position $\mathbf{x}$ can be interpolated as a weighted sum of the affine transformations applied to the rest position $\mathbf{x_{0}}$.
+Linear blend skinning is used to interpolate the displacement field and other quantities of the simulation. A deformed position $\mathbf{x}$ can be interpolated as a weighted sum of the affine transformations applied to the rest position $\mathbf{x_{0}}$.
 
 \begin{equation}
 \begin{array}{l}
-\displaystyle \mathbf{x} = \sum_{i} w_{i}(\mathbf{x_{0}})\left(t_{i}+A_{i}\mathbf{x_{0}^{rel}}\right) \\
-\displaystyle \mathbf{x_{0}}^{rel} = A_{0}^{-1}\left( \mathbf{x_{0}} - \mathbf{t_{0}} \right)
+\displaystyle \mathbf{x} = \sum_{i} w_{i}(\mathbf{x_{0}})\left(\mathbf{t_{i}}+\mathbf{A_{i}}\mathbf{x_{0}}^{rel}\right) \\
+\displaystyle \mathbf{x_{0}}^{rel} = \mathbf{A_{0}}^{-1}\left( \mathbf{x_{0}} - \mathbf{t_{0}} \right)
 \end{array}
 \end{equation}
 
 where $\mathbf{x_{0}^{rel}}$ is the relative position of $x_{0}$ in the frame defined by $T_{0}$ and $w_{i}$ is the shape function associated to the frame $i$.
 
-Different weights can be used. Three properties are important in order to represent a physical behavior. First, the shape function should linearly decrease with respect to distance in the material. Otherwise, the deformation will not be uniform with respect to the distance from the frame. Second, the shape function should be positive. Third, the weight should for a partition of unity. In practice, one can use harmonic weights or Voronoi-based weights which are described later.
+Different weights can be used. Three properties are important in order to represent a physical behavior. First, the shape function should linearly decrease with respect to distance in the material. Otherwise, the deformation will not be uniform with respect to the distance from the frame. Second, the shape function should be positive. Third, the weights should form a partition of unity. In practice, one can use harmonic weights or Voronoi-based weights which are described later.
 
 From the description of the displacement field, the deformation gradient can then be derived:
 \begin{equation}
 \displaystyle
-F\left(\mathbf{x}\right) = \sum_{i} \frac{\partial \mathbf{x}}{\partial \mathbf{x_{0}}} =
-\nabla w_{i}(\mathbf{x_{0}}) \left( t_{i}+A_{i}x_{0}^{rel}\right) + 
-w_{i}\left( A_{i}A_{0}^{-1} \right)
+\mathbf{F}\left(\mathbf{x}\right) = \sum_{i} \frac{\partial \mathbf{x}}{\partial \mathbf{x_{0}}} =
+\nabla w_{i}(\mathbf{x_{0}}) \left( \mathbf{t_{i}}+\mathbf{A_{i}}\mathbf{x_{0}}^{rel}\right) + 
+w_{i}\left( \mathbf{A_{i}}\mathbf{A_{0}}^{-1} \right)
 \end{equation}
 
 \paragraph{Spatial integration}
 
-Any quadrature rule can be used. Here, for the sake of simplicity, we suppose that we use the midpoint rule. Thus, the integral of a function $f$ over the object states:
+Any quadrature rule can be used. Here, for the sake of simplicity, we suppose that we use the midpoint rule briefly described in Figure~\ref{fig:spatialIntegration}. Thus, the integral of a function $f$ over the object states:
 \begin{equation}
 \displaystyle
 \int_{V} f(x)  = \sum_{i} V_{i} f(x_{i})
@@ -583,13 +583,13 @@ Assuming the mass matrix is lumped and that we use explicit Euler, the time inte
 \begin{equation}
 \displaystyle
 \begin{pmatrix}
-t_{i}(t+\Delta t) \\
-A_{i}(t+\Delta t)
+\mathbf{t_{i}}(t+\Delta t) \\
+\mathbf{A_{i}}(t+\Delta t)
 \end{pmatrix} 
 =
 \begin{pmatrix}
-t_{i}(t) \\
-A_{i}(t)
+\mathbf{t_{i}}(t) \\
+\mathbf{A_{i}}(t)
 \end{pmatrix} 
 +
 \Delta t
@@ -599,9 +599,9 @@ A_{i}(t)
 where $\mathbf{M}_{i}$ is the mass matrix of the frame $i$:
 \begin{equation}
 \label{eq:massMatrix}
-\mathbf{M}_{i} = \int_{V} \Phi_{i}^{T} \rho \Phi_{i}
+\mathbf{M}_{i} = \int_{V} w_{i}^{T} \rho w_{i}
 \end{equation}
-and $\Phi_{i}$ is the shape function of the frame $i$.
+and $w_{i}$ is the shape function of the frame $i$.
 
 %\section[A quick \& dirty introduction to fluid dynamics]{A quick \& dirty introduction to computational fluid dynamics}
 %
