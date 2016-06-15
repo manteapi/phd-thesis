@@ -87,6 +87,40 @@ Embedding techniques have inspired our work. They allow interesting trade-off an
 
 Few models have been proposed that simulate detailed deformable objects using a low number of nodes. Subspace simulations \cite{Barbic2005} compute a low basis of deformation modes in order to achieve real-time performance on detailed models. However, the low-basis is acquired after heavy precomputations. Interactive scenario could not handle the recomputation of the basis at each topological change. More recently, \cite{Gilles2011} and \cite{Faure2011} proposed a physics-based skinning technique, called the frame-based method. Highly detailed meshes can be embedded in very coarse simulations. The control nodes are affine frames and the deformation field is described by a linear blend skinning. Classical continuum mechanics is then used to solve for the dynamics. Skinning weights, also called shape functions, are built on linear interpolation using discrete voronoi regions. For each frame, they can represent a large region of influence with complex shape. Other advantages are discussed in \cite{Faure2011}. Unfortunately, the current frame-based method does not allow the shape functions to reflect the topological changes of the embedded mesh.
 
+\section{Overview}
+
+The goal of this work is to enable interactive detailed cutting of deformable thin sheets. The frame-based method exhibits some of the key features we are looking for: a very low number of nodes and a tunable separation between visual and physical models.  We build on this framework and extend it to handle topological changes.
+
+To transfer the cuts from the mesh to the frames, we continuously adapt the shape functions to the evolving mesh topology. This allows us to keep a constant number of nodes as long as there are no disconnected parts. In \cite{Faure2011}, the shape functions are computed on a uniform grid. The structure is simple and efficient. However, discontinuities that can be represented are very limited and strongly connected to the grid resolution. Instead, we build a non-manifold grid to compute topology-preserving shape functions (see Figure \ref{fig:spiralWeight}). The main idea is that cut cells are duplicated and store different connectivities. Therefore, grid resolution depends much less on the mesh topology while keeping all topological informations.
+
+We detail the computation of the shape functions, motivate the use of a non-manifold grid and explain how to build it (Section \ref{sec:adaptivesf}). When several parts are disconnected, we need to make sure that they contain control frames. We present a simple method to detect those regions and re-sample them (Section \ref{sec:resampling}). Even with such a low resolution physics model, it would be overkilling to update the whole system at each cut. Fortunately, cutting is often a local event. We leverage this fact and propose simple strategies to incrementally update the different components of the simulation (Section \ref{sec:incremental}). We illustrate our method in different scenarios (Section \ref{sec:results}) and discuss limitations and future work (Section \ref{sec:discussion}). We summarize our simulation loop in Algorithm~\ref{alg:simulationLoop} and detail our remeshing algorithm in appendix~\ref{appendix:remeshing}.
+
+\begin{algorithm}[!h]
+\caption[Frame-based cutting: Simulation loop]{\label{alg:simulationLoop}Simulation loop}
+\begin{algorithmic}[0]
+\For{each time step}
+	\State perform a frame-based simulation step
+	\State split the mesh along the cut
+	\State embed the mesh in a non-manifold grid
+	\State add new frames if required
+	\State add new samples (collision, integration) if required
+	\State compute shape functions on the grid
+	\State incrementally update the samples
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      WEIGHT COMPUTATION / GRID
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Adaptive shape functions} \label{sec:adaptivesf}
+
+In this section, we first summarize how Voronoi shape functions are traditionally computed. Then we detail why a non-manifold grid is necessary, how to build it and how to use it to compute the shape functions on complex topology.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      SHAPEFUNCTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Voronoi shape function}
 \begin{figure*}[!ht]
 \centering
 \begin{subfigure}[b]{0.20\linewidth}
@@ -109,70 +143,6 @@ Few models have been proposed that simulate detailed deformable objects using a 
 \caption[Frame-based cutting: Voronoi shapefunction computation]{\label{fig:shapefunctionconstruction}
 Illustrations of Voronoi shape function computation. (a) Starting from samples (blue circles), we build a Voronoi diagram using Dijkstra's shortest path algorithm. (b) Then, for each frame and its region $V_{i}$, we compute the maximum distance $d_{max}$ to its Voronoi boundary $V_{b}$. We extend $V_{i}$ to twice $d_{max}$ which gives $V_{e}$. (c) Finally for each grid cell $j$ in $V_{e}$ we linearly interpolate using distance to the frame position and distance to $V_{b}$.}
 \end{figure*}
-
-\section{Overview}
-
-The goal of this work is to enable interactive detailed cutting of deformable thin sheets. The frame-based method exhibits some of the key features we are looking for: a very low number of nodes and a tunable separation between visual and physical models.  We build on this framework and extend it to handle topological changes.
-
-To transfer the cuts from the mesh to the frames, we continuously adapt the shape functions to the evolving mesh topology. This allows us to keep a constant number of nodes as long as there are no disconnected parts. In \cite{Faure2011}, the shape functions are computed on a uniform grid. The structure is simple and efficient. However, discontinuities that can be represented are very limited and strongly connected to the grid resolution. Instead, we build a non-manifold grid to compute topology-preserving shape functions (see Figure \ref{fig:spiralWeight}). The main idea is that cut cells are duplicated and store different connectivities. Therefore, grid resolution depends much less on the mesh topology while keeping all topological informations.
-
-We detail the computation of the shape functions, motivate the use of a non-manifold grid and explain how to build it (Section \ref{sec:adaptivesf}). When several parts are disconnected, we need to make sure that they contain control frames. We present a simple method to detect those regions and re-sample them (Section \ref{sec:resampling}). Even with such a low resolution physics model, it would be overkilling to update the whole system at each cut. Fortunately, cutting is often a local event. We leverage this fact and propose simple strategies to incrementally update the different components of the simulation (Section \ref{sec:incremental}). We illustrate our method in different scenarios (Section \ref{sec:results}) and discuss limitations and future work (Section \ref{sec:discussion}). We summarize our simulation loop in Algorithm~\ref{alg:simulationLoop} and detail our remeshing algorithm in appendix~\ref{appendix:remeshing}.
-
-\begin{algorithm}[h]
-\caption[Frame-based cutting: Simulation loop]{\label{alg:simulationLoop}Simulation loop}
-\begin{algorithmic}[0]
-\For{each time step}
-	\State perform a frame-based simulation step
-	\State split the mesh along the cut
-	\State embed the mesh in a non-manifold grid
-	\State add new frames if required
-	\State add new samples (collision, integration) if required
-	\State compute shape functions on the grid
-	\State incrementally update the samples
-\EndFor
-\end{algorithmic}
-\end{algorithm}
-
-\begin{figure*}[!ht]
-\centering
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/connectivity.pdf}
-\caption{\label{fig:connectivity}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.30\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/simple_cut.pdf}
-\caption{\label{fig:simplecut}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.40\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/little_pieces.pdf}
-\caption{\label{fig:littlePieces}}
-\end{subfigure}
-%\hfill
-%\begin{subfigure}[b]{0.24\linewidth}
-%\centering
-%\includegraphics[width=\linewidth]{images/cutting-mig2015/multi_cut.pdf}
-%\caption{\label{fig:multicut}}
-%\end{subfigure}
-\caption[Frame-based cutting: Non-manifold grid illustration]{\label{fig:nonmanifoldgridillustration}
-Illustrations of different possibilities for a non-manifold cell with eight connectivity (a). In (b), the cell is simply cut into two cells. Each duplicate of the cut cell has a specific connectivity that represent the cut topology. In (c), multiple disconnected components can be contained inside one cell. The cell is duplicated four times. Three of the duplicates have no connectivity. However they can embed complex geometry and then be simulated by adding new frames for each of the component. The fourth duplicate keeps its eight neighbors and remains independent from the three other.}
-\end{figure*}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                      WEIGHT COMPUTATION / GRID
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Adaptive shape functions} \label{sec:adaptivesf}
-
-In this section, we first summarize how Voronoi shape functions are traditionally computed. Then we detail why a non-manifold grid is necessary, how to build it and how to use it to compute the shape functions on complex topology.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                      SHAPEFUNCTION
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Voronoi shape function}
 
 Let $w_{i}(x) : \Omega \rightarrow \mathcal{R}$ be the shape function for the $i$-th control frame, where $\Omega$ represents the domain. Starting from the Voronoi partition $V$ of the set of control frames, we can independently compute $w_{i}$ for each frame.
 
@@ -224,13 +194,71 @@ As mentionned above, in \cite{Faure2011}, shape functions are computed on a unif
 
 Unfortunately, this strategy is very limited for uniform grid and would only work in simple cases. For instance, several cuts that intersect or that create disconnected components inside one cell could not be represented. Even without cut, small gaps that lie inside one cell could not be correctly represented. Geodesic distances would be false and the object would behave as if there were no cuts or gaps. Augmenting the resolution would not solve the problem. We would fight the same issue as previous methods. Our grid resolution would be highly dependent on the complexity of the topology and the geometry of the object. It would directly impact performances.
 
+\begin{figure*}[t]
+\centering
+\begin{subfigure}[b]{0.20\linewidth}
+\centering
+\includegraphics[width=\linewidth]{images/cutting-mig2015/connectivity.pdf}
+\caption{\label{fig:connectivity}}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.30\linewidth}
+\centering
+\includegraphics[width=\linewidth]{images/cutting-mig2015/simple_cut.pdf}
+\caption{\label{fig:simplecut}}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.40\linewidth}
+\centering
+\includegraphics[width=\linewidth]{images/cutting-mig2015/little_pieces.pdf}
+\caption{\label{fig:littlePieces}}
+\end{subfigure}
+%\hfill
+%\begin{subfigure}[b]{0.24\linewidth}
+%\centering
+%\includegraphics[width=\linewidth]{images/cutting-mig2015/multi_cut.pdf}
+%\caption{\label{fig:multicut}}
+%\end{subfigure}
+\caption[Frame-based cutting: Non-manifold grid illustration]{\label{fig:nonmanifoldgridillustration}
+Illustrations of different possibilities for a non-manifold cell with eight connectivity (a). In (b), the cell is simply cut into two cells. Each duplicate of the cut cell has a specific connectivity that represent the cut topology. In (c), multiple disconnected components can be contained inside one cell. The cell is duplicated four times. Three of the duplicates have no connectivity. However they can embed complex geometry and then be simulated by adding new frames for each of the component. The fourth duplicate keeps its eight neighbors and remains independent from the three other.}
+\end{figure*}
+
 We want each grid cell to be able to represent  the connectivities of the different disconnected components that lie in the cell. To do so, each cut cell is duplicated as many times as it contains disconnected parts. Each duplicate has a specific connectivity built from the material connectivity. This results in a data structure called \emph{non-manifold grid} (see Figure \ref{fig:nonmanifoldgridillustration}).
+
+\begin{figure*}[t]
+\centering
+\begin{subfigure}[b]{0.20\linewidth}
+\centering
+\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_1.pdf}
+\caption{\label{fig:buildNMG1}}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.20\linewidth}
+\centering
+\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_2.pdf}
+\caption{\label{fig:buildNMG2}}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.20\linewidth}
+\centering
+\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_3.pdf}
+\caption{\label{fig:buildNMG3}}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.20\linewidth}
+\centering
+\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_4.pdf}
+\caption{\label{fig:buildNMG4}}
+\end{subfigure}
+\caption[Frame-based cutting: Non-manifold grid building]{\label{fig:nonmanifoldgridbuilding}
+We describe the building of the non-manifold grid for the center cell of the grid. (a) The mesh is embedded in a uniform grid. (b) First, we store the overlapping geometry in the cell. (c) Then we detect disconnected parts using a flood fill algorithm. (d) Finally the cell is duplicated. For each duplicate, we look for other duplicates that share geometry and establish its connectivity.}
+\end{figure*}
 
 Non-manifold grids are used by many other cutting methods to embed fine geometric details in coarse finite element simulations. However, we make a completely different use of it. Instead of duplicating control nodes as the cells are cut, thereby increasing their number and the computation time, we use the grid to adapt the shape functions to the evolving topology of the mesh. Most of the time, the number of nodes can remain constant while representing detailed geometry and multiple cuts.
 
 There are several ways to compute this non-manifold grid. In our method, we start by embedding the mesh in a uniform grid. Mesh elements that overlap a grid cell are detected using intersections tests and are assigned to it. Then, for each grid cell, we use a flood fill algorithm to detect the disconnected parts of the mesh. This informs about how many duplicates need to be created for the cell. Finally, for each duplicate we establish its connectivity by comparing its geometry with the geometry of the neighbor cells duplicates. We summarize our method in Algorithm~\ref{alg:nonmanifoldbuilding} and illustrate the main steps in Figure~\ref{fig:nonmanifoldgridbuilding}.
 
-\begin{algorithm}[!ht]
+\begin{algorithm}[!hb]
 \caption[Frame-based cutting: Non-manifold grid building]{\label{alg:nonmanifoldbuilding}Non-manifold grid building}
 \begin{algorithmic}[1]
 \Procedure{Build$\_$Non$\_$Manifold$\_$Grid}{grid $G$, mesh $M$}
@@ -269,35 +297,6 @@ There are several ways to compute this non-manifold grid. In our method, we star
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
-
-\begin{figure*}[!ht]
-\centering
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_1.pdf}
-\caption{\label{fig:buildNMG1}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_2.pdf}
-\caption{\label{fig:buildNMG2}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_3.pdf}
-\caption{\label{fig:buildNMG3}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_4.pdf}
-\caption{\label{fig:buildNMG4}}
-\end{subfigure}
-\caption[Frame-based cutting: Non-manifold grid building]{\label{fig:nonmanifoldgridbuilding}
-We describe the building of the non-manifold grid for the center cell of the grid. (a) The mesh is embedded in a uniform grid. (b) First, we store the overlapping geometry in the cell. (c) Then we detect disconnected parts using a flood fill algorithm. (d) Finally the cell is duplicated. For each duplicate, we look for other duplicates that share geometry and establish its connectivity.}
-\end{figure*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                      FRAME RESAMPLING
