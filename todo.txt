@@ -16,9 +16,6 @@ Administratif
 
 Scientifique
 ============
--Relecture ortho/grammaire méca
--Relecture ortho/grammaire contrôle
--Réhabilitation de l'état de l'art
 -Transition des chapitres
 
 LaTeXing
@@ -26,14 +23,12 @@ LaTeXing
 
 Figures
 =======
+-Rescaler les figures de l'état de l'art
 -Figure illustrant le trial/error process
 -Figure illustrant différents usages du contrôle de simulation
 -Figure illustrant l'animation traditionnelle de phénomène physique et l'animation par ordinateur
 -Figure illustrant SPH (simulation)
 -Figure illustrant le modèle des repères (simulation)
-
-Réunion avec François
-======================
 
 Deadline pour le rapport ED
 ============================
@@ -52,7 +47,3 @@ Titres:
 -Simulation and control of physical phenomena
 -Simulation and control of physical animation
 -Simulation and control of mechanical model for Computer Graphics
-
-Mercredi
-=======
-Envoyer l'intro et l'état de l'art sur la simu.
