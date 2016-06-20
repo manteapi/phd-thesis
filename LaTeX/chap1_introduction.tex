@@ -9,18 +9,21 @@ In the middle of the eighties, the Pixar company started to present short comput
 
 In this context, physics appeared as a way to automatically generate these complexe natural phenomena. It would be able to handle the high level of details expected from large scale smoke cloud, the complex deformations arising from a twisting rope or the numerous interactions between colliding objects. Researchers focused on studying physics with respect to computer graphics' purposes. Aside from films, physics-based animation was also developed for games, medical applications, education and craft prototyping.
 
-\section{Classical mechanics and physics-based animation}
+\section{Classical mechanical and physics-based animation}
 
 Physics-based animation has a great big brother, classical mechanics. Classical mechanics group centuries of study of how objects behave in the real world. This experience was unvaluable and certainly allowed physics-based animation to progress extremely fast. The great strength of physics-based animation is not to being restrained by this heritage but inspired by it. The variety of applications resulting from physics-based animation and the presence of a user in many cases  created a wide number of research prospects.
 
-As to know if the relationship between classical mechanics and physics-based animation is unilateral, the answer is definitely no. Physics-based animation is not doomed to simply transpose advances in classical mechanics to Computer Graphics. Neither it is only a subset of classical mechanics that cheat to get fast, inaccurate but compelling results. First of all, physics-based animation interacts more and more with other fields such as machine learning or biology. This increasing interdisciplinarity brings new problems that may not have been investigated by classical mechanics. Second, the relationship between the two fields is surely bilateral. Classical mechanics inspired physics-based animation and physics-based animation inspired classical mechanics. This is more and more confirmed by the growing number of works from physics-based animation which are published in classical mechanics conferences.
+As to know if the relationship between classical mechanics and physics-based animation is unilateral, the answer is definitely no. Physics-based animation is not doomed to simply transpose advances in classical mechanics to Computer Graphics. Neither it is only a subset of classical mechanics that cheat to get fast, inaccurate but compelling results. First of all, physics-based animation interacts more and more with other fields such as machine learning or biology. This increasing interdisciplinarity brings new problems that may not have been investigated by classical mechanics. Second, the relationship between the two fields is surely bilateral. Classical mechanics inspired physics-based animation and physics-based animation inspired classical mechanics. This is more and more confirmed by the growing number of works from physics-based animation which are published in classical mechanical conferences.
+\TODO{Examples of conferences or paper ?}
 
 \section{Three challenges in physics-based animation}
 
 \subsection{Adaptive physics-based animation}
 One could say that it is only a matter of time before computers are powerful enough to make untractable simulation running in real-time. Until now, this prediction has always failed because of the growth of the required level of details in physics-based animation. Finding the right model to describe a phenomena is not sufficient, both efficient and accurate simulations are needed.
 
-Several approaches have been proposed to reduce the computational time, thus transforming offline simulation into realtime ones and making untractable simulation possible to compute. Among these approaches, we can mention the use of reduced model, the boundary only simulation and adaptive techniques. Reduced model consists in pre-computing a carefully chosen subset of degrees of freedom of the simulated object and running the simulation only on this subset. Thus the computational cost can be reduced by several orders of magnitude. This approach, however, imposes constraints on the range of phenomena that can be simulated, for instance topological changes are not handled. Boundary only simulation consists in simulating volumetric objects only via their surfaces. Finally, adaptive techniques propose to adapt in space and time the representation of the deformable model in order to find the best match between efficiency and accuracy. Here we focus on this last method.
+Several approaches have been proposed to reduce the computational time, thus transforming offline simulation into realtime ones and making untractable simulation possible to compute. Among these approaches, we can mention the use of reduced model, the boundary only simulation and adaptive techniques. Reduced model consists in pre-computing a carefully chosen small subset of degrees of freedom of the simulated object and running the simulation only on this subset. Thus the computational cost can be reduced by several orders of magnitude. This approach, however, imposes constraints on the range of phenomena that can be simulated, for instance topological changes are not handled. Boundary only simulation consists in simulating volumetric objects only via their surfaces. Finally, adaptive techniques propose to adapt in space and time the representation of the deformable model in order to find the best match between efficiency and accuracy. In this thesis we focus on this last method.
+\TODO{Not always a subset ? A small set of DOF or something else ?}
+\TODO{Advantages of BEM: Smaller sets of equation, less data, less time, easier discretization, Drawbacks: Some problems have not yet been solved such as nonlinear flow problems, matrices are unsymmetric and dense so it requires more complex solving method, underlying mathematics are not widely known.}
 
 Adaptive techniques have a great history in classical mechanics and computer graphics. The most common form of adaptivity consists in re-sampling a new set of degrees of freedom along the simulation in order to concentrate computational time where and when it is most needed based on accuracy and visual criteria. Among the most common criticisms concerning adaptive techniques we retained two of them. First, adaptive techniques are notoriously hard to integrate in existing simulation framework. Even if they can bring great speed ups, the amount of implementation work makes them unattractive. Therefore there is a great need for more general approach of adaptivity producing less intrusive techniques. Second, adaptive methods are often subject to popping artefacts when updating the resolution of the simulation. Specially in Computer Graphics, these artefacts are completely forbidden.
 
@@ -53,15 +56,15 @@ Aside from these technical contributions, a part of the PhD was dedicated to the
 \section{Structure of the document}
 The document is divided into four main parts. \\
 
-In chapter \ref{chap:star}, we first introduce basics of continuum mechanics that we think are necessary for the whole understanding of the manuscript. Then we present a detailed description of existing adaptive models for Computer Graphics. Finally we provide a survey of methods allowing to control a physics-based animation. \\
+In Chapter \ref{chap:star}, we first introduce basics of continuum mechanics that we think are necessary for the whole understanding of the manuscript. Then we present a detailed description of existing adaptive models for Computer Graphics. Finally we provide a survey of methods allowing to control a physics-based animation. \\
 
-In chapter \ref{chap:arps} we describe our adaptive technique for the non-intrusive and efficient simulation of liquids and elastic solids. \\
+In Chapter \ref{chap:arps} we describe our adaptive technique for the non-intrusive and efficient simulation of liquids and elastic solids. \\
 
-In chapter \ref{chap:cutting} we describe our method to perform detailed cutting of thin deformable objects while keeping a very low number of degrees of freedom.  \\
+In Chapter \ref{chap:cutting} we describe our method to perform detailed cutting of thin deformable objects while keeping a very low number of degrees of freedom.  \\
 
-In chapter \ref{chap:fluidsculpting} we describe our system to sculpt  a fluid animation by using high level tools inspired from 3D modeling. \\
+In Chapter \ref{chap:fluidsculpting} we describe our system to sculpt  a fluid animation by using high level tools inspired from 3D modeling. \\
 
-Finally, we conclude this work in chapter \ref{chap:conclusion} and discuss limitations and possible future works.
+Finally, we conclude this work in Chapter \ref{chap:conclusion} and discuss limitations and possible future works.
 
 \section{Related publications}
 \begin{itemize}
