@@ -268,6 +268,7 @@ A nice way to solve the equation of backward Euler is to expand the force expres
 
 A fluid mainly reacts to pressure and viscosity and thus the constitutive law can be written as:
 \begin{equation}
+\label{eq:fluidConstitutiveLaw}
 \sigma = -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right)
 \end{equation}
 
@@ -400,7 +401,7 @@ Pressure can be computed by a spring-like equation:
 \label{eq:pressureSPH}
 p_{i} = k\left(\rho_{i}-\rho_{0}\right)
 \end{equation}
-where $k$ is a stiffness parameter. Even though it is simple and cheap, reaching incompressibility requires very small time step because of the stiffness parameter. Recently, new techniques were proposed to compute pressure so that the fluid would be incompressible. We do not detail these methods in this thesis but refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2014} and Bender and Koschier~\cite{Bender2015}.
+where $k$ is a stiffness parameter. Even though it is simple and cheap, reaching incompressibility requires very small time step because of the stiffness parameter. Recently, new techniques were proposed to compute pressure so that the fluid would be incompressible. We do not detail these methods in this thesis but refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2014:IISPH} and Bender and Koschier~\cite{Bender2015}.
 
 Now if we discretize Navier-Stokes for one particle $i$, we have:
 
@@ -417,7 +418,7 @@ This equation can now be discretized in time and integrated. In practice we use 
 \end{array}
 \end{equation}
 
-We described the key ingredient of the SPH model and how to use them to discretize Navier-Stokes equations. There is not enough space to cover the exciting challenges related to the building of a full SPH simulator. For a robust handling of static and dynamic boundaries, a surface tension model and an efficient surface reconstruction pipeline, we refer to the work of Akinci et al.~\cite{Akinci2012b, Akinci2013, Akinci2012a}.  For a state of the art of optimization techniques for SPH, we refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2011}. For other references related to the handling of viscosity, multi-phase simulations and other problems, the state of the art report on SPH by Ihmsen et al.~\cite{Ihmsen2014} is a safe starting point.
+We described the key ingredient of the SPH model and how to use them to discretize Navier-Stokes equations. There is not enough space to cover the exciting challenges related to the building of a full SPH simulator. For a robust handling of static and dynamic boundaries, a surface tension model and an efficient surface reconstruction pipeline, we refer to the work of Akinci et al.~\cite{Akinci2012b, Akinci2013, Akinci2012a}.  For a state of the art of optimization techniques for SPH, we refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2011:ParallelSPH}. For other references related to the handling of viscosity, multi-phase simulations and other problems, the state of the art report on SPH by Ihmsen et al.~\cite{Ihmsen2014:STAR} is a safe starting point.
 
 \subsection{Solid mechanics}
 \label{subsec:solidMechanics}

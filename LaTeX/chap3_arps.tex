@@ -9,7 +9,7 @@
  \centering
  \caption[ARPS: Dam break simulations]{ A dam break simulation with 5000 particles simulated with WCSPH (on the left)
  and with our adaptive method (on the right). On the right image, blue corresponds to full-dynamics particles, green to transition particles and red to restrained particles.}
-\label{fig:teaser}
+\label{fig:ARPS_Teaser}
 \end{figure}
 
 Combining efficiency with visual realism had been one of the main goals of Computer Graphics research in the last decade. As presented in section~\ref{sec:starAdaptivity}, the general strategy for efficient graphical simulations is to concentrate the computational time on the most interesting parts of an animated scene (such as near the surface of a fluid), while simplifying the rest of the scene according to some visual quality criteria.  A number of adaptive simulation methods, aimed at controlling the trade-off between performance and precision, have been developed. Most of them consist in changing time or space sampling, using adaptive time steps or multi-scale models.
@@ -142,13 +142,13 @@ It is clear that ARPS is not well-suited for simulations where all degree of fre
 %-------------------------------------------------------------------------
 \section{ Extension to SPH fluid simulation } 
 \label{sec:arps_sph}
-As presented in section~\ref{subsubsec:starSPH}, SPH fluid simulation is widely used in computer graphics and many methods have been proposed \cite{Desbrun:1996:SPN}, \cite{Muller2003}, \cite{Solenthaler2009}, \cite{implicitSPH}.
+As presented in section~\ref{subsubsec:starSPH}, SPH fluid simulation is widely used in computer graphics and many methods have been proposed \cite{Desbrun1996}, \cite{Muller2003}, \cite{Solenthaler2009}, \cite{Ihmsen2014:IISPH}.
 SPH approximates fluid dynamics with a set of particles.
 The particles are used to interpolate properties of the fluid anywhere in the space.
 Each particle samples fluid properties such as density, pressure or temperature. All these properties are updated based on the particle neighbors and are
 used in short-ranged inter-particle forces.
 For a detailed and comprehensive introduction to SPH, you can refer to \cite{Monaghan2005}.
-To integrate ARPS, we chose WCSPH (Weakly Compressible Smoothed Particle Simulation) \cite{Becker2007WCSPH}, a standard SPH formulation \cite{Desbrun:1996:SPN}, \cite{Muller2003}.
+To integrate ARPS, we chose WCSPH (Weakly Compressible Smoothed Particle Simulation) \cite{Becker2007WCSPH}, a standard SPH formulation \cite{Desbrun1996}, \cite{Muller2003}.
 We limited our simulation to the main inter-particles forces: pressure and viscosity.
 Classically a SPH algorithm follows three steps:
 \begin{enumerate}
@@ -214,7 +214,7 @@ The speedup can locally reach $25.7$.
 \end{tabular}
 \caption[ARPS: Fall of a block of water - Measurements]{\label{table:perf1}Fall of a block of water - Computation time and speedup \{min, max, mean\}}
 \end{table}
-We can see in Figure~\ref{fig:teaser} that during speed movements most of the particles are active so that the adaptive simulation stay close to reference simulation.
+We can see in Figure~\ref{fig:ARPS_Teaser} that during speed movements most of the particles are active so that the adaptive simulation stay close to reference simulation.
 Therefore small scale details like splashes can be preserved.
 \begin{figure*}[!ht]
     \centering

@@ -20,11 +20,14 @@ Scientifique
 
 LaTeXing
 =========
+-Fixed undefined referece
+-Fixed .bib duplicate
 
 Figures
 =======
 -Rescaler les figures de l'état de l'art
 -Figure illustrant le trial/error process
+-Figure illustrant les space/time constraints
 -Figure illustrant différents usages du contrôle de simulation
 -Figure illustrant l'animation traditionnelle de phénomène physique et l'animation par ordinateur
 -Figure illustrant SPH (simulation)
