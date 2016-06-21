@@ -4,18 +4,31 @@
 As we mentionned in the introduction, computer helped in producing animations in two ways. First, principles of traditional animation have been adopted, leaving the animator to describe the keyframes that would bring life and style to characters. Second, physics has been used to animate objects whose complexity in terms of scale and behavior would have been intractable for a single animator. However, they are only the extremities of a large spectrum. In between lie the control of physics-based animation which tends to take into account both user directions, that will bring life and style, and physics, that will handle the exciting complexity of the physical behavior.
 
 \subsection{Problems: The trials and errors process}
+
 How to control a physics-based animation is an old problem in Computer Graphics. In order to understand the different problems that arise, it is good to start from the most naive way of controlling a physics-based animation: trials and errors. 
 
-Let's say we have to design an animation of a flash hair ball launched on the ground that bounces three times before hitting the center of a target on the ground. The elastic behavior of the ball and the thin strands make it a hard animation for a key-framing animator. For physics, the behavior takes some time to compute but it can be solved.
+Let's say we have to design an animation of a ball launched on the ground that bounces two times before hitting the center of a target on the ground. The elastic behavior of the ball make it a hard animation for a key-framing animator. For physics, the behavior takes some time to compute but it can be solved.
 
-As the simulation is an initial value problem, the whole behavior of the ball is dictated by the initial and boundary conditions of the simulation, the material parameters of the ball and the \emph{wind} forces that can be set to help guiding the animation. The trials and errors process consists in setting these conditions and parameters, running the simulation and correcting the parameters until the animation is fine. There are mainly two constraints which make this task a nightmare.
+As the simulation is an initial value problem, the whole behavior of the ball is dictated by the initial and boundary conditions of the simulation, the material parameters of the ball and the \emph{wind} forces that can be set to help guiding the animation. The trials and errors process consists in setting these conditions and parameters, running the simulation and correcting the parameters until the animation is fine (see Figure~\ref{fig:trialErrorProcess}. There are mainly two constraints which make this task a nightmare.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.20]{./images/simulationControl/trialError.png}
+\caption[STAR control: Trial and error process]{\label{fig:trialErrorProcess}Trial and error process}
+\end{figure}
 
 First, the computational time plays a major role. This is obvious but still important to states. A real-time simulation will allow the user to quickly explore parameters whereas an offline simulation might require days and days of tuning.
 
 Second, the nonlinear behavior of most physics-based animation makes it very hard to choose the right parameters. Small changes can produce very different results making tedious to explore the range of possible behaviors and almost impossible to respect specific artistic directions such as timing, key positions, trajectories or shapes. Also, it prevents the user from running a low resolution simulation in real-time and then run an offline high resolution simulation with the same parameters.
 
 \subsection{Space-time constraints paradigm}
-A general approach for controlling a physics-based animation is to formulate it as an optimization under constraints: "Find the parameters such that the physical behavior and user constraints are respected over the animation". Four challenges arise, what are the parameters we want to control, what are the user constraints, how to formulate them and finally how to numerically solve the problem. Witkin and Kass~\cite{Witkin1988} were among the first to introduce this formulation to the Computer Graphics community in their work \emph{Spacetime constraints}.
+A general approach for controlling a physics-based animation is to formulate it as an optimization under constraints: "Find the parameters such that the physical behavior and user constraints are respected over the animation" ((see Figure~\ref{fig:spaceTimeConstraints}. Four challenges arise, what are the parameters we want to control, what are the user constraints, how to formulate them and finally how to numerically solve the problem. Witkin and Kass~\cite{Witkin1988} were among the first to introduce this formulation to the Computer Graphics community in their work \emph{Spacetime constraints}.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.20]{./images/simulationControl/spaceTimeConstraints.png}
+\caption[STAR control: Space-time constraints]{\label{fig:spaceTimeConstraints} Space-time constraints}
+\end{figure}
 
 \subsubsection{Parameters}
 Most common parameters are the position of the degrees of freedom and the \emph{wind} forces. A common drawback of using \emph{wind} forces is that they can create non-physical behavior. As an alternative, Coros et al.~\cite{Coros2012} proposed to adapt the rest shape of the object from one frame to another in order to induce internal forces that would match the user goals. When large deformation occurs it is possible that the found solution it at the limit of the deformation that the object can reach. In order to enforce the optimization, Li et al.~\cite{Li2014} proposed to optimize material parameters as well. 
@@ -42,7 +55,7 @@ Instead of controlling the trajectory of an object, one might want to control ho
 In multibody systems, space-time constraints paradigm can hardly be used. In cause, the large number of discontinous contacts events which make the optimization problem particularly difficult to solve. In contrast, multibody simulators are particularly fast, so fast that it is possible to run in parallel a large number of simulations. In their work, \cite{Chenney2000} and \cite{Twigg2007} exploit this performance to sample the space of parameters of an animation and thus finding those which satisfy the user constraints.
 
 \subsubsection{Animation editing} 
-In constrast with simulation control, animation editing consists in deforming in space and time the output of a simulator. Closely related to surface modeling it has to take into account the temporal dimension and its relation with space in order to propose new editing tools. Very few methods have been proposed whereas modifying the result of a simulation frame by frame is a common practice in animation studios. Among the most interesting approach, Pighin et al.\cite{Pighin2004} propose to build a space-time parameterization of a smoke animation using radial basis function. In these approaches, finding a natural way to deform an animation and ensuring temporal coherency are amongst the main challenges.
+In constrast with simulation control, animation editing consists in deforming in space and time the output of a simulator. Closely related to surface modeling it has to take into account the temporal dimension and its relation with space in order to propose new editing tools. Very few methods have been proposed whereas modifying the result of a simulation frame by frame is a common practice in animation studios. Among the most interesting approach, Pighin et al.\cite{Pighin2004} propose to build a space-time parameterization of a smoke animation using radial basis function. In these approaches, finding a natural way to deform an animation and ensuring temporal coherency are amongst the main challenges. For liquid animations, Raveendran et al.~\cite{Raveendran2014} match two liquids animations and propose a method to smoothly blend between them. This approach allows to quickly explore parameter space such as boundary conditions or viscosity parameter and then to produce a large number of new liquid animations whithout the need to re-simulate.
 
 \subsection{Control of fluid simulation}
 \label{subsec:fluidControl}
