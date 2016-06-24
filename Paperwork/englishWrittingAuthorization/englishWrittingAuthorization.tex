@@ -26,6 +26,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc} % Required for accented characters
 \usepackage{lmodern}
+\usepackage[french]{babel}
 
 % Create a new command for the horizontal rule in the document which allows thickness specification
 \makeatletter
@@ -65,12 +66,12 @@
 \includegraphics[width=4cm]{logo.png} % Include the logo of your institution
 \hspace{5.1in} % Position of the institution logo, increase to move left, decrease to move right
 \vskip -1.07in~\\ % Position of the text in relation to the institution logo, increase to move down, decrease to move up
-\Large\hspace{1.5in} \hfill ~\\[0.05in] % First line of institution name, adjust hspace if your logo is wide
+\Large\hspace{0.5cm} \hfill ~\\[0.05in] % First line of institution name, adjust hspace if your logo is wide
 \hspace{1.5in} \hfill \normalsize % Second line of institution name, adjust hspace if your logo is wide
 \makebox[0ex][r]{\textbf{\Who} \What }\hspace{0.08in} % Print your name and title with a little whitespace to the right
-~\\[-0.11in] % Reduce the whitespace above the horizontal rule
-\hspace{1.5in}\vhrulefill{1pt} \\ % Horizontal rule, adjust hspace if your logo is wide and \vhrulefill for the thickness of the rule
-\hspace{\fill}\parbox[t]{2.85in}{ % Create a box for your details underneath the horizontal rule on the right
+~\\[-0.2cm] % Reduce the whitespace above the horizontal rule
+\hspace{4.2cm}\vhrulefill{1pt} \\ % Horizontal rule, adjust hspace if your logo is wide and \vhrulefill for the thickness of the rule
+\hspace{\fill}\parbox[t]{9cm}{ % Create a box for your details underneath the horizontal rule on the right
 \footnotesize % Use a smaller font size for the details
 \Who \\ \em % Your name, all text after this will be italicized
 \Where\\ % Your department
@@ -90,7 +91,7 @@
 
 \def\opening#1{\thispagestyle{empty}
 {\centering\fromaddress \vspace{1.0cm} \\ % Print the header and from address here, add whitespace to move date down
-\vspace{2cm}
+\vspace{2.5cm}
 \hspace*{\longindentation}\today\hspace*{\fill}\par} % Print today's date, remove \today to not display it
 \vspace{2cm}
 {\raggedright \toname \\ \toaddress \par} % Print the to name and address
