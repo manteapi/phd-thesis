@@ -357,6 +357,7 @@ The cubic kernel from Monaghan~\cite{Monaghan2005} is a good choice in practice.
 \paragraph{Applications to Navier-Stokes}
 
 \begin{equation}
+\label{eq:densitySPH}
 \rho_{i} = \sum_{j} m_{j}W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 
@@ -367,6 +368,7 @@ The cubic kernel from Monaghan~\cite{Monaghan2005} is a good choice in practice.
 However linear and angular momentum are not conserved as the formula is not symmetric. By using equation~(\ref{eq:hackSPH}) with $\displaystyle \Phi = \frac{1}{\rho}$, it can be symmetrized:
 
 \begin{equation}
+\label{eq:pressureGradientSPH}
 \left(\nabla p\right)_{i} = 
 \frac{1}{\rho_{i}}
 \sum_{j} m_{j} \left( \frac{p_{i}}{\rho_{i}^{2}} + \frac{p_{j}}{\rho_{j}^{2}} \right) \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
@@ -385,7 +387,8 @@ Same as for the pressure gradient, this is not symmetric. Here it can be symmetr
 In practice, the evaluation of the laplacian is not accurate. Another form of viscosity based on the gradient was proposed by Monaghan~\cite{Monaghan2005}. This is still an area of research.
 
 \begin{equation}
-\left(\Delta v\right)_{i} = 
+\label{eq:velocityLaplacianSPH}
+\left(\Delta \mathbf{v}\right)_{i} = 
 \frac{1}{\rho_{i}}
 \sum_{j} m_{j} \Pi_{ij} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
@@ -393,7 +396,7 @@ In practice, the evaluation of the laplacian is not accurate. Another form of vi
 where 
 
 \begin{equation}
-\Pi_{ij} = -\frac{2hc_{s}}{\rho_{i}+\rho_{j}}\frac{v_{ij}^{T}x_{ij}}{\vert x_{ij} \vert^{2} + \epsilon h^{2}}
+    \Pi_{ij} = -\frac{2hc_{s}}{\rho_{i}+\rho_{j}}\frac{\mathbf{v}_{ij}^{T}\mathbf{x}_{ij}}{\vert \mathbf{x}_{ij} \vert^{2} + \epsilon h^{2}}
 \end{equation}
 
 Pressure can be computed by a spring-like equation:
@@ -406,7 +409,7 @@ where $k$ is a stiffness parameter. Even though it is simple and cheap, reaching
 Now if we discretize Navier-Stokes for one particle $i$, we have:
 
 \begin{equation}
-m_{i}\frac{d}{dt}\mathbf{v}_{i}(t) = m_{i}\mathbf{g} - m_{i}(\nabla p)_{i} + m_{i}(\delta \mathbf{v})_{i}
+    \displaystyle m_{i}\frac{d}{dt}\mathbf{v}_{i}(t) = m_{i}\mathbf{g} - \frac{m_{i}}{\rho_{i}}(\nabla p)_{i} + \eta\frac{m_{i}}{\rho_{i}}\left(\Delta \mathbf{v}\right)_{i}
 \end{equation}
 
 This equation can now be discretized in time and integrated. In practice we use the Euler symplectic integrator:
