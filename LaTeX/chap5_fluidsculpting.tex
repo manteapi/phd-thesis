@@ -36,7 +36,7 @@ We also provide space-time shape editing tools for non-uniform scaling, rotation
 Using our tools, the user can edit and progressively refine any input simulation result, possibly using a library of pre-computed space-time features extracted from other animations. 
 In contrast to the trial-and-error loop usually required to edit animation results through the tuning of indirect simulation parameters, our method gives the user full control over the edited space-time behaviors. 
 
-\section{Introduction} \label{sec:introduction}
+\section{Introduction} \label{sec:fluidsculpting:introduction}
 
 Due to advances in fluid simulation methods over the last two decades, liquid animation has become commonplace in 3D animation productions. 
 The animations can be either highly realistic --- for example showing plausible fluid dynamics and interactions with obstacles --- or they can exhibit a more expressive behavior to convey specific artistic intentions. In both cases, it is essential for the artist to be able to control the simulation in order to achieve their goals.
@@ -73,16 +73,16 @@ The key contributions of our work are as follows:
 \end{itemize}
 
 The remainder of this chapter is organized as follows:
-Section~\ref{sec:related_work} discusses previous works aimed at manipulating liquid animations;
+Section~\ref{sec:fluidsculpting:related_work} discusses previous works aimed at manipulating liquid animations;
 Section~\ref{sec:overview} presents our solution to this problem;
 Section~\ref{sec:extraction} explains how \emph{space-time features} are computed; 
 Section~\ref{sec:representation} deals with the \emph{space-time features} representation; 
 Section~\ref{sec:manipulation} details the tools we offer for manipulating \emph{space-time features}; 
-Section~\ref{sec:results} shows results obtained with our method; 
-Section~\ref{sec:discussion} draws the limits of our approach; 
-and Section~\ref{sec:conclusion} concludes and gives some perspectives on future work.
+Section~\ref{sec:fluidsculpting:results} shows results obtained with our method; 
+Section~\ref{sec:fluidsculpting:discussion} draws the limits of our approach; 
+and Section~\ref{sec:fluidsculpting:conclusion} concludes and gives some perspectives on future work.
 
-\section{Related work}\label{sec:related_work}
+\section{Related work}\label{sec:fluidsculpting:related_work}
 
 Since the introduction of \emph{space-time constraints}~\cite{Witkin1988}, direct editing of simulation has been addressed in the contexts of rigid bodies~\cite{Popovic2000,Chenney2000,Twigg2007} and of deformable objects~\cite{wojtan2006keyframe,Barbic2009,Barbic2012,Schulz2014,Li2014}.
 However, few works address fluid surfaces, due to their constantly changing shape and topology that makes the output geometry inaccessible to standard deformation tools.
@@ -505,7 +505,7 @@ Space-time deformations influence all frames at once, whereas the user might wan
 Per-frame spatial feature manipulation is achieved through a dedicated feature trajectory edit tool.
 This tool allows a user to displace the representation of a feature at a given frame while visualizing the positions of the feature at all the frames.
 
-\section{Results} \label{sec:results}
+\section{Results} \label{sec:fluidsculpting:results}
 
 \begin{figure*}[th!]
      \centering
@@ -586,7 +586,7 @@ An interesting aspect of our method is that it can be used to enrich static obje
 In Figure~\ref{fig:result:teaser}, we enriched a static object with a splash extracted from a liquid animation.
 More generally, our method allows to combines results obtained with very different methods such as procedural animation, eulerian and lagrangian simulations, shallow water simulation, or artist-created animations.
 
-\section{Discussion} \label{sec:discussion}
+\section{Discussion} \label{sec:fluidsculpting:discussion}
 
 Our method is not without limitations, and we suggest several directions for future work.
 
@@ -621,7 +621,7 @@ Secondly, we would like to propose a space-time sculpting tool close to space de
 The idea would be to let the user sculpt a specific frame and to interpolate the deformation over time. 
 Finally, we think it would be useful to let any edited parameter (scale, rotation, etc.) to be key-framed in order to make time-varying effects more easily controllable.
 
-\section{Conclusion} \label{sec:conclusion}
+\section{Conclusion} \label{sec:fluidsculpting:conclusion}
 
 This chapter introduces the first method for interactively editing existing fluid animations.
 Our method is based on an intuitive sculpting metaphor where the user can select, copy, edit and paste coherent \emph{space-time features}. 

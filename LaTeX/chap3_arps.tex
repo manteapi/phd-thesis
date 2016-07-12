@@ -81,7 +81,7 @@ $s$ is a twice-differentiable function. In practice a $5^{th}$-order spline is u
 \paragraph*{Adaptive equations of motion:}
 The adaptive equations of motions are derived from the AR Hamiltonian (\ref{eq:arhamiltonian}):
 \begin{equation}
-   \label{eq::armotionequation}
+   \label{eq:armotionequation}
     \displaystyle
     \begin{array}{l}
         \displaystyle \frac{d\vp}{dt} =
@@ -230,7 +230,7 @@ Thus, even inactive particles whose neighbors are active are kept up-to-date.
 %-------------------------------------------------------------------------------
 \subsection{Viscosity}
 In SPH, viscosity forces play an important role in the stability of the simulation and in the range of phenomena that can be simulated. 
-However, ARPS was designed for conservative systems and no damping terms involving the velocity of the particle is involved, as we can see in the equation of motion (see Eq.~\ref{armotionequation}).
+However, ARPS was designed for conservative systems and no damping terms involving the velocity of the particle is involved, as we can see in the equation of motion (see Eq.~\ref{eq:armotionequation}).
 In ARPS, velocity can be represented in two different ways.
 We may define it based on the momentum and set $\mathbf{v}_{i} = \vp_{i} / m_{i} $, or based on the \emph{effective velocity} $\mathbf{v}_{i}^{eff}$ defined in Equation~\ref{eq:adaptiveVelocity}.
 In the first case, we can get time-varying forces even for inactive particles, which we want to avoid.
