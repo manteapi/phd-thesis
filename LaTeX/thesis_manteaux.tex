@@ -106,6 +106,9 @@
 %Table of contents
 %\usepackage{titletoc}
 
+% la ligne ci-dessous est à insérer obligatoirement dans le préambule du document avant \begin{document}
+\usepackage[a4paper]{meta-donnees}
+
 %====================================================
 %					DOCUMENT
 %====================================================
@@ -114,29 +117,116 @@
 
 \title{Simulation and control of physical phenomena}
 \author{Pierre-Luc Manteaux}
-\date{\today}
-\maketitle
+%\date{\today}
+%\maketitle
+
+% les lignes en bas sont à insérer obligatoirement après \begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%             Commandes Meta-données               %%
+%%   à renseigner par les auteurs pour générer      %%
+%%     la couverture modèle Univ. Grenoble          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%      Fichier encodé au format ISO-8859-16        %%
+
+%\Sethpageshift{???mm}   %%optionnel : à décommenter si besoin pour ajout d'espace afin de center la couvérture horizontalement (valeur par défaut est -5.5mm)
+%\Setvpageshift{???mm}   %%optionnel : à décommenter si besoin pour ajout d'espace afin de center la couvérture verticalement (valeur par défaut est -15.5mm)
+
+
+%\Universite{}    %%optionnel : à décommenter et à renseigenr si vous voulez changer le non d'université
+%\Grade{}         %%optionnel : à décommenter et à renseigenr si vous voulez changer le grade
+\Specialite{Mathématiques-Informatique}
+\Arrete{7 Août 2006}
+\Auteur{Pierre-Luc Manteaux}
+\Directeur{Fran\c cois Faure}
+\CoDirecteur{Marie-Paule Cani}    %%optionnel : à décommenter et à renseigenr si présence d'un Co-directeur de thèse
+\Laboratoire{Laboratoire Jean Kuntzmann (LJK)}
+\EcoleDoctorale{EDMSTII}         
+\Titre{ \centering Simulation et contrôle \newline \newline de phénomènes physiques}
+%\Soustitre{}      %%optionnel : à décommenter et à renseigenr si présence d'un sous-titre de thèse
+\Depot{3 Octobre 2016}       
+
+% Commande pour création de nouvelles catégories dans le jury:
+%\UGTNewJuryCategory{...NomDeLaCategorie...}{...Definition...}
+% Exemple \UGTNewJuryCategory{UGTFamille}{Membre de la famille} que nous ajoutons dans la commande \Jury ci-dessous sous la forme \UGTFamille{Jean Rousseau}{(...titre_et_affiliation...s'il_y_en_a...)}
+
+\Jury{
+%\UGTPresidente{}{}
+\UGTPresidente{Joëlle Thollot}{Professeur, Université de Grenoble}
+
+\UGTRapporteur{Maud Marchal}{Maître de conférences, INSA Rennes} %% 1er rapporteur
+\UGTRapporteur{Christian Duriez}{Directeur de recherche, INRIA Lille} %% second rapporteur
+ 
+\UGTExaminatrice{Florence Zara}{Maître de conférences, LIRIS}     %% 1er examinateur
+\UGTExaminateur{Paul G. Kry}{Maître de conférences, McGill University}     %% second examinateur
+
+\UGTDirecteur{Fran\c cois Faure}{Professeur, Université Joseph Fourier}       %% Directeur de thèse
+\UGTCoDirecteur{Marie-Paule Cani}{Professeur, Université de Grenoble}     %% Co-Directeur de thèse s'il y en a
+
+%\UGTInvite{...Civilité, Prénom_et_Nom...}{...titre_et_affiliation...}
+%\UGTInvitee{...Civilité, Prénom_et_Nom...}{...titre_et_affiliation...}
+}
+
+\MakeUGthesePDG    %% très important pour générer la couvérture de thèse
 
 \frontmatter
 
-\include{chaps0_preface}
+\newpage\null\thispagestyle{empty}\newpage
+
+\include{chap0_resume}
+
+\newpage\null\thispagestyle{empty}\newpage
+
+\include{chap0_abstract}
+
+\newpage\null\thispagestyle{empty}\newpage
 
 \tableofcontents
 
+\newpage\null\thispagestyle{empty}\newpage
+
 \mainmatter
+
 \include{chap1_introduction}
+
+\cleartorecto
+
 \include{chap2_star}
+
+\cleartorecto
+
 \include{chap3_arps}
+
+\cleartorecto
+
 \include{chap4_cutting}
+
+\cleartorecto
+
 \include{chap5_fluidsculpting}
+
+\cleartorecto
+
 \include{chap6_conclusion}
+
+\cleartorecto
 
 %\appendix
 
 \backmatter
+
 \printbibliography
+
+\cleartorecto
+
 \listoffigures
+
+\cleartorecto
+
 \listofalgorithms
+
+\cleartorecto
+
 \listoftables
 
 \end{document}
