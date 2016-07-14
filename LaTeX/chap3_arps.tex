@@ -117,7 +117,7 @@ Fig. \ref{fig:harmonicOscillatorPhasePortrait} shows a phase portrait of the cor
 AR system.
 In classical mechanics, the trajectory of the state in this (position, momentum) space is an ellipse, the size of which depends on the (constant) energy of the system.
 Using ARPS, the position is constant (vertical straight parts) as long as the kinetic energy is small enough, while it is an ellipse as long as the kinetic energy is big enough.
-These trajectories are connected by a transition corresponding to an energy between the two thersholds of eq.~(\ref{eq:restrainingfunction}).
+These trajectories are connected by a transition corresponding to an energy between the two thresholds of eq.~(\ref{eq:restrainingfunction}).
 The closed trajectory corresponds to a constant \textit{adaptively restrained energy} $H_{AR}$.
 
 \begin{figure}[ht!]
@@ -136,7 +136,7 @@ Due to the similarity of the adaptive kinetic energy with the standard kinetic e
 \paragraph*{Computational performance:}
 The authors of \cite{Artemova2012}, Artemova and Redon obtained significant speed-ups by exploiting the immobility of particles. Figure~\ref{fig:cascadeCollision} illustrates one of their result where a $10\times$ speed-up was achieved in a collision scenario while keeping a behavior close to the reference one. In this example, inter-particles forces were derived from a Lennard-Jones potential. To save time on inactive particles, they proposed an incremental method to update the particles' forces at each time step:
 \begin{enumerate}
-    \item All forces that were acting on each active particle at the previous time step are substracted based on previous position.
+    \item All forces that were acting on each active particle at the previous time step are subtracted based on previous position.
     \item New forces based on current positions are added to each active particle.
 \end{enumerate}
 The increase of computational performance comes from the absence of force computation between
@@ -147,7 +147,7 @@ As these two steps are common bottlenecks in particle simulation, significant sp
 \paragraph*{Potential benefits of extension to Computer Graphics:}
 Molecular dynamics often inspired particle-based simulations in Computer Graphics. The same bottleneck, namely inter-particles forces computation based on neighbor search, is present in the two fields, so we can expect interesting performance for ARPS in graphics. The remainder of this chapter explores two applications of ARPS to graphical simulations:
 \begin{enumerate}
-\item Particle-based fluid simulation. Originally, ARPS has been applied to conservative system. While fluid simulation involves position-based forces, it also involves velocity-based viscosity forces that need to be taken care of. We propose a simple method to handle them. Additionnaly, we extend the incremental algorithm proposed by Artemova and Redon to update forces as well as scalar fields.
+\item Particle-based fluid simulation. Originally, ARPS has been applied to conservative system. While fluid simulation involves position-based forces, it also involves velocity-based viscosity forces that need to be taken care of. We propose a simple method to handle them. Additionally, we extend the incremental algorithm proposed by Artemova and Redon to update forces as well as scalar fields.
 \item Stiff object simulation. Explicit integration of stiff objects such as cloth is expensive due to stability issues. A well known solution is to use implicit integration instead. We derive an implicit formulation of ARPS and propose a hybrid solver to exploit the inactivity of particles in cloth simulation.
 \end{enumerate}
 It is clear that ARPS is not well-suited for simulations where all degree of freedom move: classical spatial adaptation is better suited in this case. In contrast, ARPS is best suited for simulations where most parts are immobile but may resume moving at any time. Even if these situations are not the most visually exciting, they are very common in Computer Graphics: they include simulation of characters clothing when many of the characters are at rest, surgical simulations with local-only user interaction, and the animation of large volumes of liquid, when most of it already came to rest.
@@ -206,7 +206,7 @@ Thus, even inactive particles whose neighbors are active are kept up-to-date.
         \State Perform Algorithm~\ref{alg:WCSPH}
         \Else
             \ForAll{\textbf{active} particle and its neighbors $i$}
-            \State Substract old density contribution from neighbor $j$
+            \State Subtract old density contribution from neighbor $j$
 	        \State Subtract old pressure/viscosity force contribution from neighbor $j$
             \EndFor
             \ForAll{\textbf{active} particle neighbors $i$}
