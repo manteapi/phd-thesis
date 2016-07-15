@@ -1,30 +1,31 @@
 \section{Continuum mechanics}
 
-Continuum mechanics allows to define general equations of motion for a wide range of phenomena from liquids to deformable solids. In this chapter we describe the basics that allow to formulate general equations of motion, we explain the different steps that allow to numerically solve these equations and we detail the discretization for incompressible fluid using Smoothed-Particle Hydrodynamics (SPH) and deformable solids using the frame-based deformable model.
+Continuum mechanics allows to define general equations of motion for a wide range of phenomena from liquids to deformable solids. In this section, we propose a progressive introduction to the basics of continuum mechanics. First, we describe how to formulate general equations of motion from conservation law. Then, we present the different steps and tools which are used to to numerically solve these equations. Finally, we detail the discretization of two models which are used in the following chapter: The Smoothed-Particle Hydrodynamics (SPH) mode for the simulation of incompressible fluids and the frame-based model for the simulation of deformable solids.
 
-\subsection{Notation}
-
-\begin{table}[!h]
-\begin{tabular}{ll}
-$t$ & time \\
-$m$ &  mass \\
-$\rho$ & mass density \\
-$\mathbf{n}$ & normal \\
-$\mathbf{x}$ & position \\
-$\mathbf{v}$ & velocity \\
-$\mathbf{f}$ & total forces \\
-$\mathbf{f}_{int}$ & internal forces \\
-$\mathbf{f}_{ext}$ & external forces \\
-$\mathbf{F}$ & Deformation gradient \\
-$\epsilon$ & Strain tensor \\
-$\sigma$ & Stress tensor \\
-$\Psi$ & Energy density \\
-\end{tabular}
-\end{table}
+%\subsection{Notation}
+%
+%\begin{table}[!h]
+%\begin{tabular}{ll}
+%$t$ & time \\
+%$m$ &  mass \\
+%$\rho$ & mass density \\
+%$\mathbf{n}$ & normal \\
+%$\mathbf{x}$ & position \\
+%$\mathbf{v}$ & velocity \\
+%$\mathbf{f}$ & total forces \\
+%$\mathbf{f}_{int}$ & internal forces \\
+%$\mathbf{f}_{ext}$ & external forces \\
+%$\mathbf{F}$ & Deformation gradient \\
+%$\epsilon$ & Strain tensor \\
+%$\sigma$ & Stress tensor \\
+%$\Psi$ & Energy density \\
+%\end{tabular}
+%\end{table}
 
 \subsection{Equations of motion}
 
-Equations of motion are generally derived from conservation's laws such as mass and momentum conservation. A constitutive law is also used to depict the intrinsic behavior of the simulated object.
+Equations of motion are generally derived from conservation's laws such as mass and momentum conservation. 
+A constitutive law is also used to depict the intrinsic behavior of the simulated object.
 
 \subsubsection{Conservation of mass}
 
@@ -608,3 +609,11 @@ where $\mathbf{M}_{i}$ is the mass matrix of the frame $i$:
 \mathbf{M}_{i} = \int_{V} w_{i}^{T} \rho w_{i}
 \end{equation}
 and $w_{i}$ is the shape function of the frame $i$.
+
+\subsection{Conclusion on continuum mechanics}
+
+Continuum mechanics allows to automatically compute realistic motion from a wide range of phenomena.
+Due to this strength, hand-made animations of physical phenomena have been replaced by physics-based animation.
+However, realism comes with a high computational cost.
+This cost may make large scale simulations intractable or prevent from simulating advanced phenomena in interactive context.
+In the following section, we review adaptive models, a common approach to make simulations efficient.

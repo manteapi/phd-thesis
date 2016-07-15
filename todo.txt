@@ -17,9 +17,12 @@ Urgent
 Relecture
 =========
 
-Lundi 11 Juillet: 
--->Corriger ARPS et demander détails à MP
--->Passer ARPS à FF
+-Conclusion pour section état de l'art
+-Conclusion pour état de l'art
+-Transition pour état de l'art
+
+-Conclusion pour chaque chapitre
+-Transition pour chaque chapitre
 
 Mardi 12 Juillet: 
 -->Corriger STAR

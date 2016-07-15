@@ -9,6 +9,10 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 
+%Lettrine
+\usepackage{lettrine}
+\newcommand{\Lettrine}[2]{\lettrine[lines=4]{\textcolor{Blue}{#1}}{#2}}
+
 %Biblio
 \usepackage[backend=biber, 
 			style=alphabetic, 
@@ -109,6 +113,21 @@
 % la ligne ci-dessous est à insérer obligatoirement dans le préambule du document avant \begin{document}
 \usepackage[a4paper]{meta-donnees}
 
+
+%====================================================
+%				    GLOSSARY	
+%====================================================
+%\usepackage[acronym, symbols, nonumberlist]{glossaries}
+%
+%\makeglossaries
+%
+%%Main glossary
+%\newglossaryentry{pil}{name={\ensuremath{\pi}},description={ratio}}
+%%Acronym glossary
+%\newacronym{led}{LED}{light-emitting diode}
+%%Symbol glossary
+%\newglossaryentry{pi}{type=symbols, name={\ensuremath{\pi}},symbol={\ensuremath{\pi}},description={ratio of circumference of circle to its diameter}}
+
 %====================================================
 %					DOCUMENT
 %====================================================
@@ -167,17 +186,17 @@
 %\UGTInvitee{...Civilité, Prénom_et_Nom...}{...titre_et_affiliation...}
 }
 
-\MakeUGthesePDG    %% très important pour générer la couvérture de thèse
+%\MakeUGthesePDG    %% très important pour générer la couvérture de thèse
 
 \frontmatter
 
 \newpage\null\thispagestyle{empty}\newpage
 
-\include{chap0_resume}
+%\include{chap0_resume}
 
 \newpage\null\thispagestyle{empty}\newpage
 
-\include{chap0_abstract}
+%\include{chap0_abstract}
 
 \newpage\null\thispagestyle{empty}\newpage
 
@@ -195,19 +214,19 @@
 
 \cleartorecto
 
-\include{chap3_arps}
+%\include{chap3_arps}
 
 \cleartorecto
 
-\include{chap4_cutting}
+%\include{chap4_cutting}
 
 \cleartorecto
 
-\include{chap5_fluidsculpting}
+%\include{chap5_fluidsculpting}
 
 \cleartorecto
 
-\include{chap6_conclusion}
+%\include{chap6_conclusion}
 
 \cleartorecto
 
@@ -228,5 +247,7 @@
 \cleartorecto
 
 \listoftables
+
+%\printglossaries
 
 \end{document}

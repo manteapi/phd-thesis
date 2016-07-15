@@ -55,7 +55,13 @@ Instead of controlling the trajectory of an object, one might want to control ho
 In multibody systems, space-time constraints paradigm can hardly be used. In cause, the large number of discontinuous contacts events which make the optimization problem particularly difficult to solve. In contrast, multibody simulators are particularly fast, so fast that it is possible to run in parallel a large number of simulations. In their work, \cite{Chenney2000} and \cite{Twigg2007} exploit this performance to sample the space of parameters of an animation and thus finding those which satisfy the user constraints.
 
 \subsubsection{Animation editing} 
-In contrast with simulation control, animation editing consists in deforming in space and time the output of a simulator. Closely related to surface modeling it has to take into account the temporal dimension and its relation with space in order to propose new editing tools. Very few methods have been proposed whereas modifying the result of a simulation frame by frame is a common practice in animation studios. Among the most interesting approach, Pighin et al.\cite{Pighin2004} propose to build a space-time parameterization of a smoke animation using radial basis function. In these approaches, finding a natural way to deform an animation and ensuring temporal coherency are amongst the main challenges. For liquid animations, Raveendran et al.~\cite{Raveendran2014} match two liquids animations and propose a method to smoothly blend between them. This approach allows to quickly explore parameter space such as boundary conditions or viscosity parameter and then to produce a large number of new liquid animations without the need to re-simulate.
+In contrast with simulation control, animation editing consists in deforming in space and time the output of a simulator without the need to re-simulate. 
+Closely related to surface modeling it has to take into account the temporal dimension and its relation with space in order to propose new editing tools. 
+Very few methods have been proposed whereas modifying the result of a simulation frame by frame is a common practice in animation studios. 
+Among the most interesting approach, Pighin et al.\cite{Pighin2004} propose to build a space-time parameterization of a smoke animation using radial basis function. 
+In these approaches, finding a natural way to deform an animation and ensuring temporal coherency are amongst the main challenges. 
+For liquid animations, Raveendran et al.~\cite{Raveendran2014} match two liquids animations and propose a method to smoothly blend between them. 
+This approach allows to quickly explore parameter space such as boundary conditions or viscosity parameter and then to produce a large number of new liquid animations without the need to re-simulate.
 
 \subsection{Control of fluid simulation}
 \label{subsec:fluidControl}
@@ -71,13 +77,26 @@ Taking this strategy further, the attracting surface itself can defined by a low
 Several approaches modify a high-resolution smoke simulation using optimization~\cite{Nielsen2009,Nielsen2010}, patterns extracted as skeleton~\cite{Yuan2011}, or sparse sampling~\cite{Huang2013}.
 For liquid simulations, Nielsen and Bridson~\cite{Nielsen2011} propose to restrict the high resolution simulation to a thin layer around a guiding coarse animation.
 
-Although each of these approaches are able to successfully guide a fluid simulation, they do not enable direct control of the resulting fluid. Designing precise timing or feature scaling would therefore still require iterative trial-and-error steps to converge toward a desired animation.
-Few attempts have been made to enable direct control on the simulation. Schpok et al.~\cite{Schpok2005} proposed to extract and parameterize features such as vortices, uniform advection, sinks, and sources to allow the user to modify the parameters in a smoke simulation. In the context of liquid simulation, Pan et al.~\cite{Pan2013} propose a method to deform wave shapes by sketching their profiles. This approach enables direct spatial deformation but does not allow temporal editing, and the simulation needs to be re-computed from the modified frame onwards.
+Although each of these approaches are able to successfully guide a fluid simulation, they do not enable direct control of the resulting fluid. 
+Designing precise timing or feature scaling would therefore still require iterative trial-and-error steps to converge toward a desired animation.
+Few attempts have been made to enable direct control on the simulation. 
+Schpok et al.~\cite{Schpok2005} proposed to extract and parameterize features such as vortices, uniform advection, sinks, and sources to allow the user to modify the parameters in a smoke simulation. 
+In the context of liquid simulation, Pan et al.~\cite{Pan2013} propose a method to deform wave shapes by sketching their profiles. 
+This approach enables direct spatial deformation but does not allow temporal editing, and the simulation needs to be re-computed from the modified frame onwards.
 
-Editing fluid animation is usually handled through indirect control, by adjusting physically based simulation parameters and degrees of freedom~\cite{Stam1999,Ihmsen2014:IISPH}, or by editing control parameters of procedural generation models for ocean and waves~\cite{Fournier1986,hinsinger2002,Tessendorf2004,jeschke2015water}. 
+Alternatively, procedural tools enable faster editing loops.
+Unfortunately, they are also based on indirect parameters setting and are often limited to overly restrictive fluid models such as large open ocean surfaces~\cite{hinsinger2002,Tessendorf2004,jeschke2015water,horvath2015empirical}.
 
 %Direct editing of simulation has been addressed in the contexts of rigid bodies and of deformable objects~\cite{Chenney2000,wojtan2006keyframe,Twigg2007,Barbic2009,Barbic2012,Schulz2014,Li2014}, but only few works have focused on fluid surfaces, due to the fact that the constantly changing shape and topology makes the output geometry inaccessible to standard deformation tools.
 %Interactivity and intuitivity, \cite{Kondo2005}
 %\begin{itemize}
 %\item It is tempting to create tools that allow a higher level of control on the design of a physics-based animation.
 %\end{itemize}
+
+\subsection{Conclusion on simulation control}
+
+The presented methods make a trade-off between realism and control.
+On one hand, realism requires a high computational cost and makes methods such as spacetime constraints unattractive for interactive use.
+On the other hand, giving the user full control may introduce unphysical and unpleasant behavior.
+Very few works explored the edit of an existing animation. 
+This approach would allow to extend classical modeling techniques to animated content and to interactively design physics-based animation without the need to re-simulate.
