@@ -3,10 +3,11 @@
 Continuum mechanics allows to define general equations of motion for a wide range of phenomena from liquids to deformable solids. 
 In this section, we propose a progressive introduction to the basics of continuum mechanics and provide details about the physical models used in the following chapters.
 Firstly, we describe how to formulate general equations of motion and we present the different concepts and numerical tools used to solve them.
-Secondly, we present a constitutive law for fluid mechanics leading to the Navier-Stokes equations and we detail their discretization using the Smoothed-Particle Hydrodynamics (SPH) model that we use in Chapter~\ref{chap:arps}.
+Secondly, we present a constitutive law for fluid mechanics leading to the Navier-Stokes equations and we detail their discretization using the Smoothed-Particle Hydrodynamics (SPH) model that will serve as background for our contribution in Chapter~\ref{chap:arps}.
 Finally, we present a constitutive law for solid mechanics which allows to simulate elastic solds and we detail the discretization of the equations of motion using the frame-based model that we use in Chapter~\ref{chap:cutting}.
 %\subsection{Notation}
 %
+%We will use the following notations throughout this manuscript.
 %\begin{table}[!h]
 %\begin{tabular}{ll}
 %$t$ & time \\
@@ -28,9 +29,9 @@ Finally, we present a constitutive law for solid mechanics which allows to simul
 \subsection{Equations of motion}
 
 The equations of motion describes the behavior of an object over time.
-They are generally derived from conservation's laws such as mass and momentum conservation. 
+They are generally derived from conservation laws such as mass and momentum conservation. 
 A constitutive law is also used to depict the intrinsic behavior of the simulated object.
-In the following, we first present the conservation laws used to formulate general equations of motion.
+The remainder of this section first describes the conservation laws used to formulate general equations of motion.
 Then we details the concepts and numerical tools used to solve these equations.
 
 \subsubsection{Conservation of mass}
@@ -41,7 +42,9 @@ Then we details the concepts and numerical tools used to solve these equations.
 \caption[STAR mechanics: Mass conservation]{\label{fig:massConservation} Mass conservation. $M(t_{1}) = M(t_{0}) + M_{in} + M_{out}$}
 \end{figure}
 
-The conservation of mass is quite explicit. Mass cannot be created or destroyed. If we look at a small volume $\mathcal{V}$ of the domain $\Omega$, the variation of mass in $\mathcal{V}$ should be equal to the flux of mass going through the border of the volume.
+The conservation of mass is quite explicit. 
+Whatever the physical material which is studied, mass cannot be created or destroyed. 
+If we look at a small volume $\mathcal{V}$ of the domain $\Omega$, the variation of mass in $\mathcal{V}$ should be equal to the flux of mass going through the border of the volume.
 
 \begin{equation}
     \label{eq:massConservation}
@@ -78,12 +81,13 @@ then the conservation of mass can be rewritten as
 Also called Newton's second law, it states:
 \begin{equation}
 \label{eq:momentumConservation}
-\displaystyle \int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dv = \int_{\mathcal{V}} \mathbf{f} dv
+\displaystyle \int_{\mathcal{V}} \rho \frac{d}{dt} \mathbf{v}(t,x) dv = \int_{\mathcal{V}} \mathbf{f} dv
 \end{equation}
 
 Two kind of forces are generally applied on an object, the \emph{external} forces and the \emph{internal} forces.
 
-External forces describe the action of the surrounding environment on the object, the simplest example is the gravity:
+External forces describe the action of the surrounding environment on the object. 
+The simplest example is weight:
 \begin{equation}
 \displaystyle \int_{\mathcal{V}} \rho \mathbf{g} dv
 \end{equation}
@@ -106,7 +110,7 @@ Conservation of momentum can then be rewritten:
 \int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{\mathcal{V}} \rho \mathbf{g} + \nabla. \sigma dx
 \end{equation}
 
-\subsubsection{Lagrangian vs. Eulerian}
+\subsubsection{Lagrangian vs. Eulerian formulations}
 
 \begin{figure}[!ht]
 \centering
@@ -130,7 +134,7 @@ Notice that equation~(\ref{eq:volumetricMassConservation}) can be rewritten in a
 \int_{\mathcal{V}} \frac{D\rho}{Dt} + \rho \nabla \cdot \mathbf{v} dv = 0
 \end{equation}
 
-In Lagrangian simulations, conservation of mass is guaranteed by assuming the mass of the particles are constant over time. In this context, numerically solving of equation~(\ref{eq:lagrangianMassConservation}) can be omitted. It is worth to notice that in Lagrangian liquid simulations, conservation of the mass does not imply incompressibility. In this case, equation~(\ref{eq:lagrangianMassConservation}) needs to be revisited and integrated in the numerical solving, recently an approach to enforce incompressibility was proposed for SPH simulations by Bender and Koschier~\cite{Bender2015}.
+In Lagrangian simulations, conservation of mass is guaranteed by assuming that the mass of the particles are constant over time. In this context, numerically solving of equation~(\ref{eq:lagrangianMassConservation}) can be omitted. It is worth to notice that in Lagrangian liquid simulations, conservation of the mass does not imply incompressibility. To insure the latter, equation~(\ref{eq:lagrangianMassConservation}) needs to be revisited and integrated within the numerical solver. An approach to enforce incompressibility was recently proposed for SPH simulations by Bender and Koschier~\cite{Bender2015}.
 
 \subsubsection{Numerical solving}
 
@@ -144,13 +148,13 @@ Once the equations of motion are stated, they are discretized in space an time i
 \caption[STAR mechanics: Discretization]{\label{fig:discretization} On the left a grid discretization, commonly used in Eulerian simulations. In the middle an unstructured mesh discretization, commonly used in mesh-based Lagrangian simulations. On the right, a point-based discretization, commonly used in mesh-less Lagrangian simulations.}
 \end{figure}
 
-The spatial discretization consists in approximating the object to simulate with a finite number of samples called the degrees of freedom. Then by using an interpolation method, it is possible to approximate continuous quantities such as position, velocity, density and so on,  at any location on the domain. Finally, a quadrature rule is needed in order to integrate these quantities over the domain. These are the main components for solving the equations of motion:
+The spatial discretization consists in approximating the object to simulate using a finite number of samples. Then by using an interpolation method, it is possible to approximate continuous quantities such as position, velocity, density and so on,  at any location on the domain. Finally, a quadrature rule is needed in order to integrate these quantities over the domain. These are the main components for solving the equations of motion:
 degrees of freedom, an interpolation method and a quadrature rule. 
 
-Multiple possibilities exist for these components. It is crucial to choose them based on the constraints of the simulation, What do we want to measure ? How boundaries are represented ? Do any topological changes occur ? Have we restrictions in terms of computational or memory cost ? In the following we briefly introduce commonly used components in Computer Graphics.
+Multiple possibilities exist for these components. It is crucial to choose them based on the constraints of the simulation, What do we want to measure ? How will boundaries be represented ? Will any topological changes occur ? Have we restrictions in terms of computational or memory cost ? In the following we briefly introduce the solutions the most commonly used in Computer Graphics.
 
 \subparagraph{Degrees of freedom}
-For Eulerian simulations, velocities are the most common degrees of freedom. Usually they are computed at fixed location regularly sampled which allows to accurately compute derivatives. For Lagrangian simulations, positions are the most common degrees of freedom. They can sample the object in many different ways depending on the interpolation method. Another possibility is to also represent orientations, this is used, for instance, in the frame-based model where degrees of freedom are affine frames.
+For Eulerian simulations, velocities are the most common degrees of freedom. Usually they are computed at fixed regularly sampled locations, which allow to accurately compute derivatives. For Lagrangian simulations, positions are the most common degrees of freedom. They can sample the object in many different ways depending on the interpolation method. Another possibility is to also represent orientations, this is used, for instance, in the frame-based model where degrees of freedom are affine frames.
 
 \subparagraph{Interpolation}
 
