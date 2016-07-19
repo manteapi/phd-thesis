@@ -21,7 +21,7 @@ If the reader looks for a wider presentation of the existing deformable models i
 %$\mathbf{f}$ & total forces \\
 %$\mathbf{f}_{int}$ & internal forces \\
 %$\mathbf{f}_{ext}$ & external forces \\
-%$\mathbf{F}$ & Deformation gradient \\
+%$F$ & Deformation gradient \\
 %$\epsilon$ & Strain tensor \\
 %$\sigma$ & Stress tensor \\
 %$\Psi$ & Energy density \\
@@ -111,7 +111,7 @@ Conservation of momentum can then be rewritten:
 \begin{equation}
 \label{eq:volumetricMomentumConservation}
 \displaystyle
-\int_{\mathcal{V}} \rho \frac{D}{Dt} \mathbf{v}(t,x) dx = \int_{\mathcal{V}} \rho \mathbf{g} + \nabla. \sigma dx
+\int_{\mathcal{V}} \rho \frac{d}{dt} \mathbf{v}(t,x) dx = \int_{\mathcal{V}} \rho \mathbf{g} + \nabla. \sigma dv
 \end{equation}
 
 \subsubsection{Lagrangian vs. Eulerian formulations}
@@ -221,7 +221,7 @@ They are called \emph{integration points}.
 Then the integral of a function $f$ over a domain $\Omega$ is approximated by:
 \begin{equation}
 \label{eq:midpointRule}
-\int_{V} f(x) = \sum_{i} V_{i}f(\mathbf{x}_{i})
+\int_{V} f(x)dv = \sum_{i} V_{i}f(\mathbf{x}_{i})
 \end{equation}
 
 Figure~\ref{fig:spatialIntegration} depicts the midpoint rule for a one dimensional function.
@@ -252,9 +252,9 @@ Once physical quantities are spatially integrated, they can be integrated over t
 \label{eq:timeIntegration1}
 \displaystyle
 \int_{t_{n}}^{t_{n+1}}
-m \frac{d\mathbf{v}}{dt}
+m \frac{d\mathbf{v}}{dt} dt
 =
-\int_{t_{n}}^{t_{n+1}}\mathbf{f}
+\int_{t_{n}}^{t_{n+1}}\mathbf{f} dt
 \end{equation}
 
 In the following we assume an uniform discretization of the time where the time step is noted $\Delta t$.
@@ -273,7 +273,7 @@ Applied to equation (\ref{eq:timeIntegration1}), this gives:
 \begin{equation}
 \label{eq:timeIntegration2}
 \displaystyle
-\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \int_{t_{n}}^{t_{n+1}}\frac{1}{m}\frac{d\mathbf{v}}{dt}
+\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \int_{t_{n}}^{t_{n+1}}\frac{1}{m}\frac{d\mathbf{v}}{dt} dt
 \end{equation}
 
 This expression can be further expanded in order to get more accurate results. 
@@ -354,6 +354,7 @@ Additionally, the fluid might be incompressible, such as water, which means that
 Finally, by injecting equation~(\ref{eq:fluidConstitutiveLaw}) in equation~(\ref{eq:volumetricMomentumConservation}), this gives us Navier-Stokes equations for an incompressible fluid:
 
 \begin{equation}
+\label{eq:navierStokes}
 \left\lbrace
 \begin{array}{ll}
 \displaystyle \int_{\mathcal{V}} \rho \frac{d}{dt} \mathbf{v}(t,x) dv = 
@@ -366,7 +367,7 @@ Finally, by injecting equation~(\ref{eq:fluidConstitutiveLaw}) in equation~(\ref
 
 \subsubsection{Smoothed-Particles Hydrodynamics model}
 \label{subsubsec:starSPH}
-Smoothed-Particles Hydrodynamics (SPH) is an interpolation method that can be used to approximate Navier-Stokes equations in a Lagrangian way. SPH was initially proposed by Monaghan et al.~\ref{Monaghan1992} and introduced in graphics by Desbrun et al.~\cite{Desbrun1999}.
+Smoothed-Particles Hydrodynamics (SPH) is an interpolation method that can be used to approximate Navier-Stokes equations in a Lagrangian way. SPH was initially proposed by Monaghan et al.~\cite{Monaghan1992} and introduced in graphics by Desbrun et al.~\cite{Desbrun1999}.
 The fluid is discretized into particles which represent small volumes of the whole fluid and each quantity is interpolated using SPH.
 
 \paragraph{SPH interpolation}
@@ -381,17 +382,23 @@ If the fluid is discretized into particles with a mass $m$, a density $\rho$ and
 f(\mathbf{x}) = \sum_{p} f(\mathbf{x}_{p})V_{p} W(\mathbf{x}-\mathbf{x_{p}},h) = \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} W(\mathbf{x}-\mathbf{x_{p}},h)
 \end{equation}
 
+\begin{equation}
+\label{eq:sphFunction}
+f(\mathbf{x}) = \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} W(\mathbf{x}-\mathbf{x_{p}},h)
+\end{equation}
+
 Derivatives can be computed and discretized the same way:
 \begin{equation}
 D^{\alpha} f(\mathbf{x}) = \int_{\mathcal{V}} f(\mathbf{x'}) D^{\alpha} W(\mathbf{x}-\mathbf{x'}, h)dx'
 \end{equation}
 
 \begin{equation}
+\label{eq:sphDerivative}
 D^{\alpha} f(\mathbf{x})= \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} D^{\alpha} W(\mathbf{x}-\mathbf{x_{p}},h)
 \end{equation}
 
 However, for first derivatives, the approximation above does not vanish if $f$ is a constant function. 
-A quick way to ensure this expected property is to use a differentiable function $\Phi$ and to re-write the derivative using the derivative of a product :
+A quick way to ensure this expected property is to use an arbitrary differentiable function $\Phi$ and to re-write the derivative using the derivative of a product :
 \begin{equation}
 \label{eq:hackSPH}
 \nabla f(x) = \frac{1}{\Phi}\left(\nabla (f \Phi) - f \nabla \Phi \right)
@@ -430,23 +437,36 @@ This is the kernel we use in Chapter~\ref{chap:arps}.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[scale=0.6]{images/continuum_mechanics/cubicKernel.png}
-	\caption[STAR mechanics: Cubic kernel]{\label{fig:cubicKernel} 
+	\caption[STAR mechanics: Cubic kernel]{\label{fig:cubicKernel}
 		Illustration of the 1D cubic kernel used by Monaghan et al.~\cite{Monaghan1992} and its derivative.
-		In this image, the length scale $h$ is equal to $1$ and the kernel has a $2h$ support radius.
+    In this image, the length scale $h$ is equal to $1$ and the kernel has a $2h$ support radius.}
 \end{figure}
 
-\paragraph{Applications to Navier-Stokes}
+\paragraph{Application to Navier-Stokes equations}
+
+In computer graphics, the SPH model is commonly used to approximate the Navier-Stokes equations (Equations~\ref{eq:navierStokes}).
+In the following, we discretize each term of these equations for a particle $i$ using the SPH model.
+\\ \\
+The density of a particle $i$ can be approximated using Equation~(\ref{eq:sphFunction}):
 
 \begin{equation}
 \label{eq:densitySPH}
 \rho_{i} = \sum_{j} m_{j}W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 
+For the pressure gradient, we can directly apply Equation~(\ref{eq:sphDerivative}):
+
 \begin{equation}
 \left(\nabla p\right)_{i} = \sum_{j} \frac{m_{j}}{\rho_{j}} p_{j} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 
-However linear and angular momentum are not conserved as the formula is not symmetric. By using equation~(\ref{eq:hackSPH}) with $\displaystyle \Phi = \frac{1}{\rho}$, it can be symmetrized:
+However, the resulting pressure force between two particles $i$ and $j$ is not symmetric and therefore does not conserve linear and angular momentum:
+\begin{equation}
+\label{eq:nonSymmetricPressureForce}
+\mathbf{f}^{pressure}_{ij} = \frac{m_{i}m_{j}}{\rho_{i}\rho_{j}}p_{j}\nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\end{equation}
+
+A symmetric version can be obtained by using equation~(\ref{eq:hackSPH}) with $\displaystyle \Phi = \frac{1}{\rho}$:
 
 \begin{equation}
 \label{eq:pressureGradientSPH}
@@ -455,18 +475,50 @@ However linear and angular momentum are not conserved as the formula is not symm
 \sum_{j} m_{j} \left( \frac{p_{i}}{\rho_{i}^{2}} + \frac{p_{j}}{\rho_{j}^{2}} \right) \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 
+Various techniques exist to compute pressure.
+In Monaghan et al.~\cite{Monaghan1992} and Desbrun et al.~\cite{Desbrun1996}, a spring-like equation of state was used:
+\begin{equation}
+\label{eq:pressureSPH}
+p_{i} = k\left(\rho_{i}-\rho_{0}\right)
+\end{equation}
+where $k$ is a stiffness parameter. 
+Even though it is simple and cheap, high stiffness and very small time steps are required to get close to incompressibility.
+Recently, new techniques were proposed to compute pressure so that the fluid would be incompressible while allowing the use of large time steps.
+We do not detail these methods in this manuscript but refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2014:IISPH} and Bender and Koschier~\cite{Bender2015}.
+\\ \\
+To compute viscosity forces, we could approximate the Laplacian of the velocity using Equation~(\ref{eq:sphDerivative}):
+
 \begin{equation}
 \left(\Delta \mathbf{v}\right)_{i} = \sum_{j} \frac{m_{j}}{\rho_{j}} \mathbf{v}_{j} \Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 
-Same as for the pressure gradient, this is not symmetric. Here it can be symmetrized by using $\Phi = \rho$.
+Same as for the pressure gradient, this would result in a non-symmetric force:
+
+\begin{equation}
+\label{eq:nonSymmetricViscosityForce}
+\mathbf{f}^{viscosity}_{ij} = \eta\frac{m_{i}m_{j}}{\rho_{i}\rho_{j}}\mathbf{v}_{j}\Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\end{equation}
+
+To obtain symmetric inter-particle forces, we can use a technique similar to Equation~(\ref{eq:hackSPH}) to approximate the Laplacian of a function $f$ using an arbitrary twice differentiable function $\Phi$:
+
+\begin{equation}
+\label{eq:hackSPH2}
+\Delta f = 
+\frac{1}{\Phi}
+\left( \Delta \left( f\rho \right) - 2 \nabla f \nabla \phi - f \Delta \phi \right)
+\end{equation}
+
+By using $\Phi=\rho$ and assuming that the density is constant, which should be the case in theory, we can obtain a new expression that will result in symmetric inter-particle forces:
 
 \begin{equation}
 \left(\Delta \mathbf{v}\right)_{i} = \frac{1}{\rho_{i}}\sum_{j} m_{j} \left( \mathbf{v}_{j}-\mathbf{v}_{i}\right) \Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 
-In practice, the evaluation of the laplacian is not accurate. 
-Another form of viscosity based on the gradient was proposed by Monaghan~\cite{Monaghan2005}. This is still an area of research.
+However, in practice, density is not constant and the evaluation of the second derivative of the kernel is sensitive to particles sampling, which makes this expression inadequate.
+The evaluation of viscosity is still an area of research and various solutions exist depending whether it is important or not in the phenomena that we want to simulate.
+For liquids exhibiting complex viscous behaviors such as coiling or buckling, implicit formulations were recently proposed by Peer et al.~\cite{Peer2015} and Takahashi et al.~\cite{Takahashi2015}.
+In practice, the evaluation of the Laplacian is not accurate. 
+As we do not seek to simulate this kind of behavior, we can stick to a gradient-based formulation of viscosity which was proposed by Monaghan~\cite{Monaghan2005}.
 
 \begin{equation}
 \label{eq:velocityLaplacianSPH}
@@ -480,21 +532,17 @@ where
 \begin{equation}
     \Pi_{ij} = -\frac{2hc_{s}}{\rho_{i}+\rho_{j}}\frac{\mathbf{v}_{ij}^{T}\mathbf{x}_{ij}}{\vert \mathbf{x}_{ij} \vert^{2} + \epsilon h^{2}}
 \end{equation}
-
-Pressure can be computed by a spring-like equation:
-\begin{equation}
-\label{eq:pressureSPH}
-p_{i} = k\left(\rho_{i}-\rho_{0}\right)
-\end{equation}
-where $k$ is a stiffness parameter. Even though it is simple and cheap, reaching incompressibility requires very small time step because of the stiffness parameter. Recently, new techniques were proposed to compute pressure so that the fluid would be incompressible. We do not detail these methods in this thesis but refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2014:IISPH} and Bender and Koschier~\cite{Bender2015}.
-
-Now if we discretize Navier-Stokes for one particle $i$, we have:
+and $c_{s}$ is the speed of sound in the media and $\epsilon$ is a numerical constant to avoid singularities.
+In practice, $\epsilon=0.01$ works well.
+\\ \\
+Finally, we have all the ingredients to write a discretized version of Navier-Stokes equations for one particle $i$:
 
 \begin{equation}
     \displaystyle m_{i}\frac{d}{dt}\mathbf{v}_{i}(t) = m_{i}\mathbf{g} - \frac{m_{i}}{\rho_{i}}(\nabla p)_{i} + \eta\frac{m_{i}}{\rho_{i}}\left(\Delta \mathbf{v}\right)_{i}
 \end{equation}
 
-This equation can now be discretized in time and integrated. In practice we use the Euler symplectic integrator:
+This equation can now be discretized in time and integrated. 
+In practice, the Euler symplectic integrator is often used:
 
 \begin{equation}
 \begin{array}{ll}
@@ -503,7 +551,11 @@ This equation can now be discretized in time and integrated. In practice we use 
 \end{array}
 \end{equation}
 
-We described the key ingredient of the SPH model and how to use them to discretize Navier-Stokes equations. There is not enough space to cover the exciting challenges related to the building of a full SPH simulator. For a robust handling of static and dynamic boundaries, a surface tension model and an efficient surface reconstruction pipeline, we refer to the work of Akinci et al.~\cite{Akinci2012b, Akinci2013, Akinci2012a}.  For a state of the art of optimization techniques for SPH, we refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2011:ParallelSPH}. For other references related to the handling of viscosity, multi-phase simulations and other problems, the state of the art report on SPH by Ihmsen et al.~\cite{Ihmsen2014:STAR} is a safe starting point.
+We described the key ingredient of the SPH model and how to use them to discretize Navier-Stokes equations. 
+There is not enough space to cover the exciting challenges related to the building of a full SPH simulator. 
+For a robust handling of static and dynamic boundaries, a surface tension model and an efficient surface reconstruction pipeline, we refer to the work of Akinci et al.~\cite{Akinci2012b, Akinci2013, Akinci2012a}.  
+For a state of the art of optimization techniques for SPH, we refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2011:ParallelSPH}. 
+For other references related to the handling of viscosity, multiphase simulations and other problems, the state of the art report on SPH by Ihmsen et al.~\cite{Ihmsen2014:STAR} is a safe starting point.
 
 \subsection{Solid mechanics}
 \label{subsec:solidMechanics}
@@ -517,7 +569,7 @@ We described the key ingredient of the SPH model and how to use them to discreti
 
 In this section, we focus on the simulation of elastic objects. When submitted to external forces, an elastic object reacts so that it comes back to its rest shape. In contrast with fluids, internal forces are history dependent, they depend on how much the object deformed compared to its rest shape. It becomes crucial to be able to describe the deformation of an object in order to express its reaction. 
 
-The deformation is modeled by a mapping $\Phi$ between the undeformed configuration $\Omega_{0}$ and the deformed configuration $\Omega$. $\Phi$ is called the \emph{displacement field}.
+The deformation is modeled by a mapping $\Phi$ between the undeformed configuration $\Omega_{0}$ and the deformed configuration $\Omega$ (see Figure~\ref{fig:displacementField}). $\Phi$ is called the \emph{displacement field}.
 \begin{equation}
 \begin{array}{lllll}
 \Phi & : & \Omega_{0} & \longrightarrow & \Omega \\
@@ -526,13 +578,19 @@ The deformation is modeled by a mapping $\Phi$ between the undeformed configurat
 \end{equation}
 where $\mathbf{X}$ is a point in the undeformed configuration and $\mathbf{x}=\Phi(\mathbf{X})$ is the mapped point into the deformed configuration.
 
-The deformation gradient $\displaystyle \mathbf{F} = \frac{\partial \Phi}{\partial \mathbf{X}}$ measures deformation with respect to the undeformed configuration. The strain tensor $\epsilon$ measures how the object has derived from its undeformed configuration. There exist different strain measures, Green-Lagrange strain can be used for instance: $\displaystyle \epsilon = \frac{1}{2}\left(\mathbf{F}^{T}\mathbf{F} - \mathbf{I}\right)$. Or its linearized version, the Cauchy strain $\displaystyle \epsilon = \frac{1}{2}\left( \mathbf{F} + \mathbf{F}^{T} \right)-\mathbf{I}$.
+The deformation gradient $\displaystyle F = \frac{\partial \Phi}{\partial \mathbf{X}}$ describes the local state subject to rigid and/or deformable displacement with respect to the undeformed configuration. 
+The strain tensor $\epsilon$ measures the deformation.
+Multiple strain measures have been proposed, Green-Lagrange strain can be used for instance: $\displaystyle \epsilon = \frac{1}{2}\left(F^{T}F - I\right)$. 
+Or its linearized version, the Cauchy strain $\displaystyle \epsilon = \frac{1}{2}\left( F + F^{T} \right)-I$.
 
-The displacement field, deformation gradient and strain tensor are the main components of the constitutive law that will relate the deformation to the material properties of the object.
+The displacement field, deformation gradient and strain tensor are the main components of the constitutive law that relates the deformation to the material properties of the object.
 
 \subsubsection{Constitutive Law}
-A common way to describe the stress tensor $\sigma$ for elastic materials is to use a constitutive density energy $\Psi$ and to derive it with respect to the strain tensor $\epsilon$:
+In this section, we focus on elastic materials, i.e objects which tends to recover their rest configuration after a deformation.
+For elastic materials, the stress tensor $\sigma$ can be described using constitutive density energy $\Psi$ that is derived with respect to the strain tensor $\epsilon$:
+
 \begin{equation}
+\label{eq:constitutiveLaw}
 \sigma = \frac{\partial \Psi}{\partial \epsilon}
 \end{equation}
 
@@ -541,12 +599,15 @@ Different forms of energy exist. For a classical Hookean material, the density e
 \Psi = \frac{1}{2}H\epsilon^{2}
 \end{equation}
 
-Then the stress tensor is
+which gives the following stress tensor
 \begin{equation}
 \sigma = H\epsilon
 \end{equation}
 
-H is called the stiffness tensor and is a $3\times3\times3\times3$ tensor. For isotropic materials, the number of material parameters can be reduced to two, the Young's modulus $E$ and the Poisson's ratio $\nu$. Also, the strain and stress tensor being symmetric, the constitutive law can be simplified:
+$H$ is called the stiffness tensor and is a $3\times3\times3\times3$ tensor. 
+For isotropic materials, the number of material parameters can be reduced to two, the Young's modulus $E$ and the Poisson's ratio $\nu$. 
+These parameters respectively describes the resistance of the object to extension and to shearing.
+Moreover, the strain and stress tensor are symmetric which allows to simplify the constitutive law:
 \begin{equation}
 \sigma = 
 \begin{bmatrix}
@@ -592,56 +653,80 @@ Instead of computing internal forces as the divergence of the stress, they can b
 
 \subsubsection{Frame-based model}
 \label{subsubsec:framebased}
-The frame-based model was introduced by Gilles et al.~\cite{Gilles2011} to simulate deformable objects. In contrast to other deformable models, it allows to simulate complex object with very few degrees of freedom and to handle heterogeneous materials easily \cite{Faure2011}. Additionally, this work formalized the concept of multi-layer physical framework. In the following, we first describe what is a multi-layer framework, illustrate it in the case of the frame-based model. Then we detail a standard choice for the different components of the frame-based model: degrees of freedom, interpolation and integration. As in the previous section, we do not detail collision detection and response process as well as a more accurate formulation of viscosity via the strain rate.
+The frame-based model was introduced by Gilles et al.~\cite{Gilles2011} to simulate deformable objects. In contrast to other deformable models, it allows to simulate complex object with very few degrees of freedom and to handle heterogeneous materials easily \cite{Faure2011}. 
+Additionally, this work formalized the concept of multi-layer physical framework. In the following, we first describe what is a multi-layer framework, illustrate it in the case of the frame-based model. 
+Then we detail a standard choice for the different components of the frame-based model: degrees of freedom, interpolation and integration. As in the previous section, this section is a high level overview. 
+Detailing collision detection and response processes and giving a more accurate formulation of viscosity via the strain rate are out of the scope of this chapter.
 
 \paragraph{A multi-layer physical framework}
  
 \begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.6]{./images/continuum_mechanics/multiLayeredFramework.png}
-\caption[STAR mechanics: Multi-layer framework]{\label{fig:multiLayerFramework} Each component of the simulation is isolated and communicates with other components through mapping. By doing so, the framework allows fast prototyping and comparison of a wide range of deformable models.}
+\caption[STAR mechanics: Multi-layer framework]{\label{fig:multiLayerFramework} Each component of the simulation is isolated and communicates with other components through mappings. By doing so, the framework allows fast prototyping and comparison of a wide range of deformable models.}
 \end{figure}
 
 Most of the time, the different components of a physics-based model are described as a monolithic framework: degrees of freedom, interpolation, integration and constitutive law are put together in one formula which computes the forces applied on the degrees of freedom. On one hand, this provides a compact and implementation-friendly expression. It also suits the short format of scientific article. On the other hand, it requires assumptions on each component and make it hard to distinguish what should be changed in order to integrate collisions, to embed a visual model or to test variations of the initial model.
 
-An interesting alternative is to build a multi-layer framework where each component of a physics-based model represents a layer which is able to communicate with other layers by using mappings. The framework has then a great modularity, different components can be re-used and mixed. A direct consequence is the ease at prototyping. State of the art methods can be implemented in hours instead of days. Comparisons of different models is much easier. Also, it provides a way to control the granularity of a simulation. As each layer can be discretized at its own resolution, it allows for an easier repartition of resources and computational task.
+An interesting alternative is to build a multi-layer framework where each component of a physics-based model represents a layer which is able to communicate with other layers through mappings. 
+The framework has then a great modularity, as different components can be re-used and mixed. A direct consequence is the ease at prototyping. 
+State of the art methods can be implemented in hours instead of days. 
+Comparisons of different models is much easier. 
+Also, it provides a way to control the granularity of a simulation, as each layer can be discretized at its own resolution, this allows for an easier repartition of resources and computational tasks.
 
 In their work, Gilles et al. \cite{Gilles2011} proposed such an alternative by decomposing the computation of force using the derivation chain rule:
 \begin{equation}
 \label{eq:forceChainRule}
 \displaystyle \mathbf{f} = -\int_{V} \left(\frac{\partial \Psi}{\partial \mathbf{x}}\right)^{T} dv
 =
--\int_{V} \left(\frac{\partial \mathbf{F}}{\partial \mathbf{x}}\right)^{T}
-\left(\frac{\partial \epsilon}{\partial \mathbf{F}}\right)^{T}
+-\int_{V} \left(\frac{\partial F}{\partial \mathbf{x}}\right)^{T}
+\left(\frac{\partial \epsilon}{\partial F}\right)^{T}
 \left(\frac{\partial \Psi}{\partial \epsilon}\right)^{T} dv
 \end{equation}
-We can now distinguish the different layers: the degrees of freedom, the deformation gradient, the strain tensor and the constitutive density energy. We can also distinguish the Jacobian of the mappings that link degrees of freedom to deformation gradient, deformation gradient to strain and strain to constitutive density energy. Layers and mappings can be implemented separately thus providing a great deal of modularity. Moreover it is straightforward to have a sampling of degrees of freedom different from the sampling of integration points that will be used to compute deformation gradient, strain and stress.
+The three different layers are now visible: the degrees of freedom, the deformation gradient, the strain tensor and the constitutive density energy.
+Moreover, we can distinguish the Jacobian of the mappings that link degrees of freedom to deformation gradient and deformation gradient to strain.
+Notice that the derivative of the constitutive density energy with respect to strain is actually the stress tensor presented in Equation~(\ref{eq:constitutiveLaw}.
 
-In the case of the frame-based method, there are two additional layers, one for embedding a visual model and one for handling collisions. Both communicates with the degrees of freedom through a mapping which is the displacement field (see Figure~\ref{fig:multiLayerFramework}).
+Using this modular representation offers three main advantages: 
+First, layers and mappings can be implemented separately thus providing a great deal of modularity;
+Secondly, it is straightforward to have a sampling of degrees of freedom different from the sampling of integration points.
+Thus, multi-resolution strategies can easily be integrated. 
+For instance, we might want a small number of degrees of freedom to have a small computational time during the solving of dynamics while computing accurate deformation gradient, strain and stress which requires a dense sampling of integration points.
+Additionally, embedding techniques, used to display a fine visual model or to handles collision with a coarse representation, fits well in this framework.
+
+In the case of the frame-based method, there are two additional layers, one for embedding a visual model and one for handling collisions. 
+Both communicate with the degrees of freedom through a mapping which is the displacement field (see Figure~\ref{fig:multiLayerFramework}).
 
 \paragraph{Degrees of freedom}
-The object is uniformly sampled with affine frames as degrees of freedom. An affine frames $T=(\mathbf{A},\mathbf{t})$ represents $12$ degree of freedoms, $3$ for translation $\mathbf{t}$, $9$ for the matrix $\mathbf{A}$ combining rotation, scaling and shearing. Affine frames are represented with respect to an initial configuration ~$T_{0} = \left(\mathbf{A_{0}}, \mathbf{t_{0}}\right)$.
+The object is uniformly sampled with affine frames as degrees of freedom. An affine frame $T=(A,\mathbf{t})$ represents $12$ degree of freedoms, $3$ for translation $\mathbf{t}$, $9$ for the matrix $A$ combining rotation, scaling and shearing. 
+Affine frames are expressed with respect to an initial configuration ~$T_{0} = \left(A_{0}, \mathbf{t}_{0}\right)$.
 
 \paragraph{Interpolation}
-Linear blend skinning is used to interpolate the displacement field and other quantities of the simulation. A deformed position $\mathbf{x}$ can be interpolated as a weighted sum of the affine transformations applied to the rest position $\mathbf{x_{0}}$.
+Linear blend skinning is used to interpolate the displacement field and other quantities of the simulation. A deformed position $\mathbf{x}$ can be interpolated as a weighted sum of the affine transformations applied to the rest position $\mathbf{x}_{0}$.
 
 \begin{equation}
+\label{eq:frameBasedDisplacementField}
 \begin{array}{l}
-\displaystyle \mathbf{x} = \sum_{i} w_{i}(\mathbf{x_{0}})\left(\mathbf{t_{i}}+\mathbf{A_{i}}\mathbf{x_{0}}^{rel}\right) \\
-\displaystyle \mathbf{x_{0}}^{rel} = \mathbf{A_{0}}^{-1}\left( \mathbf{x_{0}} - \mathbf{t_{0}} \right)
+\displaystyle \mathbf{x} = \Phi(\mathbf{x}_{0}) = \sum_{i} w_{i}(\mathbf{x}_{0})\left(\mathbf{t}_{i}+A_{i}\mathbf{x}_{0}^{rel}\right) \\
+\displaystyle \mathbf{x}_{0}^{rel} = A_{0}^{-1}\left( \mathbf{x}_{0} - \mathbf{t}_{0} \right)
 \end{array}
 \end{equation}
 
-where $\mathbf{x_{0}^{rel}}$ is the relative position of $x_{0}$ in the frame defined by $T_{0}$ and $w_{i}$ is the shape function associated to the frame $i$.
+where $\mathbf{x}_{0}^{rel}$ is the relative position of $x_{0}$ in the frame defined by $T_{0}$ and $w_{i}$ is the shape function associated to the frame $i$.
 
-Different weights can be used. Three properties are important in order to represent a physical behavior. First, the shape function should linearly decrease with respect to distance in the material. Otherwise, the deformation will not be uniform with respect to the distance from the frame. Second, the shape function should be positive. Third, the weights should form a partition of unity. In practice, one can use harmonic weights or Voronoi-based weights which are described later.
+Different weights can be used. Three properties are important in order to represent a physical behavior. 
+First, the shape function should linearly decrease with respect to distance in the material. 
+Otherwise, the deformation will not be uniform with respect to the distance from the frame. 
+Second, the shape function should be positive. 
+Third, the weights should form a partition of unity. 
+In practice, one can use either harmonic weights or Voronoi-based weights which are described in Chapter~\ref{chap:cutting}.
 
-From the description of the displacement field, the deformation gradient can then be derived:
+From the description of the displacement field (Equation~\ref{eq:frameBasedDisplacementField}), the deformation gradient can then be derived:
 \begin{equation}
 \displaystyle
-\mathbf{F}\left(\mathbf{x}\right) = \sum_{i} \frac{\partial \mathbf{x}}{\partial \mathbf{x_{0}}} =
-\nabla w_{i}(\mathbf{x_{0}}) \left( \mathbf{t_{i}}+\mathbf{A_{i}}\mathbf{x_{0}}^{rel}\right) + 
-w_{i}\left( \mathbf{A_{i}}\mathbf{A_{0}}^{-1} \right)
+F\left(\mathbf{x}\right) = \sum_{i} \frac{\partial \mathbf{x}}{\partial \mathbf{x}_{0}} =
+\nabla w_{i}(\mathbf{x}_{0}) \left( \mathbf{t}_{i}+A_{i}\mathbf{x}_{0}^{rel}\right) + 
+w_{i}\left( A_{i}A_{0}^{-1} \right)
 \end{equation}
 
 \paragraph{Spatial integration}
@@ -649,18 +734,18 @@ w_{i}\left( \mathbf{A_{i}}\mathbf{A_{0}}^{-1} \right)
 Any quadrature rule can be used. Here, for the sake of simplicity, we suppose that we use the midpoint rule briefly described in Figure~\ref{fig:spatialIntegration}. Thus, the integral of a function $f$ over the object states:
 \begin{equation}
 \displaystyle
-\int_{V} f(x)  = \sum_{i} V_{i} f(x_{i})
+\int_{V} f(\mathbf{x})  = \sum_{p} V_{p} f(\mathbf{x}_{p})
 \end{equation}
-where $i$ is an integration point and $V_{i}$ its associated volume.
-
-From this quadrature rule, we can now explicit the computation of internal forces for one frame:
+where $p$ is an integration point and $V_{p}$ its associated volume.
+\\ \\
+From this quadrature rule, we can now formulate the computation of internal forces for one frame as:
 \begin{equation}
 \label{eq:frameForceComputation}
 \displaystyle
 \mathbf{f}_{i} =
 - \sum_{p}
-\left( \frac{\partial \mathbf{F}}{\partial \mathbf{x}_{i}} \right)^{T}
-\left( \frac{\partial \epsilon}{\partial \mathbf{F}} \right)^{T}
+\left( \frac{\partial F}{\partial \mathbf{x}_{i}} \right)^{T}
+\left( \frac{\partial \epsilon}{\partial F} \right)^{T}
 \left( \frac{\partial \Psi}{\partial \mathbf{\epsilon}} \right)^{T} \left(\mathbf{x_{p}}\right) V_{p} 
 \end{equation}
 where $p$ is an integration point, $\mathbf{x}_{p}$ its position and $V_{p}$ its associated volume.
@@ -671,30 +756,33 @@ Assuming the mass matrix is lumped and that we use explicit Euler, the time inte
 \begin{equation}
 \displaystyle
 \begin{pmatrix}
-\mathbf{t_{i}}(t+\Delta t) \\
-\mathbf{A_{i}}(t+\Delta t)
+\mathbf{t}_{i}(t+\Delta t) \\
+A_{i}(t+\Delta t)
 \end{pmatrix} 
 =
 \begin{pmatrix}
-\mathbf{t_{i}}(t) \\
-\mathbf{A_{i}}(t)
+\mathbf{t}_{i}(t) \\
+A_{i}(t)
 \end{pmatrix} 
 +
 \Delta t
-\mathbf{M}_{i}^{-1}
+M_{i}^{-1}
 \mathbf{f}(t)
 \end{equation}
-where $\mathbf{M}_{i}$ is the mass matrix of the frame $i$:
+where $M_{i}$ is the mass matrix of the frame $i$:
 \begin{equation}
 \label{eq:massMatrix}
-\mathbf{M}_{i} = \int_{V} w_{i}^{T} \rho w_{i}
+M_{i} = \int_{V} w_{i}^{T} \rho w_{i} dv
 \end{equation}
 and $w_{i}$ is the shape function of the frame $i$.
 
 \subsection{Conclusion on continuum mechanics}
 
-Continuum mechanics allows to automatically compute realistic motion from a wide range of phenomena.
-Due to this strength, hand-made animations of physical phenomena have been replaced by physics-based animation.
+In this section, we briefly presented the basics of continuum mechanics.
+First, we described how to design equations of motion and which numerical tools are involved in their solving. 
+Then, for fluids and solids mechanics, we mentioned their specificities and detailed a deformable model.
+We illustrated the fact that continuum mechanics allows to automatically compute realistic motion from a wide range of phenomena.
+This strength mainly explains why hand-made animations of physical phenomena have been replaced by physics-based animation.
 However, realism comes with a high computational cost.
 This cost may make large scale simulations intractable or prevent from simulating advanced phenomena in interactive context.
 In the following section, we review adaptive models, a common approach to make simulations efficient.
