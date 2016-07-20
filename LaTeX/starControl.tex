@@ -21,6 +21,7 @@ There are mainly two constraints which make this task a nightmare:
 	\item Firstly, the computational time plays a major role. 
 	This is obvious but still important to states. 
 	A real-time simulation will allow the user to quickly explore parameters whereas an offline simulation might require days and days of tuning.
+    Here, we can mention procedural tools which are generally much more efficient than simulation and therefore enable faster editing loops. Unfortunately they are often limited to overly restrictive models such as large open ocean surfaces~\cite{hinsinger2002,Tessendorf2004,jeschke2015water,horwath2015empirical}.
 	\item Secondly, the control is indirect and, most of the time, based on unintuitive parameters which requires some expertise about the underlying physical model. The user cannot directly control the trajectory nor the shape of the object.
 	\item Thirdly, many physics-based animations describe a non-linear behavior. Fluid animations are among them for instance. 
 	This non-linearity makes it very hard to choose the right parameters. 
@@ -91,9 +92,6 @@ Several approaches modify a high-resolution smoke simulation using optimization~
 For liquid simulations, Nielsen and Bridson~\cite{Nielsen2011} propose to restrict the high resolution simulation to a thin layer around a guiding coarse animation.
 Although each of these approaches are able to successfully guide an animation, they do not enable direct control of the resulting animation. Designing precise timing or feature scaling would therefore still require iterative trial-and-error steps to converge toward a desired animation.
 
-Alternatively, procedural tools enable faster editing loops.
-Unfortunately, they are also based on indirect parameters setting and are often limited to overly restrictive fluid models such as large open ocean surfaces~\cite{hinsinger2002,Tessendorf2004,jeschke2015water,horvath2015empirical}.
-
 \subsubsection{Example-based simulation}
 Instead of controlling the trajectory of an object, one might want to control how it deforms when it collides with other objects. 
 In exampled-based simulations, a set of examples that represent the desired deformations is used to build a space of preferred deformations from where internal forces will be deduced. This method was first introduced by Martin et al.~\cite{Martin2011} for elastic deformations. Jones et al.\cite{Jones2016} propose a similar method to easily incorporate plastic deformations in rigid bodies simulations.
@@ -102,13 +100,13 @@ In exampled-based simulations, a set of examples that represent the desired defo
 In multibody systems, the space-time constraints paradigm can hardly be used. In cause, the large number of discontinuous contacts events which makes the optimization problem particularly difficult to solve. In contrast, multibody simulators are particularly fast, so fast that it is possible to run in parallel a large number of simulations. In their work, \cite{Chenney2000} and \cite{Twigg2007} exploit this performance to sample the space of parameters of an animation and thus finding those which satisfy the user constraints.
 
 \subsubsection{Animation editing} 
-In contrast with simulation control, animation editing consists in deforming in space and time the output of a simulator without the need to re-simulate. 
+In contrast with simulation control, animation editing consists in deforming in space and time the output of a simulator without the need to re-simulate.
 Closely related to surface modeling it has to take into account the temporal dimension and its relation with space in order to propose new editing tools. 
 In these approaches, finding a natural way to deform an animation and ensuring temporal consistency are amongst the main challenges.
-Very few methods have been proposed whereas modifying the result of a simulation frame by frame is a common practice in animation studios. 
-Among the most interesting approach, Pighin et al.\cite{Pighin2004} propose to build a space-time parametrization of a smoke animation using radial basis functions. 
+Very few methods have been proposed whereas it represents a much faster approach to edit animations.
+Among the most interesting approaches, Pighin et al.\cite{Pighin2004} propose to build a space-time parametrization of a smoke animation using advected radial basis functions. The parametrized date are then deformed using a trajectory-based editing tool.
 Schpok et al.~\cite{Schpok2005} proposed to extract and parametrize features such as vortices, uniform advection, sinks, and sources to allow the user to modify the parameters in a smoke simulation.
-For liquid animations, Raveendran et al.~\cite{Raveendran2014} match two liquids animations and propose a method to smoothly interpolate between them. 
+For liquid animations, Raveendran et al.~\cite{Raveendran2014} propose a semi-automatic method to match two liquids animations and smoothly interpolate between them. 
 This approach allows to quickly explore parameter space such as boundary conditions or viscosity parameter and then to produce a large number of new liquid animations without the need for re-simulation.
 
 \subsection{Conclusion on simulation control}

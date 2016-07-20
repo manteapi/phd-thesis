@@ -27,22 +27,13 @@
     }
 \end{figure}
 
-\Lettrine{W}{e} propose an interactive sculpting system for seamlessly editing pre-computed animations of liquid, without the need for any re-simulation. 
-The input is a sequence of meshes without correspondences representing the liquid surface over time. 
-Our method enables the efficient selection of consistent space-time parts of this animation, such as moving waves or droplets, which we call {\em space-time features}. 
-Once selected, a feature can be copied, edited, or duplicated and then pasted back anywhere in space and time in the same or in another liquid animation sequence. 
-Our method circumvents tedious user interactions by automatically computing the spatial and temporal ranges of the selected feature. 
-We also provide space-time shape editing tools for non-uniform scaling, rotation, trajectory changes, and temporal editing to locally speed up or slow down motion.
-Using our tools, the user can edit and progressively refine any input simulation result, possibly using a library of pre-computed space-time features extracted from other animations. 
-In contrast to the trial-and-error loop usually required to edit animation results through the tuning of indirect simulation parameters, our method gives the user full control over the edited space-time behaviors. 
-
 \section{Introduction} \label{sec:fluidsculpting:introduction}
 
-Due to advances in fluid simulation methods over the last two decades, liquid animation has become commonplace in 3D animation productions. 
+\Lettrine{D}{ue} to advances in fluid simulation methods over the last two decades, liquid animation has become commonplace in 3D animation productions. 
 The animations can be either highly realistic --- for example showing plausible fluid dynamics and interactions with obstacles --- or they can exhibit a more expressive behavior to convey specific artistic intentions. In both cases, it is essential for the artist to be able to control the simulation in order to achieve their goals.
 
-Generally, the simulation control is achieved through the careful setting of a large number of parameters such as initial conditions, boundary conditions, viscosity, or external forces. 
-Several reasons make the tuning of these parameters especially difficult. 
+As mentionned in Section~\ref{sec:starSimulationControl}, the simulation control is generally achieved through the careful setting of a large number of parameters such as initial conditions, boundary conditions, viscosity, or external forces. 
+We briefly summarize why the tuning of these parameters is particularly difficult.
 First, they only offer indirect control over the animation, which makes them quite non-intuitive. 
 Second, it is usually not possible to have interactive visual feedback when modifying the parameters, due to the high computational cost of 
 liquid simulation.
@@ -50,14 +41,17 @@ Third, the inherently non-linear nature of fluid behavior makes it difficult to 
 In consequence, achieving a desired effect requires a tedious trial-and-error loop, where computation is restarted multiple times from scratch with different parameters. 
 In many cases, this process does not allow tight control over a sequence of waves and splashes with specific magnitudes or shapes and occurring in a specific order. 
 
-In this work, we propose a significantly different approach. 
-Instead of controlling a simulation, we propose an interactive sculpting system enabling to edit pre-computed liquid animations.
+In this chapter, we attempt a significanly different approach.
+Instead of controlling a simulation, we propose an interactive sculpting system for seamlessly editing pre-computed animations of liquid, without the need for any re-simulation. 
 Our system is based on a copy/edit/paste approach:
-The user can select coherent and visually important space-time parts of a liquid animation, such as waves or droplets, that we call \emph{space-time features};
-These space-time features can then be edited in both space and time in order to change their size, orientation, trajectory or speed. 
-Finally, the edited space-time feature can be inserted into any destination animation at a specific position and time set by the user.
+The user can efficiently select consistent and visually important space-time parts of a liquid animation, such as moving waves or droplets, that we call \emph{space-time features};
+Once selected, these space-time features can be copied and edited in both space and time in order to change their size, orientation, trajectory or speed;
+Finally, the edited space-time features can be pasted back into any destination animation at a specific position and time set by the user.
+Using our tools, the user can edit and progressively refine any input simulation result, possibly using a library of pre-computed space-time features extracted from other animations. 
+In contrast to the trial-and-error loop usually required to edit animation results through the tuning of indirect simulation parameters, our method gives the user full control over the edited space-time behaviors. 
 
-To enable the use of arbitrary liquid animations computed using varying simulation techniques, we based our editing framework on generic inputs; our method allows input mesh sequences without point-wise correspondences between frames, and with arbitrary changes of topological genus between two consecutive time steps. 
+To enable the use of arbitrary liquid animations computed using varying simulation techniques, we based our editing framework on generic inputs; 
+our method allows input mesh sequences without point-wise correspondences between frames, and with arbitrary changes of topological genus between two consecutive time steps.
 Also, we focused on three requirements to make our method useful in realistic cases.
 First, the selection of the effect in the original simulation must be as simple and straightforward for the user as possible. 
 Therefore, once space-time features have been computed, the user can select them using a simple click on the surface.
@@ -73,7 +67,6 @@ The key contributions of our work are as follows:
 \end{itemize}
 
 The remainder of this chapter is organized as follows:
-Section~\ref{sec:fluidsculpting:related_work} discusses previous works aimed at manipulating liquid animations;
 Section~\ref{sec:overview} presents our solution to this problem;
 Section~\ref{sec:extraction} explains how \emph{space-time features} are computed; 
 Section~\ref{sec:representation} deals with the \emph{space-time features} representation; 
@@ -81,45 +74,6 @@ Section~\ref{sec:manipulation} details the tools we offer for manipulating \emph
 Section~\ref{sec:fluidsculpting:results} shows results obtained with our method; 
 Section~\ref{sec:fluidsculpting:discussion} draws the limits of our approach; 
 and Section~\ref{sec:fluidsculpting:conclusion} concludes and gives some perspectives on future work.
-
-\section{Related work}\label{sec:fluidsculpting:related_work}
-
-Since the introduction of \emph{space-time constraints}~\cite{Witkin1988}, direct editing of simulation has been addressed in the contexts of rigid bodies~\cite{Popovic2000,Chenney2000,Twigg2007} and of deformable objects~\cite{wojtan2006keyframe,Barbic2009,Barbic2012,Schulz2014,Li2014}.
-However, few works address fluid surfaces, due to their constantly changing shape and topology that makes the output geometry inaccessible to standard deformation tools.
-This section focuses on two main methods for designing fluid animations: by \emph{controlling the simulation}, and by \emph{editing the animation}. 
-
-As our method only takes as input a sequence of meshes, it is completely independent from the fluid simulator.
-
-\subsection{Fluid simulation control}
-The general approach for controlling a simulation is based on trial and error.
-As mentioned in the introduction, this process has severe drawbacks which make the design of fluid animation especially tedious. 
-To overcome these limitations, several methods propose to guide the fluid behavior by using geometric proxies which are easier to control than the high resolution fluid simulation data itself.
-For example, artists can use a triangle mesh to specify a target shape for the fluid by adding artificial attraction forces based on the distance to the mesh surface.
-Such approaches have been successfully developed to drive smoke~\cite{Fattal2004,Hong2004,Shi2005a} and liquid simulations~\cite{Shi2005b,Raveendran2012}. 
-These meshes can also define specific key-frames to control an animation~\cite{Treuille2003,McNamara2004}.
-Fluid trajectories, on their sides, may be controlled with user-defined velocity fields~\cite{Kim2006:SmokeControl}, distance fields~\cite{Yang2013}, or specific control particles~\cite{Thurey2006:FluidControl,Madill2013}. 
-
-Taking this strategy further, the attracting surface itself can defined a low-resolution fluid simulation. 
-To achieve this, the artist quickly sets up a coarse simulation and uses the output geometry to guide the main features of a full resolution simulation.
-Several approaches modify a high-resolution smoke simulation using optimization~\cite{Nielsen2009,Nielsen2010}, patterns extracted as skeleton~\cite{Yuan2011}, or sparse sampling~\cite{Huang2013}.
-For liquid simulations, Nielsen and Bridson propose to restrict the high resolution simulation to a thin layer around a guiding coarse animation~\cite{Nielsen2011}.
-
-Although each of these approaches are able to successfully guide a fluid simulation, they do not enable direct control of the resulting fluid. 
-Designing precise timing or feature scaling would therefore still require iterative trial-and-error steps to converge toward a desired animation.
-Few attempts have been made to enable direct control on the simulation. 
-Schpok et al. propose to extract and parametrize features such as vortices, uniform advection, sinks, and sources to allow the user to modify the parameters in a smoke simulation~\cite{Schpok2005}.
-In the context of liquid simulation, Pan et al. propose a method to deform wave shapes by sketching their profiles~\cite{Pan2013}.
-This approach enables direct spatial deformation but does not allow temporal editing, and the simulation needs to be re-computed from the modified frame onwards.
-
-Alternatively, procedural tools enable faster editing loops. 
-Unfortunately, they are also based on indirect parameters setting and are often limited to overly restrictive fluid models such as large open ocean surfaces~\cite{hinsinger2002,Tessendorf2004,jeschke2015water,horvath2015empirical}.
-
-\subsection{Fluid animation editing}
-Animation editing methods aim to directly modify the result of a simulation without the need to re-simulate. In contrast with simulation control, animation editing is often a faster approach to slightly modify an existing animation. Very few works have been proposed for the edit of fluid animations. 
-For smoke animations, Pighin et al. propose to parametrize density and temperature fields from the simulation using advected radial basis function~\cite{Pighin2004}.
-The parametrized data are then deformed using a trajectory-based editing tool. 
-For liquid animations, Raveendran et al. propose a semi-automatic method to match two animations and smoothly blend between them~\cite{Raveendran2014}.
-Their method can quickly produce in-between frames and explore slight modifications of an animation. To our knowledge, there are no tools allowing a user to select and edit space-time regions of a fluid animation interactively.
 
 \section{Overview of the method}\label{sec:overview}
 
