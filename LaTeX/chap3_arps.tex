@@ -18,7 +18,7 @@ Although several of them give impressive results, they are often difficult to im
 A different approach for adaptive simulation~\cite{Artemova2012} was proposed in the context of molecular dynamics~(MD). Contrary to the Computer Graphics methods reviewed in Section~\ref{sec:starAdaptivity}, Adaptively Restrained Particle Simulations (ARPS) do not adapt time or space sampling, but rather switch the positional degrees of freedom of particles on and off, while letting their momenta evolve. The key idea is that since most of the computation time is spent in computing interaction forces based on positions, particles with low velocity could be considered fixed in space - and the corresponding interaction forces constant - until they accumulate enough momentum to start moving again. Therefore, inter-particles forces do not have to be updated at each time step, in contrast with traditional methods that spend a lot of time there.
 \\ \\
 While freezing objects to gain computation time has been extensively used in video games, the question of when and how to release them has not been extensively studied, and has mainly relied on \textit{ad hoc} heuristics.
-Adaptively Restrained Particle Simulations~(ARPS), in contrast, introduce a physically sound approach with proven correctness, and has been successfully used in the context of predictive, energy- and momentum-conserving particle simulation.
+Adaptively Restrained Particle Simulations~(ARPS), in contrast, introduce a physically sound approach with proven correctness, and has been successfully used in the context of predictive, energy-and momentum-conserving particle simulation.
 \\ \\
 In this chapter, we explore the use of Adaptively Restrained (AR) particles for graphics simulations. Our experiments show that this new, simple strategy for adaptive simulations can provide significant speed-ups more easily than traditional adaptive models. The key contributions of our work are as follows: 
 \begin{itemize}
@@ -117,7 +117,7 @@ Fig. \ref{fig:harmonicOscillatorPhasePortrait} shows a phase portrait of the cor
 AR system.
 In classical mechanics, the trajectory of the state in this (position, momentum) space is an ellipse, the size of which depends on the (constant) energy of the system.
 Using ARPS, the position is constant (vertical straight parts) as long as the kinetic energy is small enough, while it is an ellipse as long as the kinetic energy is big enough.
-These trajectories are connected by a transition corresponding to an energy between the two thresholds of eq.~(\ref{eq:restrainingfunction}).
+These trajectories are connected by a transition corresponding to an energy between the two thresholds of Eq.~(\ref{eq:restrainingfunction}).
 The closed trajectory corresponds to a constant \textit{adaptively restrained energy} $H_{AR}$.
 
 \begin{figure}[ht!]
@@ -234,14 +234,15 @@ However, ARPS was designed for conservative systems and no damping terms involvi
 In ARPS, velocity can be represented in two different ways.
 We may define it based on the momentum and set $\mathbf{v}_{i} = \vp_{i} / m_{i} $, or based on the \emph{effective velocity} $\mathbf{v}_{i}^{eff}$ defined in Equation~\ref{eq:adaptiveVelocity}.
 In the first case, we can get time-varying forces even for inactive particles, which we want to avoid.
-We therefore use the effective velocity of the particle, as defined in eq.(\ref{eq:adaptiveVelocity}).
+We therefore use the effective velocity of the particle, as defined in Eq.(\ref{eq:adaptiveVelocity}).
 Applied to a harmonic oscillator, this results in the behavior illustrated in Fig. \ref{fig:HODampedPP}.
 The more the particle is damped the longer it remains inactive, which is an intuitive behavior.
 %%% HARMONIC OSCILLATOR DAMPED%%%
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\linewidth]{images/arps-vriphys2013/harmonicOscillatorDampedPhasePortraitraw_hacked.png}
-  \caption[ARPS: Phase portrait of a damped ARPS harmonic oscillator]{\label{fig:HODampedPP} Phase portrait of our viscosity approach in ARPS.
+  \caption[ARPS: Phase portrait of a damped ARPS harmonic oscillator]
+  {\label{fig:HODampedPP} Phase portrait of our viscosity approach in ARPS.
   As with a classic damped oscillator we obtain a spiral phase portrait.}
 \end{figure}
 %-------------------------------------------------------------------------
@@ -295,8 +296,9 @@ These examples show that ARPS can effectively be extended to speed up liquid sim
 %-------------------------------------------------------------------------
 \section{Extension to stiff objects: Implicit Integration} 
 \label{sec:arps_implicit}
-In this section we explore the application of ARPS to stiff object simulation and propose an implicit integration scheme which saves computation time for particles at rest.
-Implicit integration for cloth simulation was introduced in \cite{Baraff1998}. An introduction to implicit integration is proposed in \cite{Witkin2001}.
+In this section we explore the application of ARPS to stiff object simulation, such as cloths, and propose an implicit integration scheme which saves computation time for particles at rest.
+Implicit integration for cloth simulation was introduced in \cite{Baraff1998}. 
+An introduction to implicit integration is proposed in \cite{Witkin2001}.
 While originally formulated on velocity, it can be straightforwardly expressed on momentum.
 Instead of integrating the momentum using the forces at the current time step, implicit integration uses the forces at the end of the current step.
 As we do not know these forces we end up with a non linear function and after linearization with a linear system to solve to obtain the next momentum:
@@ -304,9 +306,9 @@ As we do not know these forces we end up with a non linear function and after li
     \label{eq:implicit}
     ( I -h^{2}KM^{-1} ) \Delta \vp = h( \vf + h KM^{-1}\vp ) \;,
 \end{equation}
-where $\mathbf{f}$ are the forces applied on the system, $\displaystyle K = \frac{\partial \vf}{ \partial \vx}$ is the stiffness matrix and
-$M$ is the mass matrix.
+where $\mathbf{f}$ are the forces applied on the system, $\displaystyle K = \frac{\partial \vf}{ \partial \vx}$ is the stiffness matrix and $M$ is the mass matrix. 
 Solving the linear system is more costly than explicit integration, but it allows the use of larger time steps without any loss of stability, enabling to advance much faster.
+For our experiments, we used simple spring forces between particles.
 %------------------------------------------------------------------------
 \subsection{ ARPS Implicit Integration }
 We derive an implicit integration scheme from Adaptively Restrained equations of motion.
@@ -346,7 +348,7 @@ Note that if all particles are inactive then we have $R = 0$ and $s = 0$ and we 
     \label{eq:ARPSImplicitRestrained}
     I \Delta \vp = h \vf
 \end{equation}
-Conversely, if all particles are active then $R = I$ and $s = \vp$ and we get the classical implicit formulation of eq.(\ref{eq:implicit}).
+Conversely, if all particles are active then $R = I$ and $s = \vp$ and we get the classical implicit formulation of Eq.(\ref{eq:implicit}).
 In the general case, we loop over time using algorithm \ref{alg:ARPSimplicit}.
 \begin{algorithm}[H]
     \caption[ARPS: Implicit integration scheme]{Implicit integration scheme}
@@ -436,8 +438,8 @@ In table \ref{tab:parameters} we refer the thresholds used in our simulations.
 
 \subsection{Linear solver}
 A linear equation solver is necessary in implicit integration, as presented in Section~\ref{sec:arps_implicit}.
-In contrast with most formulations, implicit ARPS generally results in an unsymmetrical equation matrix, due to the matrix products in eq.(\ref{eq:arpsLinearSystem}).
-We currently use a sparse LU solver from umfpack library, but it would be interesting to try a Conjugate Gradient method for unsymmetrical matrices to control the computation time, as it is usually done in implicit integration.
+In contrast with most formulations, implicit ARPS generally results in an unsymmetrical equation matrix, due to the matrix products in Eq.(\ref{eq:arpsLinearSystem}).
+We currently use a sparse LU solver from the \emph{umfpack} library, but it would be interesting to try a Conjugate Gradient method for unsymmetrical matrices to control the computation time, as it is usually done in implicit integration.
 
 %-------------------------------------------------------------------------
 \subsection{Choice of the restraining function and criterion}
@@ -450,14 +452,21 @@ Investigating this issue would be an avenue for future work.
 %-------------------------------------------------------------------------
 \section{Discussion and concluding remarks} 
 \label{sec:arps_discussion}
-We have shown that ARPS, a new, simple approach to adaptive simulation, can effectively be applied to Computer Graphics, which we have demonstrated through two specific applications.
-The most successful one is the SPH simulation, for which we have obtained significant speed-ups with only minor changes to the original simulation method.
-In the case of stiff material, we have obtained promising results for implicit integration. 
-An avenue of research would be to conduct a careful study of the restraining function in order to address the stability issues that we met.
+In this chapter, we have shown that ARPS, a new, simple approach to adaptive simulation, can effectively be applied to Computer Graphics, which we have demonstrated through two specific applications.
+For SPH simulations, we have obtained significant speed-ups with only minor changes to the original simulation method.
+For stiff materials, we achieved promising results for implicit integration.
+From this work, we distinguished two main directions of study.
+First, it is crucial to address the stability issues that we met. 
+A first step in this direction would be to conduct a careful study of the restraining function.
+Second, we think that better results could be achieved by employing non-physically-based transition criteria. 
+Indeed, the current one, based on kinetic energy, is well adapted to molecular dynamics simulation. 
+However, in Computer Graphics, we are more interested in visual results.
+Therefore, transition threshold based on visibility or distance to camera would certainly allow to even more focus the computational power where it most contributes to the quality of the result.
 \\ \\
-Another interesting avenue is to employ non-physically-based transition criteria. 
-The current one, based on kinetic energy, is well adapted to molecular dynamics simulation. 
-In Computer Graphics, however, we are more interested in visual results. 
-We it would be promising to investigate the tuning of the transition thresholds based on visibility or distance to the camera, to even more focus the computational power where it most contributes to the quality of the result.
-\\ \\
-The next chapter introduce a novel method for the interactive and detailed cutting of thin sheets.
+While ARPS allows to save computational time and to maintain a constant number of degrees of freedom,
+particle systems generally require a dense sampling in order to produce visually plausible behavior.
+The large number of degrees of freedom resulting from this sampling imposes a strict limit on computational time and memory consumption.
+Recently, new deformable models have been proposed to achieve complex elastic behaviors with interactive performance by using a very small number of degrees of freedom. 
+The frame-based model introduced in Section~\ref{sec:framebased} for the simulation of elastic solids belongs to this family.
+Unfortunately, these models are generally not able to handle topological changes without a large computational time which makes them not interesting anymore.
+In the next chapter, we address this challenge by introducing a novel method for the interactive and detailed cutting of thin sheets.
