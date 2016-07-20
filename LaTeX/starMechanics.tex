@@ -719,7 +719,8 @@ First, the shape function should linearly decrease with respect to distance in t
 Otherwise, the deformation will not be uniform with respect to the distance from the frame. 
 Second, the shape function should be positive. 
 Third, the weights should form a partition of unity. 
-In practice, one can use either harmonic weights or Voronoi-based weights which are described in Chapter~\ref{chap:cutting}.
+In practice, one can use either harmonic weights or Voronoi-based weights.
+In Chapter~\ref{chap:cutting}), we will detail the computation of Voronoi-based weights and how to dynamically update them to take into account topological changes.
 
 From the description of the displacement field (Equation~\ref{eq:frameBasedDisplacementField}), the deformation gradient can then be derived:
 \begin{equation}

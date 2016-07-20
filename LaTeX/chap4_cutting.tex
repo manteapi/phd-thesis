@@ -12,13 +12,8 @@
 \includegraphics[width=\linewidth]{images/cutting-mig2015/Kirigami.pdf}
 \caption{\label{fig:kirigami}}
 \end{subfigure}
-\caption[Frame-based cutting: Spiral and Kirigami cutting examples]{\label{fig:Cutting_Teaser} Progressive cutting of a spiral using only five control frames (a). Simulating complex deformations resulting from Kirigami cutting (b).}
+\caption[Frame-based cutting: Spiral and Kirigami cutting examples]{\label{fig:Cutting_Teaser} Progressive cutting of a spiral using only five control frames (a). Simulating complex deformations resulting from Kirigami cutting (b). Note that an horizontal stretching force results into a twist of the bands of material, as in real experiments using paper.}
 \end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%In this paper we propose a method for the interactive detailed cutting of deformable thin sheets. Our method builds on the ability of frame-based simulation to solve for dynamics using very few control frames while embedding highly detailed geometry - here an adaptive mesh that accurately represents the cut boundaries.
-%Our solution relies on a non-manifold grid to compute shape functions that faithfully adapt to the topological changes occurring while cutting.  New frames are dynamically inserted to describe new regions. We provide incremental mechanisms for updating simulation data, enabling us to achieve interactive rates. We illustrate our method with examples inspired by the traditional Kirigami artform.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                       INTRODUCTION
@@ -34,22 +29,35 @@ Furthermore, operations that modify the structure of the simulated objects, such
 maybe incompatible with faster simulation methods.
 When not prohibited, the latter generally exhibit strong limitations. Indeed, the level of sampling of a physically-based model usually depends on geometric complexity. Detailed cuts result in an increase of the sampling which directly impacts the performance. In practice, the number of samples is limited to ensure real-time performance. This limitation quickly prevents the user from applying detailed cuts.  
 \\ \\
-In this chapter, we address the issue of enabling detailed cuts at interactive rates in  thin sheets of deformable materials. Our method is able to capture detailed cuts while using a relatively low number of control nodes for the physically-based model.
-Our approach to decoupling the samplings of the physical geometric models, is to use a mesh-less simulation method called the frame-based model \cite{Gilles2011}. In this method, the deformation field induced by animated frames is applied to the geometric model using skinning weights. As each frame can cover a large, detailed shaped region of the geometric mesh, only a few of them are typically required.
+In this chapter, we address the issue of enabling detailed cuts at interactive rates in  thin sheets of deformable material.
+ Our method is able to capture detailed cuts while using a relatively low number of control nodes for the physically-based model.
+Our approach to decoupling the sampling of the physical and of the geometric models, is to use a mesh-less simulation method called the frame-based model~\cite{Gilles2011} that we presented in Section~\ref{subsubsec:framebased}. In this method, the deformation field induced by animated frames is applied to the geometric model using skinning weights. As each frame can cover a large, detailed shaped region of the geometric mesh, only a few of them are typically required.
 \\ \\
-To achieve user-driven cuts in a frame-based simulation, we allow cuts to be performed on the underlying mesh.
+To achieve user-driven cuts in a frame-based simulation, we allow cuts to be performed anywhere over the underlying mesh.
 We build a non-manifold grid that keeps track of the mesh topology at the simulation level, and allows us to incrementally adapt the frames regions of influence in order to  represent the cut.
 Although remaining low, the number of frame node does increase during a cut. In particular, when a model is cut apart, at least one frame is needed to represent each disconnected component. 
 Therefore, we detect crucial cutting events, enabling us to automatically insert new frames when and where they are needed.
 In order to reduce computations, we exploit the locality of the ongoing cutting gesture to incrementally update all the data used for the simulation.
 \\ \\
 Our contributions includes:
+
 \begin{itemize}
-\item The building of a non-manifold grid to compute shape functions that faithfully represent the  complex topology of the visual mesh while keeping a low number of control nodes.
-\item The dynamic re-sampling of new frames into disconnected parts.
-\item The incremental update of the simulation data that were concerned by the cut.
+\item The building of a non-manifold grid to compute shape functions that faithfully represent the complex topology of the visual mesh while keeping a low number of control nodes (Section \ref{sec:adaptivesf}).
+\item The dynamic re-sampling of new frames into disconnected parts (Section \ref{sec:resampling}).
+\item The incremental update of the different components of the simulation that were concerned by the cut (Section \ref{sec:incremental}).
 \end{itemize}
-Our method can be used to simulate a wide variety of objects, such as stretchable cloth or pieces of paper. It features a very low number of frame nodes, high resolution mesh embedding, numerous and detailed cuts. Performance ranges from interactive to offline depending on the desired accuracy and complexity of the cuts.
+
+Our method can be used to simulate a wide variety of objects, such as stretchable cloth or pieces of paper. 
+It features a very low number of frame nodes, high resolution mesh embedding, numerous and detailed cuts. 
+Performance ranges from interactive to offline depending on the desired accuracy and complexity of the cuts.
+We illustrate our method with examples inspired by the traditional Kirigami artform.
+\\ \\
+We motivate our work with respect to existing methods for the simulation of cutting and fracture in Section~\ref{sec:starCutting}.
+We choose to not include this section in Chapter~\ref{chap:star} for two reasons:
+Firstly, this is a high level presentation of related works and we think a more detailed presentation of the underlying mathematics would be needed to be a part of the state of the art chapter;
+Secondly, this configuration allows us to keep a more coherent discussion about our choices for the model.
+In Section~\ref{sec:results}, we illustrate our method in different scenarios and detail the computational results. 
+Finally, we discuss limitations and future work in Section~\ref{sec:cutting_conclusion}.
 
 \begin{figure*}[!ht]
 \centering
@@ -71,28 +79,50 @@ Comparison between shape functions computed on a uniform grid and on a non-manif
 %                       RELATED WORK
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Related work on cutting and fracture}
+\label{sec:starCutting}
 
-Cutting and fracture are both fascinating behaviors which can be simulated separately. In fracture, stress measurements predict how the material breaks. In cutting, the interaction with a tool define the cut path. For more details about cutting we refer the reader to the recent survey of Wu et al. \cite{Wu2015}. Our review focuses on the modeling of topological changes in deformable models.
+Cutting and fracture are both fascinating behaviors which can be simulated separately. 
+In fracture, stress measurements predict how the material breaks. 
+In cutting, the interaction with a tool define the cut path. 
+For more details about cutting we refer the reader to the recent survey of Wu et al.~\cite{Wu2015}. 
+Our review focuses on the modeling of topological changes in deformable models.
 
-A first possibility consists in using the same model for physics simulation and visualization. Topological changes are then mostly modeled by remeshing operations. Simple and fast remeshing techniques such as element deletion or element splitting were proposed. The latter was used in the first simulation of brittle and ductile materials~\cite{OBrien1999}, \cite{OBrien2002}. 
- Methods that preserve element quality by local and global remeshing have also been developed. They recently lead to stunning results in the simulation of multi-layered paper tearing~\cite{Busaryev2013} and sheets tearing \cite{Pfaff2014}. 
+A first possibility consists in using the same model for physics simulation and visualization. Topological changes are then mostly modeled by remeshing operations. Simple and fast remeshing techniques such as element deletion or element splitting were proposed. The latter was used in the first simulation of brittle and ductile materials~\cite{OBrien1999},~\cite{OBrien2002}. 
+ Methods that preserve element quality by local and global remeshing have also been developed. They recently lead to stunning results in the simulation of multi-layered paper tearing~\cite{Busaryev2013} and sheets tearing~\cite{Pfaff2014}. 
 These methods cause the number of simulation nodes to vary over the course of a simulation, and this variation can be problematic in a realtime game context.  By limiting the
 scope of remeshing predictable realtime performance can be achieved~\cite{Parker2009}.
-An alternative to remeshing is to enrich elements with additional basis so that discontinuities can be represented. This is the core idea of the eXtended Finite Element Method (XFEM). It was successfully applied for offline cutting of discrete shells \cite{Kaufmann2009}.
+An alternative to remeshing is to enrich elements with additional basis so that discontinuities can be represented. This is the core idea of the eXtended Finite Element Method (XFEM). It was successfully applied for offline cutting of discrete shells~\cite{Kaufmann2009}.
 
-A second possibility is to separate the visual model from the physics model, this is known as embedding. Numerous embedding techniques have been proposed. The virtual node method \cite{Molino2004} embeds ill-shaped elements that arise after remeshing inside of well-shaped elements. This allows to robustly simulate detailed cuts \cite{Wang2014}. However, the number of nodes increases substantially with the complexity of the cut. To reduce it, hierarchical methods were proposed and real-time cutting in medical applications has been achieved using composite finite element method \cite{Wu2011}. Still, the number of nodes grows quickly with the number of cuts and remains limited to ensure interactive frame rate. Meshless methods avoid the problem of element quality. However, boundary and discontinuities require extra effort to be sharply represented. \cite{Pauly2005} proposed to use visibility criterion to perform fracture. \cite{Steinemann2009} used the visual model as a visibility graph to define nodes connectivity. Both methods rely on a dense sampling near the surface of the model and quickly impact performances as the number  and the detail of cuts increases. There also have some work to carry complex materials \cite{Nesme2009} and thin shells \cite{Remillard2013} in hexahedra elements.
+A second possibility is to separate the visual model from the physics model, this is known as embedding. Numerous embedding techniques have been proposed. The virtual node method~\cite{Molino2004} embeds ill-shaped elements that arise after remeshing inside of well-shaped elements. This allows to robustly simulate detailed cuts~\cite{Wang2014}. However, the number of nodes increases substantially with the complexity of the cut. To reduce it, hierarchical methods were proposed and real-time cutting in medical applications has been achieved using composite finite element method~\cite{Wu2011}. Still, the number of nodes grows quickly with the number of cuts and remains limited to ensure interactive frame rate. Meshless methods avoid the problem of element quality. However, boundary and discontinuities require extra effort to be sharply represented. \cite{Pauly2005} proposed to use visibility criterion to perform fracture. \cite{Steinemann2009} used the visual model as a visibility graph to define nodes connectivity. Both methods rely on a dense sampling near the surface of the model and quickly impact performances as the number  and the detail of cuts increases. There also have some work to carry complex materials~\cite{Nesme2009} and thin shells~\cite{Remillard2013} in hexahedra elements.
 
 Embedding techniques have inspired our work. They allow interesting trade-off and show impressive cutting and fracture simulations. However, the relation between the resolution of the physical model and the visualization model remains very strong. Complex cuts result in a fast increase of the number of nodes. We want to reduce this connexion as much as possible. Complex topologies could be simulated with a very low number of nodes. Then, interactivity and intuitive control would be at hand.
 
-Few models have been proposed that simulate detailed deformable objects using a low number of nodes. Subspace simulations \cite{Barbic:2005:RTSI} compute a low basis of deformation modes in order to achieve real-time performance on detailed models. However, the low-basis is acquired after heavy precomputations. Interactive scenario could not handle the update of the basis at each topological change. More recently, \cite{Gilles2011} and \cite{Faure2011} proposed a physics-based skinning technique, called the frame-based method. Highly detailed meshes can be embedded in very coarse simulations. The control nodes are affine frames and the deformation field is described by a linear blend skinning. Classical continuum mechanics is then used to solve for the dynamics. Skinning weights, also called shape functions, are built on linear interpolation using discrete Voronoi regions. For each frame, they can represent a large region of influence with complex shape. Other advantages are discussed in \cite{Faure2011}. Unfortunately, the current frame-based method does not allow the shape functions to reflect the topological changes of the embedded mesh.
+Few models have been proposed that simulate detailed deformable objects using a low number of nodes. 
+Subspace simulations~\cite{Barbic:2005:RTSI} compute a low basis of deformation modes in order to achieve real-time performance on detailed models. 
+However, the low-basis is acquired after heavy precomputations. 
+Interactive scenario could not handle the update of the basis at each topological change. 
+More recently,~\cite{Gilles2011} and~\cite{Faure2011} proposed a physics-based skinning technique, called the frame-based method. 
+Highly detailed meshes can be embedded in very coarse simulations. 
+The control nodes are affine frames and the deformation field is described by a linear blend skinning. 
+Classical continuum mechanics is then used to solve for the dynamics. 
+Skinning weights, also called shape functions, are built on linear interpolation using discrete Voronoi regions. 
+Thus, for each frame, they can represent a large region of influence with complex shape. 
+Unfortunately, the current frame-based method does not allow the shape functions to reflect the topological changes of the embedded mesh.
 
-\section{Overview}
+\section{Overview of the method}
 
-The goal of this work is to enable interactive detailed cutting of deformable thin sheets. The frame-based method exhibits some of the key features we are looking for: a very low number of nodes and a tunable separation between visual and physical models.  We build on this framework and extend it to handle topological changes.
+The goal of this work is to enable interactive detailed cutting of deformable thin sheets. 
+The frame-based method exhibits some of the key features we are looking for: a very low number of nodes and a tunable separation between visual and physical models.  
+We build on this framework and extend it to handle topological changes.
 
-To transfer the cuts from the mesh to the frames, we continuously adapt the shape functions to the evolving mesh topology. This allows us to keep a constant number of nodes as long as there are no disconnected parts. In \cite{Faure2011}, the shape functions are computed on a uniform grid. The structure is simple and efficient. However, discontinuities that can be represented are very limited and strongly connected to the grid resolution. Instead, we build a non-manifold grid to compute topology-preserving shape functions (see Figure \ref{fig:spiralWeight}). The main idea is that cut cells are duplicated and store different connectivities. Therefore, grid resolution depends much less on the mesh topology while keeping all topological informations.
-
-We detail the computation of the shape functions, motivate the use of a non-manifold grid and explain how to build it (Section \ref{sec:adaptivesf}). When several parts are disconnected, we need to make sure that they contain control frames. We present a simple method to detect those regions and re-sample them (Section \ref{sec:resampling}). Even with such a low resolution physics model, it would be overkilling to update the whole system at each cut. Fortunately, cutting is often a local event. We leverage this fact and propose simple strategies to incrementally update the different components of the simulation (Section \ref{sec:incremental}). We illustrate our method in different scenarios (Section \ref{sec:results}) and discuss limitations and future work (Section \ref{sec:cutting_conclusion}). We summarize our simulation loop in Algorithm~\ref{alg:simulationLoop} and detail our remeshing algorithm in appendix~\ref{appendix:remeshing}.
+To transfer the cuts from the mesh to the frames, we continuously adapt the shape functions to the evolving mesh topology. 
+This allows us to keep a constant number of nodes as long as there are no disconnected parts. 
+In~\cite{Faure2011}, the shape functions are computed on a uniform grid.
+The structure is simple and efficient. 
+However, discontinuities that can be represented are very limited and strongly connected to the grid resolution. 
+Instead, we build a non-manifold grid to compute topology-preserving shape functions (see Figure \ref{fig:spiralWeight}). 
+The main idea is that cut cells are duplicated and that each resulting instance stores different connectivities. 
+Therefore, grid resolution depends much less on the mesh topology while keeping all topological informations.
 
 \begin{algorithm}[!h]
 \caption[Frame-based cutting: Simulation loop]{\label{alg:simulationLoop}Simulation loop}
@@ -114,7 +144,8 @@ We detail the computation of the shape functions, motivate the use of a non-mani
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Adaptive shape functions} \label{sec:adaptivesf}
 
-In this section, we first summarize how Voronoi shape functions are traditionally computed. Then we detail why a non-manifold grid is necessary, how to build it and how to use it to compute the shape functions on complex topology.
+In this section, we first summarize how Voronoi shape functions are traditionally computed. 
+Then we detail why a non-manifold grid is necessary, how to build it and how to use it to compute the shape functions on complex topology.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                      SHAPEFUNCTION
@@ -147,7 +178,7 @@ Let $w_{i}(x) : \Omega \rightarrow \mathcal{R}$ be the shape function for the $i
 
 First, we compute the maximal distance $d_{max}$ from the control node to its Voronoi boundary $V_{b}$. Then we extend its Voronoi region $V_{i}$ to twice $d_{max}$. This gives a new region $V_{e}$ which describes the final boundary of the shape function. Now, we can compute $w_{i}$ inside $V_{e}$. We set $w_{i}$ to be $1$ at the frame position, $0$ at the others and $0.5$ on $V_{b}$. Finally, we linearly interpolate $w_{i}$ between $V_{b}$, the frame position and the boundary of $V_{e}$. We detail the interpolation in Algorithm~ \ref{alg:shapefunctioncomputation} and in Figure~ \ref{fig:shapefunctionconstruction}.
 
-In practice, Voronoi diagram is computed using Dijkstra's shortest path algorithm on a grid in order to preserve geodesic distances. For each frame, the shape function is computed on the whole grid. As the grid resolution can be quite coarse, this is particularly fast. Negative values are clamped and weights are normalized to form a partition of unity. Then least-square approximation is performed to evaluate the shape function and its derivatives at specific position.
+In practice, the Voronoi diagram is computed using Dijkstra's shortest path algorithm on a grid in order to preserve geodesic distances. For each frame, the shape function is computed on the whole grid. As the grid resolution can be quite coarse, this is particularly fast. Negative values are clamped and weights are normalized to form a partition of unity. Then least-square approximation is performed to evaluate the shape function and its derivatives at specific positions.
 
 \begin{algorithm}[h]
 \caption[Frame-based cutting: Shapefunction computation]{\label{alg:shapefunctioncomputation}Shapefunction computation}
@@ -171,9 +202,9 @@ In practice, Voronoi diagram is computed using Dijkstra's shortest path algorith
 \end{algorithmic}
 \end{algorithm}
 
-Voronoi shape functions were designed in order to respect key properties that are particularly useful for physics-based animation \cite{Faure2011} . First, they respect the Kronecker property, i.e $w_{i}(x) = \delta_{i}(x)$ where $w_{i}(x)$ is the shape function of node $i$, $x$ is a spatial position and $\delta_{i}$ is Dirac function. Second, they form a partition of unity, i.e $\sum_{i}w_{i}(x) = 1$. Third, they are built to be as linear as possible in order to produce uniform deformations. Finally, they can easily be biased by material properties in order to represent heterogeneous material.
+Voronoi shape functions were designed in order to respect key properties that are particularly useful for physics-based animation~\cite{Faure2011} . First, they respect the Kronecker property, i.e $w_{i}(x) = \delta_{i}(x)$ where $w_{i}(x)$ is the shape function of node $i$, $x$ is a spatial position and $\delta_{i}$ is Dirac function. Second, they form a partition of unity, i.e $\sum_{i}w_{i}(x) = 1$. Third, they are built to be as linear as possible in order to produce uniform deformations. Finally, they can easily be biased by material properties in order to represent heterogeneous material.
 
-%In the extension of the frame-based method \cite{Faure2011}, they propose to use Voronoi shape functions. In this method, the region of influence of each frame is defined by an extension of its Voronoi region. Weights are linearly interpolated between the position of the frame and the boundary of the initial Voronoi region and they are extrapolated between the boundary of the initial Voronoi and the boundary of the extended Voronoi. In their paper, the Voronoi diagrams are computed on a discrete grid with a 8 neighbor connectivity using a Dijkstra algorithm. Weights and weight derivatives are then interpolated to specific sample positions such as mesh vertices or integration points or collision points. Weights are ensured to be linear along shortest path. This method allows to bias the distance computation by a material map in order to build weights that can represent heterogeneous material. In our method we use the same shape functions in order to represent large regions and heterogeneous materials. However we need to adapt the shape functions along the simulation to take into accounts the cuts.
+%In the extension of the frame-based method~\cite{Faure2011}, they propose to use Voronoi shape functions. In this method, the region of influence of each frame is defined by an extension of its Voronoi region. Weights are linearly interpolated between the position of the frame and the boundary of the initial Voronoi region and they are extrapolated between the boundary of the initial Voronoi and the boundary of the extended Voronoi. In their paper, the Voronoi diagrams are computed on a discrete grid with a 8 neighbor connectivity using a Dijkstra algorithm. Weights and weight derivatives are then interpolated to specific sample positions such as mesh vertices or integration points or collision points. Weights are ensured to be linear along shortest path. This method allows to bias the distance computation by a material map in order to build weights that can represent heterogeneous material. In our method we use the same shape functions in order to represent large regions and heterogeneous materials. However we need to adapt the shape functions along the simulation to take into accounts the cuts.
 %Shape functions describe the influence region of each node. In linear finite element methods, this region is clearly delimited by the elements that surrounds each vertex. Thus topology is naturally represented by the mesh itself. In mesh-less methods, 
 %Each vertex influence 
 %barycentric linear shape functions are used in triangular and tetrahedral meshes. They naturally represent the topology of the mesh and produce uniform deformations. In mesh-less methods, each node 
@@ -185,11 +216,11 @@ Voronoi shape functions were designed in order to respect key properties that ar
 %Usually, we want the region attached to a node to deform uniformly with it. Therefore we use linear weights
 %the region of influence of each control frame
 %The design of skinning weights is an active topic of research.
-%Skinning weights describe the region of influence of the control frames and the type of influence. Generally we want the space to deform uniformly with the frames and so we use linear weights. When the region of a node is a simple shape such as a set of triangles or a quads, one can use well known weights such as barycentric or bilinear weights. However, when we do not want to describe the deformation field using a specific geometry, it is much more challenging to design shape functions. Most of the meshless methods use overlapping spline kernel with local support to describe the deformation field. Unfortunately this requires relatively dense sampling to cover the whole region. Nevertheless, both methods use local shape functions and assume that the number of nodes is important. In procedural animation, design of skinning weights is an active topic of research. The goal is to design weight that can cover regions of different sizes, while respecting the topology in order to provide intuitive control of a shape. An important step was achieved by the work of \cite{Joshi2007} where they propose to use harmonic coordinates. Those skinning weights provide control over large regions while keeping the coherency of the topology. Unfortunately, those weights are highly nonlinear and results in unconvincing behavior in physics-based simulation. 
+%Skinning weights describe the region of influence of the control frames and the type of influence. Generally we want the space to deform uniformly with the frames and so we use linear weights. When the region of a node is a simple shape such as a set of triangles or a quads, one can use well known weights such as barycentric or bilinear weights. However, when we do not want to describe the deformation field using a specific geometry, it is much more challenging to design shape functions. Most of the meshless methods use overlapping spline kernel with local support to describe the deformation field. Unfortunately this requires relatively dense sampling to cover the whole region. Nevertheless, both methods use local shape functions and assume that the number of nodes is important. In procedural animation, design of skinning weights is an active topic of research. The goal is to design weight that can cover regions of different sizes, while respecting the topology in order to provide intuitive control of a shape. An important step was achieved by the work of~\cite{Joshi2007} where they propose to use harmonic coordinates. Those skinning weights provide control over large regions while keeping the coherency of the topology. Unfortunately, those weights are highly nonlinear and results in unconvincing behavior in physics-based simulation. 
 
 \subsection{Non-manifold grid}
 
-As mentioned above, in \cite{Faure2011}, shape functions are computed on a uniform grid using Dijkstra's shortest path algorithm to compute geodesic distance. Starting from a uniform grid with a 8-neighbor connectivity, we could reflect topological change by changing the connectivity of the cut cells. Then, when we re-compute shape functions, the topology would automatically be taken into account as we use geodesic distance. 
+As mentioned above, in~\cite{Faure2011}, shape functions are computed on a uniform grid using Dijkstra's shortest path algorithm to compute geodesic distance. Starting from a uniform grid with a 8-neighbor connectivity, we could reflect topological change by changing the connectivity of the cut cells. Then, when we re-compute shape functions, the topology would automatically be taken into account as we use geodesic distance. 
 
 Unfortunately, this strategy is very limited for uniform grid and would only work in simple cases. For instance, several cuts that intersect or that create disconnected components inside one cell could not be represented. Even without cut, small gaps that lie inside one cell could not be correctly represented. Geodesic distances would be false and the object would behave as if there were no cuts or gaps. Augmenting the resolution would not solve the problem. We would fight the same issue as previous methods. Our grid resolution would be highly dependent on the complexity of the topology and the geometry of the object. It would directly impact performances.
 
@@ -524,13 +555,13 @@ As stated previously, the mesh is only used for visualization. Simulation robust
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion} \label{sec:cutting_conclusion}
 
-In this chapter, we presented a novel method to simulate highly detailed cuts with a sparse set of control nodes which allows interactive frame rates. This approach can be seen as a reduced simulation that handles topological changes without requiring expensive precomputations. Of course, our work is not without limitations and and we see interesting directions for future work.
+In this chapter, we presented a novel method to simulate highly detailed cuts with a sparse set of control nodes which allows interactive frame rates. This approach can be seen as a reduced simulation that handles topological changes without requiring expensive precomputations. Of course, our work is not without limitations and brings interesting directions for future work.
 
-First, as very few frames are used, one cut may generate large changes in the weight distribution and produce popping artifacts that cannot be avoided using our interpolation strategy. This is particularly noticeable when simulating soft materials and can be seen in some of the examples of our accompanying video. Strategies proposed by \cite{Narain2013} and \cite{Tournier2014} in the context of adaptive simulations could be used to limit this problem. 
+First, as very few frames are used, one cut may generate large changes in the weight distribution and produce popping artifacts that cannot be avoided using our interpolation strategy. This is particularly noticeable when simulating soft materials and can be seen in some of the examples of our accompanying video. Strategies proposed by~\cite{Narain2013} and~\cite{Tournier2014} in the context of adaptive simulations could be used to limit this problem. 
 
-Secondly, for large deformations, the surface can look bumpy. There are several reasons for this problem. Linear blend skinning produces well known artifacts that could be solved using a better skinning approach such as dual quaternion skinning. Also, the shape functions derivatives are discontinuous and this is particularly noticeable during high deformations. One could easily change the shape functions and still use the non-manifold grid to depict the topology.
+Secondly, for large deformations, the surface can look bumpy. There are several reasons for this problem. Linear blend skinning, used to approximate the displacement field, produces well known artifacts that could be solved using a better skinning approach such as dual quaternion skinning. Also, the shape functions derivatives are discontinuous and this is particularly noticeable during high deformations. One could easily change the shape functions and still use the non-manifold grid to depict the topology.
 
 Thirdly, our implementation is far from being optimal. Currently the non-manifold grid and the shape functions are re-computed from scratch at each cut. We could enjoy a dynamic acceleration structure to incrementally update our non-manifold grid. Shape functions could also be incrementally updated. Finally there are several parts of our method that could enjoy parallelization such as samples interpolation.
 
-Finally, we would like to extend our work to 3D. The implementation of our current non-manifold grid would require a tetrahedron representation of the object. We would like to investigate the method of \cite{Remillard2013} to build this structure only from the object surface. We think that the frame-based framework can be used to produce interactive detailed fracture simulation. The main challenge is to accurately compute stress tensors which are then used to determine fracture direction. Instead of using a dense sampling of frames and integration points to compute the stress tensors, we would like to combine a low resolution stress tensor measurement with procedural detail generation as in the work of \cite{Chen2014} and \cite{Lejemble2015}. Finally, we would like to investigate advanced sampling strategies in order to automatically determine how many frames are required for a given region. This would involve the material property, the size and the shape of the region that needs to be sampled.
+Finally, we would like to extend our work to 3D. The implementation of our current non-manifold grid would require a tetrahedron representation of the object. We would like to investigate the method of~\cite{Remillard2013} to build this structure only from the object surface. We think that the frame-based framework can be used to produce interactive detailed fracture simulation. The main challenge is to accurately compute stress tensors which are then used to determine fracture direction. Instead of using a dense sampling of frames and integration points to compute the stress tensors, we would like to combine a low resolution stress tensor measurement with procedural detail generation as in the work of~\cite{Chen2014} and~\cite{Lejemble2015}. Finally, we would like to investigate advanced sampling strategies in order to automatically determine how many frames are required for a given region. This would involve the material property, the size and the shape of the region that needs to be sampled.
 

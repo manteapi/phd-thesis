@@ -1,8 +1,3 @@
-Questions
-=========
--Pour les rapporteurs:
-    -Est-ce que le manuscrit doit avoir la page de garde ?
-
 Planning
 =========
 Envoi du manuscrit au rapporteur en Juillet.
@@ -11,7 +6,6 @@ Soutenance le 03 octobre.
 
 Urgent
 ======
-*Validation du jury
 *Envoie d'un mail à Maud et Christian pour une deadline
 
 Relecture
@@ -24,35 +18,21 @@ Relecture
 -Conclusion pour chaque chapitre
 -Transition pour chaque chapitre
 
-Mardi 12 Juillet: 
--->Corriger STAR
--->Passer STAR à MP
-
-Mercredi 13 Juillet:
--->Corriger CUT
--->Passer CUT à FF
-
-
 Conseils Généraux
 ==================
 Trouver des titres faciles à comprendre !
 
-Administratif
-=============
--Récupérer les attestations de formations pour compléter les crédits
--->Formation mathematica (mail envoyé)
--Débuter le dossier de soutenance !
-
-Scientifique
-============
--Transition des chapitres
-
 Figures
 =======
 -Rescaler les figures de l'état de l'art
--Figure illustrant le trial/error process
--Figure illustrant les space/time constraints
--Figure illustrant différents usages du contrôle de simulation
 -Figure illustrant l'animation traditionnelle de phénomène physique et l'animation par ordinateur
 -Figure illustrant SPH (simulation)
 -Figure illustrant le modèle des repères (simulation)
+-Figure fonction de restriction ARPS
+
+Notations
+=========
+-Rajouter une section expliquant les notations du manuscrit.
+-Uniformiser les notations autant que possible.
+-Voir comment intégrer plus d'informations sur les repères dans l'état de l'art, 
+au lieu de les mettre dans le chapitre découpe
