@@ -8,6 +8,13 @@ Urgent
 ======
 *Envoie d'un mail à Maud et Christian pour une deadline
 
+CheckList
+==========
+-Réferencement des figures
+-Undefined reference (figure, section, citation)
+-Répétition de mot: the the, and and
+-Mauvaise grammaire: user's interaction
+
 Relecture
 =========
 
