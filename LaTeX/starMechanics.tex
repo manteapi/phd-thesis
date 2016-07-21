@@ -5,7 +5,6 @@ In this section, we propose a progressive introduction to the basics of continuu
 Firstly, we describe how to formulate general equations of motion and we present the different concepts and numerical tools used to solve them.
 Secondly, we present a constitutive law for fluid mechanics leading to Navier-Stokes equations and we detail their discretization using the Smoothed-Particle Hydrodynamics (SPH) model that will serve as background for our contribution in Chapter~\ref{chap:arps}.
 Finally, we present a constitutive law for solid mechanics which allows to simulate elastic solids and we detail the discretization of the equations of motion using the frame-based model that we use in Chapter~\ref{chap:cutting}.
-
 If the reader looks for a wider presentation of the existing deformable models in Computer Graphics, we suggest the survey of Nealen et al.~\cite{Nealen2006}.
 %\subsection{Notation}
 %
@@ -38,190 +37,244 @@ Then we detail the concepts and numerical tools used to solve these equations.
 
 \subsubsection{Conservation of mass}
 
+The conservation of mass states that, whatever the physical material which is studied, mass cannot be created or destroyed.
+More precisely, if we look at a small volume of the simulation domain, the variation of mass in that volume should be equal to the flux of mass going through its border.
+In Figure~\ref{fig:massConservation}, we illustrate this law with the example of a glass of water.
+At a time $t_{1}$, the mass of the water should be equal to its mass at time $t_{0}$ plus the mass of the inflow and minus the mass of the outflow which occurred between $t_{0}$ and $t_{1}$.
 \begin{figure}[!h]
-\centering
-\includegraphics[scale=0.8]{images/continuum_mechanics/massConservation.png}
-\caption[STAR mechanics: Mass conservation]{\label{fig:massConservation} Mass conservation. $M(t_{1}) = M(t_{0}) + M_{in} + M_{out}$}
+	\centering
+	\includegraphics[width=\linewidth]{images/continuum_mechanics/massConservation.png}
+	\caption[STAR mechanics: Mass conservation]{\label{fig:massConservation} Mass conservation. $M(t_{1}) = M(t_{0}) + M_{in} - M_{out}$}
 \end{figure}
-
-The conservation of mass is quite explicit. 
-Whatever the physical material which is studied, mass cannot be created or destroyed. 
-If we look at a small volume $\mathcal{V}$ of the domain $\Omega$, the variation of mass in $\mathcal{V}$ should be equal to the flux of mass going through the border of the volume.
-
+\\
+Mathematically, we can write the conservation of mass as
 \begin{equation}
     \label{eq:massConservation}
     \displaystyle 
-    \frac{d}{dt}\left( \int_{\mathcal{V}} \rho dv \right)
+    \frac{d}{dt}\left( \int_{\mathcal{V}} \rho(t,\mathbf{x}) dv \right)
     =
-    - \int_{\mathcal{\partial V}}\rho \mathbf{v} \cdot \mathbf{n} ds
+    - \int_{\mathcal{\partial V}}\rho(t,\mathbf{x})\mathbf{v}(t,\mathbf{x}) \cdot \mathbf{n}(\mathbf{x}) ds
 \end{equation}
-
-From Stokes' formula, we have
-
+where
+\begin{itemize}
+	\item $\rho(t,\mathbf{x})$ is the density at a point $\mathbf{x}$ and at a time $t$.
+	\item $\mathbf{v}(t,\mathbf{x})$ is the velocity at a point $\mathbf{x}$ and at a time $t$.
+	\item $\mathcal{V}$ is a small volume of the simulation domain $\Omega$.
+	\item $\mathcal{\partial V}$ is the border of $\mathcal{V}$.
+	\item $\mathbf{n}(\mathbf{x})$ is the normal of $\mathcal{V}$ on a point $\mathbf{x}$ of $\partial\mathcal{V}$.
+\end{itemize}
+This formulation involves an integral over the volume and its boundary.
+When numerically solving this equation, it is simpler not to have to make the distinction between a small element of $\mathcal{V}$ and a small element of $\partial \mathcal{V}$.
+By using Stokes' theorem, we have
 \begin{equation}
 \displaystyle 
 \int_{\partial \mathcal{V}} \rho \mathbf{v} \cdot \mathbf{n} ds =
-\int_{\mathcal{V}} \nabla \cdot \left( \rho \mathbf{v} \right) dv =
-\int_{\mathcal{V}} \nabla \rho \cdot \mathbf{v} dv
+\int_{\mathcal{V}} \nabla \cdot \left( \rho \mathbf{v} \right) dv
 \end{equation}
-
-then the conservation of mass can be rewritten as
-
+and we can rewrite Equation~(\ref{eq:massConservation}) as a single integral over $\mathcal{V}$
 \begin{equation}
 \label{eq:volumetricMassConservation}
-\displaystyle \int_{\mathcal{V}} \frac{d}{dt} \rho + \nabla \cdot \left( \rho  \mathbf{v} \right) dv = 0
+\displaystyle 
+\int_{\mathcal{V}} 
+\left( \frac{\partial \rho}{\partial t} + \nabla \cdot \left( \rho  \mathbf{v} \right) \right) dv = 0
 \end{equation}
 
 \subsubsection{Conservation of momentum}
 
-\begin{figure}[!ht]
+The conservation of momentum is implied by Newton's second law which states that the forces applied on an object result into an acceleration which is inversely proportional to the mass of the object.
+Figure~\ref{fig:momentumConservation} illustrates this law in the case of two balls on which a same force is applied.
+The acceleration induced by the force is more important for the small ball which has a mass less important than the big ball.
+\begin{figure}[!h]
 \centering
-\includegraphics[scale=1.5]{images/continuum_mechanics/momentumConservation.png}
-\caption[STAR mechanics: Momentum conservation]{\label{fig:momentumConservation} Momentum conservation.}
+\includegraphics[width=\linewidth]{images/continuum_mechanics/momentumConservation.png}
+\caption[STAR mechanics: Momentum conservation]{\label{fig:momentumConservation} Momentum conservation. The same force $\mathbf{f}$ is applied on two balls. The resulting acceleration is inversely proportional to their mass.}
 \end{figure}
-
-Also called Newton's second law, it states that the forces applied on an object result into a change of speed which is inversely proportional to the mass of the object (as illustrated in Figure~\ref{fig:momentumConservation}). The equation is written as:
-\begin{equation}
-\label{eq:momentumConservation}
-\displaystyle \int_{\mathcal{V}} \rho \frac{d}{dt} \mathbf{v}(t,x) dv = \int_{\mathcal{V}} \mathbf{f} dv
-\end{equation}
-
-Two kind of forces are generally applied on an object, the \emph{external} forces and the \emph{internal} forces.
-
-External forces describe the action of the surrounding environment on the object. 
-The simplest example is weight:
-\begin{equation}
-\displaystyle \mathbf{f}_{ext} = \int_{\mathcal{V}} \rho \mathbf{g} dv
-\end{equation}
-
-Internal forces describe the reaction of the object to an external deformation. A general way to describe them is by using the following stress tensor notation.
-The stress relates the deformation of the object to its material properties by using a constitutive law.
-In the following, we will describe the constitutive laws for incompressible fluids (Section~\ref{subsec:fluidMechanics}) and solids (Section~\ref{subsec:solidMechanics}).
-We refer the reader to the \emph{SIGGRAPH} course about real-time physics~\cite{Muller2008} by M\"{u}ller et al. for an intuitive definition of the stress in the case of deformable solids.
-\begin{equation}
-\displaystyle \int_{\mathcal{V}} \mathbf{f}_{ext} dv = \int_{\partial \mathcal{V}} \sigma \mathbf{n} ds
-\end{equation}
-By applying Stokes' formula we can describe it with respect to the volume:
+\\
+Mathematically, this law can be written as
 \begin{equation}
 \displaystyle 
-\int_{\mathcal{V}} \mathbf{f}_{int} dv = \int_{\mathcal{\partial V}} \sigma \mathbf{n} ds =
+\int_{\mathcal{V}} 
+\rho(t,\mathbf{x})\mathbf{a}(t,\mathbf{x}) dv 
+= 
+\int_{\mathcal{V}} \mathbf{f}(t,\mathbf{x}) dv
+\end{equation}
+where
+\begin{itemize}
+	\item $\mathbf{a}(t,\mathbf{x})$ is the acceleration at a point $\mathbf{x}$ and at a time $t$.
+		\item $\mathbf{f}(t,\mathbf{x})$ is the force applied on a point $\mathbf{x}$ and at a time $t$.
+\end{itemize}
+By performing a Taylor-Young expansion on the acceleration, we can re-write the momentum conservation as
+\begin{equation}
+\label{eq:momentumConservation}
+\displaystyle 
+\int_{\mathcal{V}} 
+\rho(t,\mathbf{x}) \left( \frac{\partial\mathbf{v}}{\partial t} + \mathbf{v} \cdot \nabla \mathbf{v} \right)(t,\mathbf{x}) dv 
+= 
+\int_{\mathcal{V}} \mathbf{f}(t,\mathbf{x}) dv
+\end{equation}
+Two kind of forces are generally applied on an object, the \emph{external} forces and the \emph{internal} forces.
+External forces describe the action of the surrounding environment on the object. 
+The simplest example is the weight, i.e. the force applied by the constant gravity $\mathbf{g}$ on the object:
+\begin{equation}
+\displaystyle \int_{\mathcal{V}} \mathbf{f}_{ext}(t,\mathbf{x})dv = \int_{\mathcal{V}} \rho(t,\mathbf{x}) \mathbf{g} dv
+\end{equation}
+Internal forces describe the reaction of the object to an external deformation.
+Generally, they are defined by using a stress tensor $\sigma(t,\mathbf{x})$ as 
+\begin{equation}
+\displaystyle 
+\int_{\mathcal{V}} \mathbf{f}_{int}(t,\mathbf{x}) dv 
+= \int_{\partial \mathcal{V}} \sigma(t,\mathbf{x}) \mathbf{n}(\mathbf{x}) ds
+\end{equation}
+Basically, the stress relates the deformation of the object to its material properties by using a constitutive law.
+A constitutive law is specific to the phenomena which is simulated.
+In Section~\ref{subsec:fluidMechanics} and Section~\ref{subsec:solidMechanics}, we will respectively describe the most common constitutive laws for incompressible fluids and solids.
+For a detailed and intuitive definition of the stress tensor we refer the reader to the \emph{SIGGRAPH} course about real-time physics~\cite{Muller2008} by M\"{u}ller et al.
+\\
+Same as for the conservation of mass, we can use Stokes' theorem to get a single integral over $\mathcal{V}$,
+\begin{equation}
+\displaystyle 
+\int_{\mathcal{\partial V}} \sigma \mathbf{n} ds =
 \int_{\mathcal{V}} \nabla \cdot \sigma dv
 \end{equation}
-Conservation of momentum can then be rewritten:
+and we can rewrite Equation~(\ref{eq:momentumConservation}) as
 \begin{equation}
 \label{eq:volumetricMomentumConservation}
 \displaystyle
-\int_{\mathcal{V}} \rho \frac{d}{dt} \mathbf{v}(t,x) dx = \int_{\mathcal{V}} \rho \mathbf{g} + \nabla. \sigma dv
+\int_{\mathcal{V}} 
+\left( 
+\rho \left( \frac{\partial\mathbf{v}}{\partial t} + \mathbf{v} \cdot \nabla \mathbf{v} \right)
+- \nabla \cdot \sigma - \rho \mathbf{g}  \right) dv = 0
 \end{equation}
 
-\subsubsection{Lagrangian vs. Eulerian formulations}
+\subsubsection{Eulerian vs. Lagrangian formulations}
 
+Eulerian and Lagrangian formulations are two different ways of interpreting the equations of motion.
+To understand the key difference, we take the example of the simulation of a river and use Figure~\ref{fig:EulerianVsLagrangian} to illustrate it.
+Let us suppose that we want to measure fluid properties such as velocity, density or temperature of the river.
+A first possibility would be to measure it at a fixed location, similarly to a buoy that would remain at the same spot and measures data at regular intervals of time. This is the Eulerian viewpoint. A second possibility is to measure it along a path that would follow the flow of the river, similarly to an object floating on the river or a particle of water moving accordingly to the flow. This is the Lagrangian viewpoint.
 \begin{figure}[!ht]
-\centering
-\includegraphics[scale=0.5]{images/continuum_mechanics/eulerianVsLagrangian.png}
-\caption[STAR mechanics: Eulerian vs. Lagrangian]{\label{fig:EulerianVsLagrangian} Eulerian vs. Lagrangian viewpoint}
+	\centering
+	\includegraphics[width=\linewidth]{images/continuum_mechanics/eulerianVsLagrangian.png}
+	\caption[STAR mechanics: Eulerian vs. Lagrangian]{\label{fig:EulerianVsLagrangian} Eulerian vs. Lagrangian viewpoint. On the left, buoys are put at fixed positions on a river and measure properties such as velocity, temperature, etc. The Eulerian approach takes a similar approach. On the right, we represent the river with particles of water which follows the flow of the river and carry properties with them. This is similar to the Lagrangian viewpoint.}
 \end{figure}
-
-A simulation can be seen from two viewpoints. To illustrate this we can take the example of a river that we simulate (see Figure~\ref{fig:EulerianVsLagrangian}). From this simulation we want to measure the velocity of the flow. A first possibility is to discretize the river at fixed points from where we can measure the velocity of the flow passing through a point of the grid. This is the Eulerian viewpoint.
-A second possibility is to discretize the river into particles that will carry and update fluid properties such as position and velocity. This is the Lagrangian viewpoint. 
-
-From a mathematical perspective this can be expressed in the material derivative formula. Let's compute the total derivative of a quantity $\mathbf{u}$ which depends on time $t$ and location $\mathbf{x}$. By using the derivation chain rule, we have:
+Equation~\ref{eq:volumetricMassConservation} and Equation~\ref{eq:volumetricMomentumConservation} are described for fixed locations. Put together, they define the equations of motion from an Eulerian viewpoint.
 \begin{equation}
-\frac{d}{dt}\mathbf{u}(t,\mathbf{x}) = 
-\frac{\partial \mathbf{u}}{\partial t} + \nabla \mathbf{u} \cdot \frac{d\mathbf{x}}{dt} =
-\frac{\partial \mathbf{u}}{\partial t} + \nabla \mathbf{u} \cdot \mathbf{v} 
+\label{eq:eulerianMotionEquation}
+\left\lbrace
+\begin{array}{l}
+\displaystyle 
+\int_{\mathcal{V}} 
+\left( 
+\rho \left( \frac{\partial\mathbf{v}}{\partial t} + \mathbf{v} \cdot \nabla \mathbf{v} \right)
+- \nabla \cdot \sigma - \rho \mathbf{g}  \right) dv = 0 
+\\ \\
+\displaystyle
+\int_{\mathcal{V}} 
+\left( \frac{\partial \rho}{\partial t} + \nabla \cdot \left( \rho  \mathbf{v} \right) \right) dv = 0
+\end{array}
+\right.
 \end{equation}
-In this equation, the expression $\frac{\partial \mathbf{u}}{\partial t}$ is the derivative at fixed point, the Eulerian derivative. Now if the location $\mathbf{x}$ is the position of a particle, then the total derivative is called the material or Lagrangian derivative and measures the derivative for the particle location $\mathbf{x}$.
-
-Notice that the mass conservation, equation~(\ref{eq:volumetricMassConservation}), can be rewritten in a Lagrangian way by detailing the divergence of the product between density and velocity:
+In order to adopt the Lagrangian viewpoint, let us suppose that the fluid properties are carried by particle and that $q(t,\mathbf{x})$ denote one of this property at a time $t$ for a particle which is at a position $\mathbf{x}$. 
+If we want to compute the derivative of $q$ for the particle at position $\mathbf{x}$, we have to use the total derivative:
 \begin{equation}
-\label{eq:lagrangianMassConservation}
-\int_{\mathcal{V}} \frac{d\rho}{dt} + \rho \nabla \cdot \mathbf{v} dv = 0
+\label{eq:totalDerivative}
+\frac{dq(t,\mathbf{x})}{dt} = 
+\frac{\partial q}{\partial t}\cdot\frac{dt}{dt} + \frac{\partial q}{\partial \mathbf{x}} \cdot \frac{d\mathbf{x}}{dt} 
+= \frac{\partial q}{\partial t}(t,\mathbf{x}) + \left(\nabla q(t,\mathbf{x}) \cdot \mathbf{v}\right)(t,\mathbf{x})
 \end{equation}
-
-In Lagrangian simulations, conservation of mass is guaranteed by assuming that the mass of the particles are constant over time. In this context, numerically solving of equation~(\ref{eq:lagrangianMassConservation}) can be omitted. It is worth to notice that in Lagrangian liquid simulations, conservation of the mass does not imply incompressibility. To insure the latter, equation~(\ref{eq:lagrangianMassConservation}) needs to be revisited and integrated within the numerical solver. An approach to enforce incompressibility was recently proposed for SPH simulations by Bender and Koschier~\cite{Bender2015}.
-
+In Equation~(\ref{eq:volumetricMomentumConservation}) which describes the momentum conservation, we can directly use Equation~(\ref{eq:totalDerivative}) to adopt a Lagrangian viewpoint. 
+For the mass conservation described in Equation~(\ref{eq:volumetricMassConservation}), we first need to develop the divergence of the product between density and velocity and then Equation~(\ref{eq:totalDerivative}) can be used.
+Finally, we can write the equations of motion from a Lagrangian viewpoint as
+\begin{equation}
+\label{eq:lagrangianMotionEquation}
+\left\lbrace
+\begin{array}{l}
+\displaystyle 
+\int_{\mathcal{V}} 
+\left( 
+\rho \frac{d\mathbf{v}}{dt}
+- \nabla \cdot \sigma - \rho \mathbf{g}  \right) dv = 0 
+\\ \\
+\displaystyle
+\int_{\mathcal{V}} 
+\left( \frac{d\rho}{dt} + \rho \nabla \cdot \mathbf{v} \right) dv = 0
+\end{array}
+\right.
+\end{equation}
+As the deformable models used in Chapter~\ref{chap:arps} and Chapter~\ref{chap:cutting} are used to solve Lagrangian equations of motion, we will keep Equation~\ref{eq:lagrangianMotionEquation} in the following sections.
+%In Lagrangian simulations, conservation of mass is guaranteed by assuming that the mass of the particles are constant over time. In this context, numerically solving of equation~(\ref{eq:lagrangianMassConservation}) can be omitted. It is worth to notice that in Lagrangian liquid simulations, conservation of the mass does not imply incompressibility. To insure the latter, equation~(\ref{eq:lagrangianMassConservation}) needs to be revisited and integrated within the numerical solver. An approach to enforce incompressibility was recently proposed for SPH simulations by Bender and Koschier~\cite{Bender2015}.
 \subsubsection{Numerical solution}
 
-Once the equations of motion are stated, they are discretized in space an time in order to be numerically solved.
+Once the equations of motion are stated, they are discretized in space and time in order to be numerically solved.
 
 \paragraph{Spatial discretization}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[scale=0.2]{images/continuum_mechanics/discretization.png}
-\caption[STAR mechanics: Discretization]{\label{fig:discretization} On the left a grid discretization, commonly used in Eulerian simulations. In the middle an unstructured mesh discretization, commonly used in mesh-based Lagrangian simulations. On the right, a point-based discretization, commonly used in mesh-less Lagrangian simulations.}
-\end{figure}
-
 The spatial discretization consists in approximating the object to simulate using a finite number of samples. 
-These samples carry the degrees of freedom used to numerically solve the equations of motion.
-Then, by using an interpolation method, it is possible to approximate continuous quantities such as position, velocity, density and so on, at any location on the domain. 
-Finally, a quadrature rule is needed in order to integrate these quantities over the domain. 
+These samples carry the \emph{degrees of freedom} used to numerically solve the equations of motion.
+Then, by using an \emph{interpolation method}, it is possible to approximate continuous quantities such as position, velocity, density and so on, at any location on the domain. 
+Finally, a \emph{quadrature rule} is needed in order to integrate these quantities over the domain. 
 These are the main components for solving the equations of motion:
 degrees of freedom, an interpolation method and a quadrature rule for the numerical integration over the simulation domain.
-
-There are multiple possibilities for these components. It is crucial to choose them based on the goals of the simulation, What do we want to measure ? How will boundaries be represented ? Will any topological changes occur ? Have we restrictions in terms of computational or memory cost ? In the following we briefly introduce the solutions the most commonly used in Computer Graphics.
+\\ \\
+There are multiple possibilities for these components: It is crucial to choose them based on the goals of the simulation, What do we want to measure ? How will boundaries be represented ? Will any topological changes occur ? Are there restrictions in terms of computational or memory cost ? In the following we briefly introduce the most commonly used solutions in Computer Graphics.
 
 \subparagraph{Degrees of freedom}
-For Eulerian simulations, velocities are the most common independent degrees of freedom. 
-Usually they are computed at fixed regularly sampled locations, which allow to accurately compute derivatives. 
-For Lagrangian simulations, positions and velocities are the most common independent degrees of freedom.
-They can sample the object in many different ways depending on the interpolation method.
-Another possibility is to use affine frames to capture translations, rotations and shearing.
-They are used in the frame-based model which will be detailed in Section~\ref{subsubsec:framebased}. 
+In Eulerian simulation, velocities are the most common independent degrees of freedom while Lagrangian simulations generally use positions and velocities. 
+We can also mention the use of affine frames to capture translations, rotations and shearing. They are used in the frame-based model which will be detailed in Section~\ref{subsubsec:framebased}.
+\\ 
+Usually, we distinguish two types of sampling of the degrees of freedom: mesh-based and mesh-less (see Figure~\ref{fig:discretization}).
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth]{images/continuum_mechanics/shapefunction.png}
+	\caption[STAR mechanics: Shape functions]{\label{fig:shapefunction} 
+		Three examples of shape functions. 
+		Each color represents the shape function associated to one sample point(black circle) carrying the degrees of freedom. 
+		On the left, shape functions for trilinear interpolation are illustrated. 
+		In the middle, barycentric shape functions are illustrated. 
+		On the right, kernel-based shape functions that are used in SPH and MLS interpolation are illustrated.}
+\end{figure}
+In mesh-based methods, the vertices of a mesh are used to sample the degrees of freedom. For instance, Eulerian simulations usually use a cartesian grid which allows to accurately compute derivatives. 
+In contrast, Lagrangian simulations are mostly based on unstructured triangular meshes which allows to handle complex boundaries.
+In mesh-less methods, the samples are uniformly distributed over the domain. Depending on the simulated phenomena, the structure may be quasi-nonexistent which brings a lot of flexibility. For fluids, the neighborhood of the samples will change every time whereas for elastic solids their neighborhood will remain the same as long as the object does not undergo topological changes such as fracture or cutting.
+Of course, each of these samplings can benefit from adaptivity. We will detail the different possibilities of spatial adaptivity in Chapter~\ref{chap:starAdaptivity}.
 
 \subparagraph{Interpolation}
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[scale=0.5]{images/continuum_mechanics/shapefunction.png}
-\caption[STAR mechanics: Shape functions]{\label{fig:shapefunction} 
-	Three examples of shape functions. 
-	Each color represents the shape function associated to one sample point(black circle) carrying the degrees of freedom. 
-	On the left, shape functions for trilinear interpolation are illustrated. 
-	In the middle, barycentric shape functions are illustrated. 
-	On the right, kernel-based shape functions that are used in SPH and MLS interpolation are illustrated.}
+Interpolation is used to approximate the physical quantities over the domain such as density, displacement, pressure and so on. 
+In Computer Graphics, we can distinguish three major interpolation methods: polynomial interpolation, Moving Least Squares (MLS) and Smoothed-Particles Hydrodynamics (SPH) interpolation. 
+For each of them, different weights are used, as illustrated in Figure~\ref{fig:shapefunction}. The weights are also called \emph{shape functions}, they can be seen as the region of influence of a sample.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth]{images/continuum_mechanics/discretization.png}
+	\caption[STAR mechanics: Discretization]{\label{fig:discretization} On the left a grid discretization, commonly used in Eulerian simulations. In the middle an unstructured mesh discretization, commonly used in mesh-based Lagrangian simulations. On the right, a point-based discretization, commonly used in mesh-less Lagrangian simulations.}
 \end{figure}
-
-As mentioned above, interpolation is used to continuously approximate the physical quantities over the domain such as density, displacement, pressure and so on. In Computer Graphics, we can distinguish three major interpolation methods: polynomial interpolation, Moving Least Squares (MLS) and Smoothed-Particles Hydrodynamics (SPH) interpolation. For each of them different weights, also called \emph{shape functions} are used (see Figure~\ref{fig:shapefunction}). 
-
-The choice of the interpolation method is closely related to the spatial sampling of the degrees of freedom. 
-Usually two types of sampling are distinguished: mesh-based sampling and mesh-less sampling (see Figure~\ref{fig:discretization}).
-
-In mesh-based methods, the degrees of freedom are the vertices of a mesh. 
-Different possibilities exist depending on its structure. 
-For grids, trilinear interpolation is often used, for instance in Eulerian fluid simulation~\ref{Bridson2008}.
-For unstructured meshes, linear interpolation with barycentric weights is the most popular choice, for instance in the linear finite element method~\ref{Muller2008}.
-
-In mesh-less methods, the sampling of degrees of freedom might be completely unstructured. 
-For Lagrangian fluids, particles of fluid will often change of neighborhood and the structure is quasi-nonexistent.
-For Lagrangian elastic solids, particles will keep the same neighborhood as long as the object does not undergo topological changes,
-such as fracture and cutting.
-The two most common interpolation methods are SPH and MLS.
+\\
+The choice of the interpolation method mainly depends on how the material samples have been distributed. 
+For a sampling based on cartesian grid, trilinear interpolation is often used, for instance in Eulerian simulations~\cite{Bridson2008}. 
+For unstructured triangle meshes, linear interpolation with barycentric weights is the most popular choice to simulate elastic solids~\cite{Muller2008}.
+For mesh-less samplings, the two most common interpolation methods are SPH and MLS.
 SPH interpolation has been used to simulate a wide range of phenomena from fluid~\cite{Desbrun1999} to elastic solids~\cite{Becker2009}.
 MLS has been introduced by M\"{u}ller et al. to simulate elastic and plastic deformations~\cite{Muller2004:melting}.
 It was later extended to solids fracture by Pauly et al.~\cite{Pauly2005} and interactive cutting by Steinemann et al.~\cite{Steinemann2009}.
-However, both methods use cubic kernel as weights and require a dense sampling of the object.
-In order to use a sparse sampling, other interpolation methods exist such as the Voronoi-based interpolation used in the frame-based model.
-We will detail these shape functions in Chapter~\ref{chap:cutting}.
-
+Both methods use a cubic kernel as weights and require a dense sampling of the object.
+\\
 Of course, mesh-based and mesh-less methods can be combined to get the best of both worlds.
 In this case, two interpolation methods are used, one for the mesh-based side and one for the mesh-less side.
 We refer the reader to the recent \emph{SIGGRAPH} course on the material point method~\cite{Jiang2016}.
-In this course, existing hybrid models are presented and compared, and the interpolation methods to transfer data from one representation to another are nicely detailed.
+In this course, existing hybrid models are compared and the interpolation methods to transfer data from one representation  to another are described.
+\\
+A common drawback of the methods mentioned above it that they require a dense sampling. In Chapter~\ref{chap:cutting}, we will detail the Voronoi-based interpolation method used in the frame-based model, which allows to use a sparse sampling and thus reduce the computational time.
 
 \subparagraph{Spatial Integration}
 
-Over the simulation, different physical quantities, such as density or internal forces, need to be integrated over the domain. 
+Over the simulation, different physical quantities such as density or internal forces, need to be integrated over the domain. 
 There is need for a quadrature rule. 
 Many exist, most of the time the simple midpoint rule is chosen. 
 The domain is decomposed in a set of partitions, where each partition has an associated volume $V_{i}$. 
-\"Mid\"-Points $\mathbf{x}_{i}$ are sampled at the center of each partition.
+"Mid"-Points $\mathbf{x}_{i}$ are sampled at the center of each partition.
 They are called \emph{integration points}. 
 Then the integral of a function $f$ over a domain $\Omega$ is approximated by:
 \begin{equation}
 \label{eq:midpointRule}
-\int_{V} f(x)dv = \sum_{i} V_{i}f(\mathbf{x}_{i})
+\int_{\Omega} f(x)dv \simeq \sum_{i} V_{i}f(\mathbf{x}_{i})
 \end{equation}
 
 Figure~\ref{fig:spatialIntegration} depicts the midpoint rule for a one dimensional function.
@@ -398,7 +451,7 @@ D^{\alpha} f(\mathbf{x})= \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} D^{\a
 \end{equation}
 
 However, for first derivatives, the approximation above does not vanish if $f$ is a constant function. 
-A quick way to ensure this expected property is to use an arbitrary differentiable function $\Phi$ and to re-write the derivative using the derivative of a product :
+A quick way to ensure this expected property is to use an arbitrary differentiable function $\Phi$ and to rewrite the derivative using the derivative of a product :
 \begin{equation}
 \label{eq:hackSPH}
 \nabla f(x) = \frac{1}{\Phi}\left(\nabla (f \Phi) - f \nabla \Phi \right)
@@ -444,7 +497,7 @@ This is the kernel we use in Chapter~\ref{chap:arps}.
 
 \paragraph{Application to Navier-Stokes equations}
 
-In computer graphics, the SPH model is commonly used to approximate the Navier-Stokes equations (Equations~\ref{eq:navierStokes}).
+In computer graphics, the SPH model is commonly used to approximate the Navier-Stokes equations (Equation~\ref{eq:navierStokes}).
 In the following, we discretize each term of these equations for a particle $i$ using the SPH model.
 \\ \\
 The density of a particle $i$ can be approximated using Equation~(\ref{eq:sphFunction}):

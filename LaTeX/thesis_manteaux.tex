@@ -117,16 +117,24 @@
 %====================================================
 %				    GLOSSARY	
 %====================================================
-%\usepackage[acronym, symbols, nonumberlist]{glossaries}
-%
-%\makeglossaries
-%
-%%Main glossary
+\usepackage[acronym, nonumberlist, nopostdot, section]{glossaries}
+\usepackage{glossary-longbooktabs} 
+
+%\setglossarystyle{long-booktabs}
+\renewcommand*{\glossaryname}{Notations}
+\renewcommand*{\entryname}{Symbol}
+\renewcommand*{\descriptionname}{Description}
+
+\makeglossaries
+
+%Main glossary
 %\newglossaryentry{pil}{name={\ensuremath{\pi}},description={ratio}}
-%%Acronym glossary
-%\newacronym{led}{LED}{light-emitting diode}
-%%Symbol glossary
-%\newglossaryentry{pi}{type=symbols, name={\ensuremath{\pi}},symbol={\ensuremath{\pi}},description={ratio of circumference of circle to its diameter}}
+
+%Acronym glossary
+\newacronym{sph}{SPH}{Smoothed-Particle Hydrodynamics}
+
+%Symbol glossary
+\newglossaryentry{Omega}{name={\ensuremath{\Omega}},symbol={\ensuremath{\Omega}},description={Simulation domain}}
 
 %====================================================
 %					DOCUMENT
@@ -210,7 +218,12 @@
 
 \mainmatter
 
-\include{chap1_introduction}
+%\include{chap1_introduction}
+%
+%\cleartorecto
+
+\glsaddall
+\printglossaries
 
 \cleartorecto
 
@@ -218,42 +231,40 @@
 
 \cleartorecto
 
-\include{chap3_arps}
-
-\cleartorecto
-
-\include{chap4_cutting}
-
-\cleartorecto
-
-\include{chap5_fluidsculpting}
-
-\cleartorecto
-
-\include{chap6_conclusion}
-
-\cleartorecto
-
-\appendix
-
-\include{annexe_cutting}
+%\include{chap3_arps}
+%
+%\cleartorecto
+%
+%\include{chap4_cutting}
+%
+%\cleartorecto
+%
+%\include{chap5_fluidsculpting}
+%
+%\cleartorecto
+%
+%\include{chap6_conclusion}
+%
+%\cleartorecto
+%
+%\appendix
+%
+%\include{annexe_cutting}
 
 \backmatter
 
 \printbibliography
 
-\cleartorecto
-
-\listoffigures
-
-\cleartorecto
-
-\listofalgorithms
-
-\cleartorecto
-
-\listoftables
-
-%\printglossaries
+%\cleartorecto
+%
+%\listoffigures
+%
+%\cleartorecto
+%
+%\listofalgorithms
+%
+%\cleartorecto
+%
+%\listoftables
 
 \end{document}

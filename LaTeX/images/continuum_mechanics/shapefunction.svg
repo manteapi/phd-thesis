@@ -10,11 +10,11 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="821.72961"
+   width="743.72961"
    height="269.47351"
    id="svg10219"
    version="1.1"
-   inkscape:version="0.91 r"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="shapefunction.svg"
    inkscape:export-filename="/home/manteapi/Depot/github/phd-thesis/LaTeX/images/continuum_mechanics/shapefunction.png"
    inkscape:export-xdpi="400"
@@ -385,15 +385,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="288.67478"
-     inkscape:cy="193.99761"
+     inkscape:cx="372.80171"
+     inkscape:cy="147.51029"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
-     inkscape:window-width="1920"
-     inkscape:window-height="984"
-     inkscape:window-x="0"
-     inkscape:window-y="27"
+     inkscape:window-width="1615"
+     inkscape:window-height="1026"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -407,8 +407,8 @@
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true"
-       originx="255.76736"
-       originy="-577.08944" />
+       originx="227.76736"
+       originy="-575.08944" />
   </sodipodi:namedview>
   <metadata
      id="metadata10224">
@@ -426,10 +426,10 @@
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(255.76736,-205.79923)">
+     transform="translate(227.76736,-207.79923)">
     <g
        id="g8799"
-       transform="translate(7.1113738,2.9979504e-6)">
+       transform="translate(-3.888598,2.9979503e-6)">
       <path
          sodipodi:nodetypes="cccc"
          inkscape:connector-curvature="0"
@@ -475,7 +475,7 @@
     </g>
     <g
        id="g8808"
-       transform="translate(3.9289016e-5,0)">
+       transform="translate(-49.999917,2)">
       <g
          id="g11487">
         <g
@@ -539,7 +539,7 @@
     </g>
     <g
        id="g8786"
-       transform="matrix(0.855,0,0,0.855,-38.813636,51.72656)">
+       transform="matrix(0.855,0,0,0.855,-10.813636,51.72656)">
       <g
          transform="translate(-12.142861,250.35714)"
          id="g8780">

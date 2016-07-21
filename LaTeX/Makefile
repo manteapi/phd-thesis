@@ -23,7 +23,7 @@ ps: build-pdflatex
 build-pdflatex:
 	$(PDFLATEX) $(SRCTEX)
 	$(BIBLIO) $(BASENAME)
-	#$(MAKEGLOSSARIES) $(BASENAME)
+	$(MAKEGLOSSARIES) $(BASENAME)
 	$(PDFLATEX) $(SRCTEX)
 	$(PDFLATEX) $(SRCTEX)
 	$(MAKE) clean
