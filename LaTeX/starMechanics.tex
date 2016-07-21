@@ -224,14 +224,10 @@ We can also mention the use of affine frames to capture translations, rotations 
 Usually, we distinguish two types of sampling of the degrees of freedom: mesh-based and mesh-less (see Figure~\ref{fig:discretization}).
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\linewidth]{images/continuum_mechanics/shapefunction.png}
-	\caption[STAR mechanics: Shape functions]{\label{fig:shapefunction} 
-		Three examples of shape functions. 
-		Each color represents the shape function associated to one sample point(black circle) carrying the degrees of freedom. 
-		On the left, shape functions for trilinear interpolation are illustrated. 
-		In the middle, barycentric shape functions are illustrated. 
-		On the right, kernel-based shape functions that are used in SPH and MLS interpolation are illustrated.}
+	\includegraphics[width=\linewidth]{images/continuum_mechanics/discretization.png}
+	\caption[STAR mechanics: Discretization]{\label{fig:discretization} On the left a grid discretization, commonly used in Eulerian simulations. In the middle an unstructured mesh discretization, commonly used in mesh-based Lagrangian simulations. On the right, a point-based discretization, commonly used in mesh-less Lagrangian simulations.}
 \end{figure}
+\\
 In mesh-based methods, the vertices of a mesh are used to sample the degrees of freedom. For instance, Eulerian simulations usually use a cartesian grid which allows to accurately compute derivatives. 
 In contrast, Lagrangian simulations are mostly based on unstructured triangular meshes which allows to handle complex boundaries.
 In mesh-less methods, the samples are uniformly distributed over the domain. Depending on the simulated phenomena, the structure may be quasi-nonexistent which brings a lot of flexibility. For fluids, the neighborhood of the samples will change every time whereas for elastic solids their neighborhood will remain the same as long as the object does not undergo topological changes such as fracture or cutting.
@@ -243,8 +239,13 @@ In Computer Graphics, we can distinguish three major interpolation methods: poly
 For each of them, different weights are used, as illustrated in Figure~\ref{fig:shapefunction}. The weights are also called \emph{shape functions}, they can be seen as the region of influence of a sample.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\linewidth]{images/continuum_mechanics/discretization.png}
-	\caption[STAR mechanics: Discretization]{\label{fig:discretization} On the left a grid discretization, commonly used in Eulerian simulations. In the middle an unstructured mesh discretization, commonly used in mesh-based Lagrangian simulations. On the right, a point-based discretization, commonly used in mesh-less Lagrangian simulations.}
+	\includegraphics[width=\linewidth]{images/continuum_mechanics/shapefunction.png}
+	\caption[STAR mechanics: Shape functions]{\label{fig:shapefunction} 
+		Three examples of shape functions. 
+		Each color represents the shape function associated to one sample point(black circle) carrying the degrees of freedom. 
+		On the left, shape functions for trilinear interpolation are illustrated. 
+		In the middle, barycentric shape functions are illustrated. 
+		On the right, kernel-based shape functions that are used in SPH and MLS interpolation are illustrated.}
 \end{figure}
 \\
 The choice of the interpolation method mainly depends on how the material samples have been distributed. 
@@ -267,7 +268,13 @@ A common drawback of the methods mentioned above it that they require a dense sa
 
 Over the simulation, different physical quantities such as density or internal forces, need to be integrated over the domain. 
 There is need for a quadrature rule. 
-Many exist, most of the time the simple midpoint rule is chosen. 
+Many exist, most of the time the simple midpoint rule is chosen (see Figure~\ref{fig:spatialIntegration}). 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth]{images/continuum_mechanics/spatialIntegration.png}
+	\caption[STAR mechanics: Spatial integration]{\label{fig:spatialIntegration} Illustration of the midpoint rule for a one dimensional function. The integration domain is partitioned into uniform regions $\left[x_{i}, x_{i+1}\right]$, an integration point $x'_{i}$ is sampled at the center of each partition and the function is evaluated at the location of the integration points.}
+\end{figure}
+\\
 The domain is decomposed in a set of partitions, where each partition has an associated volume $V_{i}$. 
 "Mid"-Points $\mathbf{x}_{i}$ are sampled at the center of each partition.
 They are called \emph{integration points}. 
@@ -276,14 +283,6 @@ Then the integral of a function $f$ over a domain $\Omega$ is approximated by:
 \label{eq:midpointRule}
 \int_{\Omega} f(x)dv \simeq \sum_{i} V_{i}f(\mathbf{x}_{i})
 \end{equation}
-
-Figure~\ref{fig:spatialIntegration} depicts the midpoint rule for a one dimensional function.
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[scale=1.0]{images/continuum_mechanics/spatialIntegration.png}
-	\caption[STAR mechanics: Spatial integration]{\label{fig:spatialIntegration} Illustration of the midpoint rule. The integration domain is partitioned into uniform regions $\left[x_{i}, x_{i+1}\right]$, an integration point $x'_{i}$ is sampled at the center of each partition and the function is only evaluated at the location of the integration points.}
-\end{figure}
-
 In mesh-based methods, it is common to consider one integration point at the center of each element and integrate over the volume of the element.
 In mesh-less methods, when the sampling is dense, integration points are often co-located with the material samples and integrated over their associated volume. 
 However, when the sampling is sparse, an independent sampling of integration points can be used to get a finer integration.
@@ -291,16 +290,7 @@ This is the case in the frame-based method that will be described in Section~\re
 
 \paragraph{Time integration}
 
-\begin{figure}[!ht]
-\centering
-\includegraphics[scale=0.6]{images/continuum_mechanics/timeIntegration.png}
-\caption[STAR mechanics: Temporal integration]{\label{fig:timeIntegration} 
-	Illustration of a 1D forward Euler time integration. 
-	$x(t)$ describes the solution and $x'(t)$ describes the numerical approximation.}
-\end{figure}
-
 Once physical quantities are spatially integrated, they can be integrated over time. 
-
 \begin{equation}
 \label{eq:timeIntegration1}
 \displaystyle
@@ -309,44 +299,42 @@ m \frac{d\mathbf{v}}{dt} dt
 =
 \int_{t_{n}}^{t_{n+1}}\mathbf{f} dt
 \end{equation}
-
 In the following we assume an uniform discretization of the time where the time step is noted $\Delta t$.
 Adaptive discretization of the time will be presented in Section~\ref{sec t adaptivity}.
 Many integrations schemes can be used. 
 Most of them can be explained simply by the Taylor expansion.
-
 \begin{equation}
 \label{eq:taylorExpansion}
 \displaystyle
 f(x) = \sum_{k=0}^{n}\frac{\left(x-a\right)^{k}}{k!}f^{(k)}(a) + \int_{a}^{x}\frac{\left(x-t\right)^{n}}{n!}f^{(n+1)}(t)dt
 \end{equation}
-
 Applied to equation (\ref{eq:timeIntegration1}), this gives:
-
 \begin{equation}
 \label{eq:timeIntegration2}
 \displaystyle
 \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \int_{t_{n}}^{t_{n+1}}\frac{1}{m}\frac{d\mathbf{v}}{dt} dt
 \end{equation}
-
 This expression can be further expanded in order to get more accurate results. 
 In Computer Graphics, this is the most used expansion. 
 Generally, the integral term is computed with the rectangle quadrature rule.
-
 For a left rectangle method, we get an explicit integration of the velocity:
 \begin{equation}
 \label{eq:explicitIntegration}
 \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \left(t_{n+1}-t_{n}\right) \frac{\mathbf{f}(t_{n})}{m}
 \end{equation}
-
 For a right rectangle method, we get an implicit integration of the velocity:
 \begin{equation}
 \label{eq:implicitIntegration}
 \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \left(t_{n+1}-t_{n}\right) \frac{\mathbf{f}(t_{n+1})}{m}
 \end{equation}
-
 The same rule applies for the integration of other physical quantities. In a Lagrangian system, both velocity and position needs to be integrated. There are mainly three different schemes that are used in Computer Graphics: forward Euler, symplectic Euler and backward Euler.
-
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.6]{images/continuum_mechanics/timeIntegration.png}
+	\caption[STAR mechanics: Temporal integration]{\label{fig:timeIntegration} 
+		Illustration of a 1D forward Euler time integration. 
+		$x(t)$ describes the solution and $x'(t)$ describes the numerical approximation.}
+\end{figure}
 Forward Euler is the explicit integration of both position and velocity,
 Figure~\ref{fig:timeIntegration} illustrates the integration of position in 1D:
 \begin{equation}
