@@ -28,7 +28,7 @@ If the reader looks for a wider presentation of the existing deformable models i
 %\end{table}
 
 \subsection{Equations of motion}
-
+\label{subsec:starMechanics_motionEquation}
 The equations of motion describe the behavior of an object over time.
 They are generally derived from conservation laws such as mass and momentum conservation. 
 A constitutive law is also used to depict the intrinsic behavior of the simulated object.
@@ -36,7 +36,7 @@ The remainder of this section first describes the conservation laws used to form
 Then we detail the concepts and numerical tools used to solve these equations.
 
 \subsubsection{Conservation of mass}
-
+\label{subsubsec:starMechanics_massConservation}
 The conservation of mass states that, whatever the physical material which is studied, mass cannot be created or destroyed.
 More precisely, if we look at a small volume of the simulation domain, the variation of mass in that volume should be equal to the flux of mass going through its border.
 In Figure~\ref{fig:massConservation}, we illustrate this law with the example of a glass of water.
@@ -80,7 +80,7 @@ and we can rewrite Equation~\eqref{eq:massConservation} as a single integral ove
 \end{equation}
 
 \subsubsection{Conservation of momentum}
-
+\label{subsubsec:starMechanics_momentumConservation}
 The conservation of momentum is implied by Newton's second law which states that the forces applied on an object result into an acceleration which is inversely proportional to the mass of the object.
 Figure~\ref{fig:momentumConservation} illustrates this law in the case of two balls on which a same force is applied.
 The acceleration induced by the force is more important for the small ball which has a mass less important than the big ball.
@@ -116,6 +116,7 @@ Two kind of forces are generally applied on an object, the \emph{external} force
 External forces describe the action of the surrounding environment on the object. 
 The simplest example is the weight, i.e. the force applied by the constant gravity $\mathbf{g}$ on the object:
 \begin{equation}
+\label{eq:externalForces}
 \displaystyle \int_{\mathcal{V}} \mathbf{f}_{ext}(t,\mathbf{x})dv = \int_{\mathcal{V}} \rho(t,\mathbf{x}) \mathbf{g} dv
 \end{equation}
 Internal forces describe the reaction of the object to an external deformation.
@@ -132,9 +133,10 @@ For a detailed and intuitive definition of the stress tensor we refer the reader
 \\
 Same as for the conservation of mass, we can use Stokes' theorem to get a single integral over $\mathcal{V}$,
 \begin{equation}
+\label{eq:internalForces}
 \displaystyle 
-\int_{\mathcal{\partial V}} \sigma \mathbf{n} ds =
-\int_{\mathcal{V}} \nabla \cdot \sigma dv
+\int_{\mathcal{V}} \mathbf{f}_{int}\left(t,\mathbf{x}\right) dv 
+\int_{\mathcal{V}} \nabla \cdot \sigma\left(t,\mathbf{x}\right) dv
 \end{equation}
 and we can rewrite Equation~\eqref{eq:momentumConservation} as
 \begin{equation}
@@ -147,7 +149,7 @@ and we can rewrite Equation~\eqref{eq:momentumConservation} as
 \end{equation}
 
 \subsubsection{Eulerian vs. Lagrangian formulations}
-
+\label{subsubsec:starMechanics_eulerianLagrangian}
 Eulerian and Lagrangian formulations are two different ways of interpreting the equations of motion.
 To understand the key difference, we take the example of the simulation of a river and use Figure~\ref{fig:EulerianVsLagrangian} to illustrate it.
 Let us suppose that we want to measure fluid properties such as velocity, density or temperature of the river.
@@ -202,9 +204,8 @@ Finally, we can write the equations of motion from a Lagrangian viewpoint as
 \right.
 \end{equation}
 As the deformable models used in Chapter~\ref{chap:arps} and Chapter~\ref{chap:cutting} are used to solve Lagrangian equations of motion, we will keep Equation~\eqref{eq:lagrangianMotionEquation} in the following sections.
-%In Lagrangian simulations, conservation of mass is guaranteed by assuming that the mass of the particles are constant over time. In this context, numerically solving of equation~\eqref{eq:lagrangianMassConservation} can be omitted. It is worth to notice that in Lagrangian liquid simulations, conservation of the mass does not imply incompressibility. To insure the latter, equation~\eqref{eq:lagrangianMassConservation} needs to be revisited and integrated within the numerical solver. An approach to enforce incompressibility was recently proposed for SPH simulations by Bender and Koschier~\cite{Bender2015}.
 \subsubsection{Numerical solution}
-
+\label{subsubsec:starMechanics_numericalSolution}
 Once the equations of motion are stated, they are discretized in space and time in order to be numerically solved.
 
 \paragraph{Spatial discretization}
@@ -395,87 +396,91 @@ In Section~\ref{sec:arps_implicit}, we describe the linear system resulting from
 
 \subsection{Fluid mechanics}
 \label{subsec:fluidMechanics}
-
+In this section, we describe a constitutive law for incompressible fluids such as water and we detail how to solve the equations of motion by using the Smoothed-Particle Hydrodynamics~(SPH) model that we will use in Section~\ref{sec:arps_sph}.
 \subsubsection{Constitutive Law}
-
-A fluid mainly reacts to pressure and viscosity and thus the constitutive law can be written as:
+Fluids, for instance smoke, mainly react to pressure and viscosity.
+The stress tensor that we introduced in Section~\ref{subsubsec:starMechanics_momentumConservation} is used to relate the deformation of the fluid to this two properties in the following constitutive law
 \begin{equation}
 \label{eq:fluidConstitutiveLaw}
 \sigma = -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right)
 \end{equation}
-
-Then we have:
+where
+\begin{itemize}
+	\item $p$ is the pressure applied on the fluid.
+	\item $\eta$ is the viscosity of the fluid.
+\end{itemize}
+By injecting this equation into Equation~\eqref{eq:internalForces}, we get the internal forces of the fluid:
 \begin{equation}
-\nabla \cdot \sigma = \nabla \cdot \left( -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right) \right) = -\nabla p + \Delta \mathbf{v}
+\label{eq:internalForces_liquids}
+\mathbf{f}_{int} = \nabla \cdot \sigma = \nabla \cdot \left( -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right) \right) = -\nabla p + \Delta \mathbf{v}
 \end{equation}
-
-Additionally, the fluid might be incompressible, such as water, which means that the mass should not vary over time. In this case, the conservation of mass can be rewritten as:
+If we want to describe an incompressible fluid such as water, we need to specify that the mass should not vary over time which means
 \begin{equation}
-\nabla \cdot \mathbf{v} = 0
+\label{eq:incompressibility}
+\frac{d\rho}{dt} = 0
 \end{equation}
-
-Finally, by injecting Equation~\eqref{eq:fluidConstitutiveLaw} in Equation~\eqref{eq:volumetricMomentumConservation}, this gives us Navier-Stokes equations for an incompressible fluid:
-
+By using Equation~\eqref{eq:internalForces_liquids}~and~\eqref{eq:incompressibility} in the equations of motion described in Equation~\eqref{eq:lagrangianMotionEquation}, we now describe an incompressible fluid. These new equations of motion are called the Navier-Stokes equations for an incompressible fluid
 \begin{equation}
 \label{eq:navierStokes}
 \left\lbrace
 \begin{array}{ll}
-\displaystyle \int_{\mathcal{V}} \rho \frac{d}{dt} \mathbf{v}(t,x) dv = 
-\displaystyle \int_{\mathcal{V}} \rho \mathbf{g} -\nabla p + \eta \Delta \mathbf{v} dv \\ \\
-\displaystyle
-\nabla. \mathbf{v} = 0
+\displaystyle \int_{\mathcal{V}} \left( \rho \frac{d}{dt} \mathbf{v} + \nabla p - \eta \Delta \mathbf{v} - \rho \mathbf{g} \right)dv = \mathbf{0}\\ \\
+\displaystyle \int_{\mathcal{V}} \nabla. \mathbf{v} = 0
 \end{array}
 \right.
 \end{equation}
-
 \subsubsection{Smoothed-Particles Hydrodynamics model}
 \label{subsubsec:starSPH}
-Smoothed-Particles Hydrodynamics (SPH) is an interpolation method that can be used to approximate Navier-Stokes equations in a Lagrangian way. SPH was initially proposed by Monaghan et al.~\cite{Monaghan1992} and introduced in graphics by Desbrun et al.~\cite{Desbrun1999}.
-The fluid is discretized into particles which represent small volumes of the whole fluid and each quantity is interpolated using SPH.
+Smoothed-Particles Hydrodynamics (SPH) is an interpolation method that can be used to approximate Navier-Stokes equations in a Lagrangian way. SPH was initially proposed by Monaghan~\cite{Monaghan1992} and introduced in graphics by Desbrun et al.~\cite{Desbrun1999}.
+The fluid is discretized into particles which represent small volumes of the whole fluid and each quantity carried by the particle is interpolated using SPH.
 
 \paragraph{SPH interpolation}
-The interpolation of a function $f$ at a position $\mathbf{x}$ is :
+The interpolation of a function $f$ and its derivatives of order $\alpha$ at a position $\mathbf{x}$ using SPH are defined as
 \begin{equation}
-f(\mathbf{x}) = \int_{V} f(\mathbf{x'})W(\mathbf{x}-\mathbf{x'}, h)dx'
+\label{eq:sphInterpolation}
+\left\lbrace
+\begin{array}{l}
+\displaystyle f(\mathbf{x}) = \int_{V} f(\mathbf{x'})W(\mathbf{x}-\mathbf{x'}, h)d\mathbf{x'} \\ \\
+\displaystyle D^{\alpha} f(\mathbf{x}) = \int_{\mathcal{V}} f(\mathbf{x'}) D^{\alpha} W(\mathbf{x}-\mathbf{x'}, h)d\mathbf{x'}
+\end{array}
+\right.
 \end{equation}
-where $W$ is a function called \emph{kernel} and $h$ is a smoothing radius, also called length scale, which represents the support of $W$.
-
-If the fluid is discretized into particles with a mass $m$, a density $\rho$ and a volume $V$, then we can discretize the SPH interpolation as:
-\begin{equation}
-f(\mathbf{x}) = \sum_{p} f(\mathbf{x}_{p})V_{p} W(\mathbf{x}-\mathbf{x_{p}},h) = \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} W(\mathbf{x}-\mathbf{x_{p}},h)
-\end{equation}
-
+where 
+\begin{itemize}
+	\item $W$ is a function called \emph{kernel}.
+	\item $h$ is the smoothing radius, also called length scale, which represents the support of $W$.
+\end{itemize} 
+Let assume that the fluid is discretized using $N$ particles.
+These particles play two roles: First they carry the degrees of freedom and the fluid properties; Second their position are used as integration points. By applying the midpoint rule from Equation~\eqref{eq:midpointRule}, we get a discretized version of Equation~\eqref{eq:sphInterpolation}:
 \begin{equation}
 \label{eq:sphFunction}
-f(\mathbf{x}) = \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} W(\mathbf{x}-\mathbf{x_{p}},h)
+\left\lbrace
+\begin{array}{l}
+\displaystyle f(\mathbf{x}) = \sum_{i=0}^{N} f(\mathbf{x}_{i})V_{i} W(\mathbf{x}-\mathbf{x}_{i},h) \\ \\
+\displaystyle D^{\alpha} f(\mathbf{x})= \sum_{i=0}^{N} f(\mathbf{x}_{i})V_{i} D^{\alpha} W(\mathbf{x}-\mathbf{x}_{i},h)
+\end{array}
+\right.
 \end{equation}
-
-Derivatives can be computed and discretized the same way:
-\begin{equation}
-D^{\alpha} f(\mathbf{x}) = \int_{\mathcal{V}} f(\mathbf{x'}) D^{\alpha} W(\mathbf{x}-\mathbf{x'}, h)dx'
-\end{equation}
-
-\begin{equation}
-\label{eq:sphDerivative}
-D^{\alpha} f(\mathbf{x})= \sum_{p} f(\mathbf{x}_{p})\frac{m_{p}}{\rho_{p}} D^{\alpha} W(\mathbf{x}-\mathbf{x_{p}},h)
-\end{equation}
-
-However, for first derivatives, the approximation above does not vanish if $f$ is a constant function. 
-A quick way to ensure this expected property is to use an arbitrary differentiable function $\Phi$ and to rewrite the derivative using the derivative of a product :
-\begin{equation}
-\label{eq:hackSPH}
-\nabla f(x) = \frac{1}{\Phi}\left(\nabla (f \Phi) - f \nabla \Phi \right)
-\end{equation}
-Then, if $f$ is constant, $\nabla f = 0$.
-In practice, the density $\rho$ is used for $\Phi$ most of the time.
-
+where 
+\begin{itemize}
+	\item $V_{i} = m_{i}/\rho_{i}$ is the volume of particle $i$.
+	\item $m_{i}$ is the mass of particle $i$.
+	\item $\rho_{i}$ is the density of particle $i$.
+\end{itemize}
 \paragraph{How to choose the kernel}
-The properties of $W$ can vary with respect to the properties of the function to be interpolated. In general, $W$ meet the following properties:
+The choice of the kernel varies depending on the function to interpolate. In practice, the cubic kernel from Monaghan~\cite{Monaghan1992}~(Figure~\ref{fig:cubicKernel}) that we use in Chapter~\ref{chap:arps} works well.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{images/continuum_mechanics/cubicKernel.png}
+	\caption[STAR mechanics: Cubic kernel]{\label{fig:cubicKernel}
+		Illustration of the 1D cubic kernel used by Monaghan et al.~\cite{Monaghan1992} and its derivative for $h=1$. Note that the support of $W$ is $2h$.}
+\end{figure}
+This kernel meets properties which are generally required from $W$
 \begin{itemize}
 \item $W$ is normalized. Thus, constants are interpolated exactly.
 \item $W$ has a compact support.
 \begin{equation}
-\parallel \mathbf{x} \parallel \geq h \rightarrow W(\mathbf{x},h) = 0 
+\parallel \mathbf{x} \parallel \geq h \implies W(\mathbf{x},h) = 0 
 \end{equation}
 \begin{equation}
 \int_{\mathcal{V}} W(\mathbf{x},h) dx = 1
@@ -493,128 +498,103 @@ W(-x,h) = W(x,h)
 W \geq 0
 \end{equation}
 \end{itemize}
-
-In practice, the cubic kernel from Monaghan~\cite{Monaghan1992} illustrated in Figure~\ref{fig:cubicKernel} is a good choice.
-This is the kernel we use in Chapter~\ref{chap:arps}.
-
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[scale=0.6]{images/continuum_mechanics/cubicKernel.png}
-	\caption[STAR mechanics: Cubic kernel]{\label{fig:cubicKernel}
-		Illustration of the 1D cubic kernel used by Monaghan et al.~\cite{Monaghan1992} and its derivative.
-    In this image, the length scale $h$ is equal to $1$ and the kernel has a $2h$ support radius.}
-\end{figure}
-
+Here we can notice a first limitation of SPH: For a constant function $f$, the approximation of its first derivatives using Equation~\eqref{eq:sphFunction} will not necessarily vanish depending on $W$. A common practice to fix that is to consider the derivative of the product of $f$ with an arbitrary differentiable function that we note $\Phi$
+\begin{equation}
+\label{eq:hackSPH}
+\nabla f = \frac{1}{\Phi}\left(\nabla (f \Phi) - f \nabla \Phi \right)
+\end{equation}
+In this case, we can approximate $\nabla(f\Phi)$ and $\nabla \Phi$ using Equation~\eqref{eq:sphFunction}. If $f$ is constant, we will get $\nabla f = 0$. In practice the density $\rho$ is often used for $\Phi$. In the following paragraph, we will see another usage of this technique.
 \paragraph{Application to Navier-Stokes equations}
-
-In computer graphics, the SPH model is commonly used to approximate the Navier-Stokes equations (Equation~\eqref{eq:navierStokes}).
-In the following, we discretize each term of these equations for a particle $i$ using the SPH model.
-\\ \\
-The density of a particle $i$ can be approximated using Equation~\eqref{eq:sphFunction}:
-
+First of all, let us discretize Navier-Stokes equation on the sampling of the particles using the midpoint rule:
+\begin{equation}
+\label{eq:particleNavierStokes}
+\left\lbrace
+\begin{array}{ll}
+\displaystyle \sum_{i=0}^{N} \left( \rho_{i} \frac{d}{dt} \mathbf{v}_{i} + \nabla p_{i} - \eta \Delta \mathbf{v}_{i} - \rho_{i} \mathbf{g} \right) V_{i} = \mathbf{0}\\ \\
+\displaystyle \sum_{i=0}^{N} \nabla. \mathbf{v}_{i} V_{i} = 0
+\end{array}
+\right.
+\end{equation}
+We can omit the mass conservation as we did before, by assuming that the particles have a fixed mass through the simulation. Recently, Bender and Koschier~\cite{Bender2015} demonstrated that this simplification prevents from using larger time steps. But for the sake of simplicity, we will keep this approximation in the remainder of this manuscript. Now, we can discretize each term of the equations for a particle $i$ using the SPH technique from Equation~\eqref{eq:sphFunction}.
+\subparagraph{Density}
 \begin{equation}
 \label{eq:densitySPH}
-\rho_{i} = \sum_{j} m_{j}W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\rho_{i} = \sum_{j=0}^{N} m_{j}W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
-
-For the pressure gradient, we can directly apply Equation~\eqref{eq:sphDerivative}:
-
-\begin{equation}
-\left(\nabla p\right)_{i} = \sum_{j} \frac{m_{j}}{\rho_{j}} p_{j} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
-\end{equation}
-
-However, the resulting pressure force between two particles $i$ and $j$ is not symmetric and therefore does not conserve linear and angular momentum:
-\begin{equation}
-\label{eq:nonSymmetricPressureForce}
-\mathbf{f}^{pressure}_{ij} = \frac{m_{i}m_{j}}{\rho_{i}\rho_{j}}p_{j}\nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
-\end{equation}
-
-A symmetric version can be obtained by using equation~\eqref{eq:hackSPH} with $\displaystyle \Phi = \frac{1}{\rho}$:
-
-\begin{equation}
-\label{eq:pressureGradientSPH}
-\left(\nabla p\right)_{i} = 
-\frac{1}{\rho_{i}}
-\sum_{j} m_{j} \left( \frac{p_{i}}{\rho_{i}^{2}} + \frac{p_{j}}{\rho_{j}^{2}} \right) \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
-\end{equation}
-
-Various techniques exist to compute pressure.
-In Monaghan et al.~\cite{Monaghan1992} and Desbrun et al.~\cite{Desbrun1996}, a spring-like equation of state was used:
+\subparagraph{Pressure}
 \begin{equation}
 \label{eq:pressureSPH}
 p_{i} = k\left(\rho_{i}-\rho_{0}\right)
 \end{equation}
-where $k$ is a stiffness parameter. 
-Even though it is simple and cheap, high stiffness and very small time steps are required to get close to incompressibility.
-Recently, new techniques were proposed to compute pressure so that the fluid would be incompressible while allowing the use of large time steps.
-We do not detail these methods in this manuscript but refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2014:IISPH} and Bender and Koschier~\cite{Bender2015}.
-\\ \\
-To compute viscosity forces, we could approximate the Laplacian of the velocity using Equation~\eqref{eq:sphDerivative}:
-
+where 
+\begin{itemize}
+\item $\rho_{0}$ is the rest density of the fluid ($1000\kilo\gram\per\meter\cubed$).
+\item $k$ is a stiffness parameter.
+\end{itemize}
+Equation~\ref{eq:pressureSPH} is a simple and cheap computation of the pressure. This equation of state acts like a spring in order to enforce the incompressibility of the fluid.
+However, a high stiffness is generally needed to get close to incompressibility. Therefore, very small time steps are required to ensure stability. Recently, new techniques were proposed to ensure incompressibility while using larger time steps. We do not detail these methods in this manuscript but refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2014:IISPH} and Bender and Koschier~\cite{Bender2015}.
+\subparagraph{Pressure gradient}
 \begin{equation}
-\left(\Delta \mathbf{v}\right)_{i} = \sum_{j} \frac{m_{j}}{\rho_{j}} \mathbf{v}_{j} \Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\left(\nabla p\right)_{i} = \sum_{j=0}^{N} \frac{m_{j}}{\rho_{j}} p_{j} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
-
-Same as for the pressure gradient, this would result in a non-symmetric force:
-
+Here we can notice that the resulting pressure force between two particles $i$ and $j$ is not symmetric and therefore does not conserve linear and angular momentum:
+\begin{equation}
+\label{eq:nonSymmetricPressureForce}
+\mathbf{f}^{pressure}_{ij} = -\frac{m_{i}m_{j}}{\rho_{i}\rho_{j}}p_{j}\nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\end{equation}
+To remedy this problem, we can use Equation~\eqref{eq:hackSPH} with $\displaystyle \Phi = \frac{1}{\rho_{i}}$
+\begin{equation}
+\left(\nabla p\right)_{i} = \rho_{i} \left( \nabla \left(\frac{p_{i}}{\rho_{i}}\right) + p_{i}\frac{\nabla \rho_{i}}{\rho_{i}^{2}}\right)
+\end{equation}
+and re-use SPH interpolation to get a new approximation of the pressure gradient
+\begin{equation}
+\label{eq:pressureGradientSPH}
+\left(\nabla p\right)_{i} = 
+\rho_{i}
+\sum_{j=0}^{N} m_{j} \left( \frac{p_{i}}{\rho_{i}^{2}} + \frac{p_{j}}{\rho_{j}^{2}} \right) \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\end{equation}
+which results into symmetric pressure forces between two particles $i$ and $j$:
+\begin{equation}
+\label{eq:symmetricPressureForce}
+\mathbf{f}^{pressure}_{ij} = m_{i}m_{j}
+-\left( 
+\frac{p_{i}}{\rho_{i}^{2}} + \frac{p_{j}}{\rho_{j}^{2}} 
+\right) 
+\nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\end{equation}
+\subparagraph{Velocity Laplacian}
+\begin{equation}
+\left(\Delta \mathbf{v}\right)_{i} = \sum_{j=0}^{N} \frac{m_{j}}{\rho_{j}} \mathbf{v}_{j} \Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\end{equation}
+Same as for the pressure gradient, this would result in a non-symmetric inter-particle viscosity force:
 \begin{equation}
 \label{eq:nonSymmetricViscosityForce}
 \mathbf{f}^{viscosity}_{ij} = \eta\frac{m_{i}m_{j}}{\rho_{i}\rho_{j}}\mathbf{v}_{j}\Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
-
-To obtain symmetric inter-particle forces, we can use a technique similar to Equation~\eqref{eq:hackSPH} to approximate the Laplacian of a function $f$ using an arbitrary twice differentiable function $\Phi$:
-
-\begin{equation}
-\label{eq:hackSPH2}
-\Delta f = 
-\frac{1}{\Phi}
-\left( \Delta \left( f\rho \right) - 2 \nabla f \nabla \phi - f \Delta \phi \right)
-\end{equation}
-
-By using $\Phi=\rho$ and assuming that the density is constant, which should be the case in theory, we can obtain a new expression that will result in symmetric inter-particle forces:
-
-\begin{equation}
-\left(\Delta \mathbf{v}\right)_{i} = \frac{1}{\rho_{i}}\sum_{j} m_{j} \left( \mathbf{v}_{j}-\mathbf{v}_{i}\right) \Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
-\end{equation}
-
-However, in practice, density is not constant and the evaluation of the second derivative of the kernel is sensitive to particles sampling, which makes this expression inadequate.
-The evaluation of viscosity is still an area of research and various solutions exist depending whether it is important or not in the phenomena that we want to simulate.
-For liquids exhibiting complex viscous behaviors such as coiling or buckling, implicit formulations were recently proposed by Peer et al.~\cite{Peer2015} and Takahashi et al.~\cite{Takahashi2015}.
-In practice, the evaluation of the Laplacian is not accurate. 
-As we do not seek to simulate this kind of behavior, we can stick to a gradient-based formulation of viscosity which was proposed by Monaghan~\cite{Monaghan2005}.
-
+If we assume that the density is constant, which is the case in theory, we could obtain symmetric forces by using Equation~\eqref{eq:hackSPH} with $\Phi=\rho_{i}$. However, in practice, the density is not constant and the evaluation of the Laplacian of the kernel is sensitive to particles sampling, which makes this solution inadequate.
+Actually, it is quite hard to correctly handle viscosity using SPH and this is still an area of research, especially for liquids exhibiting complex viscous behaviors such as coiling or buckling.
+We refer the reader to the recent work of Peer et al.~\cite{Peer2015} and Takahashi et al.~\cite{Takahashi2015} about this topic.
+For fluid with a low viscosity, Monaghan~\cite{Monaghan2005} proposed a gradient-based formulation of the Laplacian which results in symmetric forces,
 \begin{equation}
 \label{eq:velocityLaplacianSPH}
 \left(\Delta \mathbf{v}\right)_{i} = 
 \frac{1}{\rho_{i}}
-\sum_{j} m_{j} \Pi_{ij} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\sum_{j=0}^{N} m_{j} \Pi_{ij} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
-
 where 
-
 \begin{equation}
     \Pi_{ij} = -\frac{2hc_{s}}{\rho_{i}+\rho_{j}}\frac{\mathbf{v}_{ij}^{T}\mathbf{x}_{ij}}{\vert \mathbf{x}_{ij} \vert^{2} + \epsilon h^{2}}
 \end{equation}
 and $c_{s}$ is the speed of sound in the media and $\epsilon$ is a numerical constant to avoid singularities.
-In practice, $\epsilon=0.01$ works well.
-\\ \\
-Finally, we have all the ingredients to write a discretized version of Navier-Stokes equations for one particle $i$:
-
-\begin{equation}
-    \displaystyle m_{i}\frac{d}{dt}\mathbf{v}_{i}(t) = m_{i}\mathbf{g} - \frac{m_{i}}{\rho_{i}}(\nabla p)_{i} + \eta\frac{m_{i}}{\rho_{i}}\left(\Delta \mathbf{v}\right)_{i}
-\end{equation}
-
-This equation can now be discretized in time and integrated. 
-In practice, the Euler symplectic integrator is often used:
-
+In practice, $\epsilon=0.01$ works well. We will use this formulation in Section~\ref{sec:arps_sph}.
+\subparagraph{Time integration} If we assume a uniform discretization of the time based on a time step $\Delta t$, symplectic Euler is common choice to integrate the equations of motion over time and for a particle $i$ we get
 \begin{equation}
 \begin{array}{ll}
-\displaystyle \mathbf{v}_{i}(t+\Delta t) = \mathbf{v}_{i}(t) + \Delta t \frac{d}{dt}\mathbf{v}_{i}(t) \\ \\
+\displaystyle \mathbf{v}_{i}(t+\Delta t) = \mathbf{v}_{i}(t) + \frac{\Delta t}{m_{i}}\left( \sum_{j=0}^{N}\left(\mathbf{f}_{ij}^{pressure}+\mathbf{f}_{ij}^{viscosity}\right)+m_{i}\mathbf{g}\right) \\ \\
 \displaystyle \mathbf{x}_{i}(t+\Delta t) = \mathbf{x}_{i}(t) + \Delta t \mathbf{v}_{i}(t+\Delta t)
-\end{array}
+\right.
 \end{equation}
-
-We described the key ingredient of the SPH model and how to use them to discretize Navier-Stokes equations. 
+We described the key ingredients of the SPH model and how to use them to discretize Navier-Stokes equations. 
 There is not enough space to cover the exciting challenges related to the building of a full SPH simulator. 
 For a robust handling of static and dynamic boundaries, a surface tension model and an efficient surface reconstruction pipeline, we refer to the work of Akinci et al.~\cite{Akinci2012b, Akinci2013, Akinci2012a}.  
 For a state of the art of optimization techniques for SPH, we refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2011:ParallelSPH}. 
@@ -710,7 +690,7 @@ where
 
 Instead of computing internal forces as the divergence of the stress, they can be computed as the derivative of the density energy with respect to the degrees of freedom:
 \begin{equation}
-\label{eq:internalForces}
+\label{eq:internalForces_solids}
 \mathbf{f} = -\int_{\mathcal{V}} \frac{\partial \Psi}{\partial \mathbf{x}}^{T} dv
 \end{equation}
 

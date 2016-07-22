@@ -10,6 +10,8 @@ Urgent
 
 CheckList
 ==========
+-Rajouter les references des articles à la fin des intro. des chapitres.
+
 -Réferencement des figures
 -Undefined reference (figure, section, citation)
 -Répétition de mot: the the, and and
