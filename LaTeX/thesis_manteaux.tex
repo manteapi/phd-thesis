@@ -135,7 +135,9 @@
 
 %Symbol glossary
 \newglossaryentry{Omega}{name={\ensuremath{\Omega}},symbol={\ensuremath{\Omega}},description={Simulation domain}}
-
+\newglossaryentry{Divergence}{name={\ensuremath{\nabla \cdot}},symbol={\ensuremath{\nabla \cdot}},description={Divergence operator}}
+\newglossaryentry{Gradient}{name={\ensuremath{\nabla}},symbol={\ensuremath{\nabla}},description={Gradient operator}}
+\newglossaryentry{Laplacian}{name={\ensuremath{\Delta}},symbol={\ensuremath{\Delta}},description={Laplacian operator}}
 %====================================================
 %					DOCUMENT
 %====================================================
@@ -194,43 +196,43 @@
 %\UGTInvitee{...Civilité, Prénom_et_Nom...}{...titre_et_affiliation...}
 }
 
-\MakeUGthesePDG    %% très important pour générer la couvérture de thèse
-
-\frontmatter
-
-\newpage\null\thispagestyle{empty}\newpage
-
-\include{chap0_remerciements}
-
-\newpage\null\thispagestyle{empty}\newpage
-
-\include{chap0_resume}
-
-\newpage\null\thispagestyle{empty}\newpage
-
-\include{chap0_abstract}
-
-\newpage\null\thispagestyle{empty}\newpage
-
-\tableofcontents
-
-\newpage\null\thispagestyle{empty}\newpage
-
-\mainmatter
-
+%\MakeUGthesePDG    %% très important pour générer la couvérture de thèse
+%
+%\frontmatter
+%
+%\newpage\null\thispagestyle{empty}\newpage
+%
+%\include{chap0_remerciements}
+%
+%\newpage\null\thispagestyle{empty}\newpage
+%
+%\include{chap0_resume}
+%
+%\newpage\null\thispagestyle{empty}\newpage
+%
+%\include{chap0_abstract}
+%
+%\newpage\null\thispagestyle{empty}\newpage
+%
+%\tableofcontents
+%
+%\newpage\null\thispagestyle{empty}\newpage
+%
+%\mainmatter
+%
 %\include{chap1_introduction}
 %
 %\cleartorecto
-
-\glsaddall
-\printglossaries
-
-\cleartorecto
+%
+%\glsaddall
+%\printglossaries
+%
+%\cleartorecto
 
 \include{chap2_star}
 
-\cleartorecto
-
+%\cleartorecto
+%
 %\include{chap3_arps}
 %
 %\cleartorecto
@@ -250,11 +252,11 @@
 %\appendix
 %
 %\include{annexe_cutting}
-
-\backmatter
-
-\printbibliography
-
+%
+%\backmatter
+%
+%\printbibliography
+%
 %\cleartorecto
 %
 %\listoffigures

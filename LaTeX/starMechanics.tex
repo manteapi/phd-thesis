@@ -61,7 +61,7 @@ where
 	\item $\mathbf{v}(t,\mathbf{x})$ is the velocity at a point $\mathbf{x}$ and at a time $t$.
 	\item $\mathcal{V}$ is a small volume of the simulation domain $\Omega$.
 	\item $\mathcal{\partial V}$ is the border of $\mathcal{V}$.
-	\item $\mathbf{n}(\mathbf{x})$ is the normal of $\mathcal{V}$ on a point $\mathbf{x}$ of $\partial\mathcal{V}$.
+	\item $\mathbf{n}(\mathbf{x})$ is the normal outward of $\mathcal{V}$ on a point $\mathbf{x}$ of $\partial\mathcal{V}$.
 \end{itemize}
 This formulation involves an integral over the volume and its boundary.
 When numerically solving this equation, it is simpler not to have to make the distinction between a small element of $\mathcal{V}$ and a small element of $\partial \mathcal{V}$.
@@ -71,12 +71,12 @@ By using Stokes' theorem, we have
 \int_{\partial \mathcal{V}} \rho \mathbf{v} \cdot \mathbf{n} ds =
 \int_{\mathcal{V}} \nabla \cdot \left( \rho \mathbf{v} \right) dv
 \end{equation}
-and we can rewrite Equation~(\ref{eq:massConservation}) as a single integral over $\mathcal{V}$
+and we can rewrite Equation~\eqref{eq:massConservation} as a single integral over $\mathcal{V}$
 \begin{equation}
 \label{eq:volumetricMassConservation}
 \displaystyle 
 \int_{\mathcal{V}} 
-\left( \frac{\partial \rho}{\partial t} + \nabla \cdot \left( \rho  \mathbf{v} \right) \right) dv = 0
+\left( \frac{\partial \rho}{\partial t} + \nabla \cdot \left( \rho  \mathbf{v} \right) \right) dv = \mathbf{0}
 \end{equation}
 
 \subsubsection{Conservation of momentum}
@@ -136,14 +136,14 @@ Same as for the conservation of mass, we can use Stokes' theorem to get a single
 \int_{\mathcal{\partial V}} \sigma \mathbf{n} ds =
 \int_{\mathcal{V}} \nabla \cdot \sigma dv
 \end{equation}
-and we can rewrite Equation~(\ref{eq:momentumConservation}) as
+and we can rewrite Equation~\eqref{eq:momentumConservation} as
 \begin{equation}
 \label{eq:volumetricMomentumConservation}
 \displaystyle
 \int_{\mathcal{V}} 
 \left( 
 \rho \left( \frac{\partial\mathbf{v}}{\partial t} + \mathbf{v} \cdot \nabla \mathbf{v} \right)
-- \nabla \cdot \sigma - \rho \mathbf{g}  \right) dv = 0
+- \nabla \cdot \sigma - \rho \mathbf{g}  \right) dv = \mathbf{0}
 \end{equation}
 
 \subsubsection{Eulerian vs. Lagrangian formulations}
@@ -157,7 +157,7 @@ A first possibility would be to measure it at a fixed location, similarly to a b
 	\includegraphics[width=\linewidth]{images/continuum_mechanics/eulerianVsLagrangian.png}
 	\caption[STAR mechanics: Eulerian vs. Lagrangian]{\label{fig:EulerianVsLagrangian} Eulerian vs. Lagrangian viewpoint. On the left, buoys are put at fixed positions on a river and measure properties such as velocity, temperature, etc. The Eulerian approach takes a similar approach. On the right, we represent the river with particles of water which follows the flow of the river and carry properties with them. This is similar to the Lagrangian viewpoint.}
 \end{figure}
-Equation~\ref{eq:volumetricMassConservation} and Equation~\ref{eq:volumetricMomentumConservation} are described for fixed locations. Put together, they define the equations of motion from an Eulerian viewpoint.
+Equation~\eqref{eq:volumetricMassConservation} and Equation~\eqref{eq:volumetricMomentumConservation} are described for fixed locations. Put together, they define the equations of motion from an Eulerian viewpoint.
 \begin{equation}
 \label{eq:eulerianMotionEquation}
 \left\lbrace
@@ -166,7 +166,7 @@ Equation~\ref{eq:volumetricMassConservation} and Equation~\ref{eq:volumetricMome
 \int_{\mathcal{V}} 
 \left( 
 \rho \left( \frac{\partial\mathbf{v}}{\partial t} + \mathbf{v} \cdot \nabla \mathbf{v} \right)
-- \nabla \cdot \sigma - \rho \mathbf{g}  \right) dv = 0 
+- \nabla \cdot \sigma - \rho \mathbf{g}  \right) dv = \mathbf{0}
 \\ \\
 \displaystyle
 \int_{\mathcal{V}} 
@@ -174,7 +174,7 @@ Equation~\ref{eq:volumetricMassConservation} and Equation~\ref{eq:volumetricMome
 \end{array}
 \right.
 \end{equation}
-In order to adopt the Lagrangian viewpoint, let us suppose that the fluid properties are carried by particle and that $q(t,\mathbf{x})$ denote one of this property at a time $t$ for a particle which is at a position $\mathbf{x}$. 
+In order to adopt the Lagrangian viewpoint, let us suppose that the fluid properties are carried by particles and that $q(t,\mathbf{x})$ denote one of this property at a time $t$ for a particle which is at a position $\mathbf{x}$. 
 If we want to compute the derivative of $q$ for the particle at position $\mathbf{x}$, we have to use the total derivative:
 \begin{equation}
 \label{eq:totalDerivative}
@@ -182,8 +182,8 @@ If we want to compute the derivative of $q$ for the particle at position $\mathb
 \frac{\partial q}{\partial t}\cdot\frac{dt}{dt} + \frac{\partial q}{\partial \mathbf{x}} \cdot \frac{d\mathbf{x}}{dt} 
 = \frac{\partial q}{\partial t}(t,\mathbf{x}) + \left(\nabla q(t,\mathbf{x}) \cdot \mathbf{v}\right)(t,\mathbf{x})
 \end{equation}
-In Equation~(\ref{eq:volumetricMomentumConservation}) which describes the momentum conservation, we can directly use Equation~(\ref{eq:totalDerivative}) to adopt a Lagrangian viewpoint. 
-For the mass conservation described in Equation~(\ref{eq:volumetricMassConservation}), we first need to develop the divergence of the product between density and velocity and then Equation~(\ref{eq:totalDerivative}) can be used.
+In Equation~\eqref{eq:volumetricMomentumConservation} which describes the momentum conservation, we can directly use Equation~\eqref{eq:totalDerivative} to adopt a Lagrangian viewpoint. 
+For the mass conservation described in Equation~\eqref{eq:volumetricMassConservation}, we first need to develop the divergence of the product between density and velocity and then Equation~\eqref{eq:totalDerivative} can be used.
 Finally, we can write the equations of motion from a Lagrangian viewpoint as
 \begin{equation}
 \label{eq:lagrangianMotionEquation}
@@ -193,7 +193,7 @@ Finally, we can write the equations of motion from a Lagrangian viewpoint as
 \int_{\mathcal{V}} 
 \left( 
 \rho \frac{d\mathbf{v}}{dt}
-- \nabla \cdot \sigma - \rho \mathbf{g}  \right) dv = 0 
+- \nabla \cdot \sigma - \rho \mathbf{g}  \right) dv = \mathbf{0}
 \\ \\
 \displaystyle
 \int_{\mathcal{V}} 
@@ -201,8 +201,8 @@ Finally, we can write the equations of motion from a Lagrangian viewpoint as
 \end{array}
 \right.
 \end{equation}
-As the deformable models used in Chapter~\ref{chap:arps} and Chapter~\ref{chap:cutting} are used to solve Lagrangian equations of motion, we will keep Equation~\ref{eq:lagrangianMotionEquation} in the following sections.
-%In Lagrangian simulations, conservation of mass is guaranteed by assuming that the mass of the particles are constant over time. In this context, numerically solving of equation~(\ref{eq:lagrangianMassConservation}) can be omitted. It is worth to notice that in Lagrangian liquid simulations, conservation of the mass does not imply incompressibility. To insure the latter, equation~(\ref{eq:lagrangianMassConservation}) needs to be revisited and integrated within the numerical solver. An approach to enforce incompressibility was recently proposed for SPH simulations by Bender and Koschier~\cite{Bender2015}.
+As the deformable models used in Chapter~\ref{chap:arps} and Chapter~\ref{chap:cutting} are used to solve Lagrangian equations of motion, we will keep Equation~\eqref{eq:lagrangianMotionEquation} in the following sections.
+%In Lagrangian simulations, conservation of mass is guaranteed by assuming that the mass of the particles are constant over time. In this context, numerically solving of equation~\eqref{eq:lagrangianMassConservation} can be omitted. It is worth to notice that in Lagrangian liquid simulations, conservation of the mass does not imply incompressibility. To insure the latter, equation~\eqref{eq:lagrangianMassConservation} needs to be revisited and integrated within the numerical solver. An approach to enforce incompressibility was recently proposed for SPH simulations by Bender and Koschier~\cite{Bender2015}.
 \subsubsection{Numerical solution}
 
 Once the equations of motion are stated, they are discretized in space and time in order to be numerically solved.
@@ -211,11 +211,11 @@ Once the equations of motion are stated, they are discretized in space and time 
 The spatial discretization consists in approximating the object to simulate using a finite number of samples. 
 These samples carry the \emph{degrees of freedom} used to numerically solve the equations of motion.
 Then, by using an \emph{interpolation method}, it is possible to approximate continuous quantities such as position, velocity, density and so on, at any location on the domain. 
-Finally, a \emph{quadrature rule} is needed in order to integrate these quantities over the domain. 
+Finally, an integration rule, also called \emph{quadrature rule}, is needed in order to integrate these quantities over the domain. 
 These are the main components for solving the equations of motion:
 degrees of freedom, an interpolation method and a quadrature rule for the numerical integration over the simulation domain.
 \\ \\
-There are multiple possibilities for these components: It is crucial to choose them based on the goals of the simulation, What do we want to measure ? How will boundaries be represented ? Will any topological changes occur ? Are there restrictions in terms of computational or memory cost ? In the following we briefly introduce the most commonly used solutions in Computer Graphics.
+There are multiple possibilities for these components. It is crucial to choose them based on the goals of the simulation: What do we want to measure ? How will boundaries be represented ? Will any topological changes occur ? Are there restrictions in terms of computational or memory cost ? In the following we briefly introduce the most commonly used solutions in Computer Graphics.
 
 \subparagraph{Degrees of freedom}
 In Eulerian simulation, velocities are the most common independent degrees of freedom while Lagrangian simulations generally use positions and velocities. 
@@ -235,15 +235,15 @@ Of course, each of these samplings can benefit from adaptivity. We will detail t
 
 \subparagraph{Interpolation}
 Interpolation is used to approximate the physical quantities over the domain such as density, displacement, pressure and so on. 
-In Computer Graphics, we can distinguish three major interpolation methods: polynomial interpolation, Moving Least Squares (MLS) and Smoothed-Particles Hydrodynamics (SPH) interpolation. 
-For each of them, different weights are used, as illustrated in Figure~\ref{fig:shapefunction}. The weights are also called \emph{shape functions}, they can be seen as the region of influence of a sample.
+In Computer Graphics, we can distinguish two major interpolation methods: polynomial interpolation and kernel interpolation.
+For each of them, different weights are used, as illustrated in Figure~\ref{fig:shapefunction}. The weights are also called \emph{shape functions} and can be seen as the region of influence of a sample.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\linewidth]{images/continuum_mechanics/shapefunction.png}
 	\caption[STAR mechanics: Shape functions]{\label{fig:shapefunction} 
-		Three examples of shape functions. 
-		Each color represents the shape function associated to one sample point(black circle) carrying the degrees of freedom. 
-		On the left, shape functions for trilinear interpolation are illustrated. 
+		Three examples of shape functions in 2D. 
+		Each color represents the shape function associated to one sample point~(black circle) carrying the degrees of freedom. 
+		On the left, shape functions for bilinear interpolation are illustrated. 
 		In the middle, barycentric shape functions are illustrated. 
 		On the right, kernel-based shape functions that are used in SPH and MLS interpolation are illustrated.}
 \end{figure}
@@ -251,18 +251,18 @@ For each of them, different weights are used, as illustrated in Figure~\ref{fig:
 The choice of the interpolation method mainly depends on how the material samples have been distributed. 
 For a sampling based on cartesian grid, trilinear interpolation is often used, for instance in Eulerian simulations~\cite{Bridson2008}. 
 For unstructured triangle meshes, linear interpolation with barycentric weights is the most popular choice to simulate elastic solids~\cite{Muller2008}.
-For mesh-less samplings, the two most common interpolation methods are SPH and MLS.
+For mesh-less samplings, the two most common kernel interpolation methods are Smoothed-Particles Hydrodynamics (SPH) interpolation and Moving Least Squares (MLS) interpolation.
 SPH interpolation has been used to simulate a wide range of phenomena from fluid~\cite{Desbrun1999} to elastic solids~\cite{Becker2009}.
 MLS has been introduced by M\"{u}ller et al. to simulate elastic and plastic deformations~\cite{Muller2004:melting}.
 It was later extended to solids fracture by Pauly et al.~\cite{Pauly2005} and interactive cutting by Steinemann et al.~\cite{Steinemann2009}.
-Both methods use a cubic kernel as weights and require a dense sampling of the object.
+Both methods require a dense sampling of th object and can be used using a cubic kernel as shape function. We will provide more details about SPH and its use for the simulation of incompressible fluid in Section~\ref{subsubsec:starSPH} and how to save computational time by using an adaptive model in Section~\ref{sec:arps_sph}.
 \\
 Of course, mesh-based and mesh-less methods can be combined to get the best of both worlds.
 In this case, two interpolation methods are used, one for the mesh-based side and one for the mesh-less side.
 We refer the reader to the recent \emph{SIGGRAPH} course on the material point method~\cite{Jiang2016}.
 In this course, existing hybrid models are compared and the interpolation methods to transfer data from one representation  to another are described.
 \\
-A common drawback of the methods mentioned above it that they require a dense sampling. In Chapter~\ref{chap:cutting}, we will detail the Voronoi-based interpolation method used in the frame-based model, which allows to use a sparse sampling and thus reduce the computational time.
+A common drawback of the methods mentioned above is that they require a dense sampling. In Section~\ref{sec:adaptivesf}, we will detail how to interactively handle topological changes with a sparse sampling by using the Voronoi-based interpolation method used in the frame-based model.
 
 \subparagraph{Spatial Integration}
 
@@ -276,12 +276,12 @@ Many exist, most of the time the simple midpoint rule is chosen (see Figure~\ref
 \end{figure}
 \\
 The domain is decomposed in a set of partitions, where each partition has an associated volume $V_{i}$. 
-"Mid"-Points $\mathbf{x}_{i}$ are sampled at the center of each partition.
+\emph{Mid}-Points $\mathbf{x'}_{i}$ are sampled at the center of each partition.
 They are called \emph{integration points}. 
 Then the integral of a function $f$ over a domain $\Omega$ is approximated by:
 \begin{equation}
 \label{eq:midpointRule}
-\int_{\Omega} f(x)dv \simeq \sum_{i} V_{i}f(\mathbf{x}_{i})
+\int_{\Omega} f(\mathbf{x})dv \simeq \sum_{i} V_{i}f(\mathbf{x'}_{i})
 \end{equation}
 In mesh-based methods, it is common to consider one integration point at the center of each element and integrate over the volume of the element.
 In mesh-less methods, when the sampling is dense, integration points are often co-located with the material samples and integrated over their associated volume. 
@@ -289,45 +289,70 @@ However, when the sampling is sparse, an independent sampling of integration poi
 This is the case in the frame-based method that will be described in Section~\ref{subsubsec:framebased}.
 
 \paragraph{Time integration}
-
-Once physical quantities are spatially integrated, they can be integrated over time. 
+Let us assume that we spatially discretized the Lagrangian equations of motion, Equation~\eqref{eq:lagrangianMotionEquation}, using a finite number of samples $N$ which carry positions and velocities as degrees of freedom.
+For the sake of simplicity, we also assume that each sample has a fixed mass through the simulation which implies that mass conservation is ensured. Then, we can solely focus on the conservation of momentum and its integration over the time range  $\left[0, T\right]$ of the simulation. 
+\\ \\
+As for spatial integration, the temporal domain is discretized. Ideally, this discretization would adapt to the time scale of the simulation. For instance, fast motion would require a fine discretization while a coarse discretization would be sufficient for slow motion. We will detail the different techniques for an adaptive discretization of time in Section~\ref{sec t adaptivity}.
+In the following, we simply assume a uniform discretization of $\left[0,T\right]$ defined by a time step $\Delta t$. The integration between two consecutive time steps $t_{n}$ and $t_{n+1}$ can be written as
 \begin{equation}
 \label{eq:timeIntegration1}
 \displaystyle
 \int_{t_{n}}^{t_{n+1}}
-m \frac{d\mathbf{v}}{dt} dt
+M \frac{d\mathbf{v}}{dt} dt
 =
 \int_{t_{n}}^{t_{n+1}}\mathbf{f} dt
 \end{equation}
-In the following we assume an uniform discretization of the time where the time step is noted $\Delta t$.
-Adaptive discretization of the time will be presented in Section~\ref{sec t adaptivity}.
-Many integrations schemes can be used. 
-Most of them can be explained simply by the Taylor expansion.
+where
+\begin{itemize}
+	\item $\mathbf{v} \in \mathbb{R}^{3N}$ concatenates the velocity of each sample.
+	\item $\mathbf{f} \in \mathbb{R}^{3N}$ concatenates the forces applied on each sample.
+	\item $M \in \mathbb{R}^{3N \times 3N}$ concatenates the mass of each sample.
+\end{itemize}
+Many integration schemes can be used. Most of them can be explained using the Taylor expansion of a function $f$,
 \begin{equation}
 \label{eq:taylorExpansion}
 \displaystyle
-f(x) = \sum_{k=0}^{n}\frac{\left(x-a\right)^{k}}{k!}f^{(k)}(a) + \int_{a}^{x}\frac{\left(x-t\right)^{n}}{n!}f^{(n+1)}(t)dt
+f(x) = \sum_{\alpha=0}^{k}\frac{\left(x-a\right)^{\alpha}}{\alpha!}f^{(\alpha)}(a) + \int_{a}^{x}\frac{\left(x-t\right)^{k}}{k!}f^{(k+1)}(t)dt
 \end{equation}
-Applied to equation (\ref{eq:timeIntegration1}), this gives:
+By applying Equation~\eqref{eq:taylorExpansion} on $\mathbf{v}$ with $k=0$, we have
+\begin{equation}
+\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \int_{t_{n}}^{t_{n+1}} \frac{d\mathbf{v}}{dt}dt
+\end{equation}
+which allows to rewrite Equation~\eqref{eq:timeIntegration1} as
 \begin{equation}
 \label{eq:timeIntegration2}
-\displaystyle
-\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \int_{t_{n}}^{t_{n+1}}\frac{1}{m}\frac{d\mathbf{v}}{dt} dt
+\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \int_{t_{n}}^{t_{n+1}} M^{-1}\mathbf{f}dt
 \end{equation}
-This expression can be further expanded in order to get more accurate results. 
-In Computer Graphics, this is the most used expansion. 
-Generally, the integral term is computed with the rectangle quadrature rule.
-For a left rectangle method, we get an explicit integration of the velocity:
+This expression can be further expanded in order to get more accurate results. In Computer Graphics, this is the most used expansion. Finally, the integral term in Equation~\eqref{eq:timeIntegration2} is generally computed with the rectangle quadrature rule which we illustrate in Figure~\ref{fig:rectangleRules}.
+\begin{figure}[!ht]
+	\centering
+	\begin{subfigure}[b]{0.46\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/continuum_mechanics/rectangleRule_left.png}
+		\caption{\label{fig:leftRectangleRule}}
+	\end{subfigure}
+	\hspace{0.2cm}
+	\begin{subfigure}[b]{0.46\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/continuum_mechanics/rectangleRule_right.png}
+		\caption{\label{fig:rightRectangleRule}}
+	\end{subfigure}
+	\caption[STAR mechanics: Rectangle integration rules]{\label{fig:rectangleRules}
+		Illustrations of the rectangle integration rules. A function $f$ can be integrated over a regularly sampled domain using either the left rectangle rule~(a) or the right rectangle rule~(b).}
+\end{figure}
+\\
+For a left rectangle method, we get an explicit integration of the velocity
 \begin{equation}
 \label{eq:explicitIntegration}
-\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \left(t_{n+1}-t_{n}\right) \frac{\mathbf{f}(t_{n})}{m}
+\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \Delta t M^{-1}\mathbf{f}(t_{n})
 \end{equation}
-For a right rectangle method, we get an implicit integration of the velocity:
+For a right rectangle method, we get an implicit integration of the velocity
 \begin{equation}
 \label{eq:implicitIntegration}
-\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \left(t_{n+1}-t_{n}\right) \frac{\mathbf{f}(t_{n+1})}{m}
+\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \Delta t M^{-1}\mathbf{f}(t_{n+1})
 \end{equation}
-The same rule applies for the integration of other physical quantities. In a Lagrangian system, both velocity and position needs to be integrated. There are mainly three different schemes that are used in Computer Graphics: forward Euler, symplectic Euler and backward Euler.
+We can apply the same rule for the integration of the positions.
+Depending on which quantity is integrated first and which integration rule is used, we can distinguish three main schemes used in computer graphics: forward Euler, symplectic Euler and backward Euler.
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[scale=0.6]{images/continuum_mechanics/timeIntegration.png}
@@ -335,41 +360,38 @@ The same rule applies for the integration of other physical quantities. In a Lag
 		Illustration of a 1D forward Euler time integration. 
 		$x(t)$ describes the solution and $x'(t)$ describes the numerical approximation.}
 \end{figure}
-Forward Euler is the explicit integration of both position and velocity,
-Figure~\ref{fig:timeIntegration} illustrates the integration of position in 1D:
+Forward Euler is the explicit integration of both position and velocity.
+Figure~\ref{fig:timeIntegration} illustrates the integration of position in 1D,
 \begin{equation}
 \label{eq:explicitEuler}
 \begin{array}{l}
-\displaystyle \mathbf{x}(t+\Delta t) = \mathbf{x}(t) + \Delta t \mathbf{v}(t) \\ \\
-\displaystyle \mathbf{v}(t+\Delta t) = \mathbf{v}(t) + \Delta t \frac{\mathbf{f(t)}}{m}(t)
+\displaystyle \mathbf{x}(t_{n+1}) = \mathbf{x}(t_{n}) + \Delta t \mathbf{v}(t_{n}) \\ \\
+\displaystyle \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \Delta t M^{-1}\mathbf{f}(t_{n})
 \end{array}
 \end{equation}
-
-Symplectic Euler is the explicit integration of velocity and implicit integration of position:
+Symplectic Euler is the explicit integration of velocity and implicit integration of position,
 \begin{equation}
 \label{eq:symplecticEuler}
 \begin{array}{l}
-\displaystyle \mathbf{v}(t+\Delta t) = \mathbf{v}(t) + \Delta t \frac{\mathbf{f}(t)}{m} \\ \\
-\displaystyle \mathbf{x}(t+\Delta t) = \mathbf{x}(t) + \Delta t \mathbf{v}(t+\Delta t)
+\displaystyle \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \Delta t M^{-1} \mathbf{f}(t_{n}) \\ \\
+\displaystyle \mathbf{x}(t_{n+1}) = \mathbf{x}(t_{n}) + \Delta t \mathbf{v}(t_{n+1})
 \end{array}
 \end{equation}
-
-Backward Euler is the implicit integration of both position and velocity
+Backward Euler is the implicit integration of both position and velocity,
 \begin{equation}
 \label{eq:backwardEuler}
 \begin{array}{ll}
-\displaystyle \mathbf{v}(t+\Delta t) = \mathbf{v}(t) + \Delta t \frac{\mathbf{f}(t)}{m}(t+\Delta t) \\ \\
-\displaystyle \mathbf{x}(t+\Delta t) = \mathbf{x}(t) + \Delta t \mathbf{v}(t+\Delta t)
+\displaystyle \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + M^{-1}\Delta t \mathbf{f}(t_{n+1}) \\ \\
+\displaystyle \mathbf{x}(t_{n+1}) = \mathbf{x}(t_{n}) + \Delta t \mathbf{v}(t_{n+1})
 \end{array}
 \end{equation}
-
 Forward and symplectic Euler are among the easiest integration schemes. 
 They are cheap and easy to implement. 
 However, stability is guaranteed for a restricted range of time steps. 
-Backward Euler is more expensive as it requires the solution an equation. 
+Backward Euler is more expensive as it requires the solution of an equation. 
 However unconditional stability is guaranteed which means that large time steps can be used resulting in a significant speed-up of the simulation. This speed-up comes at the price of numerical damping which might be undesired.
-
-A nice way to solve the non-linear equation of backward Euler is to expand the force expression in order to fall back to solving a linear system. There, efficient iterative methods such as the conjugate gradient can be used.
+A nice way to solve the non-linear equation of backward Euler is to expand the force expression and linearize in order to fall back to solving a linear system. There, efficient iterative methods such as the conjugate gradient can be used.
+In Section~\ref{sec:arps_implicit}, we describe the linear system resulting from the use of backward Euler and detail how to combine it with the adaptive method that we present in Chapter~\ref{chap:arps}.
 
 \subsection{Fluid mechanics}
 \label{subsec:fluidMechanics}
@@ -392,7 +414,7 @@ Additionally, the fluid might be incompressible, such as water, which means that
 \nabla \cdot \mathbf{v} = 0
 \end{equation}
 
-Finally, by injecting equation~(\ref{eq:fluidConstitutiveLaw}) in equation~(\ref{eq:volumetricMomentumConservation}), this gives us Navier-Stokes equations for an incompressible fluid:
+Finally, by injecting Equation~\eqref{eq:fluidConstitutiveLaw} in Equation~\eqref{eq:volumetricMomentumConservation}, this gives us Navier-Stokes equations for an incompressible fluid:
 
 \begin{equation}
 \label{eq:navierStokes}
@@ -485,17 +507,17 @@ This is the kernel we use in Chapter~\ref{chap:arps}.
 
 \paragraph{Application to Navier-Stokes equations}
 
-In computer graphics, the SPH model is commonly used to approximate the Navier-Stokes equations (Equation~\ref{eq:navierStokes}).
+In computer graphics, the SPH model is commonly used to approximate the Navier-Stokes equations (Equation~\eqref{eq:navierStokes}).
 In the following, we discretize each term of these equations for a particle $i$ using the SPH model.
 \\ \\
-The density of a particle $i$ can be approximated using Equation~(\ref{eq:sphFunction}):
+The density of a particle $i$ can be approximated using Equation~\eqref{eq:sphFunction}:
 
 \begin{equation}
 \label{eq:densitySPH}
 \rho_{i} = \sum_{j} m_{j}W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 
-For the pressure gradient, we can directly apply Equation~(\ref{eq:sphDerivative}):
+For the pressure gradient, we can directly apply Equation~\eqref{eq:sphDerivative}:
 
 \begin{equation}
 \left(\nabla p\right)_{i} = \sum_{j} \frac{m_{j}}{\rho_{j}} p_{j} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
@@ -507,7 +529,7 @@ However, the resulting pressure force between two particles $i$ and $j$ is not s
 \mathbf{f}^{pressure}_{ij} = \frac{m_{i}m_{j}}{\rho_{i}\rho_{j}}p_{j}\nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 
-A symmetric version can be obtained by using equation~(\ref{eq:hackSPH}) with $\displaystyle \Phi = \frac{1}{\rho}$:
+A symmetric version can be obtained by using equation~\eqref{eq:hackSPH} with $\displaystyle \Phi = \frac{1}{\rho}$:
 
 \begin{equation}
 \label{eq:pressureGradientSPH}
@@ -527,7 +549,7 @@ Even though it is simple and cheap, high stiffness and very small time steps are
 Recently, new techniques were proposed to compute pressure so that the fluid would be incompressible while allowing the use of large time steps.
 We do not detail these methods in this manuscript but refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2014:IISPH} and Bender and Koschier~\cite{Bender2015}.
 \\ \\
-To compute viscosity forces, we could approximate the Laplacian of the velocity using Equation~(\ref{eq:sphDerivative}):
+To compute viscosity forces, we could approximate the Laplacian of the velocity using Equation~\eqref{eq:sphDerivative}:
 
 \begin{equation}
 \left(\Delta \mathbf{v}\right)_{i} = \sum_{j} \frac{m_{j}}{\rho_{j}} \mathbf{v}_{j} \Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
@@ -540,7 +562,7 @@ Same as for the pressure gradient, this would result in a non-symmetric force:
 \mathbf{f}^{viscosity}_{ij} = \eta\frac{m_{i}m_{j}}{\rho_{i}\rho_{j}}\mathbf{v}_{j}\Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 
-To obtain symmetric inter-particle forces, we can use a technique similar to Equation~(\ref{eq:hackSPH}) to approximate the Laplacian of a function $f$ using an arbitrary twice differentiable function $\Phi$:
+To obtain symmetric inter-particle forces, we can use a technique similar to Equation~\eqref{eq:hackSPH} to approximate the Laplacian of a function $f$ using an arbitrary twice differentiable function $\Phi$:
 
 \begin{equation}
 \label{eq:hackSPH2}
@@ -703,7 +725,7 @@ Detailing collision detection and response processes and giving a more accurate 
  
 \begin{figure}[!ht]
 \centering
-\includegraphics[scale=0.6]{./images/continuum_mechanics/multiLayeredFramework.png}
+\includegraphics[width=\linewidth]{./images/continuum_mechanics/multiLayeredFramework.png}
 \caption[STAR mechanics: Multi-layer framework]{\label{fig:multiLayerFramework} Each component of the simulation is isolated and communicates with other components through mappings. By doing so, the framework allows fast prototyping and comparison of a wide range of deformable models.}
 \end{figure}
 
@@ -726,7 +748,7 @@ In their work, Gilles et al. \cite{Gilles2011} proposed such an alternative by d
 \end{equation}
 The three different layers are now visible: the degrees of freedom, the deformation gradient, the strain tensor and the constitutive density energy.
 Moreover, we can distinguish the Jacobian of the mappings that link degrees of freedom to deformation gradient and deformation gradient to strain.
-Notice that the derivative of the constitutive density energy with respect to strain is actually the stress tensor presented in Equation~(\ref{eq:constitutiveLaw}.
+Notice that the derivative of the constitutive density energy with respect to strain is actually the stress tensor presented in Equation~\eqref{eq:constitutiveLaw}.
 
 Using this modular representation offers three main advantages: 
 First, layers and mappings can be implemented separately thus providing a great deal of modularity;
@@ -763,7 +785,7 @@ Third, the weights should form a partition of unity.
 In practice, one can use either harmonic weights or Voronoi-based weights.
 In Chapter~\ref{chap:cutting}), we will detail the computation of Voronoi-based weights and how to dynamically update them to take into account topological changes.
 
-From the description of the displacement field (Equation~\ref{eq:frameBasedDisplacementField}), the deformation gradient can then be derived:
+From the description of the displacement field (Equation~\eqref{eq:frameBasedDisplacementField}), the deformation gradient can then be derived:
 \begin{equation}
 \displaystyle
 F\left(\mathbf{x}\right) = \sum_{i} \frac{\partial \mathbf{x}}{\partial \mathbf{x}_{0}} =

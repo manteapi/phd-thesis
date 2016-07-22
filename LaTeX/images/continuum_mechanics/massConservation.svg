@@ -71,8 +71,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="181.92517"
-     inkscape:cy="27.828442"
+     inkscape:cx="87.980984"
+     inkscape:cy="26.818289"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -103,7 +103,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -151,34 +151,6 @@
        id="path3761"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="csc" />
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:19.44000053px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       x="172.81061"
-       y="411.14993"
-       id="text4225"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan4227"
-         x="172.81061"
-         y="411.14993">t<tspan
-   style="font-size:12.63599873px;baseline-shift:sub"
-   id="tspan4778">0</tspan></tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:19.44000053px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
-       x="417.81061"
-       y="411.23297"
-       id="text4225-6"
-       sodipodi:linespacing="125%"
-       inkscape:transform-center-x="7.1144007"
-       inkscape:transform-center-y="1.6459097e-05"><tspan
-         sodipodi:role="line"
-         id="tspan4227-0"
-         x="417.81061"
-         y="411.23297">t<tspan
-   style="font-size:12.63599968px;baseline-shift:sub"
-   id="tspan4776">1</tspan></tspan></text>
     <path
        style="fill:#b2adec;fill-opacity:1;stroke:none"
        d="m 327.75621,425.78242 8,0 0,-3 6,6.5 -6,6.5 0,-3 -8,0 z"
