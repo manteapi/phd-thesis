@@ -428,9 +428,10 @@ By using Equation~\eqref{eq:internalForces_liquids}~and~\eqref{eq:incompressibil
 \end{equation}
 \subsubsection{Smoothed-Particles Hydrodynamics model}
 \label{subsubsec:starSPH}
-Smoothed-Particles Hydrodynamics (SPH) is an interpolation method that can be used to approximate Navier-Stokes equations in a Lagrangian way. SPH was initially proposed by Monaghan~\cite{Monaghan1992} and introduced in graphics by Desbrun et al.~\cite{Desbrun1999}.
+Smoothed-Particles Hydrodynamics (SPH) is an interpolation method that can be used to approximate Navier-Stokes equations in a Lagrangian way. 
+SPH was initially proposed by Monaghan~\cite{Monaghan1992} and introduced in graphics by Desbrun et al.~\cite{Desbrun1999}.
 The fluid is discretized into particles which represent small volumes of the whole fluid and each quantity carried by the particle is interpolated using SPH.
-
+In Chapter~\ref{chap:arps}, we will describe how to easily combine SPH with an adaptive model in order to save computational time.
 \paragraph{SPH interpolation}
 The interpolation of a function $f$ and its derivatives of order $\alpha$ at a position $\mathbf{x}$ using SPH are defined as
 \begin{equation}
@@ -643,7 +644,6 @@ In contrast with the Green-Lagrange strain, the Cauchy strain does not capture w
 The displacement field, deformation gradient and strain tensor are the main components of the constitutive law that relates the deformation to the material properties of the object.
 
 \subsubsection{Constitutive Law}
-
 For elastic materials, the stress tensor $\sigma$ can be described using constitutive density energy $\Psi$ that is derived with respect to the strain tensor $\epsilon$
 \begin{equation}
 \label{eq:constitutiveLaw}
@@ -705,11 +705,11 @@ Instead of computing internal forces as the divergence of the stress, they can b
 
 \subsubsection{Frame-based model}
 \label{subsubsec:framebased}
-In this section, we discretize the equations of motion for an elastic solid using the frame-based model. 
-In Chapter~\ref{chap:cutting}, we will extend it to handle interactive and detailed cutting of thin elastic objects.
+There are many models to discretize the equations of motion for an elastic solid: Moving Least Squares~\cite{Muller2004:melting}, finite element method~\cite{OBrien1999}, etc.
+Here we choose to discretize these equations using the frame-based model, as we will use it in Chapter~\ref{chap:cutting} to handle interactive and detailed cutting of thin elastic objects.
 \\
 The frame-based model was introduced by Gilles et al.~\cite{Gilles2011} to simulate deformable objects. 
-In contrast to other deformable models, it allows to simulate complex object with very few degrees of freedom and to handle heterogeneous materials easily \cite{Faure2011}. 
+In contrast to other deformable models, it allows to simulate complex object with very few degrees of freedom and to handle heterogeneous materials easily~\cite{Faure2011}. 
 Additionally, this work formalized the concept of multi-layer physical framework. 
 In the following, we first describe what is a multi-layer framework and illustrate it in the case of the frame-based model. 
 Then we detail a standard choice for the different components of the frame-based model: degrees of freedom, interpolation and integration. 
@@ -729,7 +729,7 @@ Secondly, as each layer can be discretized at its own resolution, the granularit
 For instance, in the case of the frame-based model, the sampling of the degrees of freedom is sparse to accelerate the time integration while a denser sampling is used for the integration points in order to accurately compute the deformation.
 Finally, embedding techniques, used to display a fine visual model or to handles collision with a coarse representation, fits well in this framework by using the displacement field to map these models to the degrees of freedom.
 \\
-In their work, Gilles et al. \cite{Gilles2011} proposed such an alternative by decomposing the computation of force using the derivation chain rule:
+In their work, Gilles et al.~\cite{Gilles2011} proposed such an alternative by decomposing the computation of force using the derivation chain rule:
 \begin{equation}
 \label{eq:forceChainRule}
 \displaystyle \mathbf{f} = -\int_{V} \left(\frac{\partial \Psi}{\partial \mathbf{x}}\right)^{T} dv
@@ -848,14 +848,16 @@ where $M_{i}$ is the mass matrix of the frame $i$:
 M_{i} = \int_{V} w_{i}^{T} \rho w_{i} dv
 \end{equation}
 and $\rho$ is the density of the object.
+\\ \\
+We described the key ingredients to simulate elastic solids using the frame-based model.
+As for fluid mechanics, there are many other related topics that we choose not to detail here.
+For the formulation of implicit Euler and a survey of collision detection techniques, we respectively refer the reader to the course of Witkin et al.~\cite{Witkin2001} and the work of Teschner et al.~\cite{Teschner2005}.
 
 \subsection{Conclusion on continuum mechanics}
-
 In this section, we briefly presented the basics of continuum mechanics.
 First, we described how to design equations of motion and which numerical tools are involved in their solving. 
 Then, for fluids and solids mechanics, we mentioned their specificities and detailed a deformable model.
 We illustrated the fact that continuum mechanics allows to automatically compute realistic motion from a wide range of phenomena.
 This strength mainly explains why hand-made animations of physical phenomena have been replaced by physics-based animation.
-However, realism comes with a high computational cost.
-This cost may make large scale simulations intractable or prevent from simulating advanced phenomena in interactive context.
+However, realism comes with a high computational cost which can make large scale simulations intractable or can prevent from simulating advanced phenomena in interactive context.
 In the following section, we review adaptive models, a common approach to make simulations efficient.
