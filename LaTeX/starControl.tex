@@ -22,6 +22,7 @@ The trials and errors process consists in setting these conditions and parameter
 	\caption[STAR control: Trial and error process]{\label{fig:trialErrorProcess}Trial and error process. 
 	The user runs successive simulations with different parameters such as the initial height $h$ and velocity $\mathbf{v}$ of the ball until it reaches a desired target.}
 \end{figure}
+\\
 There are mainly three constraints which make this task a nightmare:
 \begin{itemize}
 	\item Firstly, the computational time plays a major role. 
@@ -37,17 +38,17 @@ There are mainly three constraints which make this task a nightmare:
 
 \subsection{Space-time constraints paradigm}
 A general approach for controlling a physics-based animation is to formulate it as an optimization under constraints: 
-"\emph{Find the parameters such that the physical behavior and user constraints are respected over the animation}" 
+"\emph{Find the value of the parameters such that the physical behavior and user constraints are respected over the animation}" 
 (see Figure~\ref{fig:spaceTimeConstraints}).
 \begin{figure}[!h]
 \centering
 \includegraphics[width=\linewidth]{./images/simulationControl/spaceTimeConstraints.png}
 \caption[STAR control: Space-time constraints]{\label{fig:spaceTimeConstraints} Space-time constraints. 
-An optimization problem is defined to find parameters which solve the equations of motion while respecting constraints defined by the user.
+An optimization problem is defined to find the value of the parameters which solve the equations of motion while respecting constraints defined by the user.
 In this example, the parameters are the initial height $h$ and velocity $\mathbf{v}$ of the ball and the constraints are the position of the ball at different time.
-The mass of the ball is $1$ and its only submitted to the gravity $\mathbf{g}$.}
+The ball has a mass of $1\kilo\gram$ and is only submitted to the gravity $\mathbf{g}$.}
 \end{figure}
-
+\\
 Four challenges arise, what are the parameters we want to control, what are the user constraints, how to formulate them and finally how to numerically solve the problem. 
 Witkin and Kass were among the first to introduce this formulation to the Computer Graphics community in their pioneer work \emph{Space-time constraints}~\cite{Witkin1988}.
 
