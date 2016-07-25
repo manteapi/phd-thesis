@@ -1,124 +1,28 @@
-\section{Adaptive techniques and model for physics-based animation}
+\section[Adaptive physics-based animation]{Adaptive techniques and models for physics-based animation}
 \label{sec:starAdaptivity}
-One of the major challenges in physically-based modeling is making simulations efficient. Adaptive models provide an essential solution to these efficiency goals. These models are able to self-adapt in space and time, attempting to provide the best possible compromise between accuracy and speed.
-In this section, we review the adaptive solutions proposed so far in computer graphics. Models are classified according to the strategy they use for adaptation, from time-stepping and freezing techniques to geometric adaptivity in the form of structured grids, meshes, and particles. Applications range from fluids, through deformable bodies, to articulated solids.
-
-\subsection{Introduction}
-The ability of physically-based animation to generate highly complex and realistic motion, as well as react to unpredictable input, has made it increasingly indispensable in movies, video games and simulators since its introduction in 1987 by Terzopoulos et al. \cite{Terzopoulos1987}.
-Complex real-world behaviors exhibit multi-scale phenomena in space and time.
+Complex real-world behaviors may exhibit multi-scale phenomena in space and time, large deformations or topological changes.
 Sophisticated physical models involving a tremendous number of degrees of freedom are required to accurately reproduce these phenomena.
-This comes at a high memory and computational price, thus practitioners and researchers have been striving to achieve good trade-offs between accuracy and computational resources.
-This is especially relevant in computer graphics, where visual plausibility is the main quality criterion, and high-resolution results with rich details are sought.
-Trade-offs are typically obtained by carefully choosing the constitutive laws of the modeled objects, while sampling time and space appropriately.
-However, a model suitable for a given viewpoint may become overly coarse when the object comes closer to the camera, or waste computational resources when it is no longer visible. Variations in external loading, large deformations, or topology changes may also require model updates during the simulation.
-Carrying on a simulation across a wide range of viewpoints and changes to the object, while simultaneously optimizing efficiency and visual realism, requires the simulation model to adapt to the changing circumstances of the simulation.
-These adaptive simulation techniques are the focus of this report.
-
-\begin{figure*}
-    \centering
-    \scalebox{0.8}
-    {
-    \begin{tikzpicture}[
-        node distance=1cm,
-        auto,
-        scale=0.8,
-        every node/.style={scale=0.7}
-    ]
-    \tikzstyle{style1}=[align=center]
-
-    %======
-    %Nodes
-    %======
-    \node[style1] (main) {Adaptivity}
-    [sibling distance=11.5cm, edge from parent/.style={draw=none}]
-    child{
-        node[style1] (temporal) {Temporal}
-        [sibling distance=2.3cm]
-        child{node[style1] (temporal1) {Time stepping}}
-        child{node[style1] (temporal2) {Adaptive\\integration schemes}}
-        child{node[style1] (temporal3) {Freezing}}
-    }
-    child{
-        node[style1] (spatial) {Spatial}
-        [sibling distance=4.8cm]
-        child{
-            node[style1] (spatial1) {Basis refinement}
-            [sibling distance=1.7cm]
-            child{node[style1] (spatial11) {Hierarchical}}
-            child{node[style1] (spatial12) {Polynomial}}
-            child{node[style1] (spatial13) {Reduced}}
-            child{node[style1] (spatial14) {Enrichment}}
-        }
-        child{
-            node[style1] (spatial2) at ($(spatial1) + (5.3cm,0)$) {Geometric adaptivity}
-            [sibling distance=1.7cm]
-            child{
-                node[style1] (spatial21) {Re-sampling}
-                [sibling distance=1.8cm]
-                child{node[style1] (spatial211) {Isotropic}}
-                child{node[style1] (spatial212) {Anisotropic}}
-                child{node[style1] (spatial213) {Hierarchical}}
-            }
-            child{node[style1] (spatial22) {Multi-scale}}
-        }
-        child{
-            node[style1] (spatial3) at ($(spatial2) + (4.5cm,0)$) {Mixed models}
-            [sibling distance=2.8cm]
-            child{node[style1] (spatial31) {Eulerian/Lagrangian}}
-            child{node[style1] (spatial32) {Mixed dimensions}}
-        }
-        child{node[style1] (spatial4) at ($(spatial3) + (2cm,0)$) {Moving grids}}
-    }
-    ;
-
-    %======
-    %Connexions
-    %======
-    \draw[color=black] (main.south) -- (temporal.north);
-    \draw[color=black] (temporal.south) -- (temporal1.north);
-    \draw[color=black] (temporal.south) -- (temporal2.north);
-    \draw[color=black] (temporal.south) -- (temporal3.north);
-
-    \draw[color=black] (main.south) -- (spatial.north);
-    \draw[color=black] (spatial.south) -- (spatial1.north);
-    \draw[color=black] (spatial.south) -- (spatial2.north);
-    \draw[color=black] (spatial.south) -- (spatial3.north);
-    \draw[color=black] (spatial.south) -- (spatial4.north);
-
-    \draw[color=black] (spatial1.south) -- (spatial11.north);
-    \draw[color=black] (spatial1.south) -- (spatial12.north);
-    \draw[color=black] (spatial1.south) -- (spatial13.north);
-    \draw[color=black] (spatial1.south) -- (spatial14.north);
-
-    \draw[color=black] (spatial2.south) -- (spatial21.north);
-    \draw[color=black] (spatial2.south) -- (spatial22.north);
-
-    \draw[color=black] (spatial21.south) -- (spatial211.north);
-    \draw[color=black] (spatial21.south) -- (spatial212.north);
-    \draw[color=black] (spatial21.south) -- (spatial213.north);
-
-    \draw[color=black] (spatial3.south) -- (spatial31.north);
-    \draw[color=black] (spatial3.south) -- (spatial32.north);
-    \end{tikzpicture}
-    }
-    \caption[STAR adaptivity: Taxonomy]{\label{fig:taxonomy}Taxonomy of adaptive physically-based models in Computer Graphics. In this report, we discuss in detail the two most widely used adaptive techniques: Temporal adaptivity in Section \ref{sec t adaptivity} and geometric adaptivity in Section \ref{sec:spatial_refinement}. We also discuss less common spatial adaptive techniques that proved to be very promising: Basis refinement in Section \ref{sec:basis_refinement}, moving grids in Section \ref{sec:movingMesh} and mixed models in Section \ref{sec:mixed-models}.}
-\end{figure*}
-
+This comes at a high memory and computational price that can quickly become intractable or prevent from an interactive usage.
+Adaptive models provide a general paradigm to solve these efficiency goals.
+\\
 We call a model or simulation method \emph{adaptive} if it automatically adapts the underlying mathematical representation, data structure and/or algorithm at run time, based on the evolving state of the simulated system.
-The adaptation is designed for meeting a given criteria which depends on the application. Examples of frequently used criteria include reducing the overall computational complexity without loss of quality, improving the quality of real-time simulation, or simulating more precisely the parts of the scene with which the user is currently interacting.
-
-Computer animation has come a long way since Carlson and Hodgins proposed to switch between dynamic, kinematic and hybrid models for jumping creatures in 1997~\cite{Carlson1997}, and the variety of approaches and sub-domains makes it difficult to sort.
-Rather than iterating on the different sub-domains of physically based computer animation (rigid bodies, deformable solids, liquids, smoke, \textit{etc.}) to present their adaptive approaches, we have chosen to review the different families of adaptive methods, and present the way they have been applied in the different domains.
-We hope that this organization will give the reader a broader picture of adaptivity, by showing how variations of each approach have been developed in different domains.
-
-In Section~\ref{sec t adaptivity}, we present time adaptive techniques such as dynamic time stepping and freezing techniques.
+The adaptation is designed for meeting a given criteria which depends on the application. 
+Examples of frequently used criteria include reducing the overall computational complexity without loss of quality, improving the quality of real-time simulation, or simulating more precisely the parts of the scene with which the user is currently interacting.
+\\
+In this section, we review the different families of adaptive methods and present the way they have been applied in the different domains. In Section~\ref{sec t adaptivity}, we present time adaptive techniques such as dynamic time stepping and freezing techniques.
 Then, we focus on spatially adaptive techniques.
-Section~\ref{sec h adaptivity} discusses the most popular approach of spatial adaptivity: geometric adaptivity(\textit{h}-adaptivity where \textit{h} classically refers to the size of elements in the finite element method), which refers to varying the discretization resolution via refinement and coarsening strategies. This section is subdivided according to the types of adaptive spatial discretization.
-Section~\ref{sec pr adaptivity} covers other spatial adaptivity approaches: basis refinement which adapts the number of bases, their order (\textit{p}-adaptivity where \textit{p} stands for polynomial), the basis functions themselves using enrichment, or, in subspace simulation, the deformation modes of the basis; moving grids methods (\textit{r}-adaptivity where \textit{r} stands for relocation) which relocate nodes without changing their connectivity; and mixed models which selectively apply a combination of different computational models. This organization reflects the taxonomy we propose in Figure \ref{fig:taxonomy}.
+Section~\ref{sec:spatial_refinement} discusses the most popular approach of spatial adaptivity: geometric adaptivity(\textit{h}-adaptivity where \textit{h} classically refers to the size of elements in the finite element method), which refers to varying the discretization resolution via refinement and coarsening strategies. This section is subdivided according to the types of adaptive spatial discretization.
+Section~\ref{sec pr adaptivity} covers other spatial adaptivity approaches: basis refinement which adapts the number of bases, their order (\textit{p}-adaptivity where \textit{p} stands for polynomial), the basis functions themselves using enrichment, or, in subspace simulation, the deformation modes of the basis; moving grids methods (\textit{r}-adaptivity where \textit{r} stands for relocation) which relocate nodes without changing their connectivity; and mixed models which selectively apply a combination of different computational models. This organization reflects the taxonomy we propose in Figure~\ref{fig:taxonomy}.
 We finally conclude and sketch future research avenues in adaptive simulation.
+\\ \\
+This section was published in journal \emph{Computer Graphics Forum, 2016}~\cite{Manteaux2016}.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth]{images/starAdaptivity-cgf2016/taxonomy.png}
+	\caption[STAR adaptivity: Taxonomy]{\label{fig:taxonomy}Taxonomy of adaptive physically-based models in Computer Graphics. Temporal adaptivity (see Section \ref{sec t adaptivity}) and geometric adaptivity (see Section~\ref{sec:spatial_refinement}) are the two most common strategies. Basis refinement (see Section~\ref{sec:basis_refinement}), moving grids (see Section~\ref{sec:movingMesh}) and mixed models (see Section~\ref{sec:mixed-models}) are less common but proved to be very promising.}
+\end{figure}
 
 \subsection{Temporal adaptivity} \label{sec t adaptivity}
-
 Animating any simulated object requires integrating its equations of motion over time.
 There are many reasons why this integration procedure may need to adapt to the circumstances of the simulation, whether for accuracy, consistency, or stability.
 For instance, a system entering a highly nonlinear regime, such as during fracture, typically requires smaller time steps to maintain the desired degree of accuracy.
@@ -164,7 +68,7 @@ In computer graphics, semi-Lagrangian advection \cite{Stam1999} has been a popul
 Nevertheless, excessively large time steps can lead to undesirable artifacts such as numerical dissipation and volume loss.
 Foster and Fedkiw \cite{Foster2001} advocate limiting the time step size using \eqref{eq:cfl} with $c$ being the maximum of the flow speed $\|\mathbf u\|_\infty$ over the domain, and $C_{\max} = 5$.
 
-In smoothed particle hydrodynamics (SPH), each particle is affected by other particles within its smoothing radius $h$, analogous to the grid separation $\Delta x$ in finite-difference methods.
+In Smoothed-Particles Hydrodynamics (SPH), each particle is affected by other particles within its smoothing radius $h$, analogous to the grid separation $\Delta x$ in finite-difference methods.
 Consequently, time step selection criteria based on the CFL condition can be applied.
 For pressure waves in compressible SPH, we continue to have
 \begin{align}
@@ -380,22 +284,10 @@ metric value} of $C$ is defined as
 \[\mathcal{A}(C)=\sum_{i\in C}\mathbf{\ddot{q}}_i^T\mathbf{A}_i\mathbf{\ddot{q}}_i,\] where $\mathbf{A}_i$, $i\in C$, are symmetric, positive definite $d_{J_i}\times d_{J_i}$ \emph{weight matrices}, and $d_{J_i}$ is
 the number of degrees of freedom of joint $i$ in $C$. The weight matrices $\mathbf{A}_i$ are required to depend at most on joint positions, and the simplest choice is the identity
 matrix. The key to the sub-linear complexity is the demonstration that the acceleration metric of each sub-articulated body is a quadratic function of the forces applied to its handles (i.e. the free rigid bodies used to assemble sub-articulated bodies in Featherstone's methodology~\cite{Redon2005}). As a result, the acceleration metric may be computed \emph{before computing the joint accelerations themselves}. This is used during the top-down pass of Featherstone's divide-and-conquer algorithm to determine which joint accelerations should be computed because they are sufficiently large~\cite{Redon2005}. For example, if the acceleration metric of the complete articulated body is small, then all joint accelerations are small and joint velocities are constant for the current time step. A similar metric is built for joint velocities to determine which joint positions should remain constant, and thus which inter-body forces and inertial terms should be updated. Once all position-dependent terms are up to date, the motion metrics are available for the next time step, and a new set of active joints can be determined.
-
+\\
 It was shown that this approach could also help to speed up continuous collision detection for articulated bodies~\cite{Kim2008Collision} and haptics rendering~\cite{Morin2007}, as well as enable view-dependent articulated-body dynamics by combining motion metrics with visibility estimates~\cite{Kim2008View} (see Figure \ref{fig:ViewDependentArticulatedBodies}).
 Gayle et al. \cite{Gayle2006} demonstrate how to perform contact handling with such an adaptive articulated-body method, which is used as the core of a physics-based sampling algorithm for highly articulated chains~\cite{Gayle2007} and cable route planning~\cite{Kabul2007}.
-
-\begin{figure*}[t]
-\centering
-\begin{tabular}{ccc}
-\includegraphics[width=.32\linewidth]{images/starAdaptivity-cgf2016/PermanentFlowSPH.png} &
-\includegraphics[width=.32\linewidth]{images/starAdaptivity-cgf2016/PermanentFlowARPSColor.png} &
-\includegraphics[width=.32\linewidth]{images/starAdaptivity-cgf2016/PermanentFlowARPSColor2.png} \\
-(a) & (b) & (c)
-\end{tabular}
-\caption[STAR adaptivity: SPH fluid freezing]{\label{fig:SPHfreezing}
-(a) shows a classic SPH simulation of a 2D scenario with inflow and outflow boundary conditions at the walls above a chasm. (b) shows at the same time the effect of the ARPS method from Manteaux et al.~\cite{Manteaux2013}. Blue particles are active, red particles are inactive, and green particles are transitive. Large regions quickly become inactive (c), allowing to save significant computational time as numerous particles' neighborhoods do not need to be updated anymore.}
-\end{figure*}
-
+\\
 Recent work has sought to apply freezing techniques to accelerate SPH fluid simulation.
 In these methods, particles are divided into two sets: a set of \emph{active} particles following a classical simulation step, and a set of \emph{inactive} particles that are skipped in the simulation.
 As physical quantities in SPH are interpolated from neighbors, inactive neighbors of active particles also need to be updated to ensure that active particles compute correct physical quantities.
@@ -403,44 +295,15 @@ Computation time is saved for inactive particles that only have inactive neighbo
 The main challenge in these methods is the definition of the process to transform a particle from the inactive set to the active one and vice versa.
 Indeed, as SPH is sensitive to particle distribution, an inadequate transition of state can directly lead to instabilities.
 Additionally, a judicious choice of criterion to decide whether a particle should be active or not is essential.
-
+\\
 Goswami and Pajarola \cite{Goswami2011} propose a simple method that evaluates the active status of particles at each time step.
 Particles are marked as active if they are close to the boundary or if their velocity exceeds a threshold.
 Inactive neighbors of such particles are also added to the active set, and continue with their last active velocity.
 All other particles are considered inactive.
 Unfortunately, the resulting method does not obey Newton's third law, resulting in some loss of momentum.
+In the context of molecular simulation, Artemova and Redon \cite{Artemova2012} propose a fundamentally different approach which ensures momentum conservation. In Chapter~\ref{chap:arps}, we extend their work to computer graphics.
 
-In the context of molecular simulation, Artemova and Redon \cite{Artemova2012} propose a fundamentally different approach which ensures momentum conservation.
-This approach, called \emph{Adaptively Restrained Particle Simulation (ARPS)}, builds a modified equation of motion which adapts itself depending on the state of the particles. It continuously interpolates the behavior of a particle switching from one state to another. Here is the modified equation of motion for a particle with $\mathbf{p}$ as momentum, $\mathbf{q}$ as position, $V(\mathbf{q})$ as potential energy, $m$ as mass and $\rho$ a \emph{restraining function}:
-\begin{equation}
-    \label{eq:arps_hamiltonian}
-    \begin{array}{lll}
-        \displaystyle \dot{\mathbf{p}} & = & \displaystyle - \frac{\partial V(\mathbf{q})}{\partial \mathbf{q}} \\
-        \displaystyle \dot{\mathbf{q}} & = & \displaystyle m^{-1}\left[1 - \rho(\mathbf{p})\right]\mathbf{p} - \frac{1}{2} \mathbf{p}^{T}m^{-1}\frac{\partial \rho(\mathbf{p})}{\partial \mathbf{p}}\mathbf{p}
-\end{array}
-\end{equation}
-The \emph{restraining function} $\rho(\mathbf{p}) \in \left[0,1\right]$ is a twice differentiable function that can be customized to incorporate different freezing criteria such as kinetic energy.
-We can observe that if $\rho=0$ the dynamics of the particle will follow the classical equation of motion:
-\begin{equation}
-\label{eq:classical_motion}
-\begin{array}{lll}
-    \displaystyle \dot{\mathbf{p}} & = & \displaystyle - \frac{\partial V(\mathbf{q})}{\partial \mathbf{q}} \\
-    \displaystyle \dot{\mathbf{q}} & = & \displaystyle m^{-1}\mathbf{p}
-\end{array}
-\end{equation}
-Whereas if $\rho=1$ then the particle will still accumulate momentum but will remain still:
-\begin{equation}
-\label{eq:no_motion}
-\begin{array}{lll}
-    \displaystyle \dot{\mathbf{p}} & = & \displaystyle - \frac{\partial V(\mathbf{q})}{\partial \mathbf{q}} \\
-    \displaystyle \dot{\mathbf{q}} & = & 0
-\end{array}
-\end{equation}
-In this case, even if particles' momentum are still correctly computed, forces do not need to be recomputed as positions are held fixed. Therefore substantial computational time can be saved. Moreover, by using an incremental algorithm to update interaction forces, inactive particles with active neighbors can be efficiently updated while staying aware of their neighborhood.
-Finally, if $0<\rho<1$ then the particle follows the interpolated dynamics of equation \eqref{eq:arps_hamiltonian}. The particle is then called \emph{transitive}.
-Manteaux et al. \cite{Manteaux2013} extend their work to SPH (see Figure~\ref{fig:SPHfreezing}) and to deformable model simulation, in order to better match computer graphics needs.
-
-\subsection{Geometric adaptivity} \label{sec h adaptivity}
+\subsection{Geometric adaptivity} 
 \label{sec:spatial_refinement}
 
 Geometric adaptivity describes various techniques that adapt the spatial resolution of a model by refining and coarsening its discretization. These techniques are also referred in the literature as \emph{adaptive spatial refinement}. However, as they include coarsening as well, we adopted a more general term.
@@ -718,7 +581,7 @@ While this work is not specifically an adaptive strategy, it is a form of spatia
 
 \subsubsection{Meshless models}
 \label{sec:meshless}
-In the last two decades, numerous meshless models have been extended to perform adaptive physically-based animation. They include smoothed particle hydrodynamics (SPH) (see the survey of Ihmsen et al. \cite{Ihmsen2014:STAR}), fluid-implicit particle (FLIP) (see the seminal work of Zhu and Bridson \cite{Zhu2005}), moving least squares (MLS) (see Muller et al. \cite{Muller2004:melting}) and frame-based models (see Gilles et al. \cite{Gilles2011}). These models were used to describe a wide range of phenomena, from fluids (SPH, FLIP) to solids (MLS, frame-based).
+In the last two decades, numerous meshless models have been extended to perform adaptive physically-based animation. They include Smoothed-Particles Hydrodynamics (SPH) (see the survey of Ihmsen et al. \cite{Ihmsen2014:STAR}), fluid-implicit particle (FLIP) (see the seminal work of Zhu and Bridson \cite{Zhu2005}), moving least squares (MLS) (see Muller et al. \cite{Muller2004:melting}) and frame-based models (see Gilles et al. \cite{Gilles2011}). These models were used to describe a wide range of phenomena, from fluids (SPH, FLIP) to solids (MLS, frame-based).
 
 Due to the absence of fixed connectivity, meshless models are among the most flexible models for spatial adaptivity. This flexibility, combined with the variety of models, leads to an impressive number of re-sampling strategies, developed to resolve details near splashes, large deformations, viscoplastic flows and fractures. We classify these strategies into three categories: (1) dynamic local re-sampling, (2) multi-scale methods, and (3) hierarchical refinement (see Figure \ref{fig:particleOverview}).
 
@@ -908,7 +771,7 @@ Another important strategy for adaptively focusing computation in computer anima
 While most of these mixed models represent a clever combination of techniques whose whole is greater than the sum of its parts, the mixed models which could not be classified as ``adaptive'' have been omitted from this work. This section only discusses mixed models that adaptively change from one model to another when the situation calls for it.
 This section is separated into methods used to simulate solid objects and methods used to simulate fluids.
 
-We note that numerous other techniques use two-way coupling between different phenomena (\hspace{1sp}\cite{carlson2004rigid,robinson2008two,shinar2008two,Remillard2013}, to name a few). However, while these approaches are adaptive in the sense that they modify computation depending on the phenomena being simulated, we feel these two-way coupling methods are outside of the scope of this report. Instead of surveying all possible combinations of different phenomena-specific discretizations, we only discuss here methods that combine different discretizations of the {\em same phenomena} in order to gain a computational speedup.
+We note that numerous other techniques use two-way coupling between different phenomena (\hspace{1sp}\cite{carlson2004rigid,robinson2008two,shinar2008two,Remillard2013}, to name a few). However, while these approaches are adaptive in the sense that they modify computation depending on the phenomena being simulated, we feel these two-way coupling methods are outside of the scope of this section. Instead of surveying all possible combinations of different phenomena-specific discretizations, we only discuss here methods that combine different discretizations of the {\em same phenomena} in order to gain a computational speedup.
 
 \paragraph{Solids}
 

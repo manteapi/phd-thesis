@@ -1,6 +1,5 @@
-\chapter{Detailed cutting of thin deformable models with sparse sampling}
+\chapter[Detailed Cutting with Sparse Sampling]{Detailed Cutting of Thin Deformable Models with Sparse Sampling}
 \label{chap:cutting}
-
 \begin{figure}[t]
 \centering
 \begin{subfigure}[b]{0.45\linewidth}
@@ -14,14 +13,6 @@
 \end{subfigure}
 \caption[Frame-based cutting: Spiral and Kirigami cutting examples]{\label{fig:Cutting_Teaser} Progressive cutting of a spiral using only five control frames (a). Simulating complex deformations resulting from Kirigami cutting (b). Note that an horizontal stretching force results into a twist of the bands of material, as in real experiments using paper.}
 \end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                       INTRODUCTION
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\section{Introduction}
-%Over the last three decades, physics-based animation methods have been proposed to simulate a wide range of phenomena. Substantial progress has been achieved in terms of efficiency and realism.  
-%As a result, physics-based animation has found applications in film, games, craft, teaching, and training.
-%\\ \\
 \Lettrine{C}{ombining} interactive user actions and detailed convincing animations is crucial for user experience in simulation and games. Unfortunately, computational constraints limit the 
 fidelity that can be achieved with physics-based animation
 in interactive simulations. Often, the simulated objects lack detail compared to the rest of the virtual environment.
@@ -41,13 +32,11 @@ Therefore, we detect crucial cutting events, enabling us to automatically insert
 In order to reduce computations, we exploit the locality of the ongoing cutting gesture to incrementally update all the data used for the simulation.
 \\ \\
 Our contributions includes:
-
 \begin{itemize}
 \item The building of a non-manifold grid to compute shape functions that faithfully represent the complex topology of the visual mesh while keeping a low number of control nodes (Section \ref{sec:adaptivesf}).
 \item The dynamic re-sampling of new frames into disconnected parts (Section \ref{sec:resampling}).
 \item The incremental update of the different components of the simulation that were concerned by the cut (Section \ref{sec:incremental}).
 \end{itemize}
-
 Our method can be used to simulate a wide variety of objects, such as stretchable cloth or pieces of paper. 
 It features a very low number of frame nodes, high resolution mesh embedding, numerous and detailed cuts. 
 Performance ranges from interactive to offline depending on the desired accuracy and complexity of the cuts.
@@ -59,7 +48,8 @@ Firstly, this is a high level presentation of related works and we think a more 
 Secondly, this configuration allows us to keep a more coherent discussion about our choices for the model.
 In Section~\ref{sec:results}, we illustrate our method in different scenarios and detail the computational results. 
 Finally, we discuss limitations and future work in Section~\ref{sec:cutting_conclusion}.
-
+\\ \\
+The works described in this chapter were presented at the conference \emph{MIG 2015}~\cite{Manteaux2015}.
 \begin{figure*}[!ht]
 \centering
 \begin{subfigure}[c]{0.18\linewidth}

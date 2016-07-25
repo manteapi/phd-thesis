@@ -6,11 +6,10 @@ First, principles of traditional animation were adopted, leaving the animator to
 Second, physics was used to animate objects whose complexity in terms of scale and behavior would have been intractable for a single animator. 
 Nowadays, these two use cases are only the extremities of a large spectrum. 
 In between lies the control of physics-based animations which tends to take into account both user directions, that will bring life and style, and physics, that will handle the exciting complexity and dynamics of the physical behavior.
-
+In this section, we illustrate the problem of simulation control and describe the main solutions proposed so far.
 \subsection{Problem: The trials and errors process}
-
 How to control a physics-based animation is an old problem in Computer Graphics. In order to understand the different problems that arise, it is good to start from the most naive way of controlling a physics-based animation: trials and errors. 
-
+\\
 Let's say we have to design an animation of a ball launched on the ground that bounces two times before hitting the center of a target on the ground. 
 The elastic behavior of the ball and the changes of speed make it a hard animation for a key-framing animator. 
 Using physically-based simulation methods, the behavior takes some time to compute but can be easily solved.

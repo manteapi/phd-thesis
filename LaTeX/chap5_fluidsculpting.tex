@@ -1,4 +1,4 @@
-\chapter{Sculpting of liquids animation}
+\chapter[Sculpting of Liquid Animations]{Sculpting of Liquid Animations}
 \label{chap:fluidsculpting}
 \begin{figure}[!h]
     \centering
@@ -26,12 +26,10 @@
         From an initial simulation of a falling drop (a, b) space-time features can be extracted and pasted back into an other mesh, generating a new animation (c, d).
     }
 \end{figure}
-
 \section{Introduction} \label{sec:fluidsculpting:introduction}
-
 \Lettrine{D}{ue} to advances in fluid simulation methods over the last two decades, liquid animation has become commonplace in 3D animation productions. 
 The animations can be either highly realistic --- for example showing plausible fluid dynamics and interactions with obstacles --- or they can exhibit a more expressive behavior to convey specific artistic intentions. In both cases, it is essential for the artist to be able to control the simulation in order to achieve their goals.
-
+\\
 As mentionned in Section~\ref{sec:starSimulationControl}, the simulation control is generally achieved through the careful setting of a large number of parameters such as initial conditions, boundary conditions, viscosity, or external forces. 
 We briefly summarize why the tuning of these parameters is particularly difficult.
 First, they only offer indirect control over the animation, which makes them quite non-intuitive. 
@@ -40,7 +38,7 @@ liquid simulation.
 Third, the inherently non-linear nature of fluid behavior makes it difficult to transfer parameter values from a low to a high resolution simulation. 
 In consequence, achieving a desired effect requires a tedious trial-and-error loop, where computation is restarted multiple times from scratch with different parameters. 
 In many cases, this process does not allow tight control over a sequence of waves and splashes with specific magnitudes or shapes and occurring in a specific order. 
-
+\\
 In this chapter, we attempt a significanly different approach.
 Instead of controlling a simulation, we propose an interactive sculpting system for seamlessly editing pre-computed animations of liquid, without the need for any re-simulation. 
 Our system is based on a copy/edit/paste approach:
@@ -49,7 +47,7 @@ Once selected, these space-time features can be copied and edited in both space 
 Finally, the edited space-time features can be pasted back into any destination animation at a specific position and time set by the user.
 Using our tools, the user can edit and progressively refine any input simulation result, possibly using a library of pre-computed space-time features extracted from other animations. 
 In contrast to the trial-and-error loop usually required to edit animation results through the tuning of indirect simulation parameters, our method gives the user full control over the edited space-time behaviors. 
-
+\\
 To enable the use of arbitrary liquid animations computed using varying simulation techniques, we based our editing framework on generic inputs; 
 our method allows input mesh sequences without point-wise correspondences between frames, and with arbitrary changes of topological genus between two consecutive time steps.
 Also, we focused on three requirements to make our method useful in realistic cases.
@@ -57,7 +55,7 @@ First, the selection of the effect in the original simulation must be as simple 
 Therefore, once space-time features have been computed, the user can select them using a simple click on the surface.
 Secondly, pasting the selected effect onto the final animation should be handled automatically, with seamless adaptation of the pasted fluid effect to the destination surface. 
 Finally, the pipeline of selection, copy, edit, and paste steps should be computed efficiently in order to enable interactive user feedback. 
-
+\\ \\
 The key contributions of our work are as follows:
 \begin{itemize}
     \item A semi-automatic method to tag salient regions in a liquid animation.
@@ -65,7 +63,6 @@ The key contributions of our work are as follows:
     \item A \emph{space-time feature} representation independent from the original animation.
     \item A set of editing operations that allow the extraction, manipulation, and insertion of \emph{space-time features} into an animation.
 \end{itemize}
-
 The remainder of this chapter is organized as follows:
 Section~\ref{sec:overview} presents our solution to this problem;
 Section~\ref{sec:extraction} explains how \emph{space-time features} are computed; 
@@ -74,6 +71,8 @@ Section~\ref{sec:manipulation} details the tools we offer for manipulating \emph
 Section~\ref{sec:fluidsculpting:results} shows results obtained with our method; 
 Section~\ref{sec:fluidsculpting:discussion} draws the limits of our approach; 
 and Section~\ref{sec:fluidsculpting:conclusion} concludes and gives some perspectives on future work.
+\\ \\
+The works described in this chapter have been submitted to the conference \emph{MIG 2016}.
 
 \section{Overview of the method}\label{sec:overview}
 

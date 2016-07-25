@@ -1,4 +1,4 @@
-\chapter{Extending Adaptively Restrained Particle Simulation to Graphical Simulations}
+\chapter[Extending ARPS to Graphical Simulations]{Extending Adaptively Restrained Particle Simulation to Graphical Simulations}
 \label{chap:arps}
 
 \begin{figure}[!h]
@@ -15,7 +15,7 @@
 \Lettrine{C}{ombining} efficiency with visual realism had been one of the main goals of Computer Graphics research in the last decade. As presented in Section~\ref{sec:starAdaptivity}, the general strategy for efficient graphical simulations is to concentrate the computational time on the most interesting parts of an animated scene (such as near the surface of a fluid), while simplifying the rest of the scene according to some visual quality criteria.  A number of adaptive simulation methods, aimed at controlling the trade-off between performance and precision, have been developed. Most of them consist in changing time or space sampling, using adaptive time steps or multi-scale models.
 Although several of them give impressive results, they are often difficult to implement, they may be restricted to specific applications and they sometimes generate discontinuity artifacts due to sudden simplifications.
 \\ \\
-A different approach for adaptive simulation~\cite{Artemova2012} was proposed in the context of molecular dynamics~(MD). Contrary to the Computer Graphics methods reviewed in Section~\ref{sec:starAdaptivity}, Adaptively Restrained Particle Simulations (ARPS) do not adapt time or space sampling, but rather switch the positional degrees of freedom of particles on and off, while letting their momenta evolve. The key idea is that since most of the computation time is spent in computing interaction forces based on positions, particles with low velocity could be considered fixed in space - and the corresponding interaction forces constant - until they accumulate enough momentum to start moving again. Therefore, inter-particles forces do not have to be updated at each time step, in contrast with traditional methods that spend a lot of time there.
+A different approach for adaptive simulation~\cite{Artemova2012} was proposed in the context of molecular dynamics~(MD). Contrary to most of the methods reviewed in Section~\ref{sec:starAdaptivity}, Adaptively Restrained Particle Simulations (ARPS) do not adapt time or space sampling, but rather switch the positional degrees of freedom of particles on and off, while letting their momenta evolve. The key idea is that since most of the computation time is spent in computing interaction forces based on positions, particles with low velocity could be considered fixed in space - and the corresponding interaction forces constant - until they accumulate enough momentum to start moving again. Therefore, inter-particles forces do not have to be updated at each time step, in contrast with traditional methods that spend a lot of time there.
 \\ \\
 While freezing objects to gain computation time has been extensively used in video games, the question of when and how to release them has not been extensively studied, and has mainly relied on \textit{ad hoc} heuristics.
 Adaptively Restrained Particle Simulations~(ARPS), in contrast, introduce a physically sound approach with proven correctness, and has been successfully used in the context of predictive, energy-and momentum-conserving particle simulation.
@@ -30,7 +30,8 @@ Section~\ref{sec:arps_basics} presents the initial formulation of ARPS that was 
 Section~\ref{sec:arps_sph} and \ref{sec:arps_implicit} respectively introduce our extension of ARPS to fluid and stiff objects simulations. 
 Section~\ref{sec:arps_implementation} deals with the practical implementation and parameters tuning. 
 Section~\ref{sec:arps_discussion} concludes and gives some perspectives of future works.
-
+\\ \\
+The works described in this chapter were presented at the conference \emph{VRIPHYS 2013}~\cite{Manteaux2013}.
 %-------------------------------------------------------------------------
 \section{Adaptively Restrained Particles} 
 \label{sec:arps_basics}
