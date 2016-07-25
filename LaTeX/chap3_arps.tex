@@ -155,6 +155,9 @@ used in short-ranged inter-particle forces.
 \subsection{ Incremental update }
 To integrate ARPS, we chose WCSPH (Weakly Compressible Smoothed Particle Simulation) \cite{Becker2007WCSPH}, a standard SPH formulation \cite{Desbrun1996}, \cite{Muller2003}. For the sake of simplicity, we limit our discussion to the main inter-particles forces: pressure and viscosity. 
 Algorithm~\ref{alg:WCSPH} describes the classical simulation loop.
+
+\newpage
+
 \begin{algorithm}[H]
     \caption[ARPS: WCSPH simulation]{WCSPH simulation loop}
     \label{alg:WCSPH}
@@ -177,6 +180,7 @@ Algorithm~\ref{alg:WCSPH} describes the classical simulation loop.
     \EndFor
     \end{algorithmic}
 \end{algorithm}
+
 ARPS can save time on each computation step involving the position of the particles.
 In SPH fluid simulation, every property of a particle is computed as a weighted sum of its neighbors' property.
 And the weights are computed based on the position of the particle and its neighbors.
@@ -190,6 +194,8 @@ To gain computational time from the inactive particles, we extend the incrementa
 In this algorithm we denote as \emph{active} every \emph{active} or {transitive} particle.
 From one step to another, only the contributions to physical properties from active particles are updated. 
 Thus, even inactive particles whose neighbors are active are kept up-to-date.
+
+\newpage
 
 \begin{algorithm}[H]
     \caption[ARPS: WCSPH+ARPS simulation]{WCSPH+ARPS simulation loop}
@@ -220,6 +226,8 @@ Thus, even inactive particles whose neighbors are active are kept up-to-date.
     \end{algorithmic}
 \end{algorithm}
 
+\newpage 
+
 %-------------------------------------------------------------------------------
 \subsection{Viscosity}
 In SPH, viscosity forces play an important role in the stability of the simulation and in the range of phenomena that can be simulated. 
@@ -243,12 +251,14 @@ The more the particle is damped the longer it remains inactive, which is an intu
 Since our viscosity force vanishes along with the effective velocity of the particle, it drags down the kinetic energy asymptotically close to the inactivity threshold, without ever reaching it.
 Consequently, particles only subject to viscosity forces never become inactive, and we do not spare computation time, even when the particles get nearly static.
 To remedy this problem, we consider inactive the particles which effective velocity fall below a user-defined threshold.
+
 %-------------------------------------------------------------------------
 \subsection{Performance}
 We performed two experiments to measure computation time.
 The first one is a classical dam break simulation made of $5000$ particles.
 We can see in Figure~\ref{fig:ARPS_Teaser} that during fast movements most of the particles are active and the adaptive simulation stays close to reference simulation.
 Therefore small scale details like splashes are preserved.
+
 \begin{figure}[!h]
 	\begin{tabular}{cc}
 		\includegraphics[width=0.4\linewidth]{images/arps-vriphys2013/ReposSPHClassique1.jpg} &
@@ -259,9 +269,11 @@ Therefore small scale details like splashes are preserved.
 		and with our adaptive method (on the right). On the right image, blue corresponds to full-dynamics particles, green to transition particles and red to restrained particles.}
 	\label{fig:ARPS_Teaser}
 \end{figure}
+
 As soon as most particles come to rest and become inactive the speed-up can be significant (see Table~\ref{table:perf1}).
 For $15$s, the mean speed-up is $3.8$.
 The speed-up can locally reach $25.7$.
+
 \begin{table}[h!]
 	\centering
 	\begin{tabular}{|c|c|c|c|} \hline
@@ -274,6 +286,17 @@ The speed-up can locally reach $25.7$.
 The second experiment is the creation of a permanent flow with $4240$ particles. As we can see in Figure~\ref{fig:permanentflow}, once the permanent flow is installed a large amount of particles are restrained. 
 We reach an interesting speed-up while keeping a motion close to the reference (see Table~\ref{table:perf2}).
 
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{|c|c|c|c|} \hline
+		Simulation Time & SPH       & ARPS    & Speed-up \\ \hline
+		30s         & 2166s     & 814s              & \{0.83, 3.99, 2.66\} \\ \hline
+	\end{tabular}
+	\caption[ARPS: Permanent flow - Measurements]{\label{table:perf2}Permanent flow - Computation time and speed-up \small{\{min, max, mean\}}.}
+\end{table}
+
+\newpage 
+
 \begin{figure}[!h]
 	\centering
 	\begin{tabular}{ccc}
@@ -285,15 +308,6 @@ We reach an interesting speed-up while keeping a motion close to the reference (
 	\caption[ARPS: Permanent flow simulations]{\label{fig:permanentflow} A permanent flow simulation with 4240 particles.
 		(a) is a classic WCSPH simulation. (b) is our adaptive method at the same time step as (a) with restrained particles in red. (c) is our adaptive method once the permanent flow is installed.}
 \end{figure}
-
-\begin{table}[h!]
-	\centering
-	\begin{tabular}{|c|c|c|c|} \hline
-		Simulation Time & SPH       & ARPS    & Speed-up \\ \hline
-		30s         & 2166s     & 814s              & \{0.83, 3.99, 2.66\} \\ \hline
-	\end{tabular}
-	\caption[ARPS: Permanent flow - Measurements]{\label{table:perf2}Permanent flow - Computation time and speed-up \small{\{min, max, mean\}}.}
-\end{table}
 
 These examples show that ARPS can effectively be extended to speed up liquid simulation in Computer Graphics. The next section consider its application to cloth animation.
 
@@ -374,7 +388,7 @@ Figure~\ref{fig:implicitHOPP} shows the phase portrait of a harmonic oscillator 
 As expected, the well-known numerical damping effect of implicit Euler provides us with the same behavior we could observe with a damped harmonic oscillator.
 
 %%% IMPLICIT HARMONIC OSCILLATOR DAMPED%%%
-\begin{figure}[htb]
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/arps-vriphys2013/implicitHOPPraw_hacked.png}
 	\caption[ARPS: Phase portrait of an implicit ARPS harmonic oscillator]{\label{fig:implicitHOPP} Phase portrait of an implicit ARPS harmonic oscillator.}
@@ -385,6 +399,7 @@ To include a more controllable damping term in the physical model, we derived an
 	\label{eq:arpsLinearSystemDamped}
 	( I + h\gamma M^{-1}R -h^{2}KRM^{-1} ) \Delta \vp = h( \vf + h KM^{-1}s + \vf_{d})
 \end{equation}
+
 %------------------------------------------------------------------------
 \paragraph*{Solving the equation:}
 We exploit inactive particles to save computation time.
@@ -392,7 +407,11 @@ As discussed earlier, inactive particles can be handled using explicit integrati
 When a particle is inactive and has no active neighbors we do not need to include it in the linear system.
 We thus build the minimal linear system, which only contains active particles and their neighbors.
 These particles are implicitly integrated, while the others are explicitly integrated.
+\\ \\
 Figure~\ref{fig:clothARPS} shows a hanging cloth with active and inactive particles.
+At the beginning all the particles become active. Then a moving front of inactivation/reactivation traverses the cloth at decreasing frequency. The cloth finally finds a rest position, where all the particles are inactive and simulated explicitly, saving computation time. The particles can become active again if external forces or imposed motion are applied.
+Table~\ref{tab:clothePerf} shows performances we achieved with our hybrid solver.
+As soon as a large number of particles become inactive the simulation is explicitly integrated and interesting speed-up can raise.
 
 \begin{figure}[!h]
 	\centering
@@ -400,12 +419,7 @@ Figure~\ref{fig:clothARPS} shows a hanging cloth with active and inactive partic
 	\caption[ARPS: ARPS cloth simulation]{\label{fig:clothARPS} Hanging cloth. Left: traditional implicit simulation. Right: implicit ARPS simulation with a varying set of active and inactive particles. }
 \end{figure}
 
-At the beginning all the particles become active. Then a moving front of inactivation/reactivation traverses the cloth at decreasing frequency. The cloth finally finds a rest position, where all the particles are inactive and simulated explicitly, saving computation time. The particles can become active again if external forces or imposed motion are applied.
-
-Table~\ref{tab:clothePerf} shows performances we achieved with our hybrid solver.
-As soon as a large number of particles become inactive the simulation is explicitly integrated and interesting speed-up can raise.
-
-\begin{table}[htb]
+\begin{table}[!h]
 	\centering
 	\begin{tabular}{|c|c|c|c|} \hline
 		Simulation & Implicit  & Hybrid    & Speed-up \\
@@ -433,7 +447,7 @@ However, due to discrete time integration, a short transition may be stepped ove
 Currently we manually set the parameters, and defer the automatic tuning to future work.
 In table \ref{tab:parameters} we refer the thresholds used in our simulations.
 
-\begin{table}[htb]
+\begin{table}[!h]
     \centering
     \begin{tabular}{|c|c|c|c|} \hline
                 & $\epsilon^{r}$    & $\epsilon^{f}$ & Tolerance \\ \hline

@@ -427,27 +427,28 @@ The first one (Figure~\ref{fig:result_detail:boat})
 was computed using the FLIP simulation method \cite{Zhu2005} and represents a boat traversing a fluid tank and forming a wake.
 The second one (Figure~\ref{fig:result_detail:ocean}) is a procedural animation of ocean computed using the method of \cite{Tessendorf2004} and exhibits numerous small scale details.
 Then we extract the boat wake and paste it on the ocean animation at three different positions with different scales and orientations (Figures~\ref{fig:result_detail:paste} and~\ref{fig:result_detail:paste_2}).
-\begin{figure}[H]
+
+\begin{figure}[!h]
 	\centering
-	\begin{subfigure}[b]{0.48\linewidth}
+	\begin{subfigure}[b]{0.40\linewidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/boatTraversal.png}
 		\caption{\label{fig:result_detail:boat}\scriptsize{Boat simulation}}
 	\end{subfigure}
 	\hspace{0.1cm}
-	\begin{subfigure}[b]{0.48\linewidth}
+	\begin{subfigure}[b]{0.40\linewidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/highResOcean.png}
 		\caption{\label{fig:result_detail:ocean}\scriptsize{Procedural ocean}}
 	\end{subfigure}
 	\hspace{0.1cm}
-	\begin{subfigure}[b]{0.48\linewidth}
+	\begin{subfigure}[b]{0.40\linewidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/boatOnOcean.png}
 		\caption{\label{fig:result_detail:paste}\scriptsize{Pasting of the wake}}
 	\end{subfigure}
 	\hspace{0.1cm}
-	\begin{subfigure}[b]{0.48\linewidth}
+	\begin{subfigure}[b]{0.40\linewidth}
 		\centering
 		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/threeBoatsOnOcean.png}
 		\caption{\label{fig:result_detail:paste_2}\scriptsize{Multiple pasting}}
@@ -457,41 +458,12 @@ Then we extract the boat wake and paste it on the ocean animation at three diffe
 	}
 \end{figure}
 
-\paragraph{Trajectory editing}
-
-In Figure~\ref{fig:result_trajectory}, we applied several edits to a \emph{space-time feature} capturing a crown splash. First, we temporally remapped the feature to slow it down. 
-Second, we pasted it twice on a static plane at different locations. 
-Third, we edited the trajectory of the droplets to change the height of their fall. 
-Finally, we used a fading out to obtain a smooth transition with the initial plane.
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[b]{0.3\linewidth}
-		\centering
-		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_0.png}
-		\caption{\label{fig:result_trajectory:t0}$t=t_{0}$}
-	\end{subfigure}
-	\hspace{0.1cm}
-	\begin{subfigure}[b]{0.3\linewidth}
-		\centering
-		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_1.png}
-		\caption{\label{fig:result_trajectory:t1}$t=t_{1}$}
-	\end{subfigure}
-	\hspace{0.1cm}
-	\begin{subfigure}[b]{0.3\linewidth}
-		\centering
-		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_2.png}
-		\caption{\label{fig:result_trajectory:t2}$t=t_{2}$}
-	\end{subfigure}
-	\caption[Fluid sculpting: Droplets]{From an existing liquid animation we extracted a complete crown splash into a single \emph{space-time feature}. The feature combines both the fall of a drop and the resulting splash. We edit and paste this feature twice at different locations and modify the height of the droplets. Here, we show different frames of the final animation.
-	}
-	\label{fig:result_trajectory}
-\end{figure}
-
 \paragraph{Animation enrichment}
 An interesting aspect of our method is that it can be used to enrich static objects or non-fluid objects with a fluid-like behavior. 
 In Figure~\ref{fig:result:teaser}, we enriched a static object with a splash extracted from a liquid animation.
 More generally, our method allows to combines results obtained with very different methods such as procedural animation, Eulerian and Lagrangian simulations, shallow water simulation, or artist-created animations.
-\begin{figure}[H]
+
+\begin{figure}[!h]
 	\centering
 	\begin{subfigure}[b]{0.40\linewidth}
 		\centering
@@ -516,6 +488,39 @@ More generally, our method allows to combines results obtained with very differe
 	\caption[Fluid sculpting: Drop on bunny]{\label{fig:result:teaser}
 		From an initial simulation of a falling drop (a, b) space-time features can be extracted and pasted back into an other mesh, generating a new animation (c, d).}
 \end{figure}
+
+\paragraph{Trajectory editing}
+
+In Figure~\ref{fig:result_trajectory}, we applied several edits to a \emph{space-time feature} capturing a crown splash. First, we temporally remapped the feature to slow it down. 
+Second, we pasted it twice on a static plane at different locations. 
+Third, we edited the trajectory of the droplets to change the height of their fall. 
+Finally, we used a fading out to obtain a smooth transition with the initial plane.
+
+\begin{figure}[!h]
+	\centering
+	\begin{subfigure}[b]{0.3\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_0.png}
+		\caption{\label{fig:result_trajectory:t0}$t=t_{0}$}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.3\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_1.png}
+		\caption{\label{fig:result_trajectory:t1}$t=t_{1}$}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.3\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_2.png}
+		\caption{\label{fig:result_trajectory:t2}$t=t_{2}$}
+	\end{subfigure}
+	\caption[Fluid sculpting: Droplets]{From an existing liquid animation we extracted a complete crown splash into a single \emph{space-time feature}. The feature combines both the fall of a drop and the resulting splash. We edit and paste this feature twice at different locations and modify the height of the droplets. Here, we show different frames of the final animation.
+	}
+	\label{fig:result_trajectory}
+\end{figure}
+
+\newpage 
 
 \section{Discussion and concluding remarks} \label{sec:fluidsculpting:discussion}
 
