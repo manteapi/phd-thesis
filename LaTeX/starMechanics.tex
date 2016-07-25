@@ -251,7 +251,7 @@ For each of them, different weights are used, as illustrated in Figure~\ref{fig:
 The choice of the interpolation method mainly depends on how the material samples have been distributed. 
 For a sampling based on cartesian grid, trilinear interpolation is often used, for instance in Eulerian simulations~\cite{Bridson2008}. 
 For unstructured triangle meshes, linear interpolation with barycentric weights is the most popular choice to simulate elastic solids~\cite{Muller2008}.
-For mesh-less samplings, the two most common kernel interpolation methods are Smoothed-Particles Hydrodynamics (SPH) interpolation and Moving Least Squares (MLS) interpolation.
+For mesh-less samplings, the two most common kernel interpolation methods are Smoothed-Particle Hydrodynamics (SPH) interpolation and Moving Least Squares (MLS) interpolation.
 SPH interpolation has been used to simulate a wide range of phenomena from fluid~\cite{Desbrun1999} to elastic solids~\cite{Becker2009}.
 MLS has been introduced by M\"{u}ller et al. to simulate elastic and plastic deformations~\cite{Muller2004:melting}.
 It was later extended to solids fracture by Pauly et al.~\cite{Pauly2005} and interactive cutting by Steinemann et al.~\cite{Steinemann2009}.
@@ -425,9 +425,9 @@ By using Equation~\eqref{eq:internalForces_liquids}~and~\eqref{eq:incompressibil
 \end{array}
 \right.
 \end{equation}
-\subsubsection{Smoothed-Particles Hydrodynamics model}
+\subsubsection{Smoothed-Particle Hydrodynamics model}
 \label{subsubsec:starSPH}
-Smoothed-Particles Hydrodynamics (SPH) is an interpolation method that can be used to approximate Navier-Stokes equations in a Lagrangian way. 
+Smoothed-Particle Hydrodynamics (SPH) is an interpolation method that can be used to approximate Navier-Stokes equations in a Lagrangian way. 
 SPH was initially proposed by Monaghan~\cite{Monaghan1992} and introduced in graphics by Desbrun et al.~\cite{Desbrun1999}.
 The fluid is discretized into particles which represent small volumes of the whole fluid and each quantity carried by the particle is interpolated using SPH.
 In Chapter~\ref{chap:arps}, we will describe how to easily combine SPH with an adaptive model in order to save computational time.

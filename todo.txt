@@ -1,17 +1,7 @@
-Planning
-=========
-Envoi du manuscrit au rapporteur en Juillet.
-Envoi des rapports fin Août.
-Soutenance le 03 octobre.
-
-Urgent
-======
-*Envoie d'un mail à Maud et Christian pour une deadline
-
 CheckList
 ==========
 -Rajouter les references des articles à la fin des intro. des chapitres.
-
+-Liens vers les vidéos
 
 -Réferencement des figures
 -Undefined reference (figure, section, citation)
@@ -19,19 +9,8 @@ CheckList
 -Mauvaise grammaire: user's interaction
 -Espace insécable: ~\cite{}, ~\eqref{}, ~\ref{}
 
-Relecture
-=========
-
--Conclusion pour section état de l'art
--Conclusion pour état de l'art
--Transition pour état de l'art
-
--Conclusion pour chaque chapitre
--Transition pour chaque chapitre
-
-Conseils Généraux
-==================
-Trouver des titres faciles à comprendre !
+-Relecture finale
+-Template finale
 
 Figures
 =======

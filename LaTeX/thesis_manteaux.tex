@@ -4,10 +4,39 @@
 %					PREAMBLE
 %====================================================
 
+%Page de garde
+\usepackage[a4paper]{meta-donnees}
+
 %Font encoding
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
+
+% Chapter styles
+%\chapterstyle{madsen}
+
+% Sans serif headers - indented
+%\renewcommand{\parttitlefont}{\HUGE\bfseries\sffamily\scshape}
+%\renewcommand{\chaptitlefont}{\HUGE\bfseries\sffamily\scshape}
+%\setsecheadstyle{\LARGE\sffamily\scshape\raggedright\bfseries}
+%\setsubsecheadstyle{\large\sffamily\bfseries\raggedright}
+%\setsubsubsecheadstyle{\sffamily\bfseries\itshape\raggedright}
+%\setparaheadstyle{\sffamily\itshape\raggedright}
+
+% table of contents font customization
+%\renewcommand{\cftchapterfont}{\sffamily\scshape{}\bfseries{}\large}
+%\renewcommand{\cftsectionfont}{\sffamily\scshape{}}
+%\renewcommand{\cftsubsectionfont}{\sffamily\scriptsize}
+%\renewcommand{\cftsubsubsectionfont}{\scriptsize}
+
+% Header and footer style
+\makepagestyle{ruled}
+\makeevenhead{ruled}{\normalsize}{}{\normalsize\leftmark}
+\makeoddhead{ruled}{\normalsize\rightmark}{}{\normalsize}
+\makeevenfoot{ruled}{\normalsize\thepage}{}{\normalsize}
+\makeoddfoot{ruled}{\normalsize}{}{\normalsize\thepage}
+\makeheadrule{ruled}{\textwidth}{0.1pt}
+\pagestyle{ruled} 
 
 %Lettrine
 \usepackage{lettrine}
@@ -107,15 +136,13 @@
 \setsecnumdepth{subsubsection}
 
 \usepackage{epstopdf}
-%Titles
-%\usepackage{titlesec}	
 
-%Table of contents
-%\usepackage{titletoc}
+%Orphans
+\widowpenalty=10000
+\clubpenalty=10000
 
-% la ligne ci-dessous est à insérer obligatoirement dans le préambule du document avant \begin{document}
-\usepackage[a4paper]{meta-donnees}
-
+%Space after each para break
+%\setlength{\parskip}{\baselineskip}
 
 %====================================================
 %				    GLOSSARY	
@@ -134,6 +161,9 @@
 %\newglossaryentry{pil}{name={\ensuremath{\pi}},description={ratio}}
 
 %Acronym glossary
+\newacronym{arps}{ARPS}{Adaptively Restrained Particles Simulations}
+\newacronym{bcc}{BCC}{Body-centered cubic}
+\newacronym{mls}{MLS}{Moving Least Squares}
 \newacronym{sph}{SPH}{Smoothed-Particle Hydrodynamics}
 
 %Symbol glossary
@@ -203,11 +233,11 @@
 
 \frontmatter
 
-\newpage\null\thispagestyle{empty}\newpage
-
-\include{chap0_remerciements}
-
-\newpage\null\thispagestyle{empty}\newpage
+%\newpage\null\thispagestyle{empty}\newpage
+%
+%\include{chap0_remerciements}
+%
+%\newpage\null\thispagestyle{empty}\newpage
 
 \include{chap0_resume}
 
@@ -232,44 +262,44 @@
 
 \cleartorecto
 
-\include{chap2_star}
-
-\cleartorecto
-
-\include{chap3_arps}
-
-\cleartorecto
-
-\include{chap4_cutting}
-
-\cleartorecto
-
-\include{chap5_fluidsculpting}
-
-\cleartorecto
-
-\include{chap6_conclusion}
-
-\cleartorecto
-
-\appendix
-
-\include{annexe_cutting}
-
-\backmatter
-
-\printbibliography
-
-\cleartorecto
-
-\listoffigures
-
-\cleartorecto
-
-\listofalgorithms
-
-\cleartorecto
-
-\listoftables
+%\include{chap2_star}
+%
+%\cleartorecto
+%
+%\include{chap3_arps}
+%
+%\cleartorecto
+%
+%\include{chap4_cutting}
+%
+%\cleartorecto
+%
+%\include{chap5_fluidsculpting}
+%
+%\cleartorecto
+%
+%\include{chap6_conclusion}
+%
+%\cleartorecto
+%
+%\appendix
+%
+%\include{annexe_cutting}
+%
+%\backmatter
+%
+%\printbibliography
+%
+%\cleartorecto
+%
+%\listoffigures
+%
+%\cleartorecto
+%
+%\listofalgorithms
+%
+%\cleartorecto
+%
+%\listoftables
 
 \end{document}
