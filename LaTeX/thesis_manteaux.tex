@@ -138,7 +138,6 @@
 \makeglossaries
 
 %Main glossary
-%\newglossaryentry{pil}{name={\ensuremath{\pi}},description={ratio}}
 
 %Acronym glossary
 \newacronym{arps}{ARPS}{Adaptively Restrained Particles Simulations}
@@ -151,6 +150,7 @@
 \newglossaryentry{Divergence}{name={\ensuremath{\nabla \cdot}},symbol={\ensuremath{\nabla \cdot}},description={Divergence operator}}
 \newglossaryentry{Gradient}{name={\ensuremath{\nabla}},symbol={\ensuremath{\nabla}},description={Gradient operator}}
 \newglossaryentry{Laplacian}{name={\ensuremath{\Delta}},symbol={\ensuremath{\Delta}},description={Laplacian operator}}
+
 %====================================================
 %					DOCUMENT
 %====================================================
@@ -213,11 +213,10 @@
 
 \frontmatter
 
-\newpage\null\thispagestyle{empty}\newpage
-
-\include{chap0_remerciements}
-
-\newpage\null\thispagestyle{empty}\newpage
+%\newpage\null\thispagestyle{empty}\newpage
+%
+%\include{chap0_remerciements}
+%\newpage\null\thispagestyle{empty}\newpage
 
 \include{chap0_resume}
 
@@ -231,55 +230,54 @@
 
 \newpage\null\thispagestyle{empty}\newpage
 
-%\mainmatter
-%
-%\include{chap1_introduction}
-%
-%\cleartorecto
-%
+\mainmatter
+
+\include{chap1_introduction}
+
+\cleartorecto
+
 %\glsaddall
 %\printglossaries
-%
-%\cleartorecto
-%
-%\include{chap2_star}
-%
 %\cleartorecto
 
-%\include{chap3_arps}
+\include{chap2_star}
 
-%\cleartorecto
-%
-%\include{chap4_cutting}
-%
+\cleartorecto
+
+\include{chap3_arps}
+
+\cleartorecto
+
+\include{chap4_cutting}
+
 \cleartorecto
 
 \include{chap5_fluidsculpting}
-%
-%\cleartorecto
-%
-%\include{chap6_conclusion}
-%
-%\cleartorecto
-%
-%\appendix
-%
-%\include{annexe_cutting}
-%
-%\backmatter
-%
-%\printbibliography
-%
-%\cleartorecto
-%
-%\listoffigures
-%
-%\cleartorecto
-%
-%\listofalgorithms
-%
-%\cleartorecto
-%
-%\listoftables
+
+\cleartorecto
+
+\include{chap6_conclusion}
+
+\cleartorecto
+
+\appendix
+
+\include{annexe_cutting}
+
+\backmatter
+
+\printbibliography
+
+\cleartorecto
+
+\listoffigures
+
+\cleartorecto
+
+\listofalgorithms
+
+\cleartorecto
+
+\listoftables
 
 \end{document}
