@@ -56,11 +56,6 @@
 
 \addbibresource{./bib/thesis_manteaux.bib}
 
-\usepackage[colorlinks=true,
-            linkcolor=blue,
-            urlcolor=blue,
-            citecolor=blue]{hyperref}
-
 %Units
 \usepackage[squaren,Gray]{SIunits}
 
@@ -80,27 +75,6 @@
 \usepackage{soul} % highlighting with word wrap
 \newcommand{\highlight}[2]{\colorlet{hlcolor}{#1}\sethlcolor{hlcolor}\hl{#2}} % work around soul/xcolor conflict
 \usepackage[usenames,dvipsnames]{xcolor}
-
-%Tikz
-\usepackage{tikz}
-\usetikzlibrary{arrows,positioning,calc}
-\tikzset{
-    >=stealth', %Define standard arrow tip
-    %Define style for boxes
-    punkt/.style={
-           rectangle,
-           rounded corners,
-           draw=black, very thick,
-           text width=6.5em,
-           minimum height=2em,
-           text centered},
-    % Define arrow style
-    pil/.style={
-           ->,
-           thick,
-           shorten <=2pt,
-           shorten >=2pt,}
-}
 
 %Math commands
 \renewcommand{\vec}[1]{\mathbf{#1}}
@@ -141,6 +115,12 @@
 \widowpenalty=10000
 \clubpenalty=10000
 
+%Hyperref
+\usepackage[colorlinks=true,
+            linkcolor=blue,
+            urlcolor=blue,
+            citecolor=blue]{hyperref}
+
 %Space after each para break
 %\setlength{\parskip}{\baselineskip}
 
@@ -150,7 +130,7 @@
 \usepackage[acronym, nonumberlist, nopostdot, section]{glossaries}
 \usepackage{glossary-longbooktabs} 
 
-%\setglossarystyle{long-booktabs}
+\setglossarystyle{long-booktabs}
 \renewcommand*{\glossaryname}{Notations}
 \renewcommand*{\entryname}{Symbol}
 \renewcommand*{\descriptionname}{Description}
@@ -233,11 +213,11 @@
 
 \frontmatter
 
-%\newpage\null\thispagestyle{empty}\newpage
-%
-%\include{chap0_remerciements}
-%
-%\newpage\null\thispagestyle{empty}\newpage
+\newpage\null\thispagestyle{empty}\newpage
+
+\include{chap0_remerciements}
+
+\newpage\null\thispagestyle{empty}\newpage
 
 \include{chap0_resume}
 

@@ -1,18 +1,5 @@
 \chapter[Detailed Cutting with Sparse Sampling]{Detailed Cutting of Thin Deformable Models with Sparse Sampling}
 \label{chap:cutting}
-\begin{figure}[t]
-\centering
-\begin{subfigure}[b]{0.45\linewidth}
-\includegraphics[width=\linewidth]{images/cutting-mig2015/Spiral2.pdf}
-\caption{\label{fig:spiral}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.45\linewidth}
-\includegraphics[width=\linewidth]{images/cutting-mig2015/Kirigami.pdf}
-\caption{\label{fig:kirigami}}
-\end{subfigure}
-\caption[Frame-based cutting: Spiral and Kirigami cutting examples]{\label{fig:Cutting_Teaser} Progressive cutting of a spiral using only five control frames (a). Simulating complex deformations resulting from Kirigami cutting (b). Note that an horizontal stretching force results into a twist of the bands of material, as in real experiments using paper.}
-\end{figure}
 \Lettrine{C}{ombining} interactive user actions and detailed convincing animations is crucial for user experience in simulation and games. Unfortunately, computational constraints limit the 
 fidelity that can be achieved with physics-based animation
 in interactive simulations. Often, the simulated objects lack detail compared to the rest of the virtual environment.
@@ -37,6 +24,7 @@ Our contributions includes:
 \item The dynamic re-sampling of new frames into disconnected parts (Section \ref{sec:resampling}).
 \item The incremental update of the different components of the simulation that were concerned by the cut (Section \ref{sec:incremental}).
 \end{itemize}
+
 Our method can be used to simulate a wide variety of objects, such as stretchable cloth or pieces of paper. 
 It features a very low number of frame nodes, high resolution mesh embedding, numerous and detailed cuts. 
 Performance ranges from interactive to offline depending on the desired accuracy and complexity of the cuts.
@@ -47,25 +35,10 @@ We choose to not include this section in Chapter~\ref{chap:star} for two reasons
 Firstly, this is a high level presentation of related works and we think a more detailed presentation of the underlying mathematics would be needed to be a part of the state of the art chapter;
 Secondly, this configuration allows us to keep a more coherent discussion about our choices for the model.
 In Section~\ref{sec:results}, we illustrate our method in different scenarios and detail the computational results. 
-Finally, we discuss limitations and future work in Section~\ref{sec:cutting_conclusion}.
+Finally, we discuss limitations and future work in Section~\ref{sec:cutting_conclusion}. 
 \\ \\
 The works described in this chapter were presented at the conference \emph{MIG 2015}~\cite{Manteaux2015}.
-\begin{figure*}[!ht]
-\centering
-\begin{subfigure}[c]{0.18\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/spiral_mesh.pdf}
-\caption{\label{fig:spiralMesh}}
-\end{subfigure}
-\hspace{1.5cm}
-\begin{subfigure}[c]{0.68\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/sfRender_ff/weightShow.pdf}
-\caption{\label{fig:weightShow}}
-\end{subfigure}
-\caption[Frame-based cutting: Comparison of shape functions]{\label{fig:spiralWeight}
-Comparison between shape functions computed on a uniform grid and on a non-manifold grid. (a) The underlying mesh (black lines) is cut by spiral (red line) and sampled with five control frames (blue circle). (b) The shape functions for each of the frame with a uniform grid (top row) and with a non-manifold grid (bottom row). Values range from $1$ to $0$ and are respectively depicted from red to blue. We can observe that shape functions computed on the non-manifold grid strictly preserve the details and topology of the underlying mesh.}
-\end{figure*}
+A video illustrating the method and its results is available \href{https://hal.inria.fr/hal-01206780/file/Manteaux_MIG2015_IDCTS.mp4}{video}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                       RELATED WORK
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -111,9 +84,26 @@ This allows us to keep a constant number of nodes as long as there are no discon
 In~\cite{Faure2011}, the shape functions are computed on a uniform grid.
 The structure is simple and efficient. 
 However, discontinuities that can be represented are very limited and strongly connected to the grid resolution. 
-Instead, we build a non-manifold grid to compute topology-preserving shape functions (see Figure \ref{fig:spiralWeight}). 
+Instead, we build a non-manifold grid to compute topology-preserving shape functions (see Figure \ref{fig:spiralWeight}).
 The main idea is that cut cells are duplicated and that each resulting instance stores different connectivities. 
 Therefore, grid resolution depends much less on the mesh topology while keeping all topological informations.
+
+\begin{figure}[!h]
+	\centering
+	\begin{subfigure}[c]{0.18\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/spiral_mesh.pdf}
+		\caption{\label{fig:spiralMesh}}
+	\end{subfigure}
+	\hspace{1.5cm}
+	\begin{subfigure}[c]{0.68\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/sfRender_ff/weightShow.pdf}
+		\caption{\label{fig:weightShow}}
+	\end{subfigure}
+	\caption[Frame-based cutting: Comparison of shape functions]{\label{fig:spiralWeight}
+		Comparison between shape functions computed on a uniform grid and on a non-manifold grid. (a) The underlying mesh (black lines) is cut by spiral (red line) and sampled with five control frames (blue circle). (b) The shape functions for each of the frame with a uniform grid (top row) and with a non-manifold grid (bottom row). Values range from $1$ to $0$ and are respectively depicted from red to blue. We can observe that shape functions computed on the non-manifold grid strictly preserve the details and topology of the underlying mesh.}
+\end{figure}
 
 We summarize our simulation loop in Algorithm~\ref{alg:simulationLoop} and detail our remeshing algorithm in appendix~\ref{appendix:remeshing}.
 
@@ -140,60 +130,57 @@ We summarize our simulation loop in Algorithm~\ref{alg:simulationLoop} and detai
 In this section, we first summarize how Voronoi shape functions are traditionally computed. 
 Then we detail why a non-manifold grid is necessary, how to build it and how to use it to compute the shape functions on complex topology.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                      SHAPEFUNCTION
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Voronoi shape function}
-\begin{figure*}[!ht]
-\centering
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/buildSF_1.pdf}
-\caption{\label{fig:buildSF1}}
-\end{subfigure}
-\hspace{2cm}
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/buildSF_2.pdf}
-\caption{\label{fig:buildSF2}}
-\end{subfigure}
-\hspace{2cm}
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/buildSF_3.pdf}
-\caption{\label{fig:buildSF3}}
-\end{subfigure}
-\caption[Frame-based cutting: Voronoi shapefunction computation]{\label{fig:shapefunctionconstruction}
-Illustrations of Voronoi shape function computation. (a) Starting from samples (blue circles), we build a Voronoi diagram using Dijkstra's shortest path algorithm. (b) Then, for each frame and its region $V_{i}$, we compute the maximum distance $d_{max}$ to its Voronoi boundary $V_{b}$. We extend $V_{i}$ to twice $d_{max}$ which gives $V_{e}$. (c) Finally for each grid cell $j$ in $V_{e}$ we linearly interpolate using distance to the frame position and distance to $V_{b}$.}
-\end{figure*}
-
 Let $w_{i}(x) : \Omega \rightarrow \mathcal{R}$ be the shape function for the $i$-th control frame, where $\Omega$ represents the domain. Starting from the Voronoi partition $V$ of the set of control frames, we can independently compute $w_{i}$ for each frame.
 
 First, we compute the maximal distance $d_{max}$ from the control node to its Voronoi boundary $V_{b}$. Then we extend its Voronoi region $V_{i}$ to twice $d_{max}$. This gives a new region $V_{e}$ which describes the final boundary of the shape function. Now, we can compute $w_{i}$ inside $V_{e}$. We set $w_{i}$ to be $1$ at the frame position, $0$ at the others and $0.5$ on $V_{b}$. Finally, we linearly interpolate $w_{i}$ between $V_{b}$, the frame position and the boundary of $V_{e}$. We detail the interpolation in Algorithm~ \ref{alg:shapefunctioncomputation} and in Figure~ \ref{fig:shapefunctionconstruction}.
 
-In practice, the Voronoi diagram is computed using Dijkstra's shortest path algorithm on a grid in order to preserve geodesic distances. For each frame, the shape function is computed on the whole grid. As the grid resolution can be quite coarse, this is particularly fast. Negative values are clamped and weights are normalized to form a partition of unity. Then least-square approximation is performed to evaluate the shape function and its derivatives at specific positions.
-
-\begin{algorithm}[h]
-\caption[Frame-based cutting: Shapefunction computation]{\label{alg:shapefunctioncomputation}Shapefunction computation}
-\begin{algorithmic}[1]
-\Procedure{Compute$\_$Shapefunction}{}
-\For{each frame $i$}
-	\State $V_{i} \gets$ Voronoi region of $i$
-	\State $V_{b} \gets$ boundary of $V_{i}$	
-	\State $d_{max} \gets$ maximum distance to $V_{i}$ boundary
-	\State $V_{e} \gets$ extend $V_{i}$ to $2.0 \times d_{max}$
-	\LineComment{dist($A$,$B$) is the geodesic distance between $A$ and $B$}
-	\For{each grid cell $j$ in $V_{e}$}
-	\If{$j$ is inside $V_{i}$}
-	\State $\displaystyle w_{i}(j) = 0.5\left(1 + \frac{dist(j,V_{b})}{dist(j,V_{b})+dist(j,i)}\right)$
-	\ElsIf{$j$ is inside $V_{e}$}
+\begin{algorithm}[!h]
+	\caption[Frame-based cutting: Shapefunction computation]{\label{alg:shapefunctioncomputation}Shapefunction computation}
+	\begin{algorithmic}[1]
+		\Procedure{Compute$\_$Shapefunction}{}
+		\For{each frame $i$}
+		\State $V_{i} \gets$ Voronoi region of $i$
+		\State $V_{b} \gets$ boundary of $V_{i}$	
+		\State $d_{max} \gets$ maximum distance to $V_{i}$ boundary
+		\State $V_{e} \gets$ extend $V_{i}$ to $2.0 \times d_{max}$
+		\LineComment{dist($A$,$B$) is the geodesic distance between $A$ and $B$}
+		\For{each grid cell $j$ in $V_{e}$}
+		\If{$j$ is inside $V_{i}$}
+		\State $\displaystyle w_{i}(j) = 0.5\left(1 + \frac{dist(j,V_{b})}{dist(j,V_{b})+dist(j,i)}\right)$
+		\ElsIf{$j$ is inside $V_{e}$}
 		\State $\displaystyle w_{i}(j) = 0.5\left(1 - \frac{dist(j,V_{b})}{dist(j,i)-dist(j,V_{b})}\right)$
-	\EndIf
-	\EndFor
-\EndFor
-\EndProcedure
-\end{algorithmic}
+		\EndIf
+		\EndFor
+		\EndFor
+		\EndProcedure
+	\end{algorithmic}
 \end{algorithm}
+
+\subsection{Voronoi shape function}
+\begin{figure}[!h]
+	\centering
+	\begin{subfigure}[b]{0.20\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/buildSF_1.pdf}
+		\caption{\label{fig:buildSF1}}
+	\end{subfigure}
+	\hspace{2cm}
+	\begin{subfigure}[b]{0.20\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/buildSF_2.pdf}
+		\caption{\label{fig:buildSF2}}
+	\end{subfigure}
+	\hspace{2cm}
+	\begin{subfigure}[b]{0.20\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/buildSF_3.pdf}
+		\caption{\label{fig:buildSF3}}
+	\end{subfigure}
+	\caption[Frame-based cutting: Voronoi shapefunction computation]{\label{fig:shapefunctionconstruction}
+		Illustrations of Voronoi shape function computation. (a) Starting from samples (blue circles), we build a Voronoi diagram using Dijkstra's shortest path algorithm. (b) Then, for each frame and its region $V_{i}$, we compute the maximum distance $d_{max}$ to its Voronoi boundary $V_{b}$. We extend $V_{i}$ to twice $d_{max}$ which gives $V_{e}$. (c) Finally for each grid cell $j$ in $V_{e}$ we linearly interpolate using distance to the frame position and distance to $V_{b}$.}
+\end{figure}
+
+In practice, the Voronoi diagram is computed using Dijkstra's shortest path algorithm on a grid in order to preserve geodesic distances. For each frame, the shape function is computed on the whole grid. As the grid resolution can be quite coarse, this is particularly fast. Negative values are clamped and weights are normalized to form a partition of unity. Then least-square approximation is performed to evaluate the shape function and its derivatives at specific positions.
 
 Voronoi shape functions were designed in order to respect key properties that are particularly useful for physics-based animation~\cite{Faure2011} . First, they respect the Kronecker property, i.e $w_{i}(x) = \delta_{i}(x)$ where $w_{i}(x)$ is the shape function of node $i$, $x$ is a spatial position and $\delta_{i}$ is Dirac function. Second, they form a partition of unity, i.e $\sum_{i}w_{i}(x) = 1$. Third, they are built to be as linear as possible in order to produce uniform deformations. Finally, they can easily be biased by material properties in order to represent heterogeneous material.
 
@@ -217,71 +204,71 @@ As mentioned above, in~\cite{Faure2011}, shape functions are computed on a unifo
 
 Unfortunately, this strategy is very limited for uniform grid and would only work in simple cases. For instance, several cuts that intersect or that create disconnected components inside one cell could not be represented. Even without cut, small gaps that lie inside one cell could not be correctly represented. Geodesic distances would be false and the object would behave as if there were no cuts or gaps. Augmenting the resolution would not solve the problem. We would fight the same issue as previous methods. Our grid resolution would be highly dependent on the complexity of the topology and the geometry of the object. It would directly impact performances.
 
-\begin{figure*}[t]
-\centering
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/connectivity.pdf}
-\caption{\label{fig:connectivity}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.30\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/simple_cut.pdf}
-\caption{\label{fig:simplecut}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.40\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/little_pieces.pdf}
-\caption{\label{fig:littlePieces}}
-\end{subfigure}
-%\hfill
-%\begin{subfigure}[b]{0.24\linewidth}
-%\centering
-%\includegraphics[width=\linewidth]{images/cutting-mig2015/multi_cut.pdf}
-%\caption{\label{fig:multicut}}
-%\end{subfigure}
-\caption[Frame-based cutting: Non-manifold grid illustration]{\label{fig:nonmanifoldgridillustration}
-Illustrations of different possibilities for a non-manifold cell with eight connectivity (a). In (b), the cell is simply cut into two cells. Each duplicate of the cut cell has a specific connectivity that represent the cut topology. In (c), multiple disconnected components can be contained inside one cell. The cell is duplicated four times. Three of the duplicates have no connectivity. However they can embed complex geometry and then be simulated by adding new frames for each of the component. The fourth duplicate keeps its eight neighbors and remains independent from the three other.}
-\end{figure*}
-
 We want each grid cell to be able to represent  the connectivities of the different disconnected components that lie in the cell. To do so, each cut cell is duplicated as many times as it contains disconnected parts. Each duplicate has a specific connectivity built from the material connectivity. This results in a data structure called \emph{non-manifold grid} (see Figure \ref{fig:nonmanifoldgridillustration}).
 
-\begin{figure*}[t]
-\centering
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_1.pdf}
-\caption{\label{fig:buildNMG1}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_2.pdf}
-\caption{\label{fig:buildNMG2}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_3.pdf}
-\caption{\label{fig:buildNMG3}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.20\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_4.pdf}
-\caption{\label{fig:buildNMG4}}
-\end{subfigure}
-\caption[Frame-based cutting: Non-manifold grid building]{\label{fig:nonmanifoldgridbuilding}
-We describe the building of the non-manifold grid for the center cell of the grid. (a) The mesh is embedded in a uniform grid. (b) First, we store the overlapping geometry in the cell. (c) Then we detect disconnected parts using a flood fill algorithm. (d) Finally the cell is duplicated. For each duplicate, we look for other duplicates that share geometry and establish its connectivity.}
-\end{figure*}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.20\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/connectivity.pdf}
+		\caption{\label{fig:connectivity}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.30\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/simple_cut.pdf}
+		\caption{\label{fig:simplecut}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.40\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/little_pieces.pdf}
+		\caption{\label{fig:littlePieces}}
+	\end{subfigure}
+	%\hfill
+	%\begin{subfigure}[b]{0.24\linewidth}
+	%\centering
+	%\includegraphics[width=\linewidth]{images/cutting-mig2015/multi_cut.pdf}
+	%\caption{\label{fig:multicut}}
+	%\end{subfigure}
+	\caption[Frame-based cutting: Non-manifold grid illustration]{\label{fig:nonmanifoldgridillustration}
+		Illustrations of different possibilities for a non-manifold cell with eight connectivity (a). In (b), the cell is simply cut into two cells. Each duplicate of the cut cell has a specific connectivity that represent the cut topology. In (c), multiple disconnected components can be contained inside one cell. The cell is duplicated four times. Three of the duplicates have no connectivity. However they can embed complex geometry and then be simulated by adding new frames for each of the component. The fourth duplicate keeps its eight neighbors and remains independent from the three other.}
+\end{figure}
 
 Non-manifold grids are used by many other cutting methods to embed fine geometric details in coarse finite element simulations. However, we make a completely different use of it. Instead of duplicating control nodes as the cells are cut, thereby increasing their number and the computation time, we use the grid to adapt the shape functions to the evolving topology of the mesh. Most of the time, the number of nodes can remain constant while representing detailed geometry and multiple cuts.
 
 There are several ways to compute this non-manifold grid. In our method, we start by embedding the mesh in a uniform grid. Mesh elements that overlap a grid cell are detected using intersections tests and are assigned to it. Then, for each grid cell, we use a flood fill algorithm to detect the disconnected parts of the mesh. This informs about how many duplicates need to be created for the cell. Finally, for each duplicate we establish its connectivity by comparing its geometry with the geometry of the neighbor cells duplicates. We summarize our method in Algorithm~\ref{alg:nonmanifoldbuilding} and illustrate the main steps in Figure~\ref{fig:nonmanifoldgridbuilding}.
 
-\begin{algorithm}[!hb]
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.20\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_1.pdf}
+		\caption{\label{fig:buildNMG1}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.20\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_2.pdf}
+		\caption{\label{fig:buildNMG2}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.20\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_3.pdf}
+		\caption{\label{fig:buildNMG3}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.20\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/buildNMG_4.pdf}
+		\caption{\label{fig:buildNMG4}}
+	\end{subfigure}
+	\caption[Frame-based cutting: Non-manifold grid building]{\label{fig:nonmanifoldgridbuilding}
+		We describe the building of the non-manifold grid for the center cell of the grid. (a) The mesh is embedded in a uniform grid. (b) First, we store the overlapping geometry in the cell. (c) Then we detect disconnected parts using a flood fill algorithm. (d) Finally the cell is duplicated. For each duplicate, we look for other duplicates that share geometry and establish its connectivity.}
+\end{figure}
+
+\begin{algorithm}[H]
 \caption[Frame-based cutting: Non-manifold grid building]{\label{alg:nonmanifoldbuilding}Non-manifold grid building}
 \begin{algorithmic}[1]
 \Procedure{Build$\_$Non$\_$Manifold$\_$Grid}{grid $G$, mesh $M$}
@@ -357,83 +344,95 @@ Integrations points are used to compute deformation gradients and transfer inter
 \subsection{Local weights update} \label{sec:interpolation}
 
 Weights and derivatives are interpolated from the grid to positions of the different samples : collision nodes, integration points and mesh vertices. At each cut, we need to update these values. In an interactive context, we cannot afford to perform interpolation for all these samples. Once again, we leverage the fact that a cut is very often a local event, sometimes progressive, and will impact only a small fraction of the different samples. Our idea is to perform incremental update of weights and derivatives by detecting the low number of samples that were impacted by the cut. At each time step, if a cut was performed, we compare the new shape functions with the previous ones and detect the grid cells which have been impacted by the cut. All the samples that are contained or are neighbors of these cells need to be updated. In the end, even if we have control frames that covers large regions of the domain compared to classical simulations, simulation data that need to be updated remains spatially local.
-\begin{figure*}[ht]
-\centering
-\begin{subfigure}[b]{0.32\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/Patchwork.pdf}
-\caption{\label{fig:patchwork}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.32\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/FallingGuy.pdf}
-\caption{\label{fig:fallingguy}}
-\end{subfigure}
-\hfill
-\begin{subfigure}[b]{0.32\linewidth}
-\centering
-\includegraphics[width=\linewidth]{images/cutting-mig2015/Vortex.pdf}
-\caption{\label{fig:vortex}}
-\end{subfigure}
-\caption[Frame-based cutting: Examples of detailed cutting]{\label{fig:result} (a) Several highly detailed shapes are cut in a deformable sheet. Each disconnected part is automatically re-sampled with additional control frames. (b) Simulation of a highly detailed cut that falls under gravity and remains attached to the main part by a thin piece of paper. (c) Two cuts intersect to form a vortex shape. This illustrates the abilities of the non-manifold grid to handle multiple intersecting cuts.}
-\end{figure*}
-
-\addtolength{\tabcolsep}{-1.5pt}
-\begin{table*}[!ht]
-\centering
-\scalebox{0.63}
-{
-\begin{tabular}{l|c|cc|cc|c|c|ccc}
-& & \multicolumn{2}{c|}{\#frame} & \multicolumn{2}{c|}{\#vertices} & & & \multicolumn{3}{c}{Lowest FPS}\\
-Name & Grid Size & Initial & Final & Initial & Final & \#collision & \#integration & \begin{tabular}{c}Before \\ Cutting\end{tabular}  & \begin{tabular}{c}During \\ Cutting\end{tabular}  & \begin{tabular}{c}After \\ Cutting\end{tabular}  \\ \hline
-Spiral (Fig. \ref{fig:spiral}) & $40 \times 40$ & $5$ & $5$ & $81$ & $2111$ & $200$ & $200$ & $60$ & $14.4$ & $60$\\ 
-Kirigami (Fig. \ref{fig:kirigami}) & $68 \times 68$ & $47$ & $47$ & $4225$ & $7453$ & $600$ & $800$ & $11.3$ & $3.2$ & $10.9$\\ 
-Patchwork (Fig. \ref{fig:patchwork}) & $50 \times 50$ & $5$ & $12$ & $4225$ & $8253$ & $200$ & $200$ & $60$ & $6.8$ & $45$\\
-Vortex (Fig. \ref{fig:vortex}) & $68 \times 68$ & $5$ & $5$ & $4225$ & $4889$ & $200$ & $200$ & $45$ & $7.2$ & $35.7$\\
-FallingGuy (Fig. \ref{fig:fallingguy}) & $100 \times 50$ & $10$ & $10$ & $289$ & $861$ & $500$ & $500$ & $60$ & $8.2$ & $60$\\
-\end{tabular}
-}
-\caption[Frame-based cutting: Resolution \& timings]{\label{tab:performance} Resolution of the different components of the simulation and timings.}
-\end{table*}
-
-\addtolength{\tabcolsep}{1.5pt}
-
-\begin{table*}[!ht]
-\centering
-\scalebox{0.7}
-{
-\begin{tabular}{l|ccccc}
-& \multicolumn{4}{c}{Percentage of update for a cutting step} \\
-Name & \%grid cell &\%shape function cell & \%vertices & \%collision nodes & \%integration points \\ \hline
-Spiral (Fig. \ref{fig:spiralMesh}) & $0.07$ & $28.1$ & $61.5$ & $27.2$ & $41.3$\\
-Kirigami (Fig. \ref{fig:kirigami}) & $1.06$ & $15.9$ & $17.8$ & $15.8$ & $20.3$\\
-Patchwork (Fig. \ref{fig:patchwork}) & $0.02$ & $2.78$ & $4.33$ & $2.55$ & $7.15$\\
-Vortex (Fig. \ref{fig:vortex}) & $0.08$ & $10.3$ & $12.8$ & $9.2$ & $24.2$\\
-FallingGuy (Fig. \ref{fig:fallingguy}) & $0.09$ & $5.84$ & $11.4$ & $5.77$ & $14.9$\\
-\end{tabular}
-}
-\caption[Frame-based cutting: Incremental update timings]{\label{tab:incrementalUpdate} Percentage of updated data in a cutting time step. We averaged the percentage for the whole cutting time. We notice that even if very few grid cell are affected, it implies important changes on the shape functions and the samples that are associated to these values.}
-\end{table*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                      RESULTS 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results} \label{sec:results}
 
-We illustrate our method in a variety of simulations where a piece of paper undergoes progressive scripted cuts. As we use several layers of samples (frames, collision nodes, integration points), choosing a good trade off between accuracy and performance is essential. In all the examples, we used the minimum number of samples we could without compromising visual results (see Table \ref{tab:performance}). Frame re-sampling was required to simulate disconnected parts. However it appears that no additional collision nodes or integration points were required. We can deduce that our relaxation strategy is sufficient to keep the object uniformly sampled along the simulation.
+We illustrate our method in a variety of simulations where a piece of paper undergoes progressive scripted cuts. As we use several layers of samples (frames, collision nodes, integration points), choosing a good trade off between accuracy and performance is essential. In all the examples, we used the minimum number of samples we could without compromising visual results. Frame re-sampling was required to simulate disconnected parts. However it appears that no additional collision nodes or integration points were required. We can deduce that our relaxation strategy is sufficient to keep the object uniformly sampled along the simulation.
 
-All our examples run at interactive frame rate during the whole simulation (see Table \ref{tab:performance}). Frame rates were collected on a twelve-core 3.20 GHz Intel Xeon CPU with 15.6 GB RAM. We highlight that our implementation is not optimized and there are still a lot of room for improvements that we did not have time to implement. Full animated results are shown in the accompanying video.
+All our examples run at interactive frame rate during the whole simulation (see Table \ref{tab:performance}). Frame rates were collected on a twelve-core 3.20 GHz Intel Xeon CPU with 15.6 GB RAM. We highlight that our implementation is not optimized and there are still a lot of room for improvements that we did not have time to implement. Full animated results are shown in the \href{https://hal.inria.fr/hal-01206780/file/Manteaux_MIG2015_IDCTS.mp4}{accompanying video}.
+
+\addtolength{\tabcolsep}{-1.5pt}
+\begin{table}[!h]
+	\centering
+	\scalebox{0.63}
+	{
+		\begin{tabular}{l|c|cc|cc|c|c|ccc}
+			& & \multicolumn{2}{c|}{\#frame} & \multicolumn{2}{c|}{\#vertices} & & & \multicolumn{3}{c}{Lowest FPS}\\
+			Name & Grid Size & Initial & Final & Initial & Final & \#collision & \#integration & \begin{tabular}{c}Before \\ Cutting\end{tabular}  & \begin{tabular}{c}During \\ Cutting\end{tabular}  & \begin{tabular}{c}After \\ Cutting\end{tabular}  \\ \hline
+			Spiral (Fig. \ref{fig:spiral}) & $40 \times 40$ & $5$ & $5$ & $81$ & $2111$ & $200$ & $200$ & $60$ & $14.4$ & $60$\\ 
+			Kirigami (Fig. \ref{fig:kirigami}) & $68 \times 68$ & $47$ & $47$ & $4225$ & $7453$ & $600$ & $800$ & $11.3$ & $3.2$ & $10.9$\\ 
+			Patchwork (Fig. \ref{fig:patchwork}) & $50 \times 50$ & $5$ & $12$ & $4225$ & $8253$ & $200$ & $200$ & $60$ & $6.8$ & $45$\\
+			Vortex (Fig. \ref{fig:vortex}) & $68 \times 68$ & $5$ & $5$ & $4225$ & $4889$ & $200$ & $200$ & $45$ & $7.2$ & $35.7$\\
+			FallingGuy (Fig. \ref{fig:fallingguy}) & $100 \times 50$ & $10$ & $10$ & $289$ & $861$ & $500$ & $500$ & $60$ & $8.2$ & $60$\\
+		\end{tabular}
+	}
+	\caption[Frame-based cutting: Resolution \& timings]{\label{tab:performance} Resolution of the different components of the simulation and timings.}
+\end{table}
+\addtolength{\tabcolsep}{1.5pt}
 
 Figure \ref{fig:spiral} shows a long spiral cut in a sheet of paper simulated with only $5$ frames. The shape functions of the frames faithfully represent the cut as shown in Figure \ref{fig:spiralWeight}. 
-
 To illustrate that our method can handle multiple cuts and still simulate complex deformations, the creation of a Kirigami is shown in Figure \ref{fig:kirigami}. $48$ cuts are performed and it only required $47$ frames and $400$ integration points to produce a plausible behavior.
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.45\linewidth}
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/Spiral2.pdf}
+		\caption{\label{fig:spiral}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.45\linewidth}
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/Kirigami.pdf}
+		\caption{\label{fig:kirigami}}
+	\end{subfigure}
+	\caption[Frame-based cutting: Spiral and Kirigami cutting examples]{\label{fig:Cutting_Teaser} Progressive cutting of a spiral using only five control frames (a). Simulating complex deformations resulting from Kirigami cutting (b). Note that an horizontal stretching force results into a twist of the bands of material, as in real experiments using paper.}
+\end{figure}
 
 Detailed cuts can be performed and separated components can be handled as shown in Figure \ref{fig:patchwork}. In a cloth sheet, we progressively cut bunny, teapot, dragon and armadillo shapes. Each time a new object is completely cut, it is automatically re-sampled with additional frames.
 
 As we explained, the non-manifold grid can represent an arbitrary number of connectivity in one cell. This is particularly useful in order to represent intersecting cuts as shown in Figure \ref{fig:vortex}.
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.32\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/Patchwork.pdf}
+		\caption{\label{fig:patchwork}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.32\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/FallingGuy.pdf}
+		\caption{\label{fig:fallingguy}}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.32\linewidth}
+		\centering
+		\includegraphics[width=\linewidth]{images/cutting-mig2015/Vortex.pdf}
+		\caption{\label{fig:vortex}}
+	\end{subfigure}
+	\caption[Frame-based cutting: Examples of detailed cutting]{\label{fig:result} (a) Several highly detailed shapes are cut in a deformable sheet. Each disconnected part is automatically re-sampled with additional control frames. (b) Simulation of a highly detailed cut that falls under gravity and remains attached to the main part by a thin piece of paper. (c) Two cuts intersect to form a vortex shape. This illustrates the abilities of the non-manifold grid to handle multiple intersecting cuts.}
+\end{figure}
+
 We noticed that even if a cut only concern a few grid cells, the number of data to re-compute is much more important. This comes from the fact that each frame can cover a large region and changes arising from a local cut can be important. Fortunately, our incremental update mechanisms allows to save numerous unnecessary computations as shown in Table \ref{tab:incrementalUpdate}. 
+
+\begin{table}[H]
+	\centering
+	\scalebox{0.7}
+	{
+		\begin{tabular}{l|ccccc}
+			& \multicolumn{4}{c}{Percentage of update for a cutting step} \\
+			Name & \%grid cell &\%shape function cell & \%vertices & \%collision nodes & \%integration points \\ \hline
+			Spiral (Fig. \ref{fig:spiralMesh}) & $0.07$ & $28.1$ & $61.5$ & $27.2$ & $41.3$\\
+			Kirigami (Fig. \ref{fig:kirigami}) & $1.06$ & $15.9$ & $17.8$ & $15.8$ & $20.3$\\
+			Patchwork (Fig. \ref{fig:patchwork}) & $0.02$ & $2.78$ & $4.33$ & $2.55$ & $7.15$\\
+			Vortex (Fig. \ref{fig:vortex}) & $0.08$ & $10.3$ & $12.8$ & $9.2$ & $24.2$\\
+			FallingGuy (Fig. \ref{fig:fallingguy}) & $0.09$ & $5.84$ & $11.4$ & $5.77$ & $14.9$\\
+		\end{tabular}
+	}
+	\caption[Frame-based cutting: Incremental update timings]{\label{tab:incrementalUpdate} Percentage of updated data in a cutting time step. We averaged the percentage for the whole cutting time. We notice that even if very few grid cell are affected, it implies important changes on the shape functions and the samples that are associated to these values.}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                      DISCUSSION 
@@ -454,5 +453,5 @@ Finally, we would like to extend our work to 3D. The implementation of our curre
 \\
 In this chapter and the previous one, we explored different simulation techniques which enables efficient computations and topological changes. 
 When experimenting these two methods, a substantial amount of time was dedicated to adjust the parameters of the simulation: time step, damping, stiffness, initial and boundary conditions, in order to achieve the results we had in mind.
-As we explained in Section~\ref{starSimulationControl}, controlling a physics-based simulation is a hard problem, especially when it exhibits complex topological changes, such as in liquid simulations.
+As we explained in Section~\ref{sec:starSimulationControl}, controlling a physics-based simulation is a hard problem, especially when it exhibits complex topological changes, such as in liquid simulations.
 In the next chapter, we address this problem by proposing a novel method to sculpt liquids animations using intuitive tools inspired from shape modeling.

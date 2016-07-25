@@ -1,35 +1,8 @@
 \chapter[Sculpting of Liquid Animations]{Sculpting of Liquid Animations}
 \label{chap:fluidsculpting}
-\begin{figure}[!h]
-    \centering
-    \begin{subfigure}[b]{0.45\linewidth}
-    \centering
-    \includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/teaser/fluid_004.png}
-    \caption{\label{fig:result_detail:drop_0}\footnotesize{Initial simulation at time $t_0$}}
-    \end{subfigure}
-    \hspace{0.1cm}
-    \begin{subfigure}[b]{0.45\linewidth}
-    \includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/teaser/fluid_012.png}
-    \caption{\label{fig:result_detail:drop_1}\footnotesize{Initial simulation at time $t_1$}}
-    \end{subfigure}
-    \hspace{0.1cm}
-    \begin{subfigure}[b]{0.45\linewidth}
-    \includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/teaser/bunny_04.png}
-    \caption{\label{fig:result_detail:bunny_0}\footnotesize{Final animation at time $t_0$}}
-    \end{subfigure}
-    \hspace{0.1cm}
-    \begin{subfigure}[b]{0.45\linewidth}
-    \includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/teaser/bunny_12.png}
-    \caption{\label{fig:result_detail:bunny_1}\footnotesize{Final animation at time $t_1$}}
-    \end{subfigure}
-    \caption[Fluid sculpting: Drop on bunny]{\label{fig:result:teaser}
-        From an initial simulation of a falling drop (a, b) space-time features can be extracted and pasted back into an other mesh, generating a new animation (c, d).
-    }
-\end{figure}
-\section{Introduction} \label{sec:fluidsculpting:introduction}
 \Lettrine{D}{ue} to advances in fluid simulation methods over the last two decades, liquid animation has become commonplace in 3D animation productions. 
 The animations can be either highly realistic --- for example showing plausible fluid dynamics and interactions with obstacles --- or they can exhibit a more expressive behavior to convey specific artistic intentions. In both cases, it is essential for the artist to be able to control the simulation in order to achieve their goals.
-\\
+
 As mentionned in Section~\ref{sec:starSimulationControl}, the simulation control is generally achieved through the careful setting of a large number of parameters such as initial conditions, boundary conditions, viscosity, or external forces. 
 We briefly summarize why the tuning of these parameters is particularly difficult.
 First, they only offer indirect control over the animation, which makes them quite non-intuitive. 
@@ -38,7 +11,7 @@ liquid simulation.
 Third, the inherently non-linear nature of fluid behavior makes it difficult to transfer parameter values from a low to a high resolution simulation. 
 In consequence, achieving a desired effect requires a tedious trial-and-error loop, where computation is restarted multiple times from scratch with different parameters. 
 In many cases, this process does not allow tight control over a sequence of waves and splashes with specific magnitudes or shapes and occurring in a specific order. 
-\\
+
 In this chapter, we attempt a significanly different approach.
 Instead of controlling a simulation, we propose an interactive sculpting system for seamlessly editing pre-computed animations of liquid, without the need for any re-simulation. 
 Our system is based on a copy/edit/paste approach:
@@ -69,25 +42,11 @@ Section~\ref{sec:extraction} explains how \emph{space-time features} are compute
 Section~\ref{sec:representation} deals with the \emph{space-time features} representation; 
 Section~\ref{sec:manipulation} details the tools we offer for manipulating \emph{space-time features}; 
 Section~\ref{sec:fluidsculpting:results} shows results obtained with our method; 
-Section~\ref{sec:fluidsculpting:discussion} draws the limits of our approach; 
-and Section~\ref{sec:fluidsculpting:conclusion} concludes and gives some perspectives on future work.
+Section~\ref{sec:fluidsculpting:discussion} draws the limits of our approach and gives some perspectives on future work.
 \\ \\
-The works described in this chapter have been submitted to the conference \emph{MIG 2016}.
+The works described in this chapter have been submitted to the conference \emph{MIG 2016}. We describe our method and results in \href{https://github.com/manteapi/manteapi.github.io/raw/master/publications/fluidSculpting_MIG_2016/video/fluidSculpting_mig2016.mp4}{this video}.
 
 \section{Overview of the method}\label{sec:overview}
-
-\begin{figure}[htp!]
-\centering
-\includegraphics[width=\linewidth]{images/fluidsculpting-mig2016/overview_2.png}
-\caption[Fluid sculpting: Overview]{
-Pipeline of our method: 
-An input fluid animation is given as a mesh sequence. 
-It is pre-processed into a higher-level space-time feature representation. 
-This representation allows the user to iteratively select features from the animation and edit them before inserting them back to the animation. 
-Alternatively, features can be saved and re-imported in this animation or a different one. }
-\label{fig:overview}
-\end{figure}
-
 As mentioned above, this chapter focuses on editing liquid animations.
 To be independent from the simulation method, we take as input a sequence of meshes without any correspondences between the mesh vertices from one frame to another. 
 Due to the arbitrary topology of the meshes and to the temporal coherence to be maintained for numerous geometric details, editing each frame with a shape modeling tool would represent a tremendous amount of work.
@@ -95,6 +54,18 @@ Instead, we propose to manipulate a higher level representation of the liquid an
 
 Our editing pipeline generalizes standard sculpting tools~\cite{Ferley2000} based on cut/copy/edit/paste operations.
 It is made of three steps which are illustrated in Figure~\ref{fig:overview}. 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth]{images/fluidsculpting-mig2016/overview_2.png}
+	\caption[Fluid sculpting: Overview]{
+		Pipeline of our method: 
+		An input fluid animation is given as a mesh sequence. 
+		It is pre-processed into a higher-level space-time feature representation. 
+		This representation allows the user to iteratively select features from the animation and edit them before inserting them back to the animation. 
+		Alternatively, features can be saved and re-imported in this animation or a different one. }
+	\label{fig:overview}
+\end{figure}
+\\
 The first step extracts space-time features from the animation. As these features represent regions that deform over time, it would be too tedious for a user to define them by hand. We propose a semi-automatic method to detect salient regions in a liquid animation from which space-time features will be automatically computed. 
 The user can then easily select them using picking: a click at a specific location at a given frame in time results in the automatic selection of the associated feature with its full range in space and time.
 The second step computes representations of the selected space-time features that are independent from the input animation.
@@ -104,19 +75,16 @@ Finally, the last step consists of editing the space-time features and pasting t
 
 \section{Feature extraction}
 \label{sec:extraction}
- 
- \begin{figure}
-\centering
-\includegraphics[width=\linewidth]{images/fluidsculpting-mig2016/feature_extraction_2.png}
-\caption[Fluid sculpting: Feature extraction]{Feature extraction process, from left to right: an initial mesh sequence representing a fluid animation is subjected to a feature detection process, followed by a segmentation step, which results in a frame feature representation. 
-A final aggregation step allows to build a temporally coherent feature structure.}
- \label{fig:feature_extraction}
-\end{figure}
-
-In the feature extraction step, our method defines the space-time features that the user would like to manipulate. 
+ In the feature extraction step, our method defines the space-time features that the user would like to manipulate. 
 This process is divided into three steps, as described in Figure~\ref{fig:feature_extraction}: detection, segmentation, and aggregation. 
 While detection is semi-automatic (it is interleaved with user interaction to define customized regions of interest throughout the animation), segmentation and aggregation are fully automatic.
-
+ \begin{figure}[!h]
+ 	\centering
+ 	\includegraphics[width=\linewidth]{images/fluidsculpting-mig2016/feature_extraction_2.png}
+ 	\caption[Fluid sculpting: Feature extraction]{Feature extraction process, from left to right: an initial mesh sequence representing a fluid animation is subjected to a feature detection process, followed by a segmentation step, which results in a frame feature representation. 
+ 		A final aggregation step allows to build a temporally coherent feature structure.}
+ 	\label{fig:feature_extraction}
+ \end{figure}
 
 \paragraph{Notation}
 The input of our method is a mesh sequence over the time steps $t$ that we note $M = (M^t)$, where $M^t$ is a manifold triangular mesh.
@@ -213,7 +181,6 @@ In practice, these tools were particularly useful for selecting regions such as 
 For a detail overview of MMOs, we refer the reader to the work of Serra~\cite{Serra1986}.
 %and to Appendix~\ref{sec:mesh_part}.
 
-
 \subsection{Segmentation}\label{sec:features:segmentation}
 Once $R$ has been computed, the segmentation step decomposes each $R^t$ into connected components $(C_k^t)_{k,t}$, where $k$ is the index of the component. Mathematically, a region of interest for a frame $t$ can be defined as the disjoint union of its connected components:
 \begin{equation}
@@ -223,32 +190,30 @@ The decomposition is computed using the straightforward breadth-first search on 
 We call each $C_{k}^{t}$ a \emph{frame feature}.
 
 \subsection{Aggregation}\label{sec:features:aggregation}
-
-\begin{figure}[t]
-\centering
-    \begin{subfigure}[b]{0.48\linewidth}
-    \centering
-    \includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/dag_features.png}
-    \caption{\label{fig:dagFeatures}Initial DAG}
-    \end{subfigure}
-    \hspace{0.1cm}
-    \begin{subfigure}[b]{0.48\linewidth}
-    \centering
-    \includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/aggregation_step2.png}
-    \caption{\label{fig:aggregatedFeatures}Vertex-disjoint path cover}
-    \end{subfigure}
-    \caption[Fluid sculpting: Feature aggregation]{
-    Left: Frame features (red dots) are assembled into a directed acyclic graph as described in Section~\ref{sec:features:aggregation}.
-Each edge of the graph carries a cost computed with Equation~(\ref{eq:costfunction}). 
-Edges whose cost is over a user-defined threshold (gray dashed lines) are discarded.
-Right: a vertex-disjoint minimum-cost path cover has been computed based on Algorithm~(\ref{alg:aggregation}). 
-The extracted paths represent space-time features.}
-\label{fig:aggregation}
-\end{figure}
-
 Finally, the aggregation step extracts temporally coherent sequences of \emph{frame features} that we call \emph{space-time features}. 
 The process is divided into two steps as illustrated in Figure~\ref{fig:aggregation}.
 First, we build a graph of all possible \emph{frame feature} connections, and then we compute a vertex-disjoint path cover of that graph. Temporal coherency of the resulting paths is enforced by minimizing a geometric matching cost described below. We call the resulting paths \emph{space-time features}.
+\begin{figure}[!h]
+	\centering
+	\begin{subfigure}[b]{0.48\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/dag_features.png}
+		\caption{\label{fig:dagFeatures}Initial DAG}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.48\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/aggregation_step2.png}
+		\caption{\label{fig:aggregatedFeatures}Vertex-disjoint path cover}
+	\end{subfigure}
+	\caption[Fluid sculpting: Feature aggregation]{
+		Left: Frame features (red dots) are assembled into a directed acyclic graph as described in Section~\ref{sec:features:aggregation}.
+		Each edge of the graph carries a cost computed with Equation~(\ref{eq:costfunction}). 
+		Edges whose cost is over a user-defined threshold (gray dashed lines) are discarded.
+		Right: a vertex-disjoint minimum-cost path cover has been computed based on Algorithm~(\ref{alg:aggregation}). 
+		The extracted paths represent space-time features.}
+	\label{fig:aggregation}
+\end{figure}
 
 \paragraph*{Graph construction.}
 
@@ -293,11 +258,10 @@ We detail our vertex-disjoint path cover process in Algorithm~\ref{alg:aggregati
   \item $sort(E)$ is the in-place sort of the edges of $E$ in the ascending cost order.
 \end{itemize}
 
-\begin{algorithm}
+\begin{algorithm}[H]
     \caption[Fluid sculpting: Aggregation]{~~Vertex-disjoint path cover computation} 
 \label{alg:aggregation}
 \begin{algorithmic}
-
 \State $ G_{in}  = ( V_{in},  E_{in}  ) $ 
 \State $ G_{out} = ( V_{out}, E_{out} ) $ 
 \State $ V_{out} = V_{in}$ 
@@ -310,34 +274,12 @@ We detail our vertex-disjoint path cover process in Algorithm~\ref{alg:aggregati
 \EndFor
 \end{algorithmic}
 \end{algorithm} 
-
 At the end of this algorithm, the graph $G_{out}$ consists of all frame-features $V_{out}$ connected by inter-frame links $E_{out}$.
 $E_{out}$ represents independent paths, as illustrated in Figure~\ref{fig:aggregatedFeatures}, which are optimal in the sense that the algorithm greedily minimizes our edge cost metric. 
 These paths describe the \emph{space-time features}. 
 
 \section{Feature representation}
 \label{sec:representation}
-
-\begin{figure}[ht!]
-\centering
-\label{fig:featureRepresentation}
-    \begin{subfigure}[b]{0.46\linewidth}
-    \centering
-    \includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/isolatedFeature.png}
-    \caption{\label{fig:feature_representation:mesh}Mesh representation}
-    \end{subfigure}
-    \hspace{0.1cm}
-    \begin{subfigure}[b]{0.46\linewidth}
-    \centering
-    \includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/detailFeature.png}
-    \caption{\label{fig:feature_representation:displacement}Differential representation}
-    \end{subfigure}
-    \caption[Fluid sculpting: Feature representation]{
-Depending on whether the frame feature has closed boundaries or not, it is stored either as a mesh (left) or as a displacement field (right).}
-\label{fig:feature_representation}
-\end{figure}
-
-
 Space-time features can be seen as a simple set of vertices belonging to $M$.
 This representation is, however, inconvenient for direct manipulation as it strongly depends on the input animation and therefore cannot be transferred from one animation to another. 
 To be able to copy, edit and paste space-time features in different animations, we propose to build a representation of a space-time feature which is independent from $M$.
@@ -346,37 +288,53 @@ In the remainder of this chapter, we will note a space-time feature representati
 Also, we denote by $S(F_{i}^{t})$ the mesh part of $M^{t}$ corresponding to $F_{i}^{t}$.
 
 We distinguish two representations depending on whether the frame feature has boundaries or not (see Figure~\ref{fig:feature_representation}). 
+\begin{figure}[h!]
+	\centering
+	\label{fig:featureRepresentation}
+	\begin{subfigure}[b]{0.46\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/isolatedFeature.png}
+		\caption{\label{fig:feature_representation:mesh}Mesh representation}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.46\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/detailFeature.png}
+		\caption{\label{fig:feature_representation:displacement}Differential representation}
+	\end{subfigure}
+	\caption[Fluid sculpting: Feature representation]{
+		Depending on whether the frame feature has closed boundaries or not, it is stored either as a mesh (left) or as a displacement field (right).}
+	\label{fig:feature_representation}
+\end{figure}
+\\
 In the first case, we use a \emph{mesh representation}, noted $M(F^t_i)$ and composed of a simple $3$D mesh. 
 It is used to represent a connected component of the liquid, such as droplet or a larger body of water.
 In the second case, we use a \emph{differential representation}, noted $(\tau_d(F^t_i), \tau_n(F^t_i))$, and composed of a pair of textures representing a displacement map and a normal map.
 It is used for frame features representing a local sub-part of a larger body of water, such as a single wave on the surface of an ocean.
-
 A space-time feature can be composed of frame features from both categories.
 A typical case of mixed representation is an isolated drop falling into a larger body of water and becoming a detail of this larger surface.
 
 In the following of this section, we detail the computation of both representations and how they can be inserted back into a different animation. This will be useful later for copying and pasting features.
-
-\begin{figure*}[t!]
-    \centering
-    \begin{subfigure}[b]{0.48\linewidth}
-    \centering
-    \includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/displacement_copy_2.png}
-    \caption{\label{fig:displacement:copy}Copying}
-    \end{subfigure}
-    \hspace{0.1cm}
-    \begin{subfigure}[b]{0.48\linewidth}
-    \centering
-    \includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/displacement_paste_2.png}
-    \caption{\label{fig:displacement:insertion}Pasting}
-    \end{subfigure}
-    \caption[Fluid sculpting: Copy/Paste]{
-    Left: The displacement representation of a mesh part $S$ is built from the sampling of the displacement field transporting $S'$ toward $S$, and the normal field of $S'$.
-    Right: This representation can be inserted back into a mesh part $\Pi$ by projecting a displacement and a normal on vertices of $\Pi'$. 
-    The difference of normals between $S'$ and $\Pi'$ is used for orienting the displacements, which are in turn used for generating the deformed surface $\Pi''$.
-    }
-    \label{fig:displacement}
-\end{figure*}
-
+\begin{figure}[!h]
+	\centering
+	\begin{subfigure}[b]{0.48\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/displacement_copy_2.png}
+		\caption{\label{fig:displacement:copy}Copying}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.48\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/displacement_paste_2.png}
+		\caption{\label{fig:displacement:insertion}Pasting}
+	\end{subfigure}
+	\caption[Fluid sculpting: Copy/Paste]{
+		Left: The displacement representation of a mesh part $S$ is built from the sampling of the displacement field transporting $S'$ toward $S$, and the normal field of $S'$.
+		Right: This representation can be inserted back into a mesh part $\Pi$ by projecting a displacement and a normal on vertices of $\Pi'$. 
+		The difference of normals between $S'$ and $\Pi'$ is used for orienting the displacements, which are in turn used for generating the deformed surface $\Pi''$.
+	}
+	\label{fig:displacement}
+\end{figure}
 \subsection{Computation}
 \label{sec:representation:computation}
 
@@ -459,72 +417,45 @@ Per-frame spatial feature manipulation is achieved through a dedicated feature t
 This tool allows a user to displace the representation of a feature at a given frame while visualizing the positions of the feature at all the frames.
 
 \section{Results} \label{sec:fluidsculpting:results}
-
-\begin{figure*}[th!]
-     \centering
-    \begin{subfigure}[b]{0.48\linewidth}
-    \centering
-\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/boatTraversal.png}
-\caption{\label{fig:result_detail:boat}\scriptsize{Boat simulation}}
-    \end{subfigure}
-    \hspace{0.1cm}
-    \begin{subfigure}[b]{0.48\linewidth}
-    \centering
-\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/highResOcean.png}
-\caption{\label{fig:result_detail:ocean}\scriptsize{Procedural ocean}}
-    \end{subfigure}
-    \hspace{0.1cm}
-    \begin{subfigure}[b]{0.48\linewidth}
-    \centering
-\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/boatOnOcean.png}
-\caption{\label{fig:result_detail:paste}\scriptsize{Pasting of the wake}}
-    \end{subfigure}
-    \hspace{0.1cm}
-    \begin{subfigure}[b]{0.48\linewidth}
-    \centering
-\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/threeBoatsOnOcean.png}
-\caption{\label{fig:result_detail:paste_2}\scriptsize{Multiple pasting}}
-    \end{subfigure}
-    \caption[Fluid sculpting: Boat wake]{\label{fig:result:boatWake}
-         From the animation of boat generated using a FLIP simulation (left), our sculpting system allows to extract the wake of the boat in a single \emph{space-time feature}. Then we can manipulate this feature and paste it into an ocean animation generated procedurally (middle). Editing the feature and pasting it multiple times allows to interactively model a complex scene (right) without re-simulating.
-     }
-\end{figure*}
-
-\begin{figure*}[th!]
-    \centering
-    \begin{subfigure}[b]{0.3\linewidth}
-    \centering
-\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_0.png}
-\caption{\label{fig:result_trajectory:t0}$t=t_{0}$}
-    \end{subfigure}
-    \hspace{0.1cm}
-    \begin{subfigure}[b]{0.3\linewidth}
-    \centering
-\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_1.png}
-\caption{\label{fig:result_trajectory:t1}$t=t_{1}$}
-    \end{subfigure}
-    \hspace{0.1cm}
-    \begin{subfigure}[b]{0.3\linewidth}
-    \centering
-\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_2.png}
-\caption{\label{fig:result_trajectory:t2}$t=t_{2}$}
-    \end{subfigure}
-    \caption[Fluid sculpting: Droplets]{From an existing liquid animation we extracted a complete crown splash into a single \emph{space-time feature}. The feature combines both the fall of a drop and the resulting splash. We edit and paste this feature twice at different locations and modify the height of the droplets. Here, we show different frames of the final animation.
-}
-    \label{fig:result_trajectory}
-\end{figure*}
-
 In this section, we detail results achieved using our sculpting system.
 They illustrate the different tools described in the Section~\ref{sec:manipulation} and alternative usage of our method that we found interesting.
 
 \paragraph{Boat wake}
-
 In Figure~\ref{fig:result:boatWake}, we illustrate the capability of our method to extract \emph{space-time features} from arbitrary inputs (e.g. Eulerian or Lagrangian simulation, spectral methods, shallow water, real liquid surface acquisition) and combine them to create a plausible animation.
 We start from two animations: 
 The first one (Figure~\ref{fig:result_detail:boat}) 
 was computed using the FLIP simulation method \cite{Zhu2005} and represents a boat traversing a fluid tank and forming a wake.
 The second one (Figure~\ref{fig:result_detail:ocean}) is a procedural animation of ocean computed using the method of \cite{Tessendorf2004} and exhibits numerous small scale details.
 Then we extract the boat wake and paste it on the ocean animation at three different positions with different scales and orientations (Figures~\ref{fig:result_detail:paste} and~\ref{fig:result_detail:paste_2}).
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.48\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/boatTraversal.png}
+		\caption{\label{fig:result_detail:boat}\scriptsize{Boat simulation}}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.48\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/highResOcean.png}
+		\caption{\label{fig:result_detail:ocean}\scriptsize{Procedural ocean}}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.48\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/boatOnOcean.png}
+		\caption{\label{fig:result_detail:paste}\scriptsize{Pasting of the wake}}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.48\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/threeBoatsOnOcean.png}
+		\caption{\label{fig:result_detail:paste_2}\scriptsize{Multiple pasting}}
+	\end{subfigure}
+	\caption[Fluid sculpting: Boat wake]{\label{fig:result:boatWake}
+		From the animation of boat generated using a FLIP simulation (left), our sculpting system allows to extract the wake of the boat in a single \emph{space-time feature}. Then we can manipulate this feature and paste it into an ocean animation generated procedurally (middle). Editing the feature and pasting it multiple times allows to interactively model a complex scene (right) without re-simulating.
+	}
+\end{figure}
 
 \paragraph{Trajectory editing}
 
@@ -532,12 +463,59 @@ In Figure~\ref{fig:result_trajectory}, we applied several edits to a \emph{space
 Second, we pasted it twice on a static plane at different locations. 
 Third, we edited the trajectory of the droplets to change the height of their fall. 
 Finally, we used a fading out to obtain a smooth transition with the initial plane.
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.3\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_0.png}
+		\caption{\label{fig:result_trajectory:t0}$t=t_{0}$}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.3\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_1.png}
+		\caption{\label{fig:result_trajectory:t1}$t=t_{1}$}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.3\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_2.png}
+		\caption{\label{fig:result_trajectory:t2}$t=t_{2}$}
+	\end{subfigure}
+	\caption[Fluid sculpting: Droplets]{From an existing liquid animation we extracted a complete crown splash into a single \emph{space-time feature}. The feature combines both the fall of a drop and the resulting splash. We edit and paste this feature twice at different locations and modify the height of the droplets. Here, we show different frames of the final animation.
+	}
+	\label{fig:result_trajectory}
+\end{figure}
 
 \paragraph{Animation enrichment}
-
 An interesting aspect of our method is that it can be used to enrich static objects or non-fluid objects with a fluid-like behavior. 
 In Figure~\ref{fig:result:teaser}, we enriched a static object with a splash extracted from a liquid animation.
 More generally, our method allows to combines results obtained with very different methods such as procedural animation, Eulerian and Lagrangian simulations, shallow water simulation, or artist-created animations.
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.40\linewidth}
+		\centering
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/teaser/fluid_004.png}
+		\caption{\label{fig:result_detail:drop_0}\footnotesize{Initial simulation at time $t_0$}}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.40\linewidth}
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/teaser/fluid_012.png}
+		\caption{\label{fig:result_detail:drop_1}\footnotesize{Initial simulation at time $t_1$}}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.40\linewidth}
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/teaser/bunny_04.png}
+		\caption{\label{fig:result_detail:bunny_0}\footnotesize{Final animation at time $t_0$}}
+	\end{subfigure}
+	\hspace{0.1cm}
+	\begin{subfigure}[b]{0.40\linewidth}
+		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/teaser/bunny_12.png}
+		\caption{\label{fig:result_detail:bunny_1}\footnotesize{Final animation at time $t_1$}}
+	\end{subfigure}
+	\caption[Fluid sculpting: Drop on bunny]{\label{fig:result:teaser}
+		From an initial simulation of a falling drop (a, b) space-time features can be extracted and pasted back into an other mesh, generating a new animation (c, d).}
+\end{figure}
 
 \section{Discussion and concluding remarks} \label{sec:fluidsculpting:discussion}
 
