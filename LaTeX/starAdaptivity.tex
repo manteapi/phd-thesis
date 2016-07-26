@@ -265,7 +265,7 @@ the number of degrees of freedom of joint $i$ in $C$. The weight matrices $\math
 matrix. The key to the sub-linear complexity is the demonstration that the acceleration metric of each sub-articulated body is a quadratic function of the forces applied to its handles (i.e. the free rigid bodies used to assemble sub-articulated bodies in Featherstone's methodology~\cite{Redon2005}). As a result, the acceleration metric may be computed \emph{before computing the joint accelerations themselves}. This is used during the top-down pass of Featherstone's divide-and-conquer algorithm to determine which joint accelerations should be computed because they are sufficiently large~\cite{Redon2005}. For example, if the acceleration metric of the complete articulated body is small, then all joint accelerations are small and joint velocities are constant for the current time step. A similar metric is built for joint velocities to determine which joint positions should remain constant, and thus which inter-body forces and inertial terms should be updated. Once all position-dependent terms are up to date, the motion metrics are available for the next time step, and a new set of active joints can be determined.
 
 It was shown that this approach could also help to speed up continuous collision detection for articulated bodies~\cite{Kim2008Collision} and haptics rendering~\cite{Morin2007}, as well as enable view-dependent articulated-body dynamics by combining motion metrics with visibility estimates~\cite{Kim2008View} (see Figure \ref{fig:ViewDependentArticulatedBodies}).
-\begin{figure}[!h]
+\begin{figure}[!t]
 	\includegraphics[width=\linewidth]{./images/starAdaptivity-cgf2016/WMComparisonNoLabels.png}
 	\caption[STAR adaptivity: Articulated rigid body freezing]{\label{fig:ViewDependentArticulatedBodies}View-dependent dynamics of articulated bodies. Top: the algorithm proposed by Kim et al. \cite{Kim2008Collision} automatically simplifies the dynamics of a falling character as its distance to the viewer increases. Bottom: corresponding rigidification at this time step (one color per rigid group).}
 \end{figure}
@@ -307,7 +307,7 @@ Therefore, the values and gradients of these quantities are often used to contro
 Wu et al. \cite{Wu2001} describe several different error estimators of this type and discuss their relative advantages, drawbacks, and performance.
 Going beyond estimating a scalar error, Wicke et al. \cite{Wicke2010} define a metric tensor $\mathbf M$ that approximates the spatial variation of strain by comparing deformation gradients of adjacent elements.
 The matrix $\mathbf M$ is defined in such a way that it has large eigenvalues in directions in which the deformation changes most rapidly, and can thus be used to control anisotropic refinement (see Figure \ref{fig:Wicke2010}).
-\begin{figure}[!h]
+\begin{figure}[!t]
   \centering
   \includegraphics[width=0.8\linewidth]{images/starAdaptivity-cgf2016/mesh-plastic.png}
   \caption[STAR adaptivity: Tetrahedral remeshing]{Elastoplastic simulation with dynamic local remeshing \cite{Wicke2010}. By using the strain gradient as the refinement criterion, regions undergoing severe deformation are refined locally.}
@@ -387,7 +387,7 @@ These subtle problems help explain the large number of adaptive BCC-mesh-based l
 \paragraph*{Adaptive BCC lattices} A standard way to efficiently generate a tetrahedral mesh with spatial adaptivity is to combine a spatial hierarchy with predefined lattice-based stencils. One particularly popular strategy combines an octree with the body-centered cubic (BCC) lattice tetrahedralization. To give some context, a {\em regular} BCC lattice is defined by first inserting vertices at the corner of a regular cubic grid, inserting additional vertices at the center of every grid cell, and then creating a Delaunay tetrahedralization of these vertices. A {\em spatially adaptive} tetrahedral mesh is created similarly by first creating a weakly-balanced octree (instead of a regular grid), inserting vertices at the corners and centers of the octree cells, and then tetrahedralizing the set of vertices. Please see the work of Molino et al. \cite{Molino2003} and Labelle and Shewchuk \cite{Labelle2007} for some examples of how to create such an octree-based adaptive BCC mesh. This particular meshing strategy has several benefits: the average tetrahedral element has a nearly optimal shape, the quality of the worst element is bounded and completely acceptable in practice, and the computation time required to build the mesh is orders of magnitude faster than unstructured meshes, because it makes use of trees and precomputed stencils.
 
 Employing these ideas, Wojtan and Turk \cite{Wojtan2008} use an adaptive non-conforming BCC tetrahedralization to simulate highly plastic materials while efficiently remeshing whenever element quality degrades (See Figure \ref{fig:WT_BCC}). 
-\begin{figure}[!h]
+\begin{figure}[!t]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/starAdaptivity-cgf2016/WT2008_BCC.png}
 	\caption[STAR adaptivity: Body-centered cubic mesh]{A high resolution surface mesh (blue) embedded into a deforming low resolution spatially-adaptive tetrahedral mesh based on a BCC lattice (gold). The bottom row shows the cross section of the tetrahedral mesh, illustrating the BCC structure. Image from Wojtan and Turk \cite{Wojtan2008}.}
@@ -486,7 +486,7 @@ This viewpoint allows element quality metrics and Delaunay properties defined fo
 
 For manifold triangle meshes, high-quality remeshing can be accomplished using only the three simple operations of edge split, edge collapse, and edge flip (see Figure \ref{fig:remeshing-local}).
 Narain et al. \cite{Narain2012} use these operations in cloth simulation, generating an adaptive anisotropic mesh that resolves detailed wrinkles and folds (see Figure~\ref{fig:Narain2012}).
-\begin{figure}[!h]
+\begin{figure}[!t]
 	\centering
 	\includegraphics[width=0.35\linewidth]{images/starAdaptivity-cgf2016/cloth-render.png}
 	\includegraphics[width=0.35\linewidth]{images/starAdaptivity-cgf2016/cloth-wire-zoom.png}
@@ -571,7 +571,7 @@ Also, it is important to keep in mind that another challenge is to efficiently r
 More recently, dynamic re-sampling has been applied to FLIP. As FLIP is a combination of grid and particles, two levels of adaptivity are possible: one on the grid resolution, and the other on the particle sampling. Also, only advection operations are performed on the particles, which results in a less position-sensitive simulation and allows much more flexibility than SPH. More precisely, FLIP does not apply density-based forces to the particles. Consequently, sudden density changes due to particle splitting or merging do not have the same catastrophic consequences as in SPH. However, damping is introduced once particles are merged. This can be taken into account by changing blending parameters of the FLIP simulator as suggested by Ando et al. \cite{Ando2012}.
 Early works on adaptive FLIP perform adaptivity only on particles based on a deformability criterion and the distance to surface \cite{Hong2008FLIP, Ando2012}. Ando et al. use the flexibility of FLIP regarding the particles' positions in order to preserve fluid sheets by creating additional particles.
 In both methods, the largest particle size is bounded by the cell size of the underlying grid, which precludes aggressive adaptive sampling and the use of a fully adaptive FLIP simulator. Ando et al. \cite{Ando2013} combine an adaptive BCC mesh (see Section \ref{sec:structured}) with adaptive particle sampling to handle highly different resolutions. (see Figure \ref{fig:Ando2013}).
-\begin{figure}[t]
+\begin{figure}[!t]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/starAdaptivity-cgf2016/Ando2013_3.png}
 	\caption[STAR adaptivity: Hybrid refinement of meshes and particles]{Ando et al. \cite{Ando2013} simulate liquid by combining adaptively-sized FLIP particles (bottom, front) with an adaptive tetrahedral mesh for the pressure solve (top, back).}
