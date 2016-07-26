@@ -5,7 +5,7 @@ In this section, we propose a progressive introduction to the basics of continuu
 Firstly, we describe how to formulate general equations of motion and we present the different concepts and numerical tools used to solve them.
 Secondly, we present a constitutive law for fluid mechanics leading to Navier-Stokes equations and we detail their discretization using the Smoothed-Particle Hydrodynamics (SPH) model that will serve as background for our contribution in Chapter~\ref{chap:arps}.
 Finally, we present a constitutive law for solid mechanics which allows to simulate elastic solids and we detail the discretization of the equations of motion using the frame-based model that we use in Chapter~\ref{chap:cutting}.
-If the reader looks for a wider presentation of the existing deformable models in Computer Graphics, we suggest the survey of Nealen et al.~\cite{Nealen2006}.
+If the reader looks for a wider presentation of the existing deformable models in computer graphics, we suggest the survey of Nealen et al.~\cite{Nealen2006}.
 %\subsection{Notation}
 %
 %We will use the following notations throughout this manuscript.
@@ -215,7 +215,7 @@ Finally, an integration rule, also called \emph{quadrature rule}, is needed in o
 These are the main components for solving the equations of motion:
 degrees of freedom, an interpolation method and a quadrature rule for the numerical integration over the simulation domain.
 
-There are multiple possibilities for these components. It is crucial to choose them based on the goals of the simulation: What do we want to measure ? How will boundaries be represented ? Will any topological changes occur ? Are there restrictions in terms of computational or memory cost ? In the following we briefly introduce the most commonly used solutions in Computer Graphics.
+There are multiple possibilities for these components. It is crucial to choose them based on the goals of the simulation: What do we want to measure ? How will boundaries be represented ? Will any topological changes occur ? Are there restrictions in terms of computational or memory cost ? In the following we briefly introduce the most commonly used solutions in computer graphics.
 
 \subparagraph{Degrees of freedom}
 In Eulerian simulation, velocities are the most common independent degrees of freedom while Lagrangian simulations generally use positions and velocities. 
@@ -235,7 +235,7 @@ Each of these samplings can benefit from adaptivity. We will detail the differen
 
 \subparagraph{Interpolation}
 Interpolation is used to approximate the physical quantities over the domain such as density, displacement, pressure and so on. 
-In Computer Graphics, we can distinguish two major interpolation methods: polynomial interpolation and kernel interpolation.
+In computer graphics, we can distinguish two major interpolation methods: polynomial interpolation and kernel interpolation.
 For each of them, different weights are used, as illustrated in Figure~\ref{fig:shapefunction}. The weights are also called \emph{shape functions} and can be seen as the region of influence of a sample.
 \begin{figure}[!h]
 	\centering
@@ -322,7 +322,7 @@ which allows to rewrite Equation~\eqref{eq:timeIntegration1} as
 \label{eq:timeIntegration2}
 \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \int_{t_{n}}^{t_{n+1}} M^{-1}\mathbf{f}dt
 \end{equation}
-This expression can be further expanded in order to get more accurate results. In Computer Graphics, this is the most used expansion. Finally, the integral term in Equation~\eqref{eq:timeIntegration2} is generally computed with the rectangle quadrature rule which we illustrate in Figure~\ref{fig:rectangleRules}.
+This expression can be further expanded in order to get more accurate results. In computer graphics, this is the most used expansion. Finally, the integral term in Equation~\eqref{eq:timeIntegration2} is generally computed with the rectangle quadrature rule which we illustrate in Figure~\ref{fig:rectangleRules}.
 \begin{figure}[!ht]
 	\centering
 	\begin{subfigure}[b]{0.46\linewidth}

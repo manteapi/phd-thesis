@@ -1,7 +1,7 @@
 \chapter[Extending ARPS to Graphical Simulations]{Extending Adaptively Restrained Particle Simulation to Graphical Simulations}
 \label{chap:arps}
 
-\Lettrine{C}{ombining} efficiency with visual realism had been one of the main goals of Computer Graphics research in the last decade. As presented in Section~\ref{sec:starAdaptivity}, the general strategy for efficient graphical simulations is to concentrate the computational time on the most interesting parts of an animated scene (such as near the surface of a fluid), while simplifying the rest of the scene according to some visual quality criteria.  A number of adaptive simulation methods, aimed at controlling the trade-off between performance and precision, have been developed. Most of them consist in changing time or space sampling, using adaptive time steps or multi-scale models.
+\Lettrine{C}{ombining} efficiency with visual realism had been one of the main goals of computer graphics research in the last decade. As presented in Section~\ref{sec:starAdaptivity}, the general strategy for efficient graphical simulations is to concentrate the computational time on the most interesting parts of an animated scene (such as near the surface of a fluid), while simplifying the rest of the scene according to some visual quality criteria.  A number of adaptive simulation methods, aimed at controlling the trade-off between performance and precision, have been developed. Most of them consist in changing time or space sampling, using adaptive time steps or multi-scale models.
 Although several of them give impressive results, they are often difficult to implement, they may be restricted to specific applications and they sometimes generate discontinuity artifacts due to sudden simplifications.
 \paragraph*{}
 A different approach for adaptive simulation~\cite{Artemova2012} was proposed in the context of molecular dynamics~(MD). Contrary to most of the methods reviewed in Section~\ref{sec:starAdaptivity}, Adaptively Restrained Particle Simulations (ARPS) do not adapt time or space sampling, but rather switch the positional degrees of freedom of particles on and off, while letting their momenta evolve. The key idea is that since most of the computation time is spent in computing interaction forces based on positions, particles with low velocity could be considered fixed in space - and the corresponding interaction forces constant - until they accumulate enough momentum to start moving again. Therefore, inter-particles forces do not have to be updated at each time step, in contrast with traditional methods that spend a lot of time there.
@@ -16,7 +16,7 @@ In this chapter, we explore the use of Adaptively Restrained (AR) particles for 
 \end{itemize}
 
 The remainder of this chapter is organized as follows: 
-Section~\ref{sec:arps_basics} presents the initial formulation of ARPS that was introduced for molecular dynamics simulations and explores its potential for Computer Graphics applications. 
+Section~\ref{sec:arps_basics} presents the initial formulation of ARPS that was introduced for molecular dynamics simulations and explores its potential for computer graphics applications. 
 Section~\ref{sec:arps_sph} and \ref{sec:arps_implicit} respectively introduce our extension of ARPS to fluid and stiff objects simulations. 
 Section~\ref{sec:arps_implementation} deals with the practical implementation and parameters tuning. 
 Section~\ref{sec:arps_discussion} concludes and gives some perspectives of future works.
@@ -136,13 +136,13 @@ two inactive particles and the absence of neighbor search for inactive particles
 As these two steps are common bottlenecks in particle simulation, significant speed-up can be achieved.
 
 %-------------------------------------------------------------------------
-\paragraph*{Potential benefits of extension to Computer Graphics:}
-Molecular dynamics often inspired particle-based simulations in Computer Graphics. The same bottleneck, namely inter-particles forces computation based on neighbor search, is present in the two fields, so we can expect interesting performance for ARPS in graphics. The remainder of this chapter explores two applications of ARPS to graphical simulations:
+\paragraph*{Potential benefits of extension to computer graphics:}
+Molecular dynamics often inspired particle-based simulations in computer graphics. The same bottleneck, namely inter-particles forces computation based on neighbor search, is present in the two fields, so we can expect interesting performance for ARPS in graphics. The remainder of this chapter explores two applications of ARPS to graphical simulations:
 \begin{enumerate}
 \item Particle-based fluid simulation. Originally, ARPS has been applied to conservative system. While fluid simulation involves position-based forces, it also involves velocity-based viscosity forces that need to be taken care of. We propose a simple method to handle them. Additionally, we extend the incremental algorithm proposed by Artemova and Redon to update forces as well as scalar fields.
 \item Stiff object simulation. Explicit integration of stiff objects such as cloth is expensive due to stability issues. A well known solution is to use implicit integration instead. We derive an implicit formulation of ARPS and propose a hybrid solver to exploit the inactivity of particles in cloth simulation.
 \end{enumerate}
-It is clear that ARPS is not well-suited for simulations where all degree of freedom move: classical spatial adaptation is better suited in this case. In contrast, ARPS is best suited for simulations where most parts are immobile but may resume moving at any time. Even if these situations are not the most visually exciting, they are very common in Computer Graphics: they include simulation of characters clothing when many of the characters are at rest, surgical simulations with local-only user interaction, and the animation of large volumes of liquid, when most of it already came to rest.
+It is clear that ARPS is not well-suited for simulations where all degree of freedom move: classical spatial adaptation is better suited in this case. In contrast, ARPS is best suited for simulations where most parts are immobile but may resume moving at any time. Even if these situations are not the most visually exciting, they are very common in computer graphics: they include simulation of characters clothing when many of the characters are at rest, surgical simulations with local-only user interaction, and the animation of large volumes of liquid, when most of it already came to rest.
 
 %-------------------------------------------------------------------------
 \section{ Extension to SPH fluid simulation } 
@@ -309,7 +309,7 @@ We reach an interesting speed-up while keeping a motion close to the reference (
 		(a) is a classic WCSPH simulation. (b) is our adaptive method at the same time step as (a) with restrained particles in red. (c) is our adaptive method once the permanent flow is installed.}
 \end{figure}
 
-These examples show that ARPS can effectively be extended to speed up liquid simulation in Computer Graphics. The next section consider its application to cloth animation.
+These examples show that ARPS can effectively be extended to speed up liquid simulation in computer graphics. The next section consider its application to cloth animation.
 
 %-------------------------------------------------------------------------
 \section{Extension to stiff objects: Implicit Integration} 
@@ -473,7 +473,7 @@ Investigating this issue would be an avenue for future work.
 %-------------------------------------------------------------------------
 \section{Discussion and concluding remarks} 
 \label{sec:arps_discussion}
-In this chapter, we have shown that ARPS, a new, simple approach to adaptive simulation, can effectively be applied to Computer Graphics, which we have demonstrated through two specific applications.
+In this chapter, we have shown that ARPS, a new, simple approach to adaptive simulation, can effectively be applied to computer graphics, which we have demonstrated through two specific applications.
 For SPH simulations, we have obtained significant speed-ups with only minor changes to the original simulation method.
 For stiff materials, we achieved promising results for implicit integration.
 From this work, we distinguished two main directions of study.
@@ -481,7 +481,7 @@ First, it is crucial to address the stability issues that we met.
 A first step in this direction would be to conduct a careful study of the restraining function.
 Second, we think that better results could be achieved by employing non-physically-based transition criteria. 
 Indeed, the current one, based on kinetic energy, is well adapted to molecular dynamics simulation. 
-However, in Computer Graphics, we are more interested in visual results.
+However, in computer graphics, we are more interested in visual results.
 Therefore, transition threshold based on visibility or distance to camera would certainly allow to even more focus the computational power where it most contributes to the quality of the result.
 \paragraph*{}
 While ARPS allows to save computational time and to maintain a constant number of degrees of freedom,
