@@ -170,8 +170,7 @@ Curvature analysis-based feature detection.
 In many cases, curvature-based selection is not sufficient to extract meaningful animation features. 
 For instance, in Figure~\ref{fig:curvatureThreshold}, the user might want to select the whole crown splash and not only its contour as it has been done with the curvature analysis tool. 
 To remedy these issues, we extend mathematical morphological operators (MMOs) to polygonal meshes.
-They allow the user to interactively and easily refine the regions of interest detected by the curvature analysis.
-
+They allow the user to interactively and easily refine the regions of interest detected by the curvature analysis. 
 We propose two main tools:
 \begin{itemize}
  \item \emph{Erosion} for disconnecting, reducing or removing parts of $R$.
@@ -179,8 +178,7 @@ We propose two main tools:
 \end{itemize}
 Both tools can be combined for performing \emph{openings} and \emph{closures} of $R$.
 In practice, these tools were particularly useful for selecting regions such as the interior part of the circular wave in Figure~\ref{fig:featureZone}, achieved with a closure.
-For a detail overview of MMOs, we refer the reader to the work of Serra~\cite{Serra1986}.
-%and to Appendix~\ref{sec:mesh_part}.
+For a detail overview of MMOs, we refer the reader to the work of Serra~\cite{Serra1986}.%and to Appendix~\ref{sec:mesh_part}.
 
 \subsection{Segmentation}\label{sec:features:segmentation}
 Once $R$ has been computed, the segmentation step decomposes each $R^t$ into connected components $(C_k^t)_{k,t}$, where $k$ is the index of the component. Mathematically, a region of interest for a frame $t$ can be defined as the disjoint union of its connected components:
