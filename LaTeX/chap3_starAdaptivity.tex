@@ -4,11 +4,11 @@ Complex real-world behaviors may exhibit multi-scale phenomena in space and time
 Sophisticated physical models involving a tremendous number of degrees of freedom are required to accurately reproduce these phenomena.
 This comes at a high memory and computational price that can quickly become intractable or prevent from an interactive usage.
 Adaptive models provide a general paradigm to solve these efficiency goals.
-
+\paragraph*{}
 We call a model or simulation method \emph{adaptive} if it automatically adapts the underlying mathematical representation, data structure and/or algorithm at run time, based on the evolving state of the simulated system.
 The adaptation is designed for meeting a given criteria which depends on the application. 
 Examples of frequently used criteria include reducing the overall computational complexity without loss of quality, improving the quality of real-time simulation, or simulating more precisely the parts of the scene with which the user is currently interacting.
-
+\paragraph*{}
 In this chapter, we review the different families of adaptive methods and present the way they have been applied in the different domains. In Section~\ref{sec t adaptivity}, we present time adaptive techniques such as dynamic time stepping and freezing techniques.
 Then, we focus on spatially adaptive techniques.
 Section~\ref{sec:spatial_refinement} discusses the most popular approach of spatial adaptivity: geometric adaptivity(\textit{h}-adaptivity where \textit{h} classically refers to the size of elements in the finite element method), which refers to varying the discretization resolution via refinement and coarsening strategies. 
@@ -790,7 +790,7 @@ For now, polynomial basis refinement represents only a small fraction of the met
 In subspace simulation, adaptive reduced bases can greatly extend the range of deformation that can be achieved by introducing local and non-linear deformations such as wrinkles. Nevertheless, there is still a large room for improvement and innovation, especially regarding the possibility to handle topological changes and couple different subspace simulations such as deformable solids and fluids.
 
 Even if there are only a few works that focus on temporal adaptivity, these methods are widely used and play a crucial role in ensuring stability and efficiency. Their importance is due to two main reasons. First, spatial and temporal resolution are often strongly related. Secondly, the necessary temporal resolution is inherently dependent on the events occurring during a simulation and cannot always be predicted in advance, necessitating adaptive techniques. As we seek to resolve details at increasingly finer time scales, further research will be required to capture them without paying an exorbitant computational cost.
-
+\paragraph*{}
 Adaptive methods are not without limitations, and we briefly summarize the major ones.
 At present, setting up a new adaptive method is quite difficult: adaptive methods have often been application-specific so far, which makes the study of existing solutions quite intricate. Adaptivity usually makes the implementation of a model much more complex and may ruin the regularity of computations, causing incompatibilities with GPU implementations. Evaluating the future overhead due to the online adaptation process is often difficult, which may make such techniques unusable in performance-constrained contexts such as interactive applications.
 There are also potential concerns relating to simulation fidelity. If not tackled with care, popping between different spatial and temporal resolutions may cause instabilities and visual artifacts. Furthermore, the energy diffusion that necessarily occurs when permanently adapting a model may be an issue when an accurate simulation is required.
