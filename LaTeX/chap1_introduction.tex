@@ -30,11 +30,16 @@ Reduced models consist in precomputing a carefully chosen small subset of degree
 Thus the computational cost can be reduced by several orders of magnitude. 
 This approach, however, imposes constraints on the range of phenomena that can be simulated, for instance topological changes are not handled. 
 Boundary only simulations consist in simulating volumetric objects only via their surfaces. 
-Finally, adaptive techniques propose to adapt in space and time the representation of the deformable model in order to find the best match between efficiency and accuracy. In this manuscript we focus on this last method. 
+Finally, adaptive techniques propose to adapt in space and time the representation of the deformable model in order to find the best match between efficiency and accuracy. 
+
+
+In this manuscript we focus on this last method and present an extensive study of adaptive models for physics-based animation in Chapter~\ref{chap:starAdaptivity}.
+
 
 Adaptive techniques have a great history in classical mechanics and computer graphics. The most common form of adaptivity consists in re-sampling a new set of degrees of freedom along the simulation in order to concentrate computational time where and when it is most needed based on accuracy and visual criteria. Among the most common criticisms concerning adaptive techniques, we retained two of them. First, adaptive techniques are notoriously hard to integrate in existing simulation frameworks. Even if they can bring great speed ups, the amount of implementation work makes them unattractive. Therefore, there is a great need for more general approach of adaptivity producing less intrusive techniques. Second, adaptive methods are often subject to popping artifacts when updating the resolution of the simulation. Specially in computer graphics, these artifacts should be prevented.
 
-Our first contribution, presented in Chapter~\ref{chap:arps} will address these challenges.
+
+In Chapter~\ref{chap:arps}, we propose a new adaptive model to address these challenges.
 
 \subsection{Detailed topological changes}
 
@@ -44,6 +49,7 @@ In the context of cutting and fracture, handling detailed topological changes in
 
 Aside from the computational challenge, the discontinuities induced by topological changes remain hard to be faithfully represented. However, they are a key ingredient to predict how an object will react under cutting or tearing.
 This is particularly important when the user interaction needs to be taken into account precisely, such as in surgical simulators.
+
 
 Our second contribution, presented in Chapter~\ref{chap:cutting} tackles this problem.
 
@@ -60,6 +66,7 @@ The main challenge remains to build high level control tools that would help the
 In the case of prototyping, these tools should produce viable objects that respect the underlying mechanics. 
 In the case of animation, they should provide a slider to adjust between what makes the animation looks realistic and the artistic constraints which convey emotions.
 
+
 Our last contribution, presented in Chapter~\ref{chap:fluidsculpting} falls in this domain.
 
 \section{Contributions}
@@ -69,29 +76,32 @@ The contributions of this work are as follows:
     \item Second, we propose an algorithm for the efficient cutting of thin deformable objects using the frame-based deformable model. By dynamically adapting the shape functions associated with the different degrees of freedom, we take into account detailed topological changes in the dynamics while keeping a very low number of degrees of freedom.
     \item Finally, we present a new technique to design liquid animation. In contrast with previous work which focus on the control of the simulation, we propose to directly sculpt liquid simulation results. The input of our method is a sequence of meshes representing the surface of the liquid over time. In our system the user can select sub-parts of the animation and copy, cut, paste them at different space-time locations, in different target animations.
 \end{itemize}
-Aside from these technical contributions, a part of this thesis was dedicated to the study of adaptive models for physics-based animation. This work lead to a state of the art review publication in \emph{Computer Graphics Forum.}
+Aside from these technical contributions, a part of this thesis was dedicated to the study of adaptive models for physics-based animation. 
+This work led to a state of the art review published in \emph{Computer Graphics Forum} that we present in Chapter~\ref{chap:starAdaptivity}.
 
 \section{Structure of the document}
-The document is divided into four main parts.
+The document is divided into five main parts.
 \paragraph*{}
-In Chapter \ref{chap:star}, we first introduce basics of continuum mechanics that are necessary for the whole understanding of the manuscript. Then we present a detailed description of existing adaptive models for computer graphics. Finally, we provide a survey of methods allowing to control a physics-based animation.
+In Chapter~\ref{chap:star}, we introduce the basics of continuum mechanics that are necessary for the whole understanding of the manuscript and we provide a survey of methods allowing to control a physics-based animation.
 \paragraph*{}
-In Chapter \ref{chap:arps} we describe our adaptive technique for the non-intrusive and efficient simulation of liquids and elastic solids.
+In Chapter~\ref{chap:starAdaptivity}, we present a detailed description of existing adaptive models for computer graphics.
 \paragraph*{}
-In Chapter \ref{chap:cutting} we describe our method to perform detailed cutting of thin deformable objects while keeping a very low number of degrees of freedom.
+In Chapter~\ref{chap:arps} we describe our adaptive technique for the non-intrusive and efficient simulation of liquids and elastic solids.
 \paragraph*{}
-In Chapter \ref{chap:fluidsculpting} we describe our system to sculpt  a fluid animation by using high level tools inspired from 3D modeling.
+In Chapter~\ref{chap:cutting} we describe our method to perform detailed cutting of thin deformable objects while keeping a very low number of degrees of freedom.
 \paragraph*{}
-Finally, we conclude this work in Chapter \ref{chap:conclusion} and discuss limitations and possible future work.
+In Chapter~\ref{chap:fluidsculpting} we describe our system to sculpt  a fluid animation by using high level tools inspired from 3D modeling.
+\paragraph*{}
+Finally, we conclude this work in Chapter~\ref{chap:conclusion} and discuss limitations and possible future work.
 
 \section{Publications by the author}
 \begin{itemize}
     \item \cite{Manteaux2013} \emph{Exploring the Use of Adaptively Restrained Particles for Graphics Simulations} \\
-    Workshop on Virtual Reality Interaction and Physical Simulation (VRIPHYS), 2013 (see~Chapter \ref{chap:arps})\\
+    Workshop on Virtual Reality Interaction and Physical Simulation (VRIPHYS), 2013 (see~Chapter~\ref{chap:arps})\\
     Pierre-Luc Manteaux, François Faure, Stephane Redon, Marie-Paule Cani \\
     A video of our method is available here: \url{https://youtu.be/RpJjGAoqp50}.
     \item \cite{Manteaux2015} \emph{Interactive detailed cutting of thin sheets} \\
-        ACM SIGGRAPH Conference on Motion in Games (MIG), 2015 (see~Chapter \ref{chap:cutting}) \\
+        ACM SIGGRAPH Conference on Motion in Games (MIG), 2015 (see~Chapter~\ref{chap:cutting}) \\
         Pierre-Luc Manteaux, Wei-Lun Sun, François Faure, Marie-Paule Cani, James F. O'Brien \\
         A video of our method is available here: \url{https://youtu.be/coA_tcomWlE}.
     \item \cite{Lejemble2015} \emph{Interactive Procedural Simulation of Paper Tearing with Sound} \\
@@ -100,6 +110,6 @@ Finally, we conclude this work in Chapter \ref{chap:conclusion} and discuss limi
     A video of our method is available here: \url{https://youtu.be/EiP3fHqtZnk}.
 	\item \cite{Manteaux2016} \emph{Adaptive Physically-based Models in Computer Graphics} \\
     Computer Graphics Forum, 2016 \\
-    Pierre-Luc Manteaux, Chris Wojtan, Rahul Narain, Stephane Redon, Fran\c cois Faure, Marie-Paule Cani (see~Chapter \ref{chap:star})
+    Pierre-Luc Manteaux, Chris Wojtan, Rahul Narain, Stephane Redon, Fran\c cois Faure, Marie-Paule Cani (see~Chapter~\ref{chap:star})
 \item The work presented in Chapter~\ref{chap:fluidsculpting} has been submitted to the conference \emph{Motion In Games} 2016. A video of our method is available here: \url{https://www.dropbox.com/s/0cob2nuztdimjol/fluidSculpting_MIG2016.mp4?dl=0}.
 \end{itemize}
