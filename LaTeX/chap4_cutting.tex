@@ -38,7 +38,7 @@ In Section~\ref{sec:results}, we illustrate our method in different scenarios an
 Finally, we discuss limitations and future work in Section~\ref{sec:cutting_conclusion}. 
 \\ \\
 The works described in this chapter were presented at the conference \emph{MIG 2015}~\cite{Manteaux2015}.
-A video illustrating the method and its results is available \href{https://hal.inria.fr/hal-01206780/file/Manteaux_MIG2015_IDCTS.mp4}{video}.
+A video illustrating the method and its results is available here: \url{https://youtu.be/coA_tcomWlE}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                       RELATED WORK
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -132,7 +132,7 @@ We summarize our simulation loop in Algorithm~\ref{alg:simulationLoop} and detai
 In this section, we first summarize how Voronoi shape functions are traditionally computed. 
 Then we detail why a non-manifold grid is necessary, how to build it and how to use it to compute the shape functions on complex topology.
 
-Let $w_{i}(x) : \Omega \rightarrow \mathcal{R}$ be the shape function for the $i$-th control frame, where $\Omega$ represents the domain. Starting from the Voronoi partition $V$ of the set of control frames, we can independently compute $w_{i}$ for each frame.
+Let $w_{i}(x) : \Omega \rightarrow \mathbb{R}$ be the shape function for the $i$-th control frame, where $\Omega$ represents the domain. Starting from the Voronoi partition $V$ of the set of control frames, we can independently compute $w_{i}$ for each frame.
 
 First, we compute the maximal distance $d_{max}$ from the control node to its Voronoi boundary $V_{b}$. Then we extend its Voronoi region $V_{i}$ to twice $d_{max}$. This gives a new region $V_{e}$ which describes the final boundary of the shape function. Now, we can compute $w_{i}$ inside $V_{e}$. We set $w_{i}$ to be $1$ at the frame position, $0$ at the others and $0.5$ on $V_{b}$. Finally, we linearly interpolate $w_{i}$ between $V_{b}$, the frame position and the boundary of $V_{e}$. We detail the interpolation in Algorithm~ \ref{alg:shapefunctioncomputation} and in Figure~ \ref{fig:shapefunctionconstruction}.
 
