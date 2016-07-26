@@ -3,12 +3,12 @@
 
 \Lettrine{C}{ombining} efficiency with visual realism had been one of the main goals of Computer Graphics research in the last decade. As presented in Section~\ref{sec:starAdaptivity}, the general strategy for efficient graphical simulations is to concentrate the computational time on the most interesting parts of an animated scene (such as near the surface of a fluid), while simplifying the rest of the scene according to some visual quality criteria.  A number of adaptive simulation methods, aimed at controlling the trade-off between performance and precision, have been developed. Most of them consist in changing time or space sampling, using adaptive time steps or multi-scale models.
 Although several of them give impressive results, they are often difficult to implement, they may be restricted to specific applications and they sometimes generate discontinuity artifacts due to sudden simplifications.
-\\ \\
+\paragraph*{}
 A different approach for adaptive simulation~\cite{Artemova2012} was proposed in the context of molecular dynamics~(MD). Contrary to most of the methods reviewed in Section~\ref{sec:starAdaptivity}, Adaptively Restrained Particle Simulations (ARPS) do not adapt time or space sampling, but rather switch the positional degrees of freedom of particles on and off, while letting their momenta evolve. The key idea is that since most of the computation time is spent in computing interaction forces based on positions, particles with low velocity could be considered fixed in space - and the corresponding interaction forces constant - until they accumulate enough momentum to start moving again. Therefore, inter-particles forces do not have to be updated at each time step, in contrast with traditional methods that spend a lot of time there.
-\\ \\
+\paragraph*{}
 While freezing objects to gain computation time has been extensively used in video games, the question of when and how to release them has not been extensively studied, and has mainly relied on \textit{ad hoc} heuristics.
 Adaptively Restrained Particle Simulations~(ARPS), in contrast, introduce a physically sound approach with proven correctness, and has been successfully used in the context of predictive, energy-and momentum-conserving particle simulation.
-\\ \\
+\paragraph*{}
 In this chapter, we explore the use of Adaptively Restrained (AR) particles for graphics simulations. Our experiments show that this new, simple strategy for adaptive simulations can provide significant speed-ups more easily than traditional adaptive models. The key contributions of our work are as follows: 
 \begin{itemize}
 \item We adapt ARPS to particle-based fluid simulations and propose an efficient incremental algorithm to update forces and scalar fields in Section~\ref{sec:arps_sph}.
@@ -20,7 +20,7 @@ Section~\ref{sec:arps_basics} presents the initial formulation of ARPS that was 
 Section~\ref{sec:arps_sph} and \ref{sec:arps_implicit} respectively introduce our extension of ARPS to fluid and stiff objects simulations. 
 Section~\ref{sec:arps_implementation} deals with the practical implementation and parameters tuning. 
 Section~\ref{sec:arps_discussion} concludes and gives some perspectives of future works.
-\\ \\
+\paragraph*{}
 The works described in this chapter were presented at the conference \emph{VRIPHYS 2013}~\cite{Manteaux2013}. A video illustrating the method and the results is available here: \url{https://youtu.be/RpJjGAoqp50}.
 %-------------------------------------------------------------------------
 \section{Adaptively Restrained Particles} 
@@ -87,9 +87,9 @@ When a particle's momentum is small enough, the particle becomes inactive and st
 However, even if the particle is inactive, its momentum may change.
 Therefore its kinetic energy may become large enough again for the particle to resume moving.
 In general, particles switch between active and inactive states during the simulation.
-\\ \\
+\paragraph*{}
 Notice that $\displaystyle -\frac{\partial V(\mathbf{x})}{\partial \mathbf{x}}$ is equal to $\mathbf{f}(\mathbf{x})$, the forces applied on the particle system. In the initial formulation presented in Equation~\ref{eq:arhamiltonian}, these forces are conservative and only depend on positions. In Section~\ref{sec:arps_sph} and Section~\ref{sec:arps_implicit}, we detail how to use ARPS in dissipative systems where damping forces based on velocity are used.
-\\ \\
+\paragraph*{}
 Finally, we introduce a notion that we will use in the following sections: the \textit{effective velocity}. It is the rate of position change of a particle $i$ and can be expressed by the following equation:
 \begin{equation}
     \label{eq:adaptiveVelocity}
@@ -186,10 +186,10 @@ In SPH fluid simulation, every property of a particle is computed as a weighted 
 And the weights are computed based on the position of the particle and its neighbors.
 Therefore, time can be saved as soon as a particle is close to immobility. 
 This makes SPH a perfect candidate for ARPS.
-\\ \\
+\paragraph*{}
 As long as a particle is inactive and is surrounded by inactive particles, its properties and neighborhood do not need to be updated.
 In practice, this includes pressure and viscosity forces as well as density and pressure scalar field.
-\\ \\
+\paragraph*{}
 To gain computational time from the inactive particles, we extend the incremental algorithm proposed in \cite{Artemova2012} (see Algorithm~\ref{alg:WCSPHARPS}).
 In this algorithm we denote as \emph{active} every \emph{active} or {transitive} particle.
 From one step to another, only the contributions to physical properties from active particles are updated. 
@@ -407,7 +407,7 @@ As discussed earlier, inactive particles can be handled using explicit integrati
 When a particle is inactive and has no active neighbors we do not need to include it in the linear system.
 We thus build the minimal linear system, which only contains active particles and their neighbors.
 These particles are implicitly integrated, while the others are explicitly integrated.
-\\ \\
+\paragraph*{}
 Figure~\ref{fig:clothARPS} shows a hanging cloth with active and inactive particles.
 At the beginning all the particles become active. Then a moving front of inactivation/reactivation traverses the cloth at decreasing frequency. The cloth finally finds a rest position, where all the particles are inactive and simulated explicitly, saving computation time. The particles can become active again if external forces or imposed motion are applied.
 Table~\ref{tab:clothePerf} shows performances we achieved with our hybrid solver.
@@ -483,7 +483,7 @@ Second, we think that better results could be achieved by employing non-physical
 Indeed, the current one, based on kinetic energy, is well adapted to molecular dynamics simulation. 
 However, in Computer Graphics, we are more interested in visual results.
 Therefore, transition threshold based on visibility or distance to camera would certainly allow to even more focus the computational power where it most contributes to the quality of the result.
-\\ \\
+\paragraph*{}
 While ARPS allows to save computational time and to maintain a constant number of degrees of freedom,
 particle systems generally require a dense sampling in order to produce visually plausible behavior.
 The large number of degrees of freedom resulting from this sampling imposes a strict limit on computational time and memory consumption.

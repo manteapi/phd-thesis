@@ -9,7 +9,7 @@ In between lies the control of physics-based animations which tends to take into
 In this section, we illustrate the problem of simulation control and describe the main solutions proposed so far.
 \subsection{Problem: The trials and errors process}
 How to control a physics-based animation is an old problem in Computer Graphics. In order to understand the different problems that arise, it is good to start from the most naive way of controlling a physics-based animation: trials and errors. 
-\\
+
 Let's say we have to design an animation of a ball launched on the ground that bounces two times before hitting the center of a target on the ground. 
 The elastic behavior of the ball and the changes of speed make it a hard animation for a key-framing animator. 
 Using physically-based simulation methods, the behavior takes some time to compute but can be easily solved.
@@ -21,7 +21,7 @@ The trials and errors process consists in setting these conditions and parameter
 	\caption[STAR control: Trial and error process]{\label{fig:trialErrorProcess}Trial and error process. 
 	The user runs successive simulations with different parameters such as the initial height $h$ and velocity $\mathbf{v}$ of the ball until it reaches a desired target.}
 \end{figure}
-\\
+
 There are mainly three constraints which make this task a nightmare:
 \begin{itemize}
 	\item Firstly, the computational time plays a major role. 
@@ -47,7 +47,7 @@ An optimization problem is defined to find the value of the parameters which sol
 In this example, the parameters are the initial height $h$ and velocity $\mathbf{v}$ of the ball and the constraints are the position of the ball at different time.
 The ball has a mass of $1\kilo\gram$ and is only submitted to the gravity $\mathbf{g}$.}
 \end{figure}
-\\
+
 Four challenges arise, what are the parameters we want to control, what are the user constraints, how to formulate them and finally how to numerically solve the problem. 
 Witkin and Kass were among the first to introduce this formulation to the Computer Graphics community in their pioneer work \emph{Space-time constraints}~\cite{Witkin1988}.
 

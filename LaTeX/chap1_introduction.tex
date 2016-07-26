@@ -8,9 +8,9 @@ In the middle of the eighties, the Pixar company started to present short comput
 
 In this context, physics appeared as a way to automatically generate the animation of complex natural phenomena. It would be able to handle the high level of details expected from large scale smoke clouds, the complex deformations arising from a twisting rope or the numerous interactions occurring between colliding objects. Researchers focused on studying physics with respect to computer graphics' purposes. Aside from films, physics-based animation was also developed for games, medical applications, education and craft prototyping.
 
-\section{Classical mechanics and physics-based animation}
+\section{Classical mechanics \& physics-based animation}
 
-Physics-based animation has a great big brother: Classical mechanics. Classical mechanics group centuries of studies of how objects behave in the real world. This experience was invaluable and certainly allowed physics-based animation to progress extremely fast. The great strength of physics-based animation is not being restrained by this heritage but being able to inspire from it. The variety of applications resulting from physics-based animation and the interaction with a user in many cases  created a wide number of research prospects.
+Physics-based animation has a great big brother: Classical mechanics. Classical mechanics group centuries of studies of how objects behave in the real world. This experience was invaluable and certainly allowed physics-based animation to progress extremely fast. The great strength of physics-based animation is not being restrained by this heritage but being able to inspire from it. The variety of applications resulting from physics-based animation and the interaction with a user created a wide number of research prospects. 
 
 As to know if the relationship between classical mechanics and physics-based animation is unilateral, the answer is definitely no. Physics-based animation is not doomed to simply transpose advances in classical mechanics to Computer Graphics. Neither it is only a subset of classical mechanics that cheats to get fast, inaccurate but compelling results. 
 First of all, the relationship between the two fields is surely bilateral. Classical mechanics inspires physics-based animation and physics-based animation inspires classical mechanics. 
@@ -30,22 +30,22 @@ Reduced models consist in precomputing a carefully chosen small subset of degree
 Thus the computational cost can be reduced by several orders of magnitude. 
 This approach, however, imposes constraints on the range of phenomena that can be simulated, for instance topological changes are not handled. 
 Boundary only simulations consist in simulating volumetric objects only via their surfaces. 
-Finally, adaptive techniques propose to adapt in space and time the representation of the deformable model in order to find the best match between efficiency and accuracy. In this thesis we focus on this last method.
+Finally, adaptive techniques propose to adapt in space and time the representation of the deformable model in order to find the best match between efficiency and accuracy. In this manuscript we focus on this last method. 
 
 Adaptive techniques have a great history in classical mechanics and computer graphics. The most common form of adaptivity consists in re-sampling a new set of degrees of freedom along the simulation in order to concentrate computational time where and when it is most needed based on accuracy and visual criteria. Among the most common criticisms concerning adaptive techniques, we retained two of them. First, adaptive techniques are notoriously hard to integrate in existing simulation frameworks. Even if they can bring great speed ups, the amount of implementation work makes them unattractive. Therefore, there is a great need for more general approach of adaptivity producing less intrusive techniques. Second, adaptive methods are often subject to popping artifacts when updating the resolution of the simulation. Specially in Computer Graphics, these artifacts should be prevented.
 
-The first contribution of this thesis, presented in Chapter~\ref{chap:arps} will address these challenges.
+Our first contribution, presented in Chapter~\ref{chap:arps} will address these challenges.
 
 \subsection{Detailed topological changes}
 
-Complex simulations are often characterized by objects undergoing strong changes of state and shapes. Material can flow, break and deform irreversibly. This requires to robustly handle topological changes. 
+Complex simulations are often characterized by objects undergoing strong changes of state and shapes. Material can flow, break and deform irreversibly. This requires to robustly handle topological changes.
 
-In the context of cutting and fracture, handling detailed topological changes interactively remains a challenge. Games and surgical simulators need a detailed and efficient representation of these topological changes. Because of restrictions on the amount of memory and computational time for the simulation, they can not always afford adaptive techniques to handle the increasing computational cost due to the changes.
+In the context of cutting and fracture, handling detailed topological changes interactively remains a challenge. Games and surgical simulators need a detailed and efficient representation of these topological changes. Because of restrictions on the amount of memory and computational time for the simulation, they cannot always afford adaptive techniques to handle the increasing computational cost due to the changes.
 
 Aside from the computational challenge, the discontinuities induced by topological changes remain hard to be faithfully represented. However, they are a key ingredient to predict how an object will react under cutting or tearing.
 This is particularly important when the user interaction needs to be taken into account precisely, such as in surgical simulators.
 
-The second contribution of this thesis, presented in Chapter~\ref{chap:cutting} tackles this problem.
+Our second contribution, presented in Chapter~\ref{chap:cutting} tackles this problem.
 
 \subsection{Simulation control}
 
@@ -63,7 +63,7 @@ In the case of animation, they should allow the user to adjust between what make
 Our last contribution, presented in Chapter~\ref{chap:fluidsculpting} falls in this domain.
 
 \section{Contributions}
-The contributions of this thesis are as follows:
+The contributions of this work are as follows:
 \begin{itemize}
     \item First, we transferred and extended a new adaptive physically-based animation technique from Nanosystems simulation to Computer Graphics. In contrast with classical methods, our technique is less intrusive, it requires minimal changes in an existing simulator, and retains physical accuracy. We demonstrate its use in the case of particle-based fluid simulation and extend it by proposing an implicit integrator enabling to achieve elastic solids animations as well.
     \item Second, we propose an algorithm for the efficient cutting of thin deformable objects using frame-based deformable models. By dynamically adapting the shape functions associated with the different degrees of freedom, we take into account detailed topological changes in the dynamics while keeping a very low number of degrees of freedom.

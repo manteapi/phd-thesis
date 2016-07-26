@@ -45,7 +45,7 @@ At a time $t_{1}$, the mass of the water should be equal to its mass at time $t_
 	\includegraphics[width=\linewidth]{images/continuum_mechanics/massConservation.png}
 	\caption[STAR mechanics: Mass conservation]{\label{fig:massConservation} Mass conservation. $M(t_{1}) = M(t_{0}) + M_{in} - M_{out}$}
 \end{figure}
-\\
+
 Mathematically, we can write the conservation of mass as
 \begin{equation}
     \label{eq:massConservation}
@@ -88,7 +88,7 @@ The acceleration induced by the force is more important for the small ball which
 \includegraphics[width=\linewidth]{images/continuum_mechanics/momentumConservation.png}
 \caption[STAR mechanics: Momentum conservation]{\label{fig:momentumConservation} Momentum conservation. The same force $\mathbf{f}$ is applied on two balls. The resulting acceleration is inversely proportional to their mass.}
 \end{figure}
-\\
+
 Mathematically, this law can be written as
 \begin{equation}
 \displaystyle 
@@ -129,7 +129,7 @@ Basically, the stress relates the deformation of the object to its material prop
 A constitutive law is specific to the phenomena which is simulated.
 In Section~\ref{subsec:fluidMechanics} and Section~\ref{subsec:solidMechanics}, we will respectively describe the most common constitutive laws for incompressible fluids and solids.
 For a detailed and intuitive definition of the stress tensor we refer the reader to the \emph{SIGGRAPH} course about real-time physics~\cite{Muller2008} by M\"{u}ller et al.
-\\
+
 Same as for the conservation of mass, we can use Stokes' theorem to get a single integral over $\mathcal{V}$,
 \begin{equation}
 \label{eq:internalForces}
@@ -214,20 +214,20 @@ Then, by using an \emph{interpolation method}, it is possible to approximate con
 Finally, an integration rule, also called \emph{quadrature rule}, is needed in order to integrate these quantities over the domain. 
 These are the main components for solving the equations of motion:
 degrees of freedom, an interpolation method and a quadrature rule for the numerical integration over the simulation domain.
-\\
+
 There are multiple possibilities for these components. It is crucial to choose them based on the goals of the simulation: What do we want to measure ? How will boundaries be represented ? Will any topological changes occur ? Are there restrictions in terms of computational or memory cost ? In the following we briefly introduce the most commonly used solutions in Computer Graphics.
 
 \subparagraph{Degrees of freedom}
 In Eulerian simulation, velocities are the most common independent degrees of freedom while Lagrangian simulations generally use positions and velocities. 
 We can also mention the use of affine frames to capture translations, rotations and shearing. They are used in the frame-based model which will be detailed in Section~\ref{subsubsec:framebased}.
-\\ 
+
 Usually, we distinguish two types of sampling of the degrees of freedom: mesh-based and mesh-less (see Figure~\ref{fig:discretization}).
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\linewidth]{images/continuum_mechanics/discretization.png}
 	\caption[STAR mechanics: Discretization]{\label{fig:discretization} On the left a grid discretization, commonly used in Eulerian simulations. In the middle an unstructured mesh discretization, commonly used in mesh-based Lagrangian simulations. On the right, a point-based discretization, commonly used in mesh-less Lagrangian simulations.}
 \end{figure}
-\\
+
 In mesh-based methods, the vertices of a mesh are used to sample the degrees of freedom. For instance, Eulerian simulations usually use a cartesian grid which allows to accurately compute derivatives. 
 In contrast, Lagrangian simulations are mostly based on unstructured triangular meshes which allows to handle complex boundaries.
 In mesh-less methods, the samples are uniformly distributed over the domain. Depending on the simulated phenomena, the structure may be quasi-nonexistent which brings a lot of flexibility. For fluids, the neighborhood of the samples will change every time whereas for elastic solids their neighborhood will remain the same as long as the object does not undergo topological changes such as fracture or cutting.
@@ -247,7 +247,7 @@ For each of them, different weights are used, as illustrated in Figure~\ref{fig:
 		In the middle, barycentric shape functions are illustrated. 
 		On the right, kernel-based shape functions that are used in SPH and MLS interpolation are illustrated.}
 \end{figure}
-\\
+
 The choice of the interpolation method mainly depends on how the material samples have been distributed. 
 For a sampling based on cartesian grid, trilinear interpolation is often used, for instance in Eulerian simulations~\cite{Bridson2008}. 
 For unstructured triangle meshes, linear interpolation with barycentric weights is the most popular choice to simulate elastic solids~\cite{Muller2008}.
@@ -256,12 +256,12 @@ SPH interpolation has been used to simulate a wide range of phenomena from fluid
 MLS has been introduced by M\"{u}ller et al. to simulate elastic and plastic deformations~\cite{Muller2004:melting}.
 It was later extended to solids fracture by Pauly et al.~\cite{Pauly2005} and interactive cutting by Steinemann et al.~\cite{Steinemann2009}.
 Both methods require a dense sampling of th object and can be used using a cubic kernel as shape function. We will provide more details about SPH and its use for the simulation of incompressible fluid in Section~\ref{subsubsec:starSPH} and how to save computational time by using an adaptive model in Section~\ref{sec:arps_sph}.
-\\
+
 Mesh-based and mesh-less methods can be combined to get the best of both worlds.
 In this case, two interpolation methods are used, one for the mesh-based side and one for the mesh-less side.
 We refer the reader to the recent \emph{SIGGRAPH} course on the material point method~\cite{Jiang2016}.
 In this course, existing hybrid models are compared and the interpolation methods to transfer data from one representation  to another are described.
-\\
+
 A common drawback of the methods mentioned above is that they require a dense sampling. In Section~\ref{sec:adaptivesf}, we will detail how to interactively handle topological changes with a sparse sampling by using the Voronoi-based interpolation method used in the frame-based model.
 
 \subparagraph{Spatial Integration}
@@ -290,7 +290,7 @@ This is the case in the frame-based method that will be described in Section~\re
 \paragraph{Time integration}
 Let us assume that we spatially discretized the Lagrangian equations of motion, Equation~\eqref{eq:lagrangianMotionEquation}, using a finite number of samples $N$ which carry positions and velocities as degrees of freedom.
 For the sake of simplicity, we also assume that each sample has a fixed mass through the simulation which implies that mass conservation is ensured. Then, we can solely focus on the conservation of momentum and its integration over the time range  $\left[0, T\right]$ of the simulation. 
-\\ 
+
 As for spatial integration, the temporal domain is discretized. Ideally, this discretization would adapt to the time scale of the simulation. For instance, fast motion would require a fine discretization while a coarse discretization would be sufficient for slow motion. We will detail the different techniques for an adaptive discretization of time in Section~\ref{sec t adaptivity}.
 In the following, we simply assume a uniform discretization of $\left[0,T\right]$ defined by a time step $\Delta t$. The integration between two consecutive time steps $t_{n}$ and $t_{n+1}$ can be written as
 \begin{equation}
@@ -339,7 +339,7 @@ This expression can be further expanded in order to get more accurate results. I
 	\caption[STAR mechanics: Rectangle integration rules]{\label{fig:rectangleRules}
 		Illustrations of the rectangle integration rules. A function $f$ can be integrated over a regularly sampled domain using either the left rectangle rule~(a) or the right rectangle rule~(b).}
 \end{figure}
-\\
+
 For a left rectangle method, we get an explicit integration of the velocity
 \begin{equation}
 \label{eq:explicitIntegration}
@@ -592,7 +592,7 @@ In practice, $\epsilon=0.01$ works well. We will use this formulation in Section
 \displaystyle \mathbf{x}_{i}(t_{n+1}) = \mathbf{x}_{i}(t_{n}) + \Delta t \mathbf{v}_{i}(t_{n+1})
 \end{array}
 \end{equation}
-\\
+
 We described the key ingredients of the SPH model and how to use them to discretize Navier-Stokes equations. 
 There is not enough space to cover the exciting challenges related to the building of a full SPH simulator. 
 For a robust handling of static and dynamic boundaries, a surface tension model and an efficient surface reconstruction pipeline, we refer to the work of Akinci et al.~\cite{Akinci2012b, Akinci2013, Akinci2012a}.  
@@ -602,7 +602,7 @@ For other references related to the handling of viscosity, multiphase simulation
 \subsection{Solid mechanics}
 \label{subsec:solidMechanics}
 In this section, we focus on the simulation of elastic objects. When submitted to external forces, an elastic object reacts so that it comes back to its rest shape. In contrast with fluids, internal forces are history dependent, they depend on how much the object deformed compared to its rest shape. It becomes crucial to be able to describe the deformation of an object in order to express its reaction. 
-\\
+
 The deformation is modeled by a mapping $\Phi$ between the undeformed configuration $\Omega_{0}$ and the deformed configuration $\Omega$ (see Figure~\ref{fig:displacementField}). $\Phi$ is called the \emph{displacement field}
 \begin{equation}
 \begin{array}{lllll}
@@ -639,7 +639,7 @@ or its linearized version, the Cauchy strain
 \displaystyle \epsilon = \frac{1}{2}\left( F + F^{T} \right)-I
 \end{equation}
 In contrast with the Green-Lagrange strain, the Cauchy strain does not capture well large rotations and therefore is mainly used for small deformations. In Chapter~\ref{chap:cutting}, we use the Green-Lagrange strain for the simulation of elastic thin sheets.
-\\
+
 The displacement field, deformation gradient and strain tensor are the main components of the constitutive law that relates the deformation to the material properties of the object.
 
 \subsubsection{Constitutive Law}
@@ -706,7 +706,7 @@ Instead of computing internal forces as the divergence of the stress, they can b
 \label{subsubsec:framebased}
 There are many models to discretize the equations of motion for an elastic solid: Moving Least Squares~\cite{Muller2004:melting}, finite element method~\cite{OBrien1999}, etc.
 Here we choose to discretize these equations using the frame-based model, as we will use it in Chapter~\ref{chap:cutting} to handle interactive and detailed cutting of thin elastic objects.
-\\
+
 The frame-based model was introduced by Gilles et al.~\cite{Gilles2011} to simulate deformable objects. 
 In contrast to other deformable models, it allows to simulate complex object with very few degrees of freedom and to handle heterogeneous materials easily~\cite{Faure2011}. 
 Additionally, this work formalized the concept of multi-layer physical framework. 
@@ -727,7 +727,7 @@ Comparisons of different models is much easier.
 Secondly, as each layer can be discretized at its own resolution, the granularity of the simulation can be easily controlled and computational tasks better distributed.
 For instance, in the case of the frame-based model, the sampling of the degrees of freedom is sparse to accelerate the time integration while a denser sampling is used for the integration points in order to accurately compute the deformation.
 Finally, embedding techniques, used to display a fine visual model or to handles collision with a coarse representation, fits well in this framework by using the displacement field to map these models to the degrees of freedom.
-\\
+
 In their work, Gilles et al.~\cite{Gilles2011} proposed such an alternative by decomposing the computation of force using the derivation chain rule:
 \begin{equation}
 \label{eq:forceChainRule}
@@ -773,7 +773,7 @@ Second, the shape function should be positive.
 Third, the shape functions should form a partition of unity. 
 In practice, we use the Voronoi-based shape functions.
 In Section~\ref{sec:adaptivesf}, we will detail the computation of Voronoi-based shape functions and how to dynamically update them to take into account topological changes.
-\\
+
 From the description of the displacement field (Equation~\eqref{eq:frameBasedDisplacementField}), the deformation gradient can then be derived:
 \begin{equation}
 \displaystyle
@@ -847,7 +847,7 @@ where $M_{i}$ is the mass matrix of the frame $i$:
 M_{i} = \int_{V} w_{i}^{T} \rho w_{i} dv
 \end{equation}
 and $\rho$ is the density of the object.
-\\ \\
+\paragraph*{}
 We described the key ingredients to simulate elastic solids using the frame-based model.
 As for fluid mechanics, there are many other related topics that we choose not to detail here.
 For the formulation of implicit Euler and a survey of collision detection techniques, we respectively refer the reader to the course of Witkin et al.~\cite{Witkin2001} and the work of Teschner et al.~\cite{Teschner2005}.

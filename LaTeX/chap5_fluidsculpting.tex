@@ -20,7 +20,7 @@ Once selected, these space-time features can be copied and edited in both space 
 Finally, the edited space-time features can be pasted back into any destination animation at a specific position and time set by the user.
 Using our tools, the user can edit and progressively refine any input simulation result, possibly using a library of pre-computed space-time features extracted from other animations. 
 In contrast to the trial-and-error loop usually required to edit animation results through the tuning of indirect simulation parameters, our method gives the user full control over the edited space-time behaviors. 
-\\
+
 To enable the use of arbitrary liquid animations computed using varying simulation techniques, we based our editing framework on generic inputs; 
 our method allows input mesh sequences without point-wise correspondences between frames, and with arbitrary changes of topological genus between two consecutive time steps.
 Also, we focused on three requirements to make our method useful in realistic cases.
@@ -28,7 +28,7 @@ First, the selection of the effect in the original simulation must be as simple 
 Therefore, once space-time features have been computed, the user can select them using a simple click on the surface.
 Secondly, pasting the selected effect onto the final animation should be handled automatically, with seamless adaptation of the pasted fluid effect to the destination surface. 
 Finally, the pipeline of selection, copy, edit, and paste steps should be computed efficiently in order to enable interactive user feedback. 
-\\ \\
+\paragraph*{}
 The key contributions of our work are as follows:
 \begin{itemize}
     \item A semi-automatic method to tag salient regions in a liquid animation.
@@ -43,7 +43,7 @@ Section~\ref{sec:representation} deals with the \emph{space-time features} repre
 Section~\ref{sec:manipulation} details the tools we offer for manipulating \emph{space-time features}; 
 Section~\ref{sec:fluidsculpting:results} shows results obtained with our method; 
 Section~\ref{sec:fluidsculpting:discussion} draws the limits of our approach and gives some perspectives on future work.
-\\ \\
+\paragraph*{}
 The works described in this chapter have been submitted to the conference \emph{MIG 2016}. We describe our method and results in the video here: \url{https://www.dropbox.com/s/0cob2nuztdimjol/fluidSculpting_MIG2016.mp4?dl=0}.
 
 \section{Overview of the method}\label{sec:overview}
@@ -65,7 +65,7 @@ It is made of three steps which are illustrated in Figure~\ref{fig:overview}.
 		Alternatively, features can be saved and re-imported in this animation or a different one. }
 	\label{fig:overview}
 \end{figure}
-\\
+
 The first step extracts space-time features from the animation. As these features represent regions that deform over time, it would be too tedious for a user to define them by hand. We propose a semi-automatic method to detect salient regions in a liquid animation from which space-time features will be automatically computed. 
 The user can then easily select them using picking: a click at a specific location at a given frame in time results in the automatic selection of the associated feature with its full range in space and time.
 The second step computes representations of the selected space-time features that are independent from the input animation.
@@ -306,7 +306,7 @@ We distinguish two representations depending on whether the frame feature has bo
 		Depending on whether the frame feature has closed boundaries or not, it is stored either as a mesh (left) or as a displacement field (right).}
 	\label{fig:feature_representation}
 \end{figure}
-\\
+
 In the first case, we use a \emph{mesh representation}, noted $M(F^t_i)$ and composed of a simple $3$D mesh. 
 It is used to represent a connected component of the liquid, such as droplet or a larger body of water.
 In the second case, we use a \emph{differential representation}, noted $(\tau_d(F^t_i), \tau_n(F^t_i))$, and composed of a pair of textures representing a displacement map and a normal map.
