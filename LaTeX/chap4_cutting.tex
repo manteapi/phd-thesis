@@ -1,24 +1,24 @@
 \chapter[Detailed Cutting with Sparse Sampling]{Detailed Cutting of Thin Deformable Models with Sparse Sampling}
 \label{chap:cutting}
-\Lettrine{C}{ombining} interactive user actions and detailed convincing animations is crucial for user experience in simulation and games. Unfortunately, computational constraints limit the 
+\Lettrine{C}{ombining} interactive user actions and detailed convincing animations is crucial for the user's experience in simulation and games. Unfortunately, computational constraints limit the 
 fidelity that can be achieved with physics-based animation
-in interactive simulations. Often, the simulated objects lack detail compared to the rest of the virtual environment.
+in interactive simulations. Often, the simulated objects lack of details compared to the rest of the virtual environment.
 Furthermore, operations that modify the structure of the simulated objects, such as cutting, 
 maybe incompatible with faster simulation methods.
 When not prohibited, the latter generally exhibit strong limitations. Indeed, the level of sampling of a physically-based model usually depends on geometric complexity. Detailed cuts result in an increase of the sampling which directly impacts the performance. In practice, the number of samples is limited to ensure real-time performance. This limitation quickly prevents the user from applying detailed cuts.  
 \paragraph*{}
-In this chapter, we address the issue of enabling detailed cuts at interactive rates in  thin sheets of deformable material.
+In this chapter, we address the issue of enabling detailed cuts of thin deformable sheets at interactive rates.
  Our method is able to capture detailed cuts while using a relatively low number of control nodes for the physically-based model.
-Our approach to decoupling the sampling of the physical and of the geometric models, is to use a mesh-less simulation method called the frame-based model~\cite{Gilles2011} that we presented in Section~\ref{subsubsec:framebased}. In this method, the deformation field induced by animated frames is applied to the geometric model using skinning weights. As each frame can cover a large, detailed shaped region of the geometric mesh, only a few of them are typically required.
+Our approach to decoupling the sampling of the physical and of the geometric models, is to use a mesh-less simulation method called the frame-based model~\cite{Gilles2011} that we presented in Section~\ref{subsubsec:framebased}. In this method, the deformation field induced by animated frames is applied to the geometric model using skinning weights. As each frame can cover a large, detailed region of the geometric mesh, only a few of them are required.
 \paragraph*{}
 To achieve user-driven cuts in a frame-based simulation, we allow cuts to be performed anywhere over the underlying mesh.
-We build a non-manifold grid that keeps track of the mesh topology at the simulation level, and allows us to incrementally adapt the frames regions of influence in order to  represent the cut.
-Although remaining low, the number of frame node does increase during a cut. 
+We build a non-manifold grid that keeps track of the mesh topology at the simulation level and allows us to incrementally adapt the frames regions of influence in order to  represent the cut.
+Although remaining low, the number of frames does increase during a cut. 
 In particular, when a model is cut apart, at least one frame is needed to represent each disconnected component. 
 Therefore, we detect crucial cutting events, enabling us to automatically insert new frames when and where they are needed.
 In order to reduce computations, we exploit the locality of the ongoing cutting gesture to incrementally update all the data used for the simulation.
 \paragraph*{}
-Our contributions includes:
+Our contributions include:
 \begin{itemize}
 \item The building of a non-manifold grid to compute shape functions that faithfully represent the complex topology of the visual mesh while keeping a low number of control nodes (Section~\ref{sec:adaptivesf}).
 \item The dynamic re-sampling of new frames into disconnected parts (Section~\ref{sec:resampling}).
@@ -27,7 +27,7 @@ Our contributions includes:
 
 Our method can be used to simulate a wide variety of objects, such as stretchable cloth or pieces of paper. 
 It features a very low number of frame nodes, high resolution mesh embedding, numerous and detailed cuts. 
-Performance ranges from interactive to offline depending on the desired accuracy and complexity of the cuts.
+Performance ranges from interactive to offline depending on the desired accuracy andthe complexity of the cuts.
 We illustrate our method with examples inspired by the traditional Kirigami artform.
 \paragraph*{}
 We motivate our work with respect to existing methods for the simulation of cutting and fracture in Section~\ref{sec:starCutting}.
@@ -459,7 +459,7 @@ Thirdly, our implementation is far from being optimal. Currently the non-manifol
 
 Finally, we would like to extend our work to 3D. The implementation of our current non-manifold grid would require a tetrahedron representation of the object. We would like to investigate the method of~\cite{Remillard2013} to build this structure only from the object surface. We think that the frame-based framework can be used to produce interactive detailed fracture simulation. The main challenge is to accurately compute stress tensors which are then used to determine fracture direction. Instead of using a dense sampling of frames and integration points to compute the stress tensors, we would like to combine a low resolution stress tensor measurement with procedural detail generation as in the work of~\cite{Chen2014} and~\cite{Lejemble2015}. In a similar direction, we would like to investigate advanced sampling strategies in order to automatically determine how many frames are required for a given region. This would involve the material property, the size and the shape of the region that needs to be sampled.
 \paragraph*{}
-In this chapter and the previous one, we explored different simulation techniques which enables efficient computations and topological changes. 
+In this chapter and the previous one, we explored different simulation techniques which enable efficient computations and topological changes. 
 When experimenting these two methods, a substantial amount of time was dedicated to adjust the parameters of the simulation: time step, damping, stiffness, initial and boundary conditions, in order to achieve the results we had in mind.
 As we explained in Section~\ref{sec:starSimulationControl}, controlling a physics-based simulation is a hard problem, especially when it exhibits complex topological changes, such as in liquid simulations.
-In the next chapter, we address this problem by proposing a novel method to sculpt liquids animations using intuitive tools inspired from shape modeling.
+In the next chapter, we address this problem by proposing a novel method to sculpt animations of liquids using intuitive tools inspired from shape modeling.
