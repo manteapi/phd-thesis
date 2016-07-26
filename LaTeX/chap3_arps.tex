@@ -1,12 +1,14 @@
 \chapter[Extending ARPS to Graphical Simulations]{Extending Adaptively Restrained Particle Simulation to Graphical Simulations}
 \label{chap:arps}
 
-\Lettrine{C}{ombining} efficiency with visual realism had been one of the main goals of computer graphics research in the last decade. As presented in Section~\ref{sec:starAdaptivity}, the general strategy for efficient graphical simulations is to concentrate the computational time on the most interesting parts of an animated scene (such as near the surface of a fluid), while simplifying the rest of the scene according to some visual quality criteria.  A number of adaptive simulation methods, aimed at controlling the trade-off between performance and precision, have been developed. Most of them consist in changing time or space sampling, using adaptive time steps or multi-scale models.
-Although several of them give impressive results, they are often difficult to implement, they may be restricted to specific applications and they sometimes generate discontinuity artifacts due to sudden simplifications.
+\Lettrine{C}{ombining} efficiency with visual realism had been one of the main goals of computer graphics research in the last decade. 
+In Section~\ref{sec:starAdaptivity}, we presented adaptive models, a general strategy to concentrate the computational time on the most interesting parts of an animated scene. 
+We observed that the two main approaches consist in adapting time or spatial sampling. 
+Although they can achieve impressive results, they are often difficult to implement, they may be restricted to specific applications and they sometimes generate discontinuity artifacts due to sudden simplifications.
 \paragraph*{}
-A different approach for adaptive simulation~\cite{Artemova2012} was proposed in the context of molecular dynamics~(MD). Contrary to most of the methods reviewed in Section~\ref{sec:starAdaptivity}, Adaptively Restrained Particle Simulations (ARPS) do not adapt time or space sampling, but rather switch the positional degrees of freedom of particles on and off, while letting their momenta evolve. The key idea is that since most of the computation time is spent in computing interaction forces based on positions, particles with low velocity could be considered fixed in space - and the corresponding interaction forces constant - until they accumulate enough momentum to start moving again. Therefore, inter-particles forces do not have to be updated at each time step, in contrast with traditional methods that spend a lot of time there.
+A different approach for adaptive simulation~\cite{Artemova2012} was proposed in the context of molecular dynamics~(MD). Contrary to most of the methods reviewed in Section~\ref{sec:starAdaptivity}, Adaptively Restrained Particle Simulations (ARPS) do not adapt time or spatial sampling, but rather switch the positional degrees of freedom of particles on and off, while letting their momenta evolve. The key idea is that since most of the computation time is spent in computing interaction forces based on positions, particles with low velocity could be considered fixed in space - and the corresponding interaction forces constant - until they accumulate enough momentum to start moving again. Therefore, inter-particles forces do not have to be updated at each time step, in contrast with traditional methods that spend a lot of time there.
 \paragraph*{}
-While freezing objects to gain computation time has been extensively used in video games, the question of when and how to release them has not been extensively studied, and has mainly relied on \textit{ad hoc} heuristics.
+While freezing objects to gain computation time has been extensively used in video games (see Section~\ref{sec:adaptive-integration}), the question of when and how to release them has not been extensively studied, and has mainly relied on \textit{ad hoc} heuristics.
 Adaptively Restrained Particle Simulations~(ARPS), in contrast, introduce a physically sound approach with proven correctness, and has been successfully used in the context of predictive, energy-and momentum-conserving particle simulation.
 \paragraph*{}
 In this chapter, we explore the use of Adaptively Restrained (AR) particles for graphics simulations. Our experiments show that this new, simple strategy for adaptive simulations can provide significant speed-ups more easily than traditional adaptive models. The key contributions of our work are as follows: 
@@ -17,7 +19,7 @@ In this chapter, we explore the use of Adaptively Restrained (AR) particles for 
 
 The remainder of this chapter is organized as follows: 
 Section~\ref{sec:arps_basics} presents the initial formulation of ARPS that was introduced for molecular dynamics simulations and explores its potential for computer graphics applications. 
-Section~\ref{sec:arps_sph} and \ref{sec:arps_implicit} respectively introduce our extension of ARPS to fluid and stiff objects simulations. 
+Section~\ref{sec:arps_sph} and~\ref{sec:arps_implicit} respectively introduce our extension of ARPS to fluid and stiff objects simulations. 
 Section~\ref{sec:arps_implementation} deals with the practical implementation and parameters tuning. 
 Section~\ref{sec:arps_discussion} concludes and gives some perspectives of future works.
 \paragraph*{}
@@ -39,7 +41,7 @@ Here, the Hamiltonian $\H$ is the total mechanical energy given by:
     \H(\vx,\vp) = \frac{1}{2} \vp^{T}M^{-1}\vp + V(\vx)
 \end{equation}
 where the first term corresponds to the kinetic energy, while the second represents the potential energy.
-In \cite{Artemova2012}, an \textit{adaptively restrained} (AR) Hamiltonian is introduced:
+In~\cite{Artemova2012}, an \textit{adaptively restrained} (AR) Hamiltonian is introduced:
 \begin{equation}
     \label{eq:arhamiltonian}
     \H_{AR}(\vx, \vp) = \frac{1}{2} \vp^{T}\Phi(\vx,\vp)\vp + V(\vx)
@@ -52,7 +54,7 @@ When $\rho_{i} = 0$, $\Phi_{i} = m_{i}^{-1}$ and the particle is \textit{active}
 When $\rho_{i} = 1$, $\Phi_{i} = 0$ and the particle is \textit{inactive} (not moving). When $\rho_{i} \in [0, 1]$, the particle is in transition between the two states.
 %-------------------------------------------------------------------------
 The restraining function $\rho_{i}$ of each particle is used to decide \emph{when} to switch positional degrees of freedom on or off.
-In \cite{Artemova2012}, $\rho_{i}$ depends on the particle kinetic energy.
+In~\cite{Artemova2012}, $\rho_{i}$ depends on the particle kinetic energy.
 The function uses two thresholds, a restrained-dynamics threshold $\epsilon^{r}$ and a full-dynamics threshold $\epsilon^{f}$.
 It is defined as :
 \begin{equation}
@@ -98,7 +100,7 @@ Finally, we introduce a notion that we will use in the following sections: the \
 
 \paragraph*{A simple example:}
 Consider a 1D harmonic oscillator : a particle attached to the origin with a perfect spring.
-Fig. \ref{fig:harmonicOscillatorPhasePortrait} shows a phase portrait of the corresponding
+Figure~\ref{fig:harmonicOscillatorPhasePortrait} shows a phase portrait of the corresponding
 AR system.
 
 \begin{figure}[!h]
@@ -109,7 +111,7 @@ AR system.
 
 In classical mechanics, the trajectory of the state in this (position, momentum) space is an ellipse, the size of which depends on the (constant) energy of the system.
 Using ARPS, the position is constant (vertical straight parts) as long as the kinetic energy is small enough, while it is an ellipse as long as the kinetic energy is big enough.
-These trajectories are connected by a transition corresponding to an energy between the two thresholds of Eq.~(\ref{eq:restrainingfunction}).
+These trajectories are connected by a transition corresponding to an energy between the two thresholds of Equation~(\ref{eq:restrainingfunction}).
 The closed trajectory corresponds to a constant \textit{adaptively restrained energy} $H_{AR}$.
 
 \paragraph*{Generalization:}
@@ -118,7 +120,7 @@ Due to the similarity of the adaptive kinetic energy with the standard kinetic e
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=1.0\linewidth]{images/arps-vriphys2013/ARPS_Collision_Artemova.png}
-	\caption[ARPS: Collision Cascade from \cite{Artemova2012}]{\label{fig:cascadeCollision} 
+	\caption[ARPS: Collision Cascade from~\cite{Artemova2012}]{\label{fig:cascadeCollision} 
 		A particle is launched at high velocity toward a 2D static particle system made of $5390$ particles, resulting into a collision cascade~\cite{Artemova2012}. 
 		On the left, the result of a full dynamics simulation. 
 		The three other images are the result of ARPS with different thresholds which allow to obtain a smooth trade between efficiency and precision.}
@@ -126,7 +128,7 @@ Due to the similarity of the adaptive kinetic energy with the standard kinetic e
 
 %-------------------------------------------------------------------------
 \paragraph*{Computational performance:}
-The authors of \cite{Artemova2012}, Artemova and Redon obtained significant speed-ups by exploiting the immobility of particles. Figure~\ref{fig:cascadeCollision} illustrates one of their result where a $10\times$ speed-up was achieved in a collision scenario while keeping a behavior close to the reference one. In this example, inter-particles forces were derived from a Lennard-Jones potential. To save time on inactive particles, they proposed an incremental method to update the particles' forces at each time step:
+The authors of~\cite{Artemova2012}, Artemova and Redon obtained significant speed-ups by exploiting the immobility of particles. Figure~\ref{fig:cascadeCollision} illustrates one of their result where a $10\times$ speed-up was achieved in a collision scenario while keeping a behavior close to the reference one. In this example, inter-particles forces were derived from a Lennard-Jones potential. To save time on inactive particles, they proposed an incremental method to update the particles' forces at each time step:
 \begin{enumerate}
     \item All forces that were acting on each active particle at the previous time step are subtracted based on previous position.
     \item New forces based on current positions are added to each active particle.
@@ -147,13 +149,13 @@ It is clear that ARPS is not well-suited for simulations where all degree of fre
 %-------------------------------------------------------------------------
 \section{ Extension to SPH fluid simulation } 
 \label{sec:arps_sph}
-As presented in section~\ref{subsubsec:starSPH}, SPH fluid simulation is widely used in computer graphics and many methods have been proposed \cite{Desbrun1996}, \cite{Muller2003}, \cite{Solenthaler2009}, \cite{Ihmsen2014:IISPH}.
+As presented in section~\ref{subsubsec:starSPH}, SPH fluid simulation is widely used in computer graphics and many methods have been proposed~\cite{Desbrun1996},~\cite{Muller2003},~\cite{Solenthaler2009},~\cite{Ihmsen2014:IISPH}.
 SPH approximates fluid dynamics with a set of particles.
 The particles are used to interpolate the properties of the fluid anywhere in space.
 Each particle samples the fluid properties such as density, pressure or temperature. All these properties are updated based on the particle neighbors and are
 used in short-ranged inter-particle forces.
 \subsection{ Incremental update }
-To integrate ARPS, we chose WCSPH (Weakly Compressible Smoothed Particle Simulation) \cite{Becker2007WCSPH}, a standard SPH formulation \cite{Desbrun1996}, \cite{Muller2003}. For the sake of simplicity, we limit our discussion to the main inter-particles forces: pressure and viscosity. 
+To integrate ARPS, we chose WCSPH (Weakly Compressible Smoothed Particle Simulation)~\cite{Becker2007WCSPH}, a standard SPH formulation~\cite{Desbrun1996},~\cite{Muller2003}. For the sake of simplicity, we limit our discussion to the main inter-particles forces: pressure and viscosity. 
 Algorithm~\ref{alg:WCSPH} describes the classical simulation loop.
 
 \newpage
@@ -190,7 +192,7 @@ This makes SPH a perfect candidate for ARPS.
 As long as a particle is inactive and is surrounded by inactive particles, its properties and neighborhood do not need to be updated.
 In practice, this includes pressure and viscosity forces as well as density and pressure scalar field.
 \paragraph*{}
-To gain computational time from the inactive particles, we extend the incremental algorithm proposed in \cite{Artemova2012} (see Algorithm~\ref{alg:WCSPHARPS}).
+To gain computational time from the inactive particles, we extend the incremental algorithm proposed in~\cite{Artemova2012} (see Algorithm~\ref{alg:WCSPHARPS}).
 In this algorithm we denote as \emph{active} every \emph{active} or {transitive} particle.
 From one step to another, only the contributions to physical properties from active particles are updated. 
 Thus, even inactive particles whose neighbors are active are kept up-to-date.
@@ -231,12 +233,12 @@ Thus, even inactive particles whose neighbors are active are kept up-to-date.
 %-------------------------------------------------------------------------------
 \subsection{Viscosity}
 In SPH, viscosity forces play an important role in the stability of the simulation and in the range of phenomena that can be simulated. 
-However, ARPS was designed for conservative systems and no damping terms involving the velocity of the particle is involved, as we can see in the equation of motion (see Eq.~\ref{eq:armotionequation}).
+However, ARPS was designed for conservative systems and no damping terms involving the velocity of the particle is involved, as we can see in the equation of motion (see Equation~\ref{eq:armotionequation}).
 In ARPS, velocity can be represented in two different ways.
 We may define it based on the momentum and set $\mathbf{v}_{i} = \vp_{i} / m_{i} $, or based on the \emph{effective velocity} $\mathbf{v}_{i}^{eff}$ defined in Equation~\ref{eq:adaptiveVelocity}.
 In the first case, we can get time-varying forces even for inactive particles, which we want to avoid.
-We therefore use the effective velocity of the particle, as defined in Eq.(\ref{eq:adaptiveVelocity}).
-Applied to a harmonic oscillator, this results in the behavior illustrated in Fig. \ref{fig:HODampedPP}.
+We therefore use the effective velocity of the particle, as defined in Equation(\ref{eq:adaptiveVelocity}).
+Applied to a harmonic oscillator, this results in the behavior illustrated in Figure:\ref{fig:HODampedPP}.
 The more the particle is damped the longer it remains inactive, which is an intuitive behavior.
 %%% HARMONIC OSCILLATOR DAMPED%%%
 \begin{figure}[H]
@@ -315,8 +317,8 @@ These examples show that ARPS can effectively be extended to speed up liquid sim
 \section{Extension to stiff objects: Implicit Integration} 
 \label{sec:arps_implicit}
 In this section we explore the application of ARPS to stiff object simulation, such as cloths, and propose an implicit integration scheme which saves computation time for particles at rest.
-Implicit integration for cloth simulation was introduced in \cite{Baraff1998}. 
-An introduction to implicit integration is proposed in \cite{Witkin2001}.
+Implicit integration for cloth simulation was introduced in~\cite{Baraff1998}. 
+An introduction to implicit integration is proposed in~\cite{Witkin2001}.
 While originally formulated on velocity, it can be straightforwardly expressed on momentum.
 Instead of integrating the momentum using the forces at the current time step, implicit integration uses the forces at the end of the current step.
 As we do not know these forces we end up with a non linear function and after linearization with a linear system to solve to obtain the next momentum:
@@ -366,8 +368,8 @@ Note that if all particles are inactive then we have $R = 0$ and $s = 0$ and we 
     \label{eq:ARPSImplicitRestrained}
     I \Delta \vp = h \vf
 \end{equation}
-Conversely, if all particles are active then $R = I$ and $s = \vp$ and we get the classical implicit formulation of Eq.(\ref{eq:implicit}).
-In the general case, we loop over time using algorithm \ref{alg:ARPSimplicit}.
+Conversely, if all particles are active then $R = I$ and $s = \vp$ and we get the classical implicit formulation of Equation(\ref{eq:implicit}).
+In the general case, we loop over time using algorithm~\ref{alg:ARPSimplicit}.
 \begin{algorithm}[H]
     \caption[ARPS: Implicit integration scheme]{Implicit integration scheme}
     \label{alg:ARPSimplicit}
@@ -445,7 +447,7 @@ When sudden movements occur, we want a standard reaction, so we want the inactiv
 This requires a short transition, \textit{i.e.} $\epsilon^{f}$ close enough to $\epsilon^{r}$.
 However, due to discrete time integration, a short transition may be stepped over, or not enough sampled, which may result in instabilities.
 Currently we manually set the parameters, and defer the automatic tuning to future work.
-In table \ref{tab:parameters} we refer the thresholds used in our simulations.
+In table~\ref{tab:parameters} we refer the thresholds used in our simulations.
 
 \begin{table}[!h]
     \centering
@@ -459,7 +461,7 @@ In table \ref{tab:parameters} we refer the thresholds used in our simulations.
 
 \subsection{Linear solver}
 A linear equation solver is necessary in implicit integration, as presented in Section~\ref{sec:arps_implicit}.
-In contrast with most formulations, implicit ARPS generally results in an unsymmetrical equation matrix, due to the matrix products in Eq.(\ref{eq:arpsLinearSystem}).
+In contrast with most formulations, implicit ARPS generally results in an unsymmetrical equation matrix, due to the matrix products in Equation(\ref{eq:arpsLinearSystem}).
 We currently use a sparse LU solver from the \emph{umfpack} library, but it would be interesting to try a Conjugate Gradient method for unsymmetrical matrices to control the computation time, as it is usually done in implicit integration.
 
 %-------------------------------------------------------------------------

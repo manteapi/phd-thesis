@@ -20,9 +20,9 @@ In order to reduce computations, we exploit the locality of the ongoing cutting 
 \paragraph*{}
 Our contributions includes:
 \begin{itemize}
-\item The building of a non-manifold grid to compute shape functions that faithfully represent the complex topology of the visual mesh while keeping a low number of control nodes (Section \ref{sec:adaptivesf}).
-\item The dynamic re-sampling of new frames into disconnected parts (Section \ref{sec:resampling}).
-\item The incremental update of the different components of the simulation that were concerned by the cut (Section \ref{sec:incremental}).
+\item The building of a non-manifold grid to compute shape functions that faithfully represent the complex topology of the visual mesh while keeping a low number of control nodes (Section~\ref{sec:adaptivesf}).
+\item The dynamic re-sampling of new frames into disconnected parts (Section~\ref{sec:resampling}).
+\item The incremental update of the different components of the simulation that were concerned by the cut (Section~\ref{sec:incremental}).
 \end{itemize}
 
 Our method can be used to simulate a wide variety of objects, such as stretchable cloth or pieces of paper. 
@@ -57,7 +57,7 @@ These methods cause the number of simulation nodes to vary over the course of a 
 scope of remeshing predictable realtime performance can be achieved~\cite{Parker2009}.
 An alternative to remeshing is to enrich elements with additional basis so that discontinuities can be represented. This is the core idea of the eXtended Finite Element Method (XFEM). It was successfully applied for offline cutting of discrete shells~\cite{Kaufmann2009}.
 
-A second possibility is to separate the visual model from the physics model, this is known as embedding. Numerous embedding techniques have been proposed. The virtual node method~\cite{Molino2004} embeds ill-shaped elements that arise after remeshing inside of well-shaped elements. This allows to robustly simulate detailed cuts~\cite{Wang2014}. However, the number of nodes increases substantially with the complexity of the cut. To reduce it, hierarchical methods were proposed and real-time cutting in medical applications has been achieved using composite finite element method~\cite{Wu2011}. Still, the number of nodes grows quickly with the number of cuts and remains limited to ensure interactive frame rate. Meshless methods avoid the problem of element quality. However, boundary and discontinuities require extra effort to be sharply represented. \cite{Pauly2005} proposed to use visibility criterion to perform fracture. \cite{Steinemann2009} used the visual model as a visibility graph to define nodes connectivity. Both methods rely on a dense sampling near the surface of the model and quickly impact performances as the number  and the detail of cuts increases. There also have some work to carry complex materials~\cite{Nesme2009} and thin shells~\cite{Remillard2013} in hexahedra elements.
+A second possibility is to separate the visual model from the physics model, this is known as embedding. Numerous embedding techniques have been proposed. The virtual node method~\cite{Molino2004} embeds ill-shaped elements that arise after remeshing inside of well-shaped elements. This allows to robustly simulate detailed cuts~\cite{Wang2014}. However, the number of nodes increases substantially with the complexity of the cut. To reduce it, hierarchical methods were proposed and real-time cutting in medical applications has been achieved using composite finite element method~\cite{Wu2011}. Still, the number of nodes grows quickly with the number of cuts and remains limited to ensure interactive frame rate. Meshless methods avoid the problem of element quality. However, boundary and discontinuities require extra effort to be sharply represented.~\cite{Pauly2005} proposed to use visibility criterion to perform fracture.~\cite{Steinemann2009} used the visual model as a visibility graph to define nodes connectivity. Both methods rely on a dense sampling near the surface of the model and quickly impact performances as the number  and the detail of cuts increases. There also have some work to carry complex materials~\cite{Nesme2009} and thin shells~\cite{Remillard2013} in hexahedra elements.
 
 Embedding techniques have inspired our work. They allow interesting trade-off and show impressive cutting and fracture simulations. However, the relation between the resolution of the physical model and the visualization model remains very strong. Complex cuts result in a fast increase of the number of nodes. We want to reduce this connexion as much as possible. Complex topologies could be simulated with a very low number of nodes. Then, interactivity and intuitive control would be at hand.
 
@@ -84,7 +84,7 @@ This allows us to keep a constant number of nodes as long as there are no discon
 In~\cite{Faure2011}, the shape functions are computed on a uniform grid.
 The structure is simple and efficient. 
 However, discontinuities that can be represented are very limited and strongly connected to the grid resolution. 
-Instead, we build a non-manifold grid to compute topology-preserving shape functions (see Figure \ref{fig:spiralWeight}).
+Instead, we build a non-manifold grid to compute topology-preserving shape functions (see Figure~\ref{fig:spiralWeight}).
 
 \begin{figure}[!h]
 	\centering
@@ -134,7 +134,7 @@ Then we detail why a non-manifold grid is necessary, how to build it and how to 
 
 Let $w_{i}(x) : \Omega \rightarrow \mathbb{R}$ be the shape function for the $i$-th control frame, where $\Omega$ represents the domain. Starting from the Voronoi partition $V$ of the set of control frames, we can independently compute $w_{i}$ for each frame.
 
-First, we compute the maximal distance $d_{max}$ from the control node to its Voronoi boundary $V_{b}$. Then we extend its Voronoi region $V_{i}$ to twice $d_{max}$. This gives a new region $V_{e}$ which describes the final boundary of the shape function. Now, we can compute $w_{i}$ inside $V_{e}$. We set $w_{i}$ to be $1$ at the frame position, $0$ at the others and $0.5$ on $V_{b}$. Finally, we linearly interpolate $w_{i}$ between $V_{b}$, the frame position and the boundary of $V_{e}$. We detail the interpolation in Algorithm~ \ref{alg:shapefunctioncomputation} and in Figure~ \ref{fig:shapefunctionconstruction}.
+First, we compute the maximal distance $d_{max}$ from the control node to its Voronoi boundary $V_{b}$. Then we extend its Voronoi region $V_{i}$ to twice $d_{max}$. This gives a new region $V_{e}$ which describes the final boundary of the shape function. Now, we can compute $w_{i}$ inside $V_{e}$. We set $w_{i}$ to be $1$ at the frame position, $0$ at the others and $0.5$ on $V_{b}$. Finally, we linearly interpolate $w_{i}$ between $V_{b}$, the frame position and the boundary of $V_{e}$. We detail the interpolation in Algorithm~\ref{alg:shapefunctioncomputation} and in Figure~\ref{fig:shapefunctionconstruction}.
 
 \begin{algorithm}[!h]
 	\caption[Frame-based cutting: Shapefunction computation]{\label{alg:shapefunctioncomputation}Shapefunction computation}
@@ -207,7 +207,7 @@ As mentioned above, in~\cite{Faure2011}, shape functions are computed on a unifo
 
 Unfortunately, this strategy is very limited for uniform grid and would only work in simple cases. For instance, several cuts that intersect or that create disconnected components inside one cell could not be represented. Even without cut, small gaps that lie inside one cell could not be correctly represented. Geodesic distances would be false and the object would behave as if there were no cuts or gaps. Augmenting the resolution would not solve the problem. We would fight the same issue as previous methods. Our grid resolution would be highly dependent on the complexity of the topology and the geometry of the object. It would directly impact performances.
 
-We want each grid cell to be able to represent  the connectivities of the different disconnected components that lie in the cell. To do so, each cut cell is duplicated as many times as it contains disconnected parts. Each duplicate has a specific connectivity built from the material connectivity. This results in a data structure called \emph{non-manifold grid} (see Figure \ref{fig:nonmanifoldgridillustration}).
+We want each grid cell to be able to represent  the connectivities of the different disconnected components that lie in the cell. To do so, each cut cell is duplicated as many times as it contains disconnected parts. Each duplicate has a specific connectivity built from the material connectivity. This results in a data structure called \emph{non-manifold grid} (see Figure~\ref{fig:nonmanifoldgridillustration}).
 
 \begin{figure}[!h]
 	\centering
@@ -324,7 +324,7 @@ There are several ways to compute this non-manifold grid. In our method, we star
 \section{Frame re-sampling} \label{sec:resampling}
 As long as no parts of the model are disconnected, our method allows to keep a constant number of control frames. However, when parts are disconnected, we need to sample it with at least one frame in order to simulate it. 
 
-We start by detecting empty regions i.e lists of connected cells that are not influenced by any frame. This is done using a flood fill algorithm on the grid containing the shape functions values. These empty regions are then sampled using a farthest sampling algorithm. Finally, the samples are uniformly distributed by applying several Lloyd relaxation steps. For now, the number of frames which are sampled is user-defined but we would like to investigate for setting it automatically (see Section \ref{sec:cutting_conclusion}). 
+We start by detecting empty regions i.e lists of connected cells that are not influenced by any frame. This is done using a flood fill algorithm on the grid containing the shape functions values. These empty regions are then sampled using a farthest sampling algorithm. Finally, the samples are uniformly distributed by applying several Lloyd relaxation steps. For now, the number of frames which are sampled is user-defined but we would like to investigate for setting it automatically (see Section~\ref{sec:cutting_conclusion}). 
 
 As a cut progresses, it may happen that only one frame influences a large region. Then this region can only express affine motion. Depending on the material properties, the size and the shape of the region, this can result in unconvincing behaviors. For rigid materials this is not a problem but for soft material this can quickly become unrealistic. We propose a simple strategy to solve some of these cases. For each frame, we look for regions where the shape function value is above a user-defined threshold $w_{max}$. Then if the volume of the region is above a maximal volume threshold $v_{max}$, we uniformly re-sample the region. This strategy allows to detect large regions which are mostly influenced by only one frame and are the most likely to need re-sampling. For now, $w_{max}$ and $v_{max}$ are user-defined.
 
@@ -343,7 +343,7 @@ In the following sections we describe the mechanisms we used to incrementally up
 
 \subsection{Re-sampling}
 \label{sec:all_resampling}
-As for the frames, we always need to have at least one collision node and one integration point inside each part of the model. Otherwise, we cannot compute deformations or interact with these parts of the model. Usually, there are much more collision nodes and integration points than frames. Instead of adding new points only when we detect new empty regions, we perform a few Lloyd relaxation steps at each time step to always keep a uniform sampling of the domain. In a progressive cut scenario, only a small number of samples will need to be updated at each time step and will result in an efficient incremental update. However, if disconnected parts are created from a cut, we apply the re-sampling strategy discussed in Section \ref{sec:resampling}. We detect the disconnected parts using a flood fill algorithm and uniformly re-sample them.
+As for the frames, we always need to have at least one collision node and one integration point inside each part of the model. Otherwise, we cannot compute deformations or interact with these parts of the model. Usually, there are much more collision nodes and integration points than frames. Instead of adding new points only when we detect new empty regions, we perform a few Lloyd relaxation steps at each time step to always keep a uniform sampling of the domain. In a progressive cut scenario, only a small number of samples will need to be updated at each time step and will result in an efficient incremental update. However, if disconnected parts are created from a cut, we apply the re-sampling strategy discussed in Section~\ref{sec:resampling}. We detect the disconnected parts using a flood fill algorithm and uniformly re-sample them.
 
 \subsection{Integration point update}
 \label{sec:gausspointupdate}
@@ -361,8 +361,8 @@ Weights and derivatives are interpolated from the grid to positions of the diffe
 
 We illustrate our method in a variety of simulations where a piece of paper undergoes progressive scripted cuts. As we use several layers of samples (frames, collision nodes, integration points), choosing a good trade off between accuracy and performance is essential. In all the examples, we used the minimum number of samples we could without compromising visual results. Frame re-sampling was required to simulate disconnected parts. However it appears that no additional collision nodes or integration points were required. We can deduce that our relaxation strategy is sufficient to keep the object uniformly sampled along the simulation. 
 
-Figure \ref{fig:spiral} shows a long spiral cut in a sheet of paper simulated with only $5$ frames. The shape functions of the frames faithfully represent the cut as shown in Figure \ref{fig:spiralWeight}. 
-To illustrate that our method can handle multiple cuts and still simulate complex deformations, the creation of a Kirigami is shown in Figure \ref{fig:kirigami}. $48$ cuts are performed and it only required $47$ frames and $400$ integration points to produce a plausible behavior.
+Figure~\ref{fig:spiral} shows a long spiral cut in a sheet of paper simulated with only $5$ frames. The shape functions of the frames faithfully represent the cut as shown in Figure~\ref{fig:spiralWeight}. 
+To illustrate that our method can handle multiple cuts and still simulate complex deformations, the creation of a Kirigami is shown in Figure~\ref{fig:kirigami}. $48$ cuts are performed and it only required $47$ frames and $400$ integration points to produce a plausible behavior.
 
 \begin{figure}[!h]
 	\centering
@@ -378,9 +378,9 @@ To illustrate that our method can handle multiple cuts and still simulate comple
 	\caption[Frame-based cutting: Spiral and Kirigami cutting examples]{\label{fig:Cutting_Teaser} Progressive cutting of a spiral using only five control frames (a). Simulating complex deformations resulting from Kirigami cutting (b). Note that an horizontal stretching force results into a twist of the bands of material, as in real experiments using paper.}
 \end{figure}
 
-Detailed cuts can be performed and separated components can be handled as shown in Figure \ref{fig:patchwork}. In a cloth sheet, we progressively cut bunny, teapot, dragon and armadillo shapes. Each time a new object is completely cut, it is automatically re-sampled with additional frames.
+Detailed cuts can be performed and separated components can be handled as shown in Figure~\ref{fig:patchwork}. In a cloth sheet, we progressively cut bunny, teapot, dragon and armadillo shapes. Each time a new object is completely cut, it is automatically re-sampled with additional frames.
 \paragraph*{}
-As we explained, the non-manifold grid can represent an arbitrary number of connectivity in one cell. This is particularly useful in order to represent intersecting cuts as shown in Figure \ref{fig:vortex}.
+As we explained, the non-manifold grid can represent an arbitrary number of connectivity in one cell. This is particularly useful in order to represent intersecting cuts as shown in Figure~\ref{fig:vortex}.
 
 \begin{figure}[!h]
 	\centering
@@ -404,7 +404,7 @@ As we explained, the non-manifold grid can represent an arbitrary number of conn
 	\caption[Frame-based cutting: Examples of detailed cutting]{\label{fig:result} (a) Several highly detailed shapes are cut in a deformable sheet. Each disconnected part is automatically re-sampled with additional control frames. (b) Simulation of a highly detailed cut that falls under gravity and remains attached to the main part by a thin piece of paper. (c) Two cuts intersect to form a vortex shape. This illustrates the abilities of the non-manifold grid to handle multiple intersecting cuts.}
 \end{figure}
 
-All our examples run at interactive frame rate during the whole simulation (see Table \ref{tab:performance}). Frame rates were collected on a twelve-core 3.20 GHz Intel Xeon CPU with 15.6 GB RAM. 
+All our examples run at interactive frame rate during the whole simulation (see Table~\ref{tab:performance}). Frame rates were collected on a twelve-core 3.20 GHz Intel Xeon CPU with 15.6 GB RAM. 
 \addtolength{\tabcolsep}{-1.5pt}
 \begin{table}[!h]
 	\centering
@@ -413,18 +413,18 @@ All our examples run at interactive frame rate during the whole simulation (see 
 		\begin{tabular}{l|c|cc|cc|c|c|ccc}
 			& & \multicolumn{2}{c|}{\#frame} & \multicolumn{2}{c|}{\#vertices} & & & \multicolumn{3}{c}{Lowest FPS}\\
 			Name & Grid Size & Initial & Final & Initial & Final & \#collision & \#integration & \begin{tabular}{c}Before \\ Cutting\end{tabular}  & \begin{tabular}{c}During \\ Cutting\end{tabular}  & \begin{tabular}{c}After \\ Cutting\end{tabular}  \\ \hline
-			Spiral (Fig. \ref{fig:spiral}) & $40 \times 40$ & $5$ & $5$ & $81$ & $2111$ & $200$ & $200$ & $60$ & $14.4$ & $60$\\ 
-			Kirigami (Fig. \ref{fig:kirigami}) & $68 \times 68$ & $47$ & $47$ & $4225$ & $7453$ & $600$ & $800$ & $11.3$ & $3.2$ & $10.9$\\ 
-			Patchwork (Fig. \ref{fig:patchwork}) & $50 \times 50$ & $5$ & $12$ & $4225$ & $8253$ & $200$ & $200$ & $60$ & $6.8$ & $45$\\
-			Vortex (Fig. \ref{fig:vortex}) & $68 \times 68$ & $5$ & $5$ & $4225$ & $4889$ & $200$ & $200$ & $45$ & $7.2$ & $35.7$\\
-			FallingGuy (Fig. \ref{fig:fallingguy}) & $100 \times 50$ & $10$ & $10$ & $289$ & $861$ & $500$ & $500$ & $60$ & $8.2$ & $60$\\
+			Spiral (Fig.~\ref{fig:spiral}) & $40 \times 40$ & $5$ & $5$ & $81$ & $2111$ & $200$ & $200$ & $60$ & $14.4$ & $60$\\ 
+			Kirigami (Fig.~\ref{fig:kirigami}) & $68 \times 68$ & $47$ & $47$ & $4225$ & $7453$ & $600$ & $800$ & $11.3$ & $3.2$ & $10.9$\\ 
+			Patchwork (Fig.~\ref{fig:patchwork}) & $50 \times 50$ & $5$ & $12$ & $4225$ & $8253$ & $200$ & $200$ & $60$ & $6.8$ & $45$\\
+			Vortex (Fig.~\ref{fig:vortex}) & $68 \times 68$ & $5$ & $5$ & $4225$ & $4889$ & $200$ & $200$ & $45$ & $7.2$ & $35.7$\\
+			FallingGuy (Fig.~\ref{fig:fallingguy}) & $100 \times 50$ & $10$ & $10$ & $289$ & $861$ & $500$ & $500$ & $60$ & $8.2$ & $60$\\
 		\end{tabular}
 	}
 	\caption[Frame-based cutting: Resolution \& timings]{\label{tab:performance} Resolution of the different components of the simulation and timings.}
 \end{table}
 \addtolength{\tabcolsep}{1.5pt}
 
-We noticed that even if a cut only concern a few grid cells, the number of data to re-compute is much more important. This comes from the fact that each frame can cover a large region and changes arising from a local cut can be important. Fortunately, our incremental update mechanisms allows to save numerous unnecessary computations as shown in Table \ref{tab:incrementalUpdate}. 
+We noticed that even if a cut only concern a few grid cells, the number of data to re-compute is much more important. This comes from the fact that each frame can cover a large region and changes arising from a local cut can be important. Fortunately, our incremental update mechanisms allows to save numerous unnecessary computations as shown in Table~\ref{tab:incrementalUpdate}. 
 
 \begin{table}[!h]
 	\centering
@@ -433,11 +433,11 @@ We noticed that even if a cut only concern a few grid cells, the number of data 
 		\begin{tabular}{l|ccccc}
 			& \multicolumn{4}{c}{Percentage of update for a cutting step} \\
 			Name & \%grid cell &\%shape function cell & \%vertices & \%collision nodes & \%integration points \\ \hline
-			Spiral (Fig. \ref{fig:spiralMesh}) & $0.07$ & $28.1$ & $61.5$ & $27.2$ & $41.3$\\
-			Kirigami (Fig. \ref{fig:kirigami}) & $1.06$ & $15.9$ & $17.8$ & $15.8$ & $20.3$\\
-			Patchwork (Fig. \ref{fig:patchwork}) & $0.02$ & $2.78$ & $4.33$ & $2.55$ & $7.15$\\
-			Vortex (Fig. \ref{fig:vortex}) & $0.08$ & $10.3$ & $12.8$ & $9.2$ & $24.2$\\
-			FallingGuy (Fig. \ref{fig:fallingguy}) & $0.09$ & $5.84$ & $11.4$ & $5.77$ & $14.9$\\
+			Spiral (Fig.~\ref{fig:spiralMesh}) & $0.07$ & $28.1$ & $61.5$ & $27.2$ & $41.3$\\
+			Kirigami (Fig.~\ref{fig:kirigami}) & $1.06$ & $15.9$ & $17.8$ & $15.8$ & $20.3$\\
+			Patchwork (Fig.~\ref{fig:patchwork}) & $0.02$ & $2.78$ & $4.33$ & $2.55$ & $7.15$\\
+			Vortex (Fig.~\ref{fig:vortex}) & $0.08$ & $10.3$ & $12.8$ & $9.2$ & $24.2$\\
+			FallingGuy (Fig.~\ref{fig:fallingguy}) & $0.09$ & $5.84$ & $11.4$ & $5.77$ & $14.9$\\
 		\end{tabular}
 	}
 	\caption[Frame-based cutting: Incremental update timings]{\label{tab:incrementalUpdate} Percentage of updated data in a cutting time step. We averaged the percentage for the whole cutting time. We notice that even if very few grid cell are affected, it implies important changes on the shape functions and the samples that are associated to these values.}
