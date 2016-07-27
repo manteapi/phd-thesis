@@ -135,6 +135,7 @@ Same as for the conservation of mass, we can use Stokes' theorem to get a single
 \label{eq:internalForces}
 \displaystyle 
 \int_{\mathcal{V}} \mathbf{f}_{int}\left(t,\mathbf{x}\right) dv 
+=
 \int_{\mathcal{V}} \nabla \cdot \sigma\left(t,\mathbf{x}\right) dv
 \end{equation}
 and we can rewrite Equation~\eqref{eq:momentumConservation} as
@@ -210,7 +211,7 @@ Once the equations of motion are stated, they are discretized in space and time 
 \paragraph{Spatial discretization}
 The spatial discretization consists in approximating the object to simulate using a finite number of samples. 
 These samples carry the \emph{degrees of freedom} used to numerically solve the equations of motion.
-Then, by using an \emph{interpolation method}, it is possible to approximate continuous quantities such as position, velocity, density and so on, at any location on the domain. 
+Then, by using an \emph{interpolation method}, it is possible to continuously approximate quantities such as position, velocity, density and so on, at any location on the domain. 
 Finally, an integration rule, also called \emph{quadrature rule}, is needed in order to integrate these quantities over the domain. 
 These are the main components for solving the equations of motion:
 degrees of freedom, an interpolation method and a quadrature rule for the numerical integration over the simulation domain.
@@ -275,12 +276,12 @@ Many exist, most of the time the simple midpoint rule is chosen (see Figure~\ref
 	\caption[STAR mechanics: Spatial integration]{\label{fig:spatialIntegration} Illustration of the midpoint rule for a one dimensional function. The integration domain is partitioned into uniform regions $\left[x_{i}, x_{i+1}\right]$, an integration point $x'_{i}$ is sampled at the center of each partition and the function is evaluated at the location of the integration points.}
 \end{figure}
 The domain is decomposed in a set of partitions, where each partition has an associated volume $V_{i}$. 
-\emph{Mid}-Points $\mathbf{x'}_{i}$ are sampled at the center of each partition.
+\emph{Mid}-Points $\mathbf{x}_{i}'$ are sampled at the center of each partition.
 They are called \emph{integration points}. 
-Then the integral of a function $f$ over a domain $\Omega$ is approximated by:
+Then the integral of a function $f$ of class $C^{k+1}$ over a domain $\Omega$ is approximated by:
 \begin{equation}
 \label{eq:midpointRule}
-\int_{\Omega} f(\mathbf{x})dv \simeq \sum_{i} V_{i}f(\mathbf{x'}_{i})
+\int_{\Omega} f(\mathbf{x})dv \simeq \sum_{i} V_{i}f(\mathbf{x}_{i}')
 \end{equation}
 In mesh-based methods, it is common to consider one integration point at the center of each element and integrate over the volume of the element.
 In mesh-less methods, when the sampling is dense, integration points are often co-located with the material samples and integrated over their associated volume. 
@@ -380,7 +381,7 @@ Backward Euler is the implicit integration of both position and velocity,
 \begin{equation}
 \label{eq:backwardEuler}
 \begin{array}{ll}
-\displaystyle \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + M^{-1}\Delta t \mathbf{f}(t_{n+1}) \\ \\
+\displaystyle \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \Delta t M^{-1} \mathbf{f}(t_{n+1}) \\ \\
 \displaystyle \mathbf{x}(t_{n+1}) = \mathbf{x}(t_{n}) + \Delta t \mathbf{v}(t_{n+1})
 \end{array}
 \end{equation}
@@ -408,7 +409,7 @@ where
 By injecting this equation into Equation~\eqref{eq:internalForces}, we get the internal forces of the fluid:
 \begin{equation}
 \label{eq:internalForces_liquids}
-\mathbf{f}_{int} = \nabla \cdot \sigma = \nabla \cdot \left( -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right) \right) = -\nabla p + \Delta \mathbf{v}
+\mathbf{f}_{int} = \nabla \cdot \sigma = \nabla \cdot \left( -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right) \right) = -\nabla p + \eta \Delta \mathbf{v}
 \end{equation}
 If we want to describe an incompressible fluid such as water, we need to specify that the mass should not vary over time which means
 \begin{equation}
@@ -421,7 +422,7 @@ By using Equation~\eqref{eq:internalForces_liquids}~and~\eqref{eq:incompressibil
 \left\lbrace
 \begin{array}{ll}
 \displaystyle \int_{\mathcal{V}} \left( \rho \frac{d}{dt} \mathbf{v} + \nabla p - \eta \Delta \mathbf{v} - \rho \mathbf{g} \right)dv = \mathbf{0}\\ \\
-\displaystyle \int_{\mathcal{V}} \nabla. \mathbf{v} dv = 0
+\displaystyle \int_{\mathcal{V}} \nabla \cdot \mathbf{v} dv = 0
 \end{array}
 \right.
 \end{equation}
@@ -448,13 +449,13 @@ where
 	\item $h$ is the smoothing radius, also called length scale, which represents the support of $W$.
 \end{itemize} 
 Let assume that the fluid is discretized using $N$ particles.
-These particles play two roles: First they carry the degrees of freedom and the fluid properties; Second their position are used as integration points. By applying the midpoint rule from Equation~\eqref{eq:midpointRule}, we get a discretized version of Equation~\eqref{eq:sphInterpolation}:
+These particles play two roles: First they carry the degrees of freedom and the fluid properties; Second their positions are used as integration points. By applying the midpoint rule from Equation~\eqref{eq:midpointRule}, we get a discretized version of Equation~\eqref{eq:sphInterpolation}:
 \begin{equation}
 \label{eq:sphFunction}
 \left\lbrace
 \begin{array}{l}
-\displaystyle f(\mathbf{x}) = \sum_{i=0}^{N} f(\mathbf{x}_{i})V_{i} W(\mathbf{x}-\mathbf{x}_{i},h) \\ \\
-\displaystyle D^{\alpha} f(\mathbf{x})= \sum_{i=0}^{N} f(\mathbf{x}_{i})V_{i} D^{\alpha} W(\mathbf{x}-\mathbf{x}_{i},h)
+\displaystyle f(\mathbf{x}) = \sum_{i=1}^{N} f(\mathbf{x}_{i})V_{i} W(\mathbf{x}-\mathbf{x}_{i},h) \\ \\
+\displaystyle D^{\alpha} f(\mathbf{x})= \sum_{i=1}^{N} f(\mathbf{x}_{i})V_{i} D^{\alpha} W(\mathbf{x}-\mathbf{x}_{i},h)
 \end{array}
 \right.
 \end{equation}
@@ -470,17 +471,17 @@ The choice of the kernel varies depending on the function to interpolate. In pra
 	\centering
 	\includegraphics[width=\linewidth]{images/continuum_mechanics/cubicKernel.png}
 	\caption[STAR mechanics: Cubic kernel]{\label{fig:cubicKernel}
-		Illustration of the 1D cubic kernel used by Monaghan et al.~\cite{Monaghan1992} and its derivative for $h=1$. Note that the support of $W$ is $2h$.}
+    Illustration of the 1D cubic kernel (in blue) used by Monaghan et al.~\cite{Monaghan1992} and its derivative (in red) for $h=1$. Note that the support of $W$ is $2h$.}
 \end{figure}
 This kernel meets properties which are generally required from $W$
 \begin{itemize}
 \item $W$ is normalized. Thus, constants are interpolated exactly.
+\begin{equation}
+\int_{\mathcal{V}} W(\mathbf{x},h) dx = 1
+\end{equation}
 \item $W$ has a compact support.
 \begin{equation}
 \parallel \mathbf{x} \parallel \geq h \implies W(\mathbf{x},h) = 0 
-\end{equation}
-\begin{equation}
-\int_{\mathcal{V}} W(\mathbf{x},h) dx = 1
 \end{equation}
 \item $W$ tends to the delta function when the length scale $h$ tends to $0$.
 \begin{equation}
@@ -495,20 +496,20 @@ W(-x,h) = W(x,h)
 W \geq 0
 \end{equation}
 \end{itemize}
-Here we can notice a first limitation of SPH: For a constant function $f$, the approximation of its first derivatives using Equation~\eqref{eq:sphFunction} will not necessarily vanish depending on $W$. A common practice to fix that is to consider the derivative of the product of $f$ with an arbitrary differentiable function that we note $\Phi$
+Here we can notice a first limitation of SPH: For a constant function $f$, the approximation of its derivatives using Equation~\eqref{eq:sphFunction} will not necessarily vanish depending on $W$. In practice, we only need the first derivative. A common practice to fix that is to consider the derivative of the product of $f$ with an arbitrary differentiable function that we note $\Phi$
 \begin{equation}
 \label{eq:hackSPH}
 \nabla f = \frac{1}{\Phi}\left(\nabla (f \Phi) - f \nabla \Phi \right)
 \end{equation}
 In this case, we can approximate $\nabla(f\Phi)$ and $\nabla \Phi$ using Equation~\eqref{eq:sphFunction}. If $f$ is constant, we will get $\nabla f = 0$. In practice the density $\rho$ is often used for $\Phi$. In the following paragraph, we will see another usage of this technique.
 \paragraph{Application to Navier-Stokes equations}
-First of all, let us discretize Navier-Stokes equation on the sampling of the particles using the midpoint rule:
+First of all, let us discretize Navier-Stokes equation (Equation~\eqref{eq:navierStokes}) on the sampling of the particles using the midpoint rule:
 \begin{equation}
 \label{eq:particleNavierStokes}
 \left\lbrace
 \begin{array}{ll}
-\displaystyle \sum_{i=0}^{N} \left( \rho_{i} \frac{d}{dt} \mathbf{v}_{i} + \nabla p_{i} - \eta \Delta \mathbf{v}_{i} - \rho_{i} \mathbf{g} \right) V_{i} = \mathbf{0}\\ \\
-\displaystyle \sum_{i=0}^{N} \nabla. \mathbf{v}_{i} V_{i} = 0
+\displaystyle \sum_{i=1}^{N} \left( \rho_{i} \frac{d}{dt} \mathbf{v}_{i} + \nabla p_{i} - \eta \Delta \mathbf{v}_{i} - \rho_{i} \mathbf{g} \right) V_{i} = \mathbf{0}\\ \\
+\displaystyle \sum_{i=1}^{N} \nabla \cdot \mathbf{v}_{i} V_{i} = 0
 \end{array}
 \right.
 \end{equation}
@@ -516,7 +517,7 @@ We can omit the mass conservation as we did before, by assuming that the particl
 \subparagraph{Density}
 \begin{equation}
 \label{eq:densitySPH}
-\rho_{i} = \sum_{j=0}^{N} m_{j}W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\rho_{i} = \sum_{j=1}^{N} m_{j}W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 \subparagraph{Pressure}
 \begin{equation}
@@ -532,7 +533,7 @@ Equation~\eqref{eq:pressureSPH} is a simple and cheap computation of the pressur
 However, a high stiffness is generally needed to get close to incompressibility. Therefore, very small time steps are required to ensure stability. Recently, new techniques were proposed to ensure incompressibility while using larger time steps. We do not detail these methods in this manuscript but refer the reader to the work of Ihmsen et al.~\cite{Ihmsen2014:IISPH} and Bender and Koschier~\cite{Bender2015}.
 \subparagraph{Pressure gradient}
 \begin{equation}
-\left(\nabla p\right)_{i} = \sum_{j=0}^{N} \frac{m_{j}}{\rho_{j}} p_{j} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\left(\nabla p\right)_{i} = \sum_{j=1}^{N} \frac{m_{j}}{\rho_{j}} p_{j} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 Here we can notice that the resulting pressure force between two particles $i$ and $j$ is not symmetric and therefore does not conserve linear and angular momentum:
 \begin{equation}
@@ -548,7 +549,7 @@ and re-use SPH interpolation to get a new approximation of the pressure gradient
 \label{eq:pressureGradientSPH}
 \left(\nabla p\right)_{i} = 
 \rho_{i}
-\sum_{j=0}^{N} m_{j} \left( \frac{p_{i}}{\rho_{i}^{2}} + \frac{p_{j}}{\rho_{j}^{2}} \right) \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\sum_{j=1}^{N} m_{j} \left( \frac{p_{i}}{\rho_{i}^{2}} + \frac{p_{j}}{\rho_{j}^{2}} \right) \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 which results into symmetric pressure forces between two particles $i$ and $j$:
 \begin{equation}
@@ -562,7 +563,7 @@ which results into symmetric pressure forces between two particles $i$ and $j$:
 \end{equation}
 \subparagraph{Velocity Laplacian}
 \begin{equation}
-\left(\Delta \mathbf{v}\right)_{i} = \sum_{j=0}^{N} \frac{m_{j}}{\rho_{j}} \mathbf{v}_{j} \Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\left(\Delta \mathbf{v}\right)_{i} = \sum_{j=1}^{N} \frac{m_{j}}{\rho_{j}} \mathbf{v}_{j} \Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 Same as for the pressure gradient, this would result in a non-symmetric inter-particle viscosity force:
 \begin{equation}
@@ -577,7 +578,7 @@ For fluid with a low viscosity, Monaghan~\cite{Monaghan2005} proposed a gradient
 \label{eq:velocityLaplacianSPH}
 \left(\Delta \mathbf{v}\right)_{i} = 
 \frac{1}{\rho_{i}}
-\sum_{j=0}^{N} m_{j} \Pi_{ij} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\sum_{j=1}^{N} m_{j} \Pi_{ij} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
 where 
 \begin{equation}
@@ -588,7 +589,7 @@ In practice, $\epsilon=0.01$ works well. We will use this formulation in Section
 \subparagraph{Time integration} If we assume a uniform discretization of the time based on a time step $\Delta t$, symplectic Euler is common choice to integrate the equations of motion over time and for a particle $i$ we get
 \begin{equation}
 \begin{array}{ll}
-\displaystyle \mathbf{v}_{i}(t_{n+1}) = \mathbf{v}_{i}(t_{n}) + \frac{\Delta t}{m_{i}}\left( \sum_{j=0}^{N}\left(\mathbf{f}_{ij}^{pressure}(t_{n})+\mathbf{f}_{ij}^{viscosity}(t_{n})\right)+m_{i}\mathbf{g}\right) \\ \\
+\displaystyle \mathbf{v}_{i}(t_{n+1}) = \mathbf{v}_{i}(t_{n}) + \frac{\Delta t}{m_{i}}\left( \sum_{j=1}^{N}\left(\mathbf{f}_{ij}^{pressure}(t_{n})+\mathbf{f}_{ij}^{viscosity}(t_{n})\right)+m_{i}\mathbf{g}\right) \\ \\
 \displaystyle \mathbf{x}_{i}(t_{n+1}) = \mathbf{x}_{i}(t_{n}) + \Delta t \mathbf{v}_{i}(t_{n+1})
 \end{array}
 \end{equation}
@@ -757,7 +758,7 @@ A deformed position $\mathbf{x}$ can be interpolated as a weighted sum of the af
 \begin{equation}
 \label{eq:frameBasedDisplacementField}
 \begin{array}{l}
-\displaystyle \mathbf{x} = \Phi(\mathbf{x}_{0}) = \sum_{i=0}^{N} w_{i}(\mathbf{x}_{0})\left(\mathbf{t}_{i}+A_{i}\mathbf{x}_{0,i}^{rel}\right) \\ \\
+\displaystyle \mathbf{x} = \Phi(\mathbf{x}_{0}) = \sum_{i=1}^{N} w_{i}(\mathbf{x}_{0})\left(\mathbf{t}_{i}+A_{i}\mathbf{x}_{0,i}^{rel}\right) \\ \\
 \displaystyle \mathbf{x}_{0,i}^{rel} = A_{0,i}^{-1}\left( \mathbf{x}_{0} - \mathbf{t}_{0,i} \right)
 \end{array}
 \end{equation}
@@ -779,7 +780,7 @@ From the description of the displacement field (Equation~\eqref{eq:frameBasedDis
 \displaystyle
 F\left(\mathbf{x}\right) = 
 \frac{\partial \mathbf{x}}{\partial \mathbf{x}_{0}} =
-\sum_{i=0}^{N} \nabla w_{i}(\mathbf{x}_{0}) \left( \mathbf{t}_{i}+A_{i}\mathbf{x}_{0,i}^{rel}\right) + 
+\sum_{i=1}^{N} \nabla w_{i}(\mathbf{x}_{0}) \left( \mathbf{t}_{i}+A_{i}\mathbf{x}_{0,i}^{rel}\right) + 
 w_{i}\left( A_{i}A_{0,i}^{-1} \right)
 \end{equation}
 
@@ -795,7 +796,7 @@ Let assume that we sampled the object with $M$ integration points, then we can u
 \label{eq:frameForceComputation}
 \displaystyle
 \mathbf{f}_{i} =
-- \sum_{j=0}^{M}
+- \sum_{j=1}^{M}
 \left( \frac{\partial F}{\partial \mathbf{x}_{i}} \right)^{T}
 \left( \frac{\partial \epsilon}{\partial F} \right)^{T}
 \left( \frac{\partial \Psi}{\partial \epsilon} \right)^{T} \left(\mathbf{x}_{j}\right) V_{j} 
