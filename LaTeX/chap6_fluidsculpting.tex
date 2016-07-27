@@ -28,7 +28,7 @@ Also, we focused on three requirements to make our method useful in realistic ca
 First, the selection of the effect in the original simulation must be as simple and straightforward for the user as possible. 
 Therefore, once space-time features have been computed, the user can select them using a simple click on the surface.
 Secondly, pasting the selected effect onto the final animation should be handled automatically, with seamless adaptation of the pasted fluid effect to the destination surface. 
-Finally, the pipeline of selection, copy, edit, and paste steps should be computed efficiently in order to enable interactive user feedback. 
+Finally, the pipeline of selection, copy, edit and paste steps should be computed efficiently in order to enable interactive user feedback. 
 \paragraph*{}
 The key contributions of our work are as follows:
 \begin{itemize}
@@ -77,7 +77,7 @@ Finally, the last step consists of editing the space-time features and pasting t
 \section{Feature extraction}
 \label{sec:extraction}
  In the feature extraction step, our method defines the space-time features that the user would like to manipulate. 
-This process is divided into three steps, as described in Figure~\ref{fig:feature_extraction}: detection, segmentation, and aggregation. 
+This process is divided into three steps, as described in Figure~\ref{fig:feature_extraction}: detection, segmentation and aggregation. 
 While detection is semi-automatic (it is interleaved with user interaction to define customized regions of interest throughout the animation), segmentation and aggregation are fully automatic.
  \begin{figure}[!h]
  	\centering
@@ -91,7 +91,7 @@ While detection is semi-automatic (it is interleaved with user interaction to de
 The input of our method is a mesh sequence over the time steps $t$ that we note $M = (M^t)$, where $M^t$ is a manifold triangular mesh.
 We note $T(.)$ the temporal length (i.e. the number of frames) and $L(.)$ the characteristic spatial length of any space-time sequence (mesh sequence or feature).
 Given a triangular mesh $X$, we call $N_X$ the set of its vertices and $P_X$ the set of its faces.
-A vertex can carry attributes. We note $A(n,X)$ the value of the attribute $A$ at the vertex $n$ of the mesh $X$. In the following, we will note $pos(n,X)$, $norm(n,X)$, and $curv(n,X)$ for positions, normal, and curvature respectively.
+A vertex can carry attributes. We note $A(n,X)$ the value of the attribute $A$ at the vertex $n$ of the mesh $X$. In the following, we will note $pos(n,X)$, $norm(n,X)$, and $curv(n,X)$ for positions, normal and curvature respectively.
 $\Delta_{A}(n,X)$ designates the Laplace-Beltrami operator applied to the attribute $A$ at vertex $n$ of the mesh $X$.
 %A comprehensive list of notations can be found in Appendix~\ref{sec:notations}.
 
@@ -250,7 +250,7 @@ This allows us to ensure that the resulting path cover will be vertex-disjoint.
 
 We detail our vertex-disjoint path cover process in Algorithm~\ref{alg:aggregation} using the following notation:
 \begin{itemize}
-  \item $G$, $V$, and $E$ represents respectively a graph, a set of vertices, and a set of edges;
+  \item $G$, $V$ and $E$ represents respectively a graph, a set of vertices and a set of edges;
   \item $in$ and $out$ subscripts refer to input and output elements;
   \item $v^e_0$ and $v^e_1$ refer to the endpoints of edge $e$ in both $G_{in}$ and $G_{out}$ (since $V_{in} = V_{out}$);
   \item $deg(v)$ is the degree of vertex $v$ in $G_{out}$;
@@ -340,7 +340,7 @@ In the following of this section, we detail the computation of both representati
 Building the mesh representation of a frame feature $F^t_i$ simply consists of transforming $S(F^t_i)$ into an independent mesh $M(F^t_i)$.
 
 Building the differential representation of a frame feature is slightly more complex.
-The process is described in Figure~\ref{fig:displacement:copy}), and consists of three steps:
+The process is described in Figure~\ref{fig:displacement:copy}) and consists of three steps:
 Starting from the initial frame feature surface $S(F^t_i)$ we compute a smooth version $S'(F^t_i)$ using Laplacian smoothing on the inner part of the surface $S(F^t_i) \setminus \partial S(F^t_i)$.
 We note $pos(n, S)$ the position of vertex $n$ on surface $S$; note that $S(F^t_i)$ and $S'(F^t_i)$ describes the same vertices, but with different positions.
 Then we compute the displacement of each vertex $n \in N$ from $S'(F^t_i)$ to $S(F^t_i)$:
@@ -377,7 +377,7 @@ This section described the set of tools we propose; they are essentially the spa
 
 The first thing one might want from an interaction system is to specify which of the multiple entities of the scene are to be interacted with.
 This is usually performed through object selection.
-In our case, objects are space-time features, and they can be selected and grouped by clicking on their shape at a given frame.
+In our case, objects are space-time features and they can be selected and grouped by clicking on their shape at a given frame.
 
 \paragraph{Copy and cut}
 
@@ -399,7 +399,7 @@ The pasting operation allows a user to insert the current feature into a target 
 \paragraph{Space-time Deformation}
 
 The user might want to use the feature in a different spatial and temporal configuration from the one in which it was extracted, so we propose adapted deformation tools.
-The position, orientation, and spatial scale of the current feature can be controlled with the mouse, and a real-time visual feed-back allows the user to set the feature in the configuration they require. 
+The position, orientation and spatial scale of the current feature can be controlled with the mouse, and a real-time visual feed-back allows the user to set the feature in the configuration they require. 
 By navigating in the animation, the user can also choose the initial frame of the current feature and set a time scale. 
 This leads to a speed-up or slowdown of the feature animation.
 
@@ -525,7 +525,7 @@ Finally, we used a fading out to obtain a smooth transition with the initial pla
 
 In this chapter, we introduced a new method for interactively editing existing fluid animations. We based our approach on an intuitive sculpting metaphor where the user can select, copy, edit and paste coherent \emph{space-time features}. 
 This approach allows a user to quickly design new liquid animations. 
-Our method is not without limitations, and we suggest several directions for future work.
+Our method is not without limitations and we suggest several directions for future work.
 
 \subparagraph{Physical consistency} 
 Even though the space-time features selected by the user capture realistic behavior, the way they are edited and inserted may spoil the realism of the resulting animation. 
