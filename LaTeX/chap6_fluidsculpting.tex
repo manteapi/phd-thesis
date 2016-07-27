@@ -1,13 +1,12 @@
 \chapter[Sculpting of Liquid Animations]{Sculpting of Liquid Animations}
 \label{chap:fluidsculpting}
-\Lettrine{D}{ue} to advances in fluid simulation methods over the last two decades, liquid animation has become commonplace in 3D animation productions. 
+\Lettrine{D}{ue} to advances in fluid simulation methods over the last two decades, animations of liquid has become commonplace in 3D animation productions. 
 The animations can be either highly realistic --- for example showing plausible fluid dynamics and interactions with obstacles --- or they can exhibit a more expressive behavior to convey specific artistic intentions. In both cases, it is essential for the artist to be able to control the simulation in order to achieve their goals.
 
 As mentionned in Section~\ref{sec:starSimulationControl}, the simulation control is generally achieved through the careful setting of a large number of parameters such as initial conditions, boundary conditions, viscosity, or external forces. 
 We briefly summarize why the tuning of these parameters is particularly difficult.
 First, they only offer indirect control over the animation, which makes them quite non-intuitive. 
-Second, it is usually not possible to have interactive visual feedback when modifying the parameters, due to the high computational cost of 
-liquid simulation.
+Second, it is usually not possible to have interactive visual feedback when modifying the parameters, due to the high computational cost of liquid simulation.
 Third, the inherently non-linear nature of fluid behavior makes it difficult to transfer parameter values from a low to a high resolution simulation. 
 In consequence, achieving a desired effect requires a tedious trial-and-error loop, where computation is restarted multiple times from scratch with different parameters. 
 In many cases, this process does not allow tight control over a sequence of waves and splashes with specific magnitudes or shapes and occurring in a specific order. 
@@ -15,14 +14,14 @@ In many cases, this process does not allow tight control over a sequence of wave
 In this chapter, we attempt a significanly different approach.
 Instead of controlling a simulation, we propose an interactive sculpting system for seamlessly editing pre-computed animations of liquid, without the need for any re-simulation. 
 Our system is based on a copy/edit/paste approach:
-The user can efficiently select consistent and visually important space-time parts of a liquid animation, such as moving waves or droplets, that we call \emph{space-time features};
+The user can efficiently select consistent and visually important space-time parts of an animation, such as moving waves or droplets, that we call \emph{space-time features};
 Once selected, these space-time features can be copied and edited in both space and time in order to change their size, orientation, trajectory or speed;
 Finally, the edited space-time features can be pasted back into any destination animation at a specific position and time set by the user.
 
 Using our tools, the user can edit and progressively refine any input simulation result, possibly using a library of pre-computed space-time features extracted from other animations. 
 In contrast to the trial-and-error loop usually required to edit animation results through the tuning of indirect simulation parameters, our method gives the user full control over the edited space-time behaviors. 
 
-To enable the use of arbitrary liquid animations computed using varying simulation techniques, we based our editing framework on generic inputs; 
+To enable the use of arbitrary animations of liquid computed using varying simulation techniques, we based our editing framework on generic inputs; 
 our method allows input mesh sequences without point-wise correspondences between frames, and with arbitrary changes of topological genus between two consecutive time steps.
 Also, we focused on three requirements to make our method useful in realistic cases.
 First, the selection of the effect in the original simulation must be as simple and straightforward for the user as possible. 
@@ -32,7 +31,7 @@ Finally, the pipeline of selection, copy, edit and paste steps should be compute
 \paragraph*{}
 The key contributions of our work are as follows:
 \begin{itemize}
-    \item A semi-automatic method to tag salient regions in a liquid animation.
+    \item A semi-automatic method to tag salient regions in an animation of liquid.
     \item An algorithm that extracts coherent \emph{space-time features} from a mesh sequence with tagged vertices.
     \item A \emph{space-time feature} representation independent from the original animation.
     \item A set of editing operations that allow the extraction, manipulation, and insertion of \emph{space-time features} into an animation.
@@ -48,10 +47,10 @@ Section~\ref{sec:fluidsculpting:discussion} draws the limits of our approach and
 The works described in this chapter have been submitted to the conference \emph{MIG 2016}. We describe our method and results in the video here: \url{https://www.dropbox.com/s/0cob2nuztdimjol/fluidSculpting_MIG2016.mp4?dl=0}.
 
 \section{Overview of the method}\label{sec:overview}
-As mentioned above, this chapter focuses on editing liquid animations.
+As mentioned above, this chapter focuses on editing animations of liquid.
 To be independent from the simulation method, we take as input a sequence of meshes without any correspondences between the mesh vertices from one frame to another. 
 Due to the arbitrary topology of the meshes and to the temporal coherence to be maintained for numerous geometric details, editing each frame with a shape modeling tool would represent a tremendous amount of work.
-Instead, we propose to manipulate a higher level representation of the liquid animation that we call \emph{space-time features}. A space time feature is a sub-part of the animation, i.e. a sequence of sub-parts of the liquid surface. 
+Instead, we propose to manipulate a higher level representation of the animation of liquid that we call \emph{space-time features}. A space time feature is a sub-part of the animation, i.e. a sequence of sub-parts of the liquid surface. 
 
 Our editing pipeline generalizes standard sculpting tools~\cite{Ferley2000} based on cut/copy/edit/paste operations.
 It is made of three steps which are illustrated in Figure~\ref{fig:overview}. 
@@ -67,7 +66,7 @@ It is made of three steps which are illustrated in Figure~\ref{fig:overview}.
 	\label{fig:overview}
 \end{figure}
 
-The first step extracts space-time features from the animation. As these features represent regions that deform over time, it would be too tedious for a user to define them by hand. We propose a semi-automatic method to detect salient regions in a liquid animation from which space-time features will be automatically computed. 
+The first step extracts space-time features from the animation. As these features represent regions that deform over time, it would be too tedious for a user to define them by hand. We propose a semi-automatic method to detect salient regions in an animation of liquid from which space-time features will be automatically computed. 
 The user can then easily select them using picking: a click at a specific location at a given frame in time results in the automatic selection of the associated feature with its full range in space and time.
 The second step computes representations of the selected space-time features that are independent from the input animation.
 They enable space-time features to be transferred from one animation to another. 
@@ -109,7 +108,7 @@ Then, topological filtering allows to interactively adjust $R$.
 We also added a painting tool that allows the user to fine-tune each $R^t$ if needed by locally removing or adding vertices from $R$ by clicking.
 
 \paragraph*{Multi-resolution curvature analysis.}
-We chose a curvature criteria to extract features as it is a natural asset for detecting waves and ripples in liquid animations. Moreover, the intimate relationship between surface curvature and liquid surface dynamics had already led previous work to use curvature as a tool to enrich liquid simulations, for example with splashes~\cite{Takahashi2003}, foam~\cite{Ihmsen2012} and textures~\cite{Narain2007}.
+We chose a curvature criteria to extract features as it is a natural asset for detecting waves and ripples in animations of liquid. Moreover, the intimate relationship between surface curvature and liquid surface dynamics had already led previous work to use curvature as a tool to enrich liquid simulations, for example with splashes~\cite{Takahashi2003}, foam~\cite{Ihmsen2012} and textures~\cite{Narain2007}.
 
 Curvature is computed at each vertex $n$ of the animation meshes $M^t$ using the following formula:
 \begin{equation}
@@ -370,7 +369,7 @@ These operations allow to counter the effects of low-resolution shapes of both $
 
 \section{Sculpting Tools}
 \label{sec:manipulation}
-Once space-time features representations have been computed, they can either be manipulated by the user to modify the current liquid animation, or they can be extracted and re-used in another liquid animation to enrich it.
+Once space-time features representations have been computed, they can either be manipulated by the user to modify the current animation, or they can be extracted and re-used in another animation to enrich it.
 This section described the set of tools we propose; they are essentially the space-time analogue of common tools used for sculpting static geometry~\cite{Ferley2000,schmidt2010meshmixer,Takayama2011}.
 
 \paragraph{Selection}
@@ -459,7 +458,7 @@ Then we extract the boat wake and paste it on the ocean animation at three diffe
 
 \paragraph{Animation enrichment}
 An interesting aspect of our method is that it can be used to enrich static objects or non-fluid objects with a fluid-like behavior. 
-In Figure~\ref{fig:result:teaser}, we enriched a static object with a splash extracted from a liquid animation.
+In Figure~\ref{fig:result:teaser}, we enriched a static object with a splash extracted from an animation of liquid.
 More generally, our method allows to combines results obtained with very different methods such as procedural animation, Eulerian and Lagrangian simulations, shallow water simulation, or artist-created animations.
 
 \begin{figure}[!h]
@@ -514,7 +513,7 @@ Finally, we used a fading out to obtain a smooth transition with the initial pla
 		\includegraphics[width=\textwidth]{images/fluidsculpting-mig2016/results/two_drops_2.png}
 		\caption{\label{fig:result_trajectory:t2}$t=t_{2}$}
 	\end{subfigure}
-	\caption[Fluid sculpting: Droplets]{From an existing liquid animation we extracted a complete crown splash into a single \emph{space-time feature}. The feature combines both the fall of a drop and the resulting splash. We edit and paste this feature twice at different locations and modify the height of the droplets. Here, we show different frames of the final animation.
+	\caption[Fluid sculpting: Droplets]{From an existing animation of liquid we extracted a complete crown splash into a single \emph{space-time feature}. The feature combines both the fall of a drop and the resulting splash. We edit and paste this feature twice at different locations and modify the height of the droplets. Here, we show different frames of the final animation.
 	}
 	\label{fig:result_trajectory}
 \end{figure}
@@ -523,8 +522,8 @@ Finally, we used a fading out to obtain a smooth transition with the initial pla
 
 \section{Discussion and concluding remarks} \label{sec:fluidsculpting:discussion}
 
-In this chapter, we introduced a new method for interactively editing existing fluid animations. We based our approach on an intuitive sculpting metaphor where the user can select, copy, edit and paste coherent \emph{space-time features}. 
-This approach allows a user to quickly design new liquid animations. 
+In this chapter, we introduced a new method for interactively editing existing liquid animations. We based our approach on an intuitive sculpting metaphor where the user can select, copy, edit and paste coherent \emph{space-time features}. 
+This approach allows a user to quickly design new animations. 
 Our method is not without limitations and we suggest several directions for future work.
 
 \subparagraph{Physical consistency} 
@@ -545,7 +544,7 @@ Even if it has not been an issue for our results, we would like to enforce the r
 This metric would take into account some inferred velocity for the region. It could also incorporate some cause and effect relationships; for example, a falling drop will cause waves. 
 
 \subparagraph{Memory consumption} 
-For our results, we worked with short sequence of liquid animations but when editing a large sequence of high resolution meshes and extracting potentially large space-time features, memory consumption may become a problem. 
+For our results, we worked with short sequence of animations of liquid but when editing a large sequence of high resolution meshes and extracting potentially large space-time features, memory consumption may become a problem. 
 A classical solution would be to use a multi-resolution approach.
 The user would manipulate a low resolution version of the animation which would ensure interactivity. 
 Then, the user's edits choice would be transferred to the high resolution version of the animation as an off-line post-process.
