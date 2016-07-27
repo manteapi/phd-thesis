@@ -1,16 +1,10 @@
 CheckList
 ==========
--Rajouter les references des articles à la fin des intro. des chapitres.
--Liens vers les vidéos
-
 -Réferencement des figures
 -Undefined reference (figure, section, citation)
 -Répétition de mot: the the, and and
 -Mauvaise grammaire: user's interaction
--Espace insécable: ~\cite{}, ~\eqref{}, ~\ref{}
-
 -Relecture finale
--Template finale
 
 Figures
 =======
