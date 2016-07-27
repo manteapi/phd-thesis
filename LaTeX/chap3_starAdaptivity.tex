@@ -6,7 +6,7 @@ This comes at a high memory and computational price that can quickly become intr
 Adaptive models provide a general paradigm to solve these efficiency goals.
 \paragraph*{}
 We call a model or simulation method \emph{adaptive} if it automatically adapts the underlying mathematical representation, data structure and/or algorithm at run time, based on the evolving state of the simulated system.
-The adaptation is designed for meeting a given criteria which depends on the application. 
+The adaptation is designed to meet a given criteria which depends on the application. 
 Examples of frequently used criteria include reducing the overall computational complexity without loss of quality, improving the quality of real-time simulation, or simulating more precisely the parts of the scene with which the user is currently interacting.
 \paragraph*{}
 In this chapter, we review the different families of adaptive methods and present the way they have been applied in the different domains. In Section~\ref{sec t adaptivity}, we present time adaptive techniques such as dynamic time stepping and freezing techniques.
@@ -364,7 +364,7 @@ To detect regions with significant flow detail, Hong et al.~\cite{Hong2008FLIP} 
   \operatorname{Df} = \frac{(\mathbf u\cdot\nabla)\mathbf u}{\nu\nabla^2\mathbf u},
 \end{equation}
 where $\mathbf u$ is the fluid's velocity field and $\nu$ is its viscosity.
-Ando et al.~\cite{Ando2013} use a flexible sizing function that combine multiple criteria to set the desired resolution. Among them the depth of the liquid, the camera viewpoint, the fluid surface curvature and the norm of the strain rate, $e = \|\nabla\mathbf u\|_F$, in order to preserve detailed motions.
+Ando et al.~\cite{Ando2013} use a flexible sizing function that combines multiple criteria to set the desired resolution. Among them the depth of the liquid, the camera viewpoint, the fluid surface curvature and the norm of the strain rate, $e = \|\nabla\mathbf u\|_F$, in order to preserve detailed motions.
 
 \subsection{Structured meshes and grids}
 

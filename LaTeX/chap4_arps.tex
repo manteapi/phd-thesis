@@ -1,7 +1,7 @@
 \chapter[Extending ARPS to Graphical Simulations]{Extending Adaptively Restrained Particle Simulation to Graphical Simulations}
 \label{chap:arps}
 
-\Lettrine{C}{ombining} efficiency with visual realism had been one of the main goals of computer graphics research in the last decade. 
+\Lettrine{C}{ombining} efficiency with visual realism has been one of the main goals of computer graphics research in the last decade. 
 In Chapter~\ref{chap:starAdaptivity}, we presented adaptive models, a general strategy to concentrate the computational time on the most interesting parts of an animated scene. 
 We observed that the two main approaches consist in adapting time or spatial sampling. 
 Although they can achieve impressive results, they are often difficult to implement, they may be restricted to specific applications and they sometimes generate discontinuity artifacts due to sudden simplifications.
@@ -14,7 +14,7 @@ Adaptively Restrained Particle Simulations~(ARPS), in contrast, introduce a phys
 In this chapter, we explore the use of Adaptively Restrained (AR) particles for graphics simulations. Our experiments show that this new, simple strategy for adaptive simulations can provide significant speed-ups more easily than traditional adaptive models. The key contributions of our work are as follows: 
 \begin{itemize}
 \item We adapt ARPS to particle-based fluid simulations and propose an efficient incremental algorithm to update forces and scalar fields.
-\item We introduce a new implicit integration scheme enabling to use ARPS for stiff objects simulation such as cloth.
+\item We introduce a new implicit integration scheme enabling to use ARPS for stiff objects simulations such as cloth.
 \end{itemize}
 
 The remainder of this chapter is organized as follows: 
@@ -30,7 +30,7 @@ A video illustrating the method and the results is available here: \url{https://
 \label{sec:arps_basics}
 %-------------------------------------------------------------------------
 \paragraph*{Basic ideas:}
-Adaptively Restrained Particle Simulations (ARPS)~\cite{Artemova2012} was recently developed to speed up particle simulations in the field of Molecular Dynamics.
+Adaptively Restrained Particle Simulations (ARPS)~\cite{Artemova2012} were recently developed to speed up particle simulations in the field of Molecular Dynamics.
 They rely on Hamiltonian mechanics, where the state of a particle system is described by a position vector $\vx$ and a momentum vector $\vp$, and its time evolution is governed by the following differential equations:
 \begin{eqnarray*}
 \frac{d\vp}{dt} &=& -\frac{\partial \H}{\partial \vx} \\
@@ -317,12 +317,13 @@ These examples show that ARPS can effectively be extended to speed up liquid sim
 %-------------------------------------------------------------------------
 \section{Extension to stiff objects: Implicit Integration} 
 \label{sec:arps_implicit}
-In this section we explore the application of ARPS to stiff object simulation, such as cloths, and propose an implicit integration scheme which saves computation time for particles at rest.
+In this section we explore the application of ARPS to stiff objects simulations, such as clothes, and propose an implicit integration scheme which saves computation time for particles at rest.
 Implicit integration for cloth simulation was introduced in~\cite{Baraff1998}. 
 An introduction to implicit integration is proposed in~\cite{Witkin2001}.
 While originally formulated on velocity, it can be straightforwardly expressed on momentum.
 Instead of integrating the momentum using the forces at the current time step, implicit integration uses the forces at the end of the current step.
-As we do not know these forces we end up with a non linear function and after linearization with a linear system to solve to obtain the next momentum:
+As we do not know these forces we end up with a non linear function.
+We can linearize this function and solve the resulting linear system to obtain the next momentum:
 \begin{equation}
     \label{eq:implicit}
     ( I -\Delta t^{2}KM^{-1} ) \Delta \vp = \Delta t( \vf + \Delta t KM^{-1}\vp ) \;,
