@@ -476,7 +476,8 @@ Investigating this issue would be an avenue for future work.
 %-------------------------------------------------------------------------
 \section{Discussion and concluding remarks} 
 \label{sec:arps_discussion}
-In this chapter, we have shown that ARPS, a new, simple approach to adaptive simulation, can effectively be applied to computer graphics, which we have demonstrated through two specific applications.
+In this chapter, we have shown that ARPS, a new, simple approach to adaptive simulation, can effectively be applied to computer graphics. 
+We have demonstrated that through two specific applications.
 For SPH simulations, we have obtained significant speed-ups with only minor changes to the original simulation method.
 For stiff materials, we achieved promising results for implicit integration.
 From this work, we distinguished two main directions of study.
@@ -485,12 +486,12 @@ A first step in this direction would be to conduct a careful study of the restra
 Second, we think that better results could be achieved by employing non-physically-based transition criteria. 
 Indeed, the current one, based on kinetic energy, is well adapted to molecular dynamics simulation. 
 However, in computer graphics, we are more interested in visual results.
-Therefore, transition thresholds based on visibility or distance to camera would certainly allow to even more focus the computational power where it most contributes to the quality of the result.
+Therefore, transition thresholds, based on visibility or distance to camera, would certainly allow to even more focus the computational power where it most contributes to the quality of the result.
 \paragraph*{}
 While ARPS allows to save computational time and to maintain a constant number of degrees of freedom,
 particle systems generally require a dense sampling in order to produce visually plausible behavior.
 The large number of degrees of freedom resulting from this sampling imposes a strict limit on computational time and memory consumption.
 Recently, new deformable models have been proposed to achieve complex elastic behaviors with interactive performance by using a very small number of degrees of freedom. 
 The frame-based model introduced in Section~\ref{subsubsec:framebased} for the simulation of elastic solids belongs to this family.
-Unfortunately, these models are generally not able to handle topological changes without a large computational time which makes them not interesting anymore.
+Unfortunately, these models are generally not able to handle topological changes without a large computational time, which makes them not interesting anymore.
 In the next chapter, we address this challenge by introducing a novel method for the interactive and detailed cutting of thin sheets.
