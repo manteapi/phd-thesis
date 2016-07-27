@@ -26,7 +26,7 @@ This chapter was published in \emph{Computer Graphics Forum, 2016}~\cite{Manteau
 \section{Temporal adaptivity} \label{sec t adaptivity}
 Animating any simulated object requires integrating its equations of motion over time.
 There are many reasons why this integration procedure may need to adapt to the circumstances of the simulation, whether for accuracy, consistency, or stability.
-For instance, a system entering a highly nonlinear regime, such as during fracture, typically requires smaller time steps to maintain the desired degree of accuracy.
+For instance, a system entering a highly nonlinear regime, such as during fracture, requires smaller time steps to maintain the desired degree of accuracy.
 Alternatively, adaptive time steps may be necessary to prevent the system from entering an invalid state: for example, many collision resolution schemes maintain the invariant that the system is never allowed to enter an interpenetrating configuration, which can require adjusting the time step according to the frequency of collisions.
 Finally, the stability of continuum-mechanical simulations is closely tied to the relationship between the time step length, the spatial resolution, and the speed of propagation of information in the system, so if either of the latter change (in the presence of \emph{spatial} adaptivity or fast-moving flow) the time step must be adapted as well.
 \paragraph*{}
@@ -49,7 +49,7 @@ For example, for the classical wave equation $\partial_t^2 f = c^2\nabla^2 f$, t
 Consequently, the time step $\Delta t$ must be small enough to prevent information from propagating outside the spatial stencil over a single time step.
 In particular, for the first-order explicit finite difference scheme applied to the wave equation, where over each time step a grid cell is only affected by adjacent grid cells (separated by $\Delta x$), the CFL condition requires that $c\Delta t \le \Delta x$.
 
-In general, the CFL condition typically takes the form
+In general, the CFL condition takes the form
 \begin{align}
   \label{eq:cfl}
   C \equiv \frac{c\Delta t}{\Delta x} \le C_{\max},
@@ -114,7 +114,7 @@ This technique can be seen as a local time stepping technique, and inspired work
 
 The simplest way to perform adaptive time stepping is to choose the time step that is safe for the entire simulation domain, and perform integration for the entire system using that time step.
 That is to say, given a time step criterion (or criteria) such as \eqref{eq:cfl_sph}--\eqref{eq:div_sph} that can be evaluated locally, one evaluates the permissible time step $\Delta t_i$ at all simulation points $i$, and steps the entire system forward by a time step of length $\Delta t = \min_i \Delta t_i$.
-For methods that use implicit integration or other globally coupled schemes, such as grid-based fluids with a global pressure solve, this is typically the only possible approach.
+For methods that use implicit integration or other globally coupled schemes, such as grid-based fluids with a global pressure solve, this is the only possible approach.
 For this reason as well as for its conceptual and practical simplicity, global time stepping is probably the most widely used form of temporal adaptivity in practice.
 
 It is worth pointing out here that adaptive time stepping is not a free lunch for all time integration schemes.
@@ -149,7 +149,7 @@ If at time $t$, $q_2$ requires a very small time step $\Delta t_2$, one can stil
 \end{equation}
 Meanwhile, as $q_2$ takes multiple steps to cover the same time interval, it will require values of $q_1$ at intermediate times $t+\Delta t_2$, $t+2\Delta t_2$, and so on; these can be linearly interpolated from $q_1(t)$ and $q_1(t+\Delta t_1)$.
 Equivalently, to simplify bookkeeping, one can take the same small time steps $\Delta t_2$ for both $q_1$ and $q_2$, but only evaluate $q_1'$ at the first step and hold it fixed until a time $\Delta t_1$ has been covered.
-This approach has the same computational advantage because evaluation of $f$ is typically the most expensive part in explicit methods.
+This approach has the same computational advantage because evaluation of $f$ is the most expensive part in explicit methods.
 
 Early work on SPH~\cite{Desbrun1996,Desbrun1999} recommended this approach for local time stepping, using the CFL condition as the time step criterion.
 The same technique was also used to simulate elastic bodies using spatially adaptive finite element meshes~\cite{Debunne2001}, discussed in more detail in Section~\ref{sec:meshes}.
@@ -165,7 +165,7 @@ Asynchronous variational integrators (AVIs) studied by Lew et al.~\cite{Lew2004}
 Unlike the local time stepping model described above, AVIs associate a time step with each \emph{force} rather than each variable.
 Thus each force term applies a series of impulses to its associated nodes.
 The time step for a particular term must remain constant throughout the simulation, but different forces may have very different time steps.
-This approach is typically implemented as an event-driven simulation loop, using a priority queue to schedule the updates for all the forces in order.
+This approach is implemented as an event-driven simulation loop, using a priority queue to schedule the updates for all the forces in order.
 Thomaszewski et al.~\cite{Thomaszewski2008} applied this approach to cloth simulation with a finite element triangle mesh, choosing time steps independently for each element using the CFL criterion \eqref{eq:cfl-fem}.
 AVIs are known to exhibit ``resonance instabilities'' that can potentially cause the energy to increase without bound; however, these instabilities tend to be extremely weak in solid mechanics problems~\cite{Fong2007} and have not been observed to cause difficulties in computer graphics~\cite{Harmon2009}.
 
@@ -397,7 +397,7 @@ Employing these ideas, Wojtan and Turk~\cite{Wojtan2008} use an adaptive non-con
 \end{figure}
 Batty et al.~\cite{Batty2010} use a similar meshing strategy to simulate inviscid fluids using a finite-volume discretization. The method also handles embedded solid and free-surface boundary conditions, even though the tetrahedral mesh does not conform to the domain boundaries. Batty and Houston~\cite{Batty2011} extend this work by adding an implicit viscosity model. As explained later in the Section~\ref{sec:meshless}, Ando et al.~\cite{Ando2013} also use an adaptive BCC mesh for simulating liquids. Sifakis et al.~\cite{Sifakis2007:Hybrid} introduce the concept of ``hard bindings'' to create an adaptive BCC lattice with T-junctions for the purposes of elastic solid simulation.
 
-Adaptively-refined BCC lattice is exceptionally useful in simulations requiring tetrahedral meshes, because the structured lattice makes the typically expensive operations of remeshing and re-sampling simulation data relatively insignificant. Although the structure of the mesh removes some control over the shapes and nature of the spatial adaptivity, the structure also eliminates typical issues, such as degenerate tetrahedra.
+Adaptively-refined BCC lattice is exceptionally useful in simulations requiring tetrahedral meshes, because the structured lattice makes the expensive operations of remeshing and re-sampling simulation data relatively insignificant. Although the structure of the mesh removes some control over the shapes and nature of the spatial adaptivity, the structure also eliminates typical issues, such as degenerate tetrahedra.
 
 \paragraph*{Tall cell grids} Simulations of deep water also benefit from adaptive ``tall cell'' techniques~\cite{Irving2006,Chentanez2011}, which use regular grid cells near the water surface (where detail and accuracy is important), and tall rectangular fluid cells farther below the surface. This strategy effectively assumes that the behavior in regions located deep underwater is simpler, in that the simulation variables cannot change arbitrarily with depth. While we specifically discuss tall cell grids here because of their use of geometric adaptivity, we will also address some related height-field methods in Section~\ref{sec:mixed-models}. These methods seem to work very well when the assumptions of the methods hold. However, there is reason to believe that artifacts (like spurious reflecting waves or dissipating vortices) can occur when the tall cells fail to properly resolve important dynamics.
 
@@ -464,7 +464,7 @@ Refinement is performed by splitting a node if its size and acceleration are lar
 Some techniques for liquid simulation use a structured mesh in the interior of the volume, but allow irregularities at boundaries to better capture the dynamics of the free surface.
 These techniques benefit from many of the advantages of structured meshes discussed in Section~\ref{sec:structured}, while still retaining much of the flexibility of unstructured meshes, such as the ability to accurately match boundary conditions.
 
-In such methods, one typically maintains a high-resolution representation of the surface as a triangle mesh that is updated at each time step.
+In such methods, one maintains a high-resolution representation of the surface as a triangle mesh that is updated at each time step.
 The surface is superimposed on a regular mesh structure such as an octree or a uniform grid, and elements near the surface are modified, or new elements inserted, to better conform to the surface.
 In particular, Chentanez et al.~\cite{Chentanez2007} use the isosurface stuffing algorithm~\cite{Labelle2007} that generates an adaptive BCC lattice whose surface tetrahedra are warped and possibly subdivided to conform to the surface geometry.
 Using an octree to construct the lattice allows for coarser resolution away from the free surface.
@@ -685,7 +685,7 @@ The virtual node algorithm uses basis enrichment to stabilize fracture and cutti
 As pointed out by Bargteil and Cohen~\cite{bargteil2014animation}, volumetric elastic effects are usually low-resolution in space, because we often care about longer time scales in computer graphics.
 Model reduction methods, also called subspace simulation, exploit this fact to turn extremely costly nonlinear finite element simulations into interactive ones.
 The idea is to solve equations of motion in a reduced basis that is usually computed using modal analysis or from a database using principal component analysis (PCA).
-Thus, instead of having a complexity dependent on the simulation mesh resolution, it only depends on the size of the reduced basis (the number of deformation modes) which is typically much smaller.
+Thus, instead of having a complexity dependent on the simulation mesh resolution, it only depends on the size of the reduced basis (the number of deformation modes) which is much smaller.
 A cubature scheme is used to perform integration on only a reduced sets of well-chosen samples. In the end, this allows simulation of nonlinear deformable models with orders of magnitude speed-up.
 
 The drawbacks are that the creation of the basis requires heavy precomputation, and that the motion of the model is constrained to lie in this basis. Furthermore, while the full finite element simulations often have local compact basis functions and sparse system matrices (because each degree of freedom is a vertex that only influences its neighbors locally), reduced simulations tend to have global basis functions and dense system matrices (because each degree of freedom impacts all points in space simultaneously). Small dense systems are often more efficient than large sparse ones, but the increased storage requirement limits how many modes can be feasibly included in model-reduced simulations, and it limits the use of model reduction in settings where large numbers of modes are essential for visually-plausible behavior (like cloth and fluids).
@@ -698,7 +698,7 @@ They incrementally build a reduced-order nonlinear deformable model as the full 
 As subspace simulation tends to reproduce the global motion of an object, it is particularly challenging to produce very local deformations in this framework. A direct consequence is a simplification of the dynamic behavior. Harmon and Zorin~\cite{Harmon2013} tackle this problem by including \textit{a priori} knowledge in the building of the basis. More precisely, they augment a standard precomputed basis with a dynamic basis. This dynamic basis is built with custom functions derived from analytic solutions to static load. Unpredictable local deformations that arise due to collisions and contacts can then be handled. Moreover, as the change in the basis is very local, they can ensure temporal coherence by projecting the current subspace coordinate vector into the new basis whenever it changes. However, a limitation of the addition of local modes is a restriction on the time step size in order to properly represent the dynamics. Furthermore, the size of local displacements is limited.
 \\
 Pushing further the idea of using \textit{a priori} knowledge in the building of a reduced basis, Hahn et al.~\cite{Hahn2014} perform adaptive subspace simulation of cloth. They start with a large amount of high-resolution simulation data from multiple training animations, and convert it into a database of low-dimensional bases associated with poses. Then at each time step, they adaptively choose a subset of low-dimensional bases in the data base depending on the pose of a clothed character.
-Highly nonlinear folds and wrinkles, which typically are very hard problems for subspace simulation, can then be reproduced. Dynamics is damped near tightly constrained regions such as sleeves, but this may be acceptable in practice for animating tight clothing.
+Highly nonlinear folds and wrinkles, which are very hard problems for subspace simulation, can then be reproduced. Dynamics is damped near tightly constrained regions such as sleeves, but this may be acceptable in practice for animating tight clothing.
 
 Recently, Teng et al.~\cite{Teng2015} propose the use of subspace condensation to locally switch between subspace and fullspace simulation at run time. When dealing with localized deformations, this allows the behavior not to be limited by \textit{a priori} knowledge such as in~\cite{Harmon2013} and~\cite{Hahn2014}.
 
@@ -711,7 +711,7 @@ Moving grids methods, also called Chimera grids, allow more flexibility while ke
 Shah et al.~\cite{Shah2004} propose a simple approach in which a single grid is used whose location and size changes to enclose the region containing significant flow.
 This strategy is useful when there is only a single region of interest in the fluid, such as when simulating explosions.
 
-A more versatile approach is to use multiple independently moving grids, typically centered at each moving object in the scene.
+A more versatile approach is to use multiple independently moving grids, centered at each moving object in the scene.
 The grids may undergo pure translation~\cite{Cohen2010}, or may also rotate with the object~\cite{Dobashi2008:adaptiveGrid,English2013}; in the latter case, centrifugal and Coriolis forces may also need to be taken into account.
 A coarser background grid can also be used to represent the global flow in the remainder of the domain not covered by any local grid.
 The major question that arises in these approaches is how to couple the degrees of freedom in regions where two or more grids overlap.

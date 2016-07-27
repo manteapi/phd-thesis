@@ -8,13 +8,13 @@ Although they can achieve impressive results, they are often difficult to implem
 \paragraph*{}
 A different approach for adaptive simulation~\cite{Artemova2012} was proposed in the context of molecular dynamics~(MD). Contrary to most of the methods reviewed in Chapter~\ref{chap:starAdaptivity}, Adaptively Restrained Particle Simulations (ARPS) do not adapt time or spatial sampling, but rather switch the positional degrees of freedom of particles on and off, while letting their momenta evolve. The key idea is that since most of the computation time is spent in computing interaction forces based on positions, particles with low velocity could be considered fixed in space - and the corresponding interaction forces constant - until they accumulate enough momentum to start moving again. Therefore, inter-particles forces do not have to be updated at each time step, in contrast with traditional methods that spend a lot of time there.
 \paragraph*{}
-While freezing objects to gain computation time has been extensively used in video games (see Section~\ref{sec:adaptive-integration}), the question of when and how to release them has not been extensively studied, and has mainly relied on \textit{ad hoc} heuristics.
+While freezing objects to gain computation time has been used in video games (see Section~\ref{sec:adaptive-integration}), the question of when and how to release them has not been extensively studied, and has mainly relied on \textit{ad hoc} heuristics.
 Adaptively Restrained Particle Simulations~(ARPS), in contrast, introduce a physically sound approach with proven correctness, and has been successfully used in the context of predictive, energy-and momentum-conserving particle simulation.
 \paragraph*{}
 In this chapter, we explore the use of Adaptively Restrained (AR) particles for graphics simulations. Our experiments show that this new, simple strategy for adaptive simulations can provide significant speed-ups more easily than traditional adaptive models. The key contributions of our work are as follows: 
 \begin{itemize}
-\item We adapt ARPS to particle-based fluid simulations and propose an efficient incremental algorithm to update forces and scalar fields in Section~\ref{sec:arps_sph}.
-\item We introduce a new implicit integration scheme enabling to use ARPS for stiff objects simulation such as cloth simulation in Section~\ref{sec:arps_implicit}.
+\item We adapt ARPS to particle-based fluid simulations and propose an efficient incremental algorithm to update forces and scalar fields.
+\item We introduce a new implicit integration scheme enabling to use ARPS for stiff objects simulation such as cloth.
 \end{itemize}
 
 The remainder of this chapter is organized as follows: 
@@ -23,7 +23,8 @@ Section~\ref{sec:arps_sph} and~\ref{sec:arps_implicit} respectively introduce ou
 Section~\ref{sec:arps_implementation} deals with the practical implementation and parameters tuning. 
 Section~\ref{sec:arps_discussion} concludes and gives some perspectives of future works.
 \paragraph*{}
-The works described in this chapter were presented at the conference \emph{VRIPHYS 2013}~\cite{Manteaux2013}. A video illustrating the method and the results is available here: \url{https://youtu.be/RpJjGAoqp50}.
+The works described in this chapter were presented at the conference \emph{VRIPHYS 2013}~\cite{Manteaux2013}. 
+A video illustrating the method and the results is available here: \url{https://youtu.be/RpJjGAoqp50}.
 %-------------------------------------------------------------------------
 \section{Adaptively Restrained Particles} 
 \label{sec:arps_basics}
@@ -72,7 +73,7 @@ where $K_i=\vp_{i}^2/2m_{i}$ is the kinetic energy, and
 $s$ is a twice-differentiable function. In practice a $5^{th}$-order spline is used.
 %-------------------------------------------------------------------------
 \paragraph*{Adaptive equations of motion:}
-The adaptive equations of motions are derived from the AR Hamiltonian (\ref{eq:arhamiltonian}):
+The adaptive equations of motions are derived from the AR Hamiltonian (Equation~\eqref{eq:arhamiltonian}):
 \begin{equation}
    \label{eq:armotionequation}
     \displaystyle
@@ -110,8 +111,8 @@ AR system.
 \end{figure}
 
 In classical mechanics, the trajectory of the state in this (position, momentum) space is an ellipse, the size of which depends on the (constant) energy of the system.
-Using ARPS, the position is constant (vertical straight parts) as long as the kinetic energy is small enough, while it is an ellipse as long as the kinetic energy is big enough.
-These trajectories are connected by a transition corresponding to an energy between the two thresholds of Equation~(\ref{eq:restrainingfunction}).
+Using ARPS, the position is constant (vertical straight parts) as long as the kinetic energy is small enough, while it is an ellipse as long as the kinetic energy is large enough.
+These trajectories are connected by a transition corresponding to an energy between the two thresholds of Equation~\eqref{eq:restrainingfunction}.
 The closed trajectory corresponds to a constant \textit{adaptively restrained energy} $H_{AR}$.
 
 \paragraph*{Generalization:}
@@ -128,7 +129,7 @@ Due to the similarity of the adaptive kinetic energy with the standard kinetic e
 
 %-------------------------------------------------------------------------
 \paragraph*{Computational performance:}
-The authors of~\cite{Artemova2012}, Artemova and Redon obtained significant speed-ups by exploiting the immobility of particles. Figure~\ref{fig:cascadeCollision} illustrates one of their result where a $10\times$ speed-up was achieved in a collision scenario while keeping a behavior close to the reference one. In this example, inter-particles forces were derived from a Lennard-Jones potential. To save time on inactive particles, they proposed an incremental method to update the particles' forces at each time step:
+The authors of~\cite{Artemova2012}, Artemova and Redon, obtained significant speed-ups by exploiting the immobility of particles. Figure~\ref{fig:cascadeCollision} illustrates one of their result where a $10\times$ speed-up was achieved in a collision scenario while keeping a behavior close to the reference one. In this example, inter-particles forces were derived from a Lennard-Jones potential. To save time on inactive particles, they proposed an incremental method to update the particles' forces at each time step:
 \begin{enumerate}
     \item All forces that were acting on each active particle at the previous time step are subtracted based on previous position.
     \item New forces based on current positions are added to each active particle.
@@ -324,7 +325,7 @@ Instead of integrating the momentum using the forces at the current time step, i
 As we do not know these forces we end up with a non linear function and after linearization with a linear system to solve to obtain the next momentum:
 \begin{equation}
     \label{eq:implicit}
-    ( I -h^{2}KM^{-1} ) \Delta \vp = h( \vf + h KM^{-1}\vp ) \;,
+    ( I -\Delta t^{2}KM^{-1} ) \Delta \vp = \Delta t( \vf + \Delta t KM^{-1}\vp ) \;,
 \end{equation}
 where $\mathbf{f}$ are the forces applied on the system, $\displaystyle K = \frac{\partial \vf}{ \partial \vx}$ is the stiffness matrix and $M$ is the mass matrix. 
 Solving the linear system is more costly than explicit integration, but it allows the use of larger time steps without any loss of stability, enabling to advance much faster.
@@ -337,9 +338,9 @@ The discrete equations of motions for implicit Euler are:
 \begin{equation}
 	\label{eq:implicitEqMotion}
 	\begin{array}{l}
-	\displaystyle \Delta \vp =  h \vf(\vx_{n+1}, \vp_{n+1})\\
+	\displaystyle \Delta \vp =  \Delta t \vf(\vx_{n+1}, \vp_{n+1})\\
 				\\
-	\displaystyle \Delta \vx = h \left( M^{-1}(1-\rho(\vp_{n+1}))\vp_{n+1} \right. \\
+	\displaystyle \Delta \vx = \Delta t \left( M^{-1}(1-\rho(\vp_{n+1}))\vp_{n+1} \right. \\
 	\displaystyle \left. - \frac{1}{2}\vp_{n+1}^{T} M^{-1} \frac{\partial \rho(\vp_{n+1})}{\partial \vp}\vp_{n+1} \right)
 	\end{array}
 \end{equation}
@@ -347,7 +348,7 @@ We perform a Taylor-Young expansion of $\vf(\vx_{n+1}, \vp_{n+1})$ and introduce
 We then perform a Taylor-Young expansion of $\rho(\vp_{n+1})$ in the momentum equation, which gives us the following equation system:
 \begin{equation}
 	\label{eq:arpsLinearSystem}
-	( I -h^{2}KRM^{-1} ) \Delta \vp = h( \vf + h KM^{-1}s )
+	( I -\Delta t^{2}KRM^{-1} ) \Delta \vp = \Delta t( \vf + \Delta t KM^{-1}s )
 \end{equation}
 $R$ is a block-diagonal matrix where each $3\times 3$ block $R_{ii}$ is:
 \begin{equation}
@@ -366,7 +367,7 @@ while $s$ is a $3N$ vector where $N$ is the number of particles, and each $s_{i}
 Note that if all particles are inactive then we have $R = 0$ and $s = 0$ and we get an explicit formulation:
 \begin{equation}
     \label{eq:ARPSImplicitRestrained}
-    I \Delta \vp = h \vf
+    I \Delta \vp = \Delta t \vf
 \end{equation}
 Conversely, if all particles are active then $R = I$ and $s = \vp$ and we get the classical implicit formulation of Equation(\ref{eq:implicit}).
 In the general case, we loop over time using algorithm~\ref{alg:ARPSimplicit}.
@@ -376,12 +377,12 @@ In the general case, we loop over time using algorithm~\ref{alg:ARPSimplicit}.
     \begin{algorithmic}[10]
 	\For{ each time step}
 	    \State compute $\rho, R, s, \vf$.
-	    \State compute $A = I - h^{2}KRM^{-1}$
-	    \State compute $b = h \vf + h^{2}KM^{-1}s$
+	    \State compute $A = I - \Delta t^{2}KRM^{-1}$
+	    \State compute $b = \Delta t \vf + \Delta t^{2}KM^{-1}s$
 	    \State solve $A \Delta \vp = b$
             \State compute $\vp_{n+1} = \vp_{n} + \Delta \vp$
 	    \State compute $\displaystyle \vx_{n+1} = \vx_{n} +
-            hM^{-1}\left( R\Delta \vp+ s \right)$
+            \Delta t M^{-1}\left( R\Delta \vp+ s \right)$
 	\EndFor
     \end{algorithmic}
 \end{algorithm}
@@ -399,7 +400,7 @@ As expected, the well-known numerical damping effect of implicit Euler provides 
 To include a more controllable damping term in the physical model, we derived an implicit formulation which includes a damping term $\vf_{d} = -\gamma \mathbf{v}^{eff}$:
 \begin{equation}
 	\label{eq:arpsLinearSystemDamped}
-	( I + h\gamma M^{-1}R -h^{2}KRM^{-1} ) \Delta \vp = h( \vf + h KM^{-1}s + \vf_{d})
+	( I + \Delta t \gamma M^{-1}R -\Delta t^{2}KRM^{-1} ) \Delta \vp = \Delta t( \vf + \Delta t KM^{-1}s + \vf_{d})
 \end{equation}
 
 %------------------------------------------------------------------------

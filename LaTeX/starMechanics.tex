@@ -399,10 +399,11 @@ Fluids, for instance smoke, mainly react to pressure and viscosity.
 The stress tensor that we introduced in Section~\ref{subsubsec:starMechanics_momentumConservation} is used to relate the deformation of the fluid to this two properties in the following constitutive law
 \begin{equation}
 \label{eq:fluidConstitutiveLaw}
-\sigma = -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right)
+\sigma = -pI_{3 \times 3} + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right)
 \end{equation}
 where
 \begin{itemize}
+    \item $I_{3 \times 3}$ is the identity.
 	\item $p$ is the pressure applied on the fluid.
 	\item $\eta$ is the viscosity of the fluid.
 \end{itemize}
