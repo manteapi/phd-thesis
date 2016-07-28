@@ -339,7 +339,7 @@ In the following of this section, we detail the computation of both representati
 Building the mesh representation of a frame feature $F^t_i$ simply consists of transforming $S(F^t_i)$ into an independent mesh $M(F^t_i)$.
 
 Building the differential representation of a frame feature is slightly more complex.
-The process is described in Figure~\ref{fig:displacement:copy}) and consists of three steps:
+The process is described in Figure~\ref{fig:displacement:copy} and consists of three steps:
 Starting from the initial frame feature surface $S(F^t_i)$ we compute a smooth version $S'(F^t_i)$ using Laplacian smoothing on the inner part of the surface $S(F^t_i) \setminus \partial S(F^t_i)$.
 We note $pos(n, S)$ the position of vertex $n$ on surface $S$; note that $S(F^t_i)$ and $S'(F^t_i)$ describes the same vertices, but with different positions.
 Then we compute the displacement of each vertex $n \in N$ from $S'(F^t_i)$ to $S(F^t_i)$:
