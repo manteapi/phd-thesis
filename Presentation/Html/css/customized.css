@@ -1,0 +1,196 @@
+html
+{ 
+    background-color: inherit; 
+} 
+
+.reveal figcaption
+{
+    margin-top: 0.0cm;
+    margin-bottom: 0.0cm;
+    line-height: 0cm;
+    text-align: center;
+}
+
+.reveal .image-row
+{
+    margin-top: 0.5cm;
+    margin-bottom: 0.5cm;
+}
+
+.reveal .figure-caption-custom
+{
+    font-family: "Times New Roman", Georgia, Serif;
+    font-style: normal;
+    font-size: x-large;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.reveal h6
+{
+    font-family: "Times New Roman", Georgia, Serif;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.reveal h5
+{
+    font-family: "Times New Roman", Georgia, Serif;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.reveal h4
+{
+    font-family: "Times New Roman", Georgia, Serif;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.reveal h3
+{
+    font-family: "Times New Roman", Georgia, Serif;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.reveal h2
+{
+    font-family: "Times New Roman", Georgia, Serif;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.reveal .publication
+{
+    font-style: oblique;
+}
+
+.reveal p
+{
+    font-family: "Times New Roman", Georgia, Serif;
+}
+
+.reveal p *
+{
+    font-family: "Times New Roman", Georgia, Serif;
+}
+
+.slides .people
+{
+    margin-top: 1.5cm;
+}
+
+.slides .affiliations-img
+{
+    margin-top: 1.5cm;
+}
+
+.image-table tr td
+{
+    border: 0px solid black;
+}
+
+.slides .small-caption
+{
+    margin-top: -20px;
+    font-size: 15pt;
+}
+
+.slides .closer-caption
+{
+    margin-top: -20px;
+}
+
+.slides .default-quote
+{
+    width: 100%;
+    border: none;
+    box-shadow: none;
+}
+
+.slides .default-svg
+{
+}
+
+.slides .row-top-align
+{
+    display: table;
+    table-layout: fixed;
+}
+
+.slides .col-top-align
+{
+    display: table-cell;
+    vertical-align: top;
+    text-align: center;
+    float: none;
+}
+
+.slides .row-bottom-align
+{
+    display: table;
+    table-layout: fixed;
+}
+
+.slides .col-bottom-align
+{
+    display: table-cell;
+    vertical-align: bottom;
+    text-align: center;
+    float: none;
+}
+
+.slides .row-center-align
+{
+    display: table;
+    table-layout: fixed;
+}
+
+.slides .col-center-align
+{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    float: none;
+}
+
+.slides .nostyle-img
+{
+    width: 100%;
+    border: none;
+    box-shadow: none;
+}
+
+.slides .noborder-img
+{
+    width: 100%;
+    border: none;
+}
+
+.slides .noborder-video
+{
+    width: 80%;
+    border: 0px solid black;
+}
+
+.slides .default-img
+{
+    width: 80%;
+    border: 4px solid black;
+    padding: 0px;
+    margin-top: 15px;
+}
+
+.slides .default-video 
+{
+    width: 80%;
+    border: 4px solid black;
+    padding: 0px;
+    margin-top: 15px;
+}

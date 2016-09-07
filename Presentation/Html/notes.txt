@@ -1,0 +1,21 @@
+Mercredi 7 Septembre
+====================
+
+La présentation sera en HTML.
++ aucun problème pour la gestion des vidéos
++ formules LaTeX directement intégrées
+- transfert des anciennes présentations
+- manque de connaissances en HTML
+
+Done:
+*Brouillon du plan
+*Premières slides des différentes parties
+*Transfert de 3 slides de la présentation sur l'ARPS
+
+Observations:
+-Le transfert des anciennes présentations prend du temps
++Le transfert me permet de me rappeler des anciennes présentations
+*L'état de l'art de l'ARPS devra être modifié
+*Les anciennes présentations seront certainement raccourcis pour tenir les 45 minutes.
+*Plus vite le transfert sera fait, plus vite je pourrais affiner, travailler le discours, ...
+*L'idéal serait que ça soit terminé à la fin de la semaine, réaliste ? A voir.
