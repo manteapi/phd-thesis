@@ -1,0 +1,196 @@
+Slide 1:
+Hi everyone, my name is Pierre-Luc Manteaux, I am a PhD student from LJK in Grenoble in the team IMAGINE. 
+I am going to talk about a work  I did with Wei-Lun Sun, François Faure, Marie-Paule Cani and James F. O’Brien, which is about the detailed and interactive cutting of thin sheets. 
+Thin sheets are deformable objects such as paper or cloth. 
+Before talking about these objects, I will say a few words about interaction and details.
+
+Slide 2:
+Here are two examples where interaction with virtual objects is particularly intrusive. 
+On the left, a car is thrown against a wall which explodes into multiple pieces. 
+On the right, a block of rocks is destroyed using projectiles. 
+In both examples, objects have a realistic behavior and undergo strong changes of shapes. 
+These changes play a crucial role into the immersion of the user into the virtual environment, by pushing forward the possibilities of interactions.
+Unfortunately, in practice, these changes are restrained and fill partially their objectives. If we have a look at these two examples, from professional game engine, we quickly observe some limits.
+The geometry of the destroyed elements is simple. 
+These elements look similar to each other. 
+The user did not change precisely their shape.
+
+Slide 3:
+The main cause for these restrictions is quite simple. 
+The behavior of all these objects is computed using a physical system, which has a computational cost. 
+This cost mainly depends on the number of degrees of freedom used to depict the object.
+
+Slide 4:
+In existing systems, there is a strong relationship between the desired level of geometric details and the required number of degrees of freedom. 
+The more you want details, the more you need degrees of freedom. 
+In this context, detailed and interactive topological changes remain a challenge.
+In a video game, where the amount of ressources is limited and a very low variation of the number of DoF is required, topological changes are restrained to rigid bodies and the level of detail and interaction is limited.
+Today, there are mainly two ways to reduce the dependence between level of details and number of DoF.
+
+Slide 5:
+The first method is to use the same model for both visualization and the computation of the dynamics. 
+Remeshing operations are used to control the number of degrees of freedom, by concentrating them where details are needed (wrinkles, fracture,…). 
+The left image illustrates this approach. A sheet of paper is torn and many geometric details appear along the fracture where degrees of freedom are concentrated.
+The second method is to use two distinct models: One for visualization, one for simulation and to embed the visual model into the physical one. 
+Then the two models can have different natures and/or resolutions. In practice, the visual model is detailed while the physical one is coarser. 
+On the right image, the visual model is the detailed gray bunny. 
+The physical model is the much coarser hexahedral finite element grid in green. Then, the number of degrees of freedom can be reduced while allowing detailed cutting (in real time)
+These two approaches produce stunning results. 
+But, in both cases, the number of degrees of freedom still vary too much with respect to the number of cuts and their details. 
+Once again because the relationship between geometric details, simulation quality and number of DoF is very strong.
+
+Slide 6:
+So, maybe you noticed my point.
+In this work, our objective is to simulate deformable objects that undergo detailed topological changes while using a vey low number of DoF. 
+We do this by reducing as much as possible the dependence between geometric details, plausible behavior and number of DoF.
+These three images are Kirigami, paper with detailed cuts from where complexe behavior can emerge. We used them to illustrate our method.
+
+Slide 7:
+Before going further, here is a video of what we want to do. 
+We cut a spiral in a thin sheet which is simulated only 5 deformable frames, so 60 DoF. 
+The mesh used for visualization is made of 2000 vertices, 6000 DoF for a FEM simulation.
+
+Slide 8:
+In the following, I will first introduce the frame-based deformable model on which our work is based. 
+Then I will speak about the cut pipeline and our contributions in this pipeline. Finally, I will present some results.
+
+Slide 9:
+The frame-based deformable model was proposed by Gilles in 2011. 
+It allows to simulate complex deformable objects with only a very few number of DoF.
+The key idea is that each frame has a large region of influence, also called shape function.
+On the left, a model sampled with frames (in blue), and on the right the corresponding regions of influence.
+They decrease with respect to geodesic distance.
+
+Slide 10:
+Once the model has been sampled and shape functions have been computed.
+All the dynamics, from classical mechanics, is computed on the frames.
+And an interpolation method, here the linear blend skinning, with the shape functions as skinning weights is used to embed several layers.
+A first layer, the visual (a mesh) will follow the motion of the frames.
+A second layer, compute the deformation of the physical model and transfer internal forces to the frames in order to solve the dynamics.
+This layer is made of a uniform sampling of integration points.
+A final layer, which handles collision and transfer external forces to the frame.
+The main idea is that each of these layer can have different nature and resolutions.
+The visual layer is a fine mesh. The deformation and collision layer are made of a uniform sampling of points.
+A great deal of trade offs is made possible.
+The only missing ingredient is the handling of topological changes such as we conserve the advantages of the model.
+
+Slide 11:
+Here is the cut pipeline we propose.
+We start from a mesh embedded into a frame-based simulation.
+The user can apply cuts on the visual layer which is updated by remeshing.
+Then shape functions are updated so that they take into account the topological changes into the dynamics.
+
+Slide 12:
+Here is a video that illustrates our pipeline.
+On the left, a mesh sampled with 5 frames (blue circles). 
+On the right, the shape functions for each of the frame.
+We progressively cut a spiral and dynamically update the shape functions to take into account the new topology.
+Thus, a detailed visual model can be simulated with a very few number of DOF.
+
+Slide 13:
+I am done with the general overview of this work. Now some details.
+The objectif is to simulate detailed geometric cutting with very few frames.
+For that, we need to update the shape functions to represent the mesh topology into the dynamics.
+Even if the objective is to have a quasi constant low number of DOF. In some cases, it is necessary to dynamically re-sample frames.
+For example when a part of the model is completely cut and does not contain any frames.
+Finally, we can exploit the locality of cuts to incrementally update the simulation data and save additional computational time.
+
+Slide 14:
+Let's start with the shape functions.
+They are computed on grid which embeds the visual model. 
+A discrete voronoi is computed from the positions of the frames.
+Then for each frame, we build a function whose value is 1 at the position of the frame, 0 at its voronoi neighbors and 0.5 on the voronoi border.
+This gives us a function that linearly decrease with respect to geodesic distance.
+Once the visual model has been cut, we transfer the topological changes  onto the grid by changing its connectivity so that geodesic distances are correctly computed when updating shape functions.
+To store the grid connectivity, we used a non-manifold grid.
+
+Slide 15:
+Simply put, a non-manifold grid is just a grid where cells can store independant connectivities.
+You can see these cells as if they were duplicated as many times as they have connectivities.
+I will try to illustrate this idea.
+Let's say we start from a grid with a 8 neighbor connectivity.
+
+
+Slide 16:
+If a cut goes through a cell. 
+We want to store the connectivity of both sides. 
+In this case, the cell will be duplicated. 
+Each duplicates will have its own connectivity, here 5 neighbors.
+
+Slide 17:
+If, inside the same cell, several parts have been cut. 
+In this example, there are 4 duplicates, 3 with no neighbors and 1 with 8 neighbors.
+
+Slide 18:
+Why do we use this structure to represent the topology ?
+The main advantage is that it allows to decouple as much as possible the grid resolution from the geometrical complexity of the cuts.
+On this slide, the best example is the one where several debris are in the same cell. No matter how small they are or how detailed their contour are, they can be taken into account into a low resolution grid.
+
+Slide 19:
+To build this grid.
+We start from a mesh embedded into a uniform grid.
+Then for each cell of the grid, we start by detecting elements that overlap the cell. Then, among these elements, we detect disconnected components.For each of them, we duplicate the cell.
+Finally, for each duplicate, we determine its connectivity from the neighborhood of the elements which composed the duplicate.
+
+Slide 20:
+Now we have a cut pipeline which allows to transfer the mesh topology on the frame-based dynamics while decoupling details/simulation.
+Even if we want to keep the number of DoF as low as possible, this is still relative to the number of part which have been cut. Of course, each of them should be sampled by frames in order to be simulated.
+The re-sampling strategy is the following. We detect regions that do not contain frames by using a floodfill algorithm.
+We use a Lloyd relaxation to uniformly sample these regions. And finally we interpolate the orientation/velocity of the new frames, from the frames that were influencing the cut regions, in order to reduce discontinuities in positions and velocities.
+Should we talk about the number of frames ?
+
+Slide 21:
+At the beginning of the talk, I briefly presented the different layers which communicate with the frames: the visual layer, the deformation and collision layer.
+Each of them store values and derivatives of the shape functions. So, at each cut, it is crucial to update them from the newly computed shape functions. 
+They represent an important amount of data, expensive to update at each cut.
+
+We exploit the fact that cuts are often a progressive and localized phenomena in order to incrementally update the simulation data.
+
+First, simply by detecting regions which were affected by the cut and updating the simulation data only in these regions.
+
+Also, integration points that compute internal forces and collision points need to be re-sampled in cut regions, just as the frames.
+However, these two set of samples are generally more important than the frames. So, instead of adding more and more of them, we can simply apply Lloyd relaxation step to progressively re-sample the model without adding more of them. 
+
+Slide 22:
+Here are some results.
+Firstly, an example that shows the capacity of our system to handle intersecting cuts.
+In this video, the simulation is using only 5 frames.
+
+Slide 23:
+In this example, we cut multiple detailed shapes.
+Each time a shape is cut, we re-sample the model with frames.
+In this example, we start with 5 frames and end up with 12.
+
+Slide 24:
+Finally, here is an example with 47 frames and about fifty cuts.
+This allows to have a bending behavior emerging. 
+47 frames is a lot of frames compared to the other examples.
+However, it is still very low compared to a finite element  simulation. For instance, the visual mesh is made of 4000 vertices at the end of the cutting scenario.
+
+Slide 25:
+A few words about the performance.
+On the first line, you can see the number of frames.
+On the second, the framerate before,during,after the cuts.
+On the last, the percentage of computational time that was needed when updating the system.
+We can see, that during the cutting, the FPS is much lower.
+This comes from our remeshing algorithm which uses different structure.
+However, it is important to note that the framerate does not change that much before/after the cuts, even if the number of geometric details is much more important.
+Finally, in the last line, three of the examples have under 20% of computational time used to update the system.
+This tends to confirm that the incremental update works well.
+The first example has a very expensive update. It shows the limit of our system. The spiral cut occupies almost the totality of the model with only 5 frames.
+Therefore, even a local change has global consequences on the shape functions.
+
+Slide 26:
+In this work we proposed a method to simulate detailed cutting of thin objects with very few degrees of freedom.
+To do that, we proposed a way to update the regions of influence based on a non-manifold grid, a re-sampling strategy and an incremental update of the simulation data which exploit the locality of cuts.
+There are several possibilities of future work.
+First, we'd like to extend our method to volumetric object. The main thing to do is to be able to build the grid from a surfacic contour.
+For now, it uses the interior of the object. In 3D, this would require a tetrahedral discretization that we want to avoid.
+Second, we think this method can produce nice fracture scenarios. Our idea is to evaluate the stress tensor from low resolution simulation only to have a rough idea of the fracture direction.
+Then we would combine this direction with a procedural method to generate details along the crack.
+Finally there is still work to do on the re-sampling of frames.
+For now, we re-sample a user-defined number of frames in cut regions.
+This number should at least vary with respect to the simulated material.
+We know that for rigid material, the number of frames can be very low, one per disconnected regions.
+Whereas for soft bodies, as the number of deformation modes is much more important, we need more frames.
+Thank you very much for your attention.

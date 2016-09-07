@@ -1,0 +1,162 @@
+\documentclass[twocolumn]{article}
+%\usepackage{lipsum}% http://ctan.org/pkg/lipsum
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}% http://ctan.org/pkg/graphicx
+\usepackage{abstract}
+\usepackage{sectsty}
+\sectionfont{\small}
+%\usepackage{subfigure}
+%\usepackage{float}
+
+\title{VRIPHYS2013-Exploring the use of ARPS in Computer Graphics}
+\author{P-L Manteaux}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\twocolumn[{
+%\renewcommand\twocolumn[1][]{#1}%
+\maketitle % need full-width title
+\begin{center}
+\centering
+%\includegraphics[width=\linewidth, height=5cm]{1DAdaptivity.jpg}
+\end{center}
+\centering
+\begin{onecolabstract}
+\end{onecolabstract}
+}]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Slide 1}
+Hello everyone. I will present a new adaptive method to speed up particle simulation in computer graphics.
+\paragraph{Slide 2}
+There are a lot of situation where only local interaction occur.
+So a large computational time is lost in these quasi static situations.
+For instance this sofa where wrinkles only appear on one cushion.
+Surgical simulation where interaction may happen anywhere but only locally.
+Water simulation when it come at rest.
+Granular material which quickly stops moving due to friction.
+What we want is to spare time in these cases to focus computational time on the most interesting part of the simulation.
+\paragraph{Slide 3}
+Adaptive simulation is not a new topic in Computer Graphics. 
+Basically we can distinguish two kind of adaptivity. 
+Time adaptivity to get as large time steps as possible without compromising stability.
+Space adaptivity where one of the main goal is to get the best sampling to efficiently capture and handle
+contact in rods, wrinkles in cloth, small scale details in fluids and large deformation in solids.
+But how to save time in quasi-static simulation mainly stay unadressed. 
+In 2011 Goswami \& al. proposed to approximate slow particles by immobile ones in fluids but violating Newton's action/reaction principle. 
+In video games, freezin technics exist but are mainly restricted to rigid bodies.
+In both cases, the question of how/when the inactive particles may move again in a coherent way stay unadressed or rely on ad hoc heuristics.
+\paragraph{Slide 4}
+Recently this question was addressed in Molecular Dynamics by Artemova \& Redon. 
+Their approach is called Adaptively Restrained Particle Simulations (ARPS).
+As Goswami, slow particles are approximated by immobile ones.
+It results in constant interparticle forces which do not need to be computed.
+The difference is that the momenta associated to these constant forces still accumulates to allow particles to start moving again in a physically coherent way.
+The method has been validated on several examples.
+One of the most impressive is a collision cascade simulation where one particle is launched against a block of particles and a shock wave propagates.
+In this simulation, a 5x speed up is achieved while extremely well preserving the features of the shock. 
+In their paper, they precise that a trade-off between position/speed is possbile by tuning 2 user-defined thresholds.
+\paragraph{Slide 5}
+Our work rely on this new method. 
+Our goal is to explore/extend it to graphics simulation.
+In the following I will first say a few more words about the principle of ARPS.
+Then I will present our contributions.
+First in an extension to particle-based fluids where we propose a SPH algorithm which fully take benefit grom ARPS and a way to handle viscosity forces.
+Then in an extension to cloth simulation where we derive an implicit integrator for ARPS equation of motion in order to use large time steps.
+Finally I will conclude with limitations and future work.
+\paragraph{Slide 6}
+I will show a brief video to better illustrate the principle of ARPS.
+On the left a classical harmonic oscillator.
+On the right the phase portrait of the simulation which represents the evolution of momentum whith respect to position.
+During a classic simulation, the interparticle force is computed at each time step, even if nothing visually important happen when the momentum is low.
+Here is the same harmonic oscillator but this time adaptively restrained.
+The phase portrait is a bit different. 
+It is divided in a restrained, transition and full dynamics.
+It corresponds to the state of the particle which can be inactive, transitive or active.
+During the restrained dynamics, the particle is immobile but accumulates momentum until a first threshold.
+Then the particle become transitive.
+The purpose of this phase is to spend the accumulated energy of the restrained dynamics in a certain time.
+Once it is done the particle become active and join back a classic full dynamic.
+Time is saved during restrained dynacmics where the interparticle force do not need to be computed at each time step.
+Using appropriate threshold the adaptive simulation can stay close to reference simulation.
+\paragraph{Slide 7}
+Our first idea was to extend it to particle-based fluids.
+We chose SPH, Smoothed Particles Hydrodynamics to illustrate it.
+Basically SPH interpolates fluid quantities through particles and the classic algorithm is the following.
+First compute neighbors for each particle and this is the main bottleneck of the algorithm.
+Then there are two loops, one to compute scalar fields such as density and pressure.
+And another one to compute force fields such as pressure, viscosity.
+Finally particles are integrated.
+As I said neighbor search is the main bottleneck and by combining ARPS with SPH one can reduce the neighbor search to active particles only.
+\paragraph{Slide 8}
+We end up with a new algorithm which fully take benefit from ARPS.
+Imagine that all particles are inactive but one.
+The first step is to substract old scalar and force contribution from the active particle and its neighbors.
+This is possible because the contribution are symetric.
+Then compute neighbors but this time only for active particles.
+Perform the same loops as before but again for active particles.
+Scalar fields also benefit from ARPS.
+Finally integrate through ARPS equation of motion and update particle state.
+At the end of this algorithm, all particles still respect the Newton's action/reaction principle.
+\paragraph{Slide 9}
+There is a second point to outline in this combinaison of ARPS and SPH.
+It is about viscosity forces, which not only involve position but also velocities, and was not of concern of Artemova \& Redon.
+In ARPS there are two velocities, an accumulated velocity which is used to define the state of a particle and an effective velocity provided by ARPS equation of motion.
+It is the effective velocity which has to be used in viscosity because it is in adequation with the state of the particle.
+One side effect of viscosity was that it vanishes along with the effective velocity of the particle and drags down the state of the particle asymptotically close to the inactivity threshold without never reaching it.
+Particle barely move but no time is saved because they are considered active.
+To remedy this problem we simply use an additive threshold to prevent these situations.
+\paragraph{Slide 10+11}
+Let me show a video of a first result.
+This is classic dam break simulation where we compare SPH with ARPS. 
+Here is the particle state visualization.
+For this simulation the mean speed up was about 3.8.
+We notice that ARPS and SPH classic simulation are really close.
+\paragraph{Slide 12+13}
+In this second simulation we build a permanent flow.
+Once it is settled a large number of particles barely move but still respond to active particles interactions.
+The mean speedup was about 2.7 and this example shows that start/stop of the particle is well-handled.
+\paragraph{Slide 14}
+Let's move to our extension to cloth simulation.
+For structure objects such as cloth explicit integration require very small time steps due to stiff equations and become a bottleneck.
+A classic solution is to replace explicit integration by implicit integration as proposed by Baraff \& Witkin.
+Equation of motion are discretized using next step forces.
+Using a Taylor Young development you end up with a linear system to solve.
+This solving is expensive but allow the use of large time steps.
+Our idea is to use ARPS to reduce the size of the linear system according to the number of active particles.
+\paragraph{Slide 15}
+First we started from ARPS equation of motion.
+We implicitly discretized it and performed a Taylor Young development as Baraff.
+We end up with a new linear system involving 2 new terms.
+A matrix and a vector which encapsulate particle state.
+It happens that when particles are inactive it comes back to explicit integration.
+When particles are active it comes back to implicit integration.
+So we can extract inactive particles from the system to reduce it.
+\paragraph{Slide 16+17}
+We performed this hybrid integration on a schoolcase example, a hanging cloth.
+In this really simple example, inactive particles are explicitly inegrated and active particles are implicitly integrated.
+The reduction of the system result in a speed up of 2.7.
+\paragraph{Slide 18}
+It brings me to my conclusion.
+In this work we extended a new way to coherently approximate particle simulation to Computer Graphics.
+We did that through two extensions. 
+Particle Based fluids and cloth simulation.
+Both results in interesting speed up.
+THe main limitation of our work is instabilities due to high second derivatives of the restraining function in implicit integration.
+It would require more investigations.
+As other future work.
+It would be interesting to explore the use of visual transition criteria such as distance to camera to more concentrate resources where it most contributes.
+\paragraph{Slide 19}
+Thank you !
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BIBLIOGRAPHIE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\nocite{*}
+%\bibliographystyle{apalike}
+%\bibliography{1dAdaptativityBiblio}
+\end{document}

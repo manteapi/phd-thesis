@@ -1,0 +1,192 @@
+Slide 1
+=======
+
+Bonjour à tous, je m'appelle Pierre-Luc Manteaux, je suis doctorant au LJK à Grenoble dans l'équipe IMAGINE. Je vais vous présenter un travail réaliser avec …., dans lequel on s'est intéressé à la découpe détaillée et intéractive de feuilles fines. Feuilles fines, c'est le terme que l'on a utilisé pour décrire des objets déformables 2D comme du papier ou du tissu. Avant de vous parler de ces feuilles fines, je vais dire quelques mots sur l'interaction et les détails.
+
+Slide 2
+=======
+
+Voici deux exemples dans lesquels l'interaction avec des objets virtuels est très intrusive. Dans l'image de gauche, une voiture est lancée contre un mur qui s'éclate en de multiple morceaux. Dans l'image de droite, une montagne a été détruite à l'aide de projectile.
+Dans ces deux exemples, les objets ont un comportement réaliste  et subissent des changements de forme très important.
+Et ce sont ces changements qui en grande partie permettent à l'utilisateur de s'immerger dans l'EV en repoussant les limites d'interactions.
+
+Malheureusement, en pratique, ces changements sont restreints et ne remplissent leur objectif qu'en partie. Si on regarde ces deux exemples à nouveau, qui sont tirés de game engine professionnels, on observe très rapidement un certain nombre de limites.
+Les éléments qui sont détruits ont des formes géométriques simples, similaires, ont un comportement rigide et on ne peut pas changer leur forme précisément.
+
+Slide 3
+=======
+
+Ces restrictions ont une cause très simple. Le comportement de tout ces objets est calculé à l'aide d'un système physique qui a un coût. Ce coût dépend en partie du nombre de degré de liberté utilisé pour décrire l'objet.
+
+Slide 4
+=======
+
+Dans les systèmes existants, il y a une très forte relation entre le niveau de détails géométriques souhaité et le nombre de DDL utilisé. Plus l'on souhaite de détails, plus il faut de DDL. Dans ce contexte, assurer des changements topologiques détaillés et interactifs reste un défi. 
+ Dans un jeu vidéo où les ressources sont limitées et où l'on souhaite une variation faible du nombre de DDL, on va limiter les changements topologiques à des rigides et on  va également limiter le niveau de détail et d' interaction.
+Aujourd'hui il y a deux grandes approches pour réduire la dépendance entre le niveau de détails et le nombre de DDL.
+
+
+Slide 5
+=======
+
+Dans la première approche, le même modèle est utilisé à la fois pour la visualisation et pour le calcul de la dynamique. Et c'est par des opérations de remaillage que l'on va contrôler le nombre de DDL, en les concentrant là où les détails sont les plus important. L'image de gauche illustre cette approche, une feuille de papier est déchirer, de nombreux de détails géométriques apparaissent le long de la déchirure et les DDL y sont concentrés.
+Dans la second approche, deux modèles distincts sont utilisés. Un modèle pour la visualisation. Un modèle pour la simulation. Le modèle visuel est embarqué dans le modèle physique. Les deux modèles peuvent avoir des natures et des résolutions différentes. En pratique, le modèle visuel est détaillé et le modèle physique est grossier. Sur l'image de droite, on voit un modèle visuel détaillé de lapin en gris, embarqué dans un modèle élément finis hexahédrique assez grossier en vert.  En procédant ainsi on peut limiter le nombre de DDL nécessaire à la réalisation de découpe détaillées.
+Les résultats de ces deux approches sont très impressionnant. La méthode d'embarquement permet de faire de la découpe d'objet 3D en temps réel. 
+Malheureusement, dans les deux cas, le nombre de DDL varie trop en fonction du nombre et du détail des découpes. Encore une fois parce que la relation entre les détails géométriques, la qualité de la simulation et le nombre de DDL est extrêmement forte.
+
+Slide 6
+=======
+
+Au cas où vous l'auriez pas vu venir.
+Notre objectif dans ce travail, c'est de simuler des objets déformables qui subissent des changements topologiques détaillées, en utilisant un nombre de degré de liberté très faible. Tout ça ayant pour conséquence de réduire significativement cette dépendance entre détails géométrique, comportement plausible et quantité de DDL.
+Les trois images que vous voyez sont des Kirigami, des objets qui présentent des découpes détaillées faisant apparaître des comportements complexes, et on s'en est inspiré pour illustrer notre méthode.
+
+Slide 7
+=======
+
+Avant d’aller plus loin, voici en images ce que l’on cherche à faire. On découpe une spirale dans une feuille mince qui est simulé à l’aide d’uniquement 5 repères déformables, soit 60 DoF. Le maillage est constitué de 2000 sommets, soit 6000 DoF pour une simulation FEM.
+
+Slide 8
+=======
+
+Dans la suite de la présentation, je vais tout d’abord introduire le modèle déformable des repères sur lequel on se base. Ensuite je parlerais du pipeline de découpe ainsi que nos contributions dans ce pipeline. Et enfin je présenterais quelques résultats.
+
+Slide 9
+=======
+
+Le modèle des repères déformable a été proposé par Gilles en 2011. Il permet de simuler des objets déformables complexes à l’aide de peu de DoF.  L’idée clé étant que chacun des repères possède une grande région d’influence appelée fonction de forme. A gauche, un modèle échantillonée de repères en bleu, et à droite les régions d’influences. Elles décroissent en fontion de la distance géodésique. 
+
+Slide 10
+=======
+
+Une fois le modèle échantillonnée et les fonctions de forme calculées.
+Toute la dynamique, tirée de la mécanique des milieux continus, va être calculé au niveau des repères.
+On va utiliser une méthode d'interpolation, ici le linear blend skinning, et les fonctions de forme comme poids de skinning pour embarquer différentes couches.
+
+Une première couche, visuel i.e un maillage, qui va suivre le mouvement des repères.
+
+Une seconde couche, qui va calculer la déformation du modèle physique et faire remonter les forces internes au repères pour la résolution de la dynamique.
+
+Cette couche est constitué d'un échantillonnage uniforme de points d'intégrations.
+Une dernière couche, dont l'objectif est de calculer les collisions et qui va permettre de faire remonter les forces externes au repères.
+
+L'idée importante étant que chacun de ces modèles peuvent avoir des natures et des résolutions différentes.
+Typiquement, la couche visuel est un maillage assez fin. La couche de collision peut être un nuage de point ou un maillage. La couche d'intégration peut avoir une résolution assez basse selon le comportement souhaitée. Un grand nombre de compromis sont donc possibles.
+
+La seule chose manquante est un système permettant la gestion de changements topologiques tout en conservant les avantages du modèle.
+
+
+Slide 11
+=======
+
+Voici le pipeline de découpe que nous proposons.
+En partant d'un maillage embarqué dans une simulation basé repère.
+L'utilisateur peut appliquer des découpes au niveau de la couche visuelle qui est mise à jour à l'aide d'un algorithme de remaillage.
+Ensuite les fonctions de formes des repères sont mise à jour pour prendre en compte les changements topologiques dans la dynamique.
+
+Slide 12
+=======
+
+Voici une vidéo illustrant notre pipeline.
+Un maillage est échantillonné avec 5 repères (blue circles). A droite, les fonctions de formes de chacun des repères. On découpe une spirale dans ce maillage et l’on met à jour dynamiquement les fonctions de formes pour prendre en compte la nouvelle topologie. Ainsi on a un modèle visuelle comportant des découpes détaillées qui peut être simulé avec un très faible nombre de DOF.
+
+Slide 13
+=======
+
+J'en ai terminé avec l'aspect général de ce travail.
+L'objectif est de pouvoir simuler des découpes géométriquement détaillées à l'aide de très peu de DOF.
+Dans ce sens, il faut être capable de mettre à jour les fonctions de formes pour représenter la topologie du maillage au niveau de la dynamique.
+Même si l'objectif est d'avoir un très faible nombre de DOF, quasi constant. Dans certains cas, il est nécessaire de pouvoir ré-échantillonner dynamiquement les repères.
+Notamment au moment où une partie du modèle est complètement découpé et ne contient pas de repères.
+Enfin, on peut exploiter la localité des découpes pour mettre à jour incrémentalement les données de simulations.
+
+Slide 14
+=======
+
+Commencons avec les fonctions de formes.
+Elles sont calculées sur une grille qui est calquée sur le modèle visuelle. Un diagramme de voronoi discret est calculé à partir de la position des repères. Puis pour chaque repère, on construit une fonction qui vaut 1 à l’emplacement du repère, 0 à ses voisins de Voronoi et 0,5 sur la frontière. Ce qui nous donne une fonction linéairement décroissante par rapport à la distance géodésique.
+
+Une fois que le modèle visuel a été découpé, on va reporter les changements topologiques sur la connectivité de la grille et recalculer les distances géodésiques utilisée pour le calcul de la fonction de forme.
+
+Pour ce faire, on va utiliser une grille non-manifold.
+
+
+Slide 15
+=======
+
+Une grille non-manifold, c’est tout simplement une grille où les cellules peuvent stocker plusieurs connectivités indépendantes. Ces cellules sont alors dupliquées autant de fois qu’il y a de connectivités.
+Disons que l’on part d’une grille à connectivité 8.
+
+Slide 16
+=======
+
+Si une découpe passe en travers d’une cellule. Celle-ci sera dupliquée. Chacun des duplicats aura une connectivité de 5 voisins.
+
+Slide 17
+=======
+
+Si à l’intérieur d’une même cellule plusieurs parties ont été découpés. On peut représenter chacune de ses parties au niveau de la grille. Dans ce cas, on a 4 duplicats, 3 ayant 1 voisin et 1 ayant 8 voisins.
+
+Slide 18
+=======
+
+Pourquoi cette structure pour représenter la topologie du modèle ? Le principal intérêt est de découpler la résolution de la grille de la complexité géométrique des découpes autant que possible. Sur cette slide, le meilleur exemple est celui où on a de nombreux débris à l’intérieur d’une même cellule. Peu importe le détail de leur contour, on est capable de les représenter au niveau d’une grille basse résolution.
+
+Slide 19
+=======
+
+Pour constuire cette grille.
+On part du maillage embarqué dans une grille uniforme.
+Pour chaque cellule de la grille, on commence par détecter les éléments qui chevauchent la cellule. Par mi ces éléments on détecte les composantes connexes. Pour chacune d’entre elle, on crée un duplicat de la cellule. Et enfin, pour chaque duplicat, on détermine la connectivité à partir du voisinage des éléments qui ont constitué le duplicat.
+
+Slide 20
+=======
+
+On a maintenant un pipeline de découpe qui permet de réprésenter la topologie du maillage au niveau de la dynamique. Tout en ayant un découplage détail/simulation assez fort. Maintenant il reste à s’assurer que toutes les parties du modèle découpé sont échantillonné par des repères pour pouvoir être simulé. On peut garantir un faible nombre de DoF, modulo le nombre de parties découpées.
+La stratégie de rééchantillonnage est la suivante. On détecte les régions vides à l’aide d’un algorithme de remplissage. On échantillonne uniformément les régions vides à l’aide d’une relaxation de Lloyd. Et enfin, on va interpoler les orientations/vitesses des nouveaux repères, à partir des anciens repères qui influencait la région découpée pour réduire les discontinuités de positions et de vitesses.
+Parlez du nombre de repères ?
+
+Slide 21
+=======
+
+Au début de la présentation, j’ai rapidement présenté les différentes couches qui communique avec les repères: la couche visuelle, la couche de déformation et la couche de collision. Chacune de ces couches stockent des valeurs et dérivées des fonctions de formes. A chacune des découpes, il est essentiel que ces données soit mise à jour à partir des fonctions de forme. Ça représente une quantité importante de données. 
+Dans ce travail, on exploite le fait qu’une découpe est un phénomène qui a très souvent un impact locale, pour identifier les régions affectées par la découpe et ne mettre à jour les données de simulations que dans ces régions.
+Les points d’intégrations et de collisions doivent également être ré-échantillonnée dans les régions découpées. Généralement le nombre d’échantillons est beaucoup plus important que le nombre de repères. Plutôt que de rajouter de nouveaux échantillons, on peut appliquer des relaxations de Lloyd pour ré-échantillonner progressivement le modèle.
+
+Slide 22
+=======
+
+Voici quelques résultats.
+Tout d’abord, un exemple montrant la capacité de notre système à gérer des découpes qui s’intersectent. La simulation comportent uniquement 5 repères.
+
+Slide 23
+=======
+
+Ensuite voici un exemple où plusieurs formes détaillées ont été découpées. A chaque découpe d’une partie, on rééchantillonne le modèle à l’aide de repère. Dans cet exemple, on commence avec 5 repères et on termine avec 12.
+
+Slide 24
+=======
+
+Enfin, voici un exemple comportant 47 repères pour une cinquantaine de découpe. Ce qui permet de faire émerger un comportement de flexion. 47 repères, ça peut sembler beaucoup par rapport aux simulations précédentes, mais le modèle visuel lui comporte 4000 sommets. On reste très loin de ce qui aurait été nécessaire avec une simulation FEM.
+
+Slide 25
+=======
+
+Quelques mots sur les performances.
+Sur la première ligne, le nombre de repères.
+Sur la seconde, le FPS avant,pendant,après la découpe.
+Sur la dernière, le pourcentage de ressource utilisé au moment de la mise à jour du système.
+On constate, que pendant la découpe, on a une forte chute du FPS. Cela vient principalement de notre remaillage qui doit jongler entre différentes structures. Mais on peut constater qu’il y a peu de différence entre avant/après la découpe, malgré une augmentation drastique des détails géométriques.
+Enfin, la dernière ligne confirme bien que la mise à jour incrémentale fonctionne bien. On reste sous les 20% pour les trois derniers exemple. Le premier exemple est un peu spéciale, car on a une découpe qui occupe la quasi-totalité du modèle, uniquement 5 repères. Ce qui fait que même un changement locale aura des conséquences globales sur les régions d’influences.  
+
+Slide 26
+=======
+
+Dans ce travail, on propose une méthode pour simuler la découpe détaillée d’objets fins, à l’aide de très peu de degré de liberté.
+Pour ce faire, on a proposé une méthode de mise à jour des régions d’influence, basée sur une grille non-manifold. Ainsi que des stratégies de ré-échantillonnage et de mise à jour incrémentale des données.
+A la fin de ce travail, on envisage différentes pistes.
+Tout d’abord on souhaiterait appliquer la même méthode à des objets volumiques. Tout est en place, il reste à pouvoir constuire notre grille à partir d’un contour surfacique. Pour le moment, ce n’est pas le cas.
+Une piste intéressante serait la simulation de fracture. On pense pouvoir évaluer de manière peu couteuse des tenseurs de contraintes qui donnerait une direction grossière de fracture. Comme le modèle physique est intéressante principalement à basse résolution, les tenseurs ne seraient pas suffisamment précis pour avoir des fractures détaillées. On combinerait alors les tenseurs basses résolution avec une méthode procédural pour générer des détails.
+Enfin, il reste du travail concernant le ré-échantillonnage des repères. 
+Pour le moment on ré-échantillonne un nombre fixe de repères, défini par l’utilisateur. En fonction des matériaux et de la qualité de simulation, il faudrait pouvoir varier ce nombre. Pour des matériaux rigides, un seul repère est suffisant alors que pour des matériaux mou, il faut plus de repères pour que la gamme de déformation possible soit plus conséquentes.
+

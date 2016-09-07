@@ -1,0 +1,209 @@
+Duration: 20 minutes
+
+IPBA: interactive physics-based animation
+VE: virtual environment
+VO: virtual object
+
+*Pas besoin d'écrire et de dire motivations
+*1 image par slide
+*Amener un cube en carton pour montrer les interactions
+*Prendre l'exemple des gamins
+*Attention forme verbe passive
+*Ajouter une vidéo qui montre le resultat et les frames
+
+========
+Slide 1: 
+========
+Hello everyone. 
+My name is Pierre-Luc Manteaux, I am a PhD student at Inria Grenoble.
+With Wei-Lun Sun, François Faure, Marie-Paule Cani and James F. O'Brien, 
+we worked on "Interactive detailed cutting of thin sheets".
+It is a pleasure for me to present you our work.
+
+========
+Slide 2:
+========
+Today, you can interact with virtual objects in a very intrusive way.
+You can throw a car against a wall, destroy a mountain or escape a cutting trap. 
+In all these examples, the objects behave realistically and their shape dramatically changes.
+These changes are crucial for the immersion of the user, they reduce the limit of how far/accurately you can interact with an object.
+
+========
+Slide 3:
+========
+In practice, these changes remain restricted.
+For instance in games, they mainly concern rigid bodies.
+You can destroy an object in many pieces, but these pieces will often look the same and you rarely have an accurate control over the destruction.
+
+The main reason
+This restriction mainly comes from the computational cost of PBA.
+This cost is related to the number of degrees of freedom used to compute the dynamics of an object.
+The more physical samples you have, the more expensive the animation will be.
+And in an virtual environment, you very much desire to keep a constant number of samples, in order to guarantee interactive frame rates. 
+This means that game designers can not let the user applying an arbitrary number of detailed cuts to an object. For the simple reason that the number of physical samples will explose and that it is not affordable.
+So you do not do it, you just limit the interaction, a lot.
+And of course this is not fully satisfactory.
+It highlights the fact that interactive detailed topological changes remain challenging.
+
+========
+Slide 4:
+========
+In this work, we tackle this problem by proposing a method to perform detailed topological changes only using a very low number of physical samples. 
+We illustrate our method in several cutting examples of thin sheets such as these Kirigami illustrations.
+
+========
+Slide 5:
+========
+For instance, in this example, we progressively cut a long spiral and only use five physical samples during the whole simulation.
+
+========
+Slide 6:
+========
+Many methods have been proposed to perform topological changes during the simulation.
+Most of them rely on re-sampling the physical model in order to take into account the cuts.
+For mesh-based models, this is called re-meshing. 
+For particle-based models, this is called re-sampling.
+In both cases, cutting will greatly increase the number of samples and the quality of the sampling may provoke instabilities.
+
+Two different approaches exist in order to solve these issues. 
+The first one consists in using local/global re-sampling operators. It allows to coarsen the model where needed in order to reduce the number of samples. It also improves the quality of the model in order to prevent numerical instabilities. 
+The second one consists in using two different models communicating with each other.
+One for visualization and one for simulation, this is called embedding. 
+The two models can have different nature and different resolutions. 
+In practice, it allows to embed a fine visualization mesh into a coarse simulation model. 
+In this case the coarse simulation model can be updated using regular stencil that will preserve its quality and prevent numerical instabilities.
+
+Great results were achieved using these two strategies, even in real-time cases.
+Still, numerous detailed cuts result in a significant variation of the number of samples along the simulation. This is because the relation between the shape of the object and the simulation model is still too strong.
+
+If you want more detailed informations, I recommend you the state of the art report by Wu et al.
+
+========
+Slide 7:
+=======
+In this work, we tackle this problem by proposing a method to perform detailed topological changes only using a very low number of physical samples. 
+We illustrate our method in several cutting examples of thin sheets such as these Kirigami illustrations.
+
+========
+Slide 5:
+========
+For instance, in this example, we progressively cut a long spiral and only use five physical samples during the whole simulation.
+
+========
+Slide 6:
+========
+Recently Gilles et al. proposed a new simulation method which greatly reduces the relation between the shape and the physical model. 
+In this method, dynamics is computed on affine frames using classical continuum mechanics.
+The induced deformation field is applied on the geometric model using linear blend skinning.
+The weights of this skinning are computed using geodesic distances. 
+As a result, each frame may influence a large and complex region.
+A direct consequence is that very few frames can be used to simulate highly detailed meshes.
+Our approach builds on this embedding technique and extends it to handle topological changes.
+
+Here is a very high-level presentation of our cut pipeline. 
+We start from a mesh which has been sampled with frames (blue dots).
+The mesh and the frames are linked by a linear blend skinning. 
+On the bottom left, you can see the shape function for the frame at the center of the mesh, it represents the influence of the frame over the domain, it decreases with respect to the distance from its position.
+
+First we allow cuts to be performed on the visual mesh using basic remeshing operations.
+Then we update the shape functions of each frame so it can faithfully represent the topology of the mesh.
+
+In this video, we display the shape functions for each frame at each cut step.
+You can see that only one frame can faithfully represent the topology of the mesh and cover a complex region.
+
+========
+Slide 8:
+========
+This pipeline allows to perform interactive detailed cutting of thin sheets while keeping the number of frames very low.
+
+In order to faithfully represent the cut at the simulation level, we have to update the shape functions using a non-manifold grid.
+
+When pieces of the model are cut apart, at least one frame is needed to simulate it. This is solved using a frame re-sampling strategy.
+
+Most of the time, a cut is a very local event and we exploit this locality to perform an incremental update of the simulation data in order to save computational time.
+
+I will use these three contributions as a road map for the following of the presentation.
+
+========
+Slide 9:
+========
+First I will briefly explain how to compute the shape function for one frame.
+Let's say we start from a mesh which has been sampled with frames.
+First, we build a discrete Voronoi partition using Dijktra's shortest path algorithm to compute geodesic distances.
+Then we interpolate the values so that the shape function decreases from 1, at the frame position, to 0 at others frames and is 0.5 on the boundary of its Voronoi region.
+In order to take into account the cuts in the mesh, we modify the connectivity of the grid used to compute the geodesic distances. Now I will explain how we store the grid connectivity and how we build it.
+
+========
+Slide 10:
+========
+To store the connectivity we use a non-manifold grid. 
+This only means that the cells with independant connectivities are duplicated.
+For instance if a cell is cut in two parts, it will be duplicated into two cells and each duplicate will have a connectivity which depends on the shape of the cut.
+Another example is when a cell contains several disconnected pieces of the main object. In this cas, the cell is duplicated as many times as there are disconnected pieces. And each piece has its own connectivity.
+Why do we use this grid which seems much more complicated than a classical uniform grid ?
+The main reason is that the grid resolution is much more independant from the cuts complexity. 
+And numerous disconnected pieces and intersecting cuts are easily handled.
+
+=========
+Slide 11:
+=========
+In 2D, the building of this grid is quite simple.
+We start by embedding the mesh in a classical uniform grid.
+Then for each cell, we first detect the mesh elements that overlap the cell.
+From these elements we can detect how many disconnected components overlap the cell.
+This gives us the number of duplicates.
+And finally, for each duplicate we build their connectivity using the overlapping mesh elements and their neighbors.
+
+==========
+Slide 12:
+==========
+At this point, there are many cutting cases we can handle with a low number of frames.
+First we can handle long and thin cuts only using 5 frames.
+Second we can handle detailed shape with thin pieces.
+Third we can handle numerous cuts that give birth to Kirigami illustrations.
+In this case we used 47 frames in order to have a nice deformation but it still remains a very low number of samples.
+Finally we can handle cuts that intersect.
+
+==========
+Slide 13:
+==========
+In order to simulate all the disconnected parts that can be created during cutting, we perform re-sampling.
+At each cut step, we detect regions without frame using a flood fill algorithm.
+Then we uniformly sample these empty regions using Lloyd relaxation.
+Finally, we prevent popping artefacts by interpolating the world position of the new frames using  the deformation field from the previous step.
+Even if we add more frames, the final number remains very low thanks to the ability of each frame to represent a large region.
+In this video, we progressively cut several detailed shapes.
+We detect each time a shape is completely cut apart from the main piece, re-sample it with one frame and interpolate its orientation and velocity from the previous step.
+In this simulation the number of frames increased from 5 to 12.
+
+==========
+Slide 14:
+==========
+Each time a cut is applied, shape functions are modified and numerous simulation data need to be updated. For instance, the weights and their derivatives at mesh vertices which are interpolated from the non-manifold grid.
+
+Updating all these data is not affordable.
+Hopefully cuts are often progressive and induce only local changes.
+We leverage this locality to perform incremental update in order to save computational time. At each cut step, we detect the regions where the shape functions changed from the last step. And we only update the simulation data in these regions. 
+
+In the frame-based framework, integration points and collision nodes are sampled over the domain.
+At each time step, they respectively compute the deformation and collision response and transfer it to the frames. We need to keep them uniformly sampled over the simulation in order to precisely compute deformation and collision response. This is done by performing several iterations of Lloyd relaxation at each cut step.
+
+==========
+Slide 15:
+==========
+In all our examples, the framerate remains interactive.
+We experienced overhead during the cutting stage but this comes from the remeshing step which is far from being optimized. 
+In practice the incremental strategy allows to update only a small portion of the whole simulation data, between 17% and 10%. Except for the spiral example where 40% of the simulation data needed to be updated at each time step. This comes from the fact that the cut covered almost all the domain. In this case, with very few frames, a local modification may induce important changes.
+
+==========
+Slide 16:
+==========
+In conclusion, we proposed a method to simulate detailed cutting of thin sheets with very few frames and at interactive frame rates. By updating the shape functions and using re-sampling and incremental update strategy, we illustrated this method in examples featuring numerous detailed cuts that intersect.
+
+As future works, we would like to extend our method to 3d and handle fracture.
+We already tried fracture in 2D and experienced difficulties in computing an accurate stress tensor. Instead we would like to investigate the use of procedural method in order to enhance the details along the fracture.
+
+Also, our re-sampling strategy could be more robust. Right now the number of frames which are added is a user-defined parameter. We would like to build a relation between the shape and the material of the object and the number of frames that are needed to correctly simulate the object.
+
+Finally we would like to build the non-manifold grid only using the contour of the object.
+Right now we use the interior of the mesh and in 3d it would imply a tetrahedral mesh that we absolutely want to avoid.
