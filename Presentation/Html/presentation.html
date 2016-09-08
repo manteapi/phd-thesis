@@ -102,6 +102,8 @@
                 ================================================
                 ================================================
                 -->
+
+                <!--Introduction-->
                 <section>
                     <h2>Exploration et étude de la méthode ARPS pour l'informatique graphique</h2>
                     <div class="row">
@@ -123,6 +125,7 @@
                     </aside>
                 </section>
 
+                <!--Motivations-->
                 <section>
                     <h2>Motivations</h2>
                     <h6>Gagner du temps dans les situations quasi-statiques</h6>
@@ -163,6 +166,7 @@
                         </div>
                 </section>
 
+                <!--Etat de l'art-->
                 <section>
                     <h2>État de l'art: adaptivité</h2>
                     <div class="row row-top-align image-row">
@@ -229,6 +233,128 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <p>Défi: Réactiver de manière cohérente une simulation</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!--ARPS - Artemova & Redon -->
+                <section>
+                    <h2><strong>A</strong>daptively <strong>R</strong>estrained <strong>P</strong>article <strong>S</strong>imulations</h2>
+                    <div class="row"> 
+                        <div class="col-sm-12">
+                            <p>
+                            <small>Proposé par <em>[Artemova & Redon 2012]</em> dans le contexte de la <strong>Dynamique Moléculaire</strong></small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="nostyle-img" style="width:80%;" data-src="./images/arps/arpsPipeline.svg" alt="arpsPipeline">
+                        </div>
+                    </div>
+                    <div class="row row-center-align">
+                        <div class="col-sm-6 col-center-align">
+                            <small>
+                            <ul>
+                                <li>Accélérations importantes</li>
+                                <li>Préservation des caractéristiques</li>
+                                <li>Compromis précision/efficacité</li>
+                            </ul>
+                            </small>
+                        </div>
+                        <div class="col-sm-6 col-center-align">
+                            <img style="width:80%;" class="nostyle-img" data-src="./images/arps/ARPS_speedup.jpg" alt="arpsCollision">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ARPS - Planning -->
+                <section>
+                    <h2>Plan</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>
+                            <strong>Objectif : </strong> Etendre ARPS aux simulations graphiques.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ol class="upper-roman">
+                                <li>Principes de <em>ARPS</em></li>
+                                <li>Extension à la simulation de fluides particulaires</li>
+                                <ol type="upper-alpha">
+                                    <li>Algorithme ARPS+SPH</li>
+                                    <li>Forces de viscosité</li>
+                                </ol>
+                                <li>Extension à la simulation de vêtements</li>
+                                <ol type="upper-alpha">
+                                    <li>Intégrateur implicite</li>
+                                </ol>
+                                <li>Limitations et perspectives</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ARPS - Principes I -->
+				<section data-state="arpsPrinciplesI">
+                    <h2>Principes de <em>ARPS</em></h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <video class="noborder-video" id="video-arpsPrinciplesI" loop>
+                                <source data-src="videos/arps/ARPSOscillator.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ARPS - Principes II -->
+                <section>
+                    <h2>Principes de <em>ARPS</em></h2>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img class="nostyle-img" style="width:80%;" data-src="./images/arps/restrainingFunction.png" alt="arpsRestrainingFunction">
+                        </div>
+                        <div class="col-sm-6">
+                            <img class="nostyle-img" style="width:80%;" data-src="./images/arps/harmonicOscillatorPhasePortraitraw.jpeg" alt="arpsPhasePortrait">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <small>
+                            <ul>
+                                <li>La transition assure un départ/arrêt lisse de la particule</li>
+                                <li>Les seuils définissent la taille de la zone de transition</li>
+                                <li>La fonction de restriction et les seuils sont cruciales pour le réalisme et la stabilité</li>
+                            </ul>
+                            </small>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ARPS - Principes III -->
+				<section data-state="arpsPrinciplesII">
+                    <h2>Principes de <em>ARPS</em></h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <video class="noborder-video" id="video-arpsPrinciplesII" loop>
+                                <source data-src="videos/arps/OscillatorComparison.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ARPS - Extension to SPH -->
+                <section>
+                    <h2>Extension to Particle-based Fluids</h2>
+                    <h2><small>Smoothed Hydrodynamics Particles <em>[Becker&al. 2007]</em></small></h2>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img class="nostyle-img" style="width:80%;" data-src="./images/arps/harmonicOscillatorPhasePortraitraw.jpeg" alt="arpsPhasePortrait">
+                        </div>
+                        <div class="col-sm-6">
+
                         </div>
                     </div>
                 </section>
@@ -1532,6 +1658,17 @@ Reveal.addEventListener( 'customevent', function() {
                     tmpVideo.play();
                 });
 
+                Reveal.addEventListener( 'arpsPrinciplesI', function() 
+                {
+                    var tmpVideo = document.getElementById("video-arpsPrinciplesI");
+                    tmpVideo.play();
+                });
+
+                Reveal.addEventListener( 'arpsPrinciplesII', function() 
+                {
+                    var tmpVideo = document.getElementById("video-arpsPrinciplesII");
+                    tmpVideo.play();
+                });
 
                 Reveal.addEventListener( 'arpsPermanentFlow', function() 
                 {

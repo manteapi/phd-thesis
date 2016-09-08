@@ -71,6 +71,33 @@ html
     font-style: oblique;
 }
 
+.reveal ol.upper-roman 
+{
+    list-style-type: upper-roman;
+}
+
+.reveal ol.upper-alpha
+{
+    list-style-type: upper-alpha;
+}
+
+.reveal ol
+{
+    font-family: "Times New Roman", Georgia, Serif;
+    text-align: left;
+    list-style-position: inside;
+}
+
+.reveal li
+{
+    margin-top: 0.5cm;
+}
+
+.reveal ul
+{
+    font-family: "Times New Roman", Georgia, Serif;
+}
+
 .reveal p
 {
     font-family: "Times New Roman", Georgia, Serif;
