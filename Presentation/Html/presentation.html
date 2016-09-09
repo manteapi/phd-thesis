@@ -22,7 +22,7 @@
         <script type="text/x-mathjax-config">
         // <![CDATA[
             MathJax.Hub.Config({ 
-                TeX: {extensions: ["AMSmath.js", "AMSsymbols.js"]},     
+                TeX: {extensions: ["AMSmath.js", "AMSsymbols.js", "color.js"]},     
                 extensions: ["tex2jax.js"],
                 jax: ["input/TeX", "output/HTML-CSS"],
                 showProcessingMessages : false,
@@ -373,9 +373,9 @@
                     </div>
                 </section>
 
-                <!-- ARPS - Extension to SPH -->
+                <!-- ARPS - Extension to SPH I -->
                 <section>
-                    <h2>Extension to Particle-based Fluids</h2>
+                    <h2>Extension aux fluids particulaires</h2>
                     <h4><small>Smoothed Hydrodynamics Particles <em>[Becker&al. 2007]</em></small></h4>
                     <div class="row">
                         <div class="col-sm-6">
@@ -449,15 +449,395 @@
                     </div>
                 </section>
 
-                <!--
+                <!-- ARPS - Extension to SPH II -->
+                <section>
+                    <h2>Extension aux fluids particulaires</h2>
+                    <!--
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="noStyle">
+                                <tr>
+                                    <td><img class="nostyle-img" style="width:80%;" data-src="./images/arps/arpsInactiveParticle.svg" alt="arpsInactive"></td>
+                                    <td><p><small>Inactive</small></p></td>
+                                    <td><img class="nostyle-img" style="width:80%;" data-src="./images/arps/arpsActiveParticle.svg" alt="arpsActive"></td>
+                                    <td><p><small>Active & Transitive</small></p></td>
+                            </table>
+                        </div>
+                    </div>
+                    -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img class="nostyle-img" style="width:80%;" data-src="./images/arps/sphIllustration2.svg" alt="sphIllustration2">
+                        </div>
+                        <div class="col-sm-6">
+                            <small>
+                            <!--<ul class="algoHeader">-->
+                            <table class="noStyle">
+                                <tr>
+                                    <td>
+                                        <ul class="algoPrimaryBlock">
+                                            <li class="algoLine">Pour chaque particule active & ses voisins</li>
+                                            <ul class="algoBlock">
+                                                <li class="algoLine">Soustraire anciennes contributions (scalaires,forces)</li>
+                                            </ul>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><ul class="algoPrimaryBlock"><li class="algoLine">Calcul des voisins des particules actives</li></ul></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ul class="algoPrimaryBlock">
+                                            <li class="algoLine">Pour chaque particule active & ses voisins</li>
+                                                <ul class="algoBlock">
+                                                    <li class="algoLine">Ajouter contribution scalaire</li>
+                                                </ul>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ul class="algoPrimaryBlock">
+                                            <li class="algoLine">Pour chaque particule active & ses voisins</li>
+                                            <ul class="algoBlock">
+                                                <li class="algoLine">Ajouter contribution force</li>
+                                            </ul>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <ul class="algoPrimaryBlock">
+                                            <li class="algoLine">Pour chaque particule</li>
+                                            <ul class="algoBlock">
+                                                <li class="algoLine">Intégrer le mouvement avec ARPS</li>
+                                                <li class="algoLine">Mettre à jour le statut des particules</li>
+                                            </ul>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </table>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul>
+                                <li>Scalaires et forces sont calculés efficacement</li>
+                                <li>Le principe d'action/réaction est respecté</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ARPS - Extension to SPH III -->
+                <section>
+                    <h2>Extension aux fluids particulaires</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="p-title"><small><strong>Viscosité et vitesse</strong></small></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <small>
+                            <table class="noStyle">
+                                <tr>
+                                    <td>Vitesse accumulée</td>
+                                    <td>$\displaystyle \mathbf{v} = \frac{\mathbf{p}}{m}$</td>
+                                </tr>
+                                <tr>
+                                    <td>Vitesse effective</td>
+                                    <td>$\displaystyle \mathbf{\dot{x}} = \left(1-\rho(\mathbf{p})\right)\frac{\mathbf{p}}{m}-\frac{1}{2}\parallel\mathbf{p}\parallel^{2}\frac{\partial \rho(\mathbf{p})}{\partial\mathbf{p}}$</td>
+                                </tr>
+                            </table>
+                            </small>
+                        </div>
+                        <div class="col-sm-4">
+                            <small>
+                            <table class="noStyle">
+                                <tr><td>$\mathbf{x}$</td><td>position</td></tr>
+                                <tr><td>$\mathbf{p}$</td><td>quantité de mouvement</td></tr>
+                                <tr><td>$m$</td><td>masse</td></tr>
+                                <tr><td>$\rho$</td><td>fonction de restriction</td></tr>
+                            </table>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div clas="col-sm-12">
+                            <p class="p-title"><small><strong>Convergence asymptotique vers inactivité</strong></small></p>
+                            <img class="nostyle-img" style="width:50%;" data-src="./images/arps/slowConvergence.jpg" alt="arpsSlowConvergence">
+                        </div>
+                    </div>
+                </section>
+
+
+                <!-- ARPS - Extension to SPH IV -->
+				<section data-state="arpsDamBreak">
+                    <h2>Extension aux fluids particulaires</h2>
+                    <div class="row">
+                        <video class="noborder-video" id="video-arpsDamBreak" loop>
+                            <source data-src="videos/arps/DamBreak.mp4" type="video/mp4"/>
+                        </video>
+                    </div>
+                </section>
+
+                <!-- ARPS - Extension to SPH V -->
+                <section>
+                    <h2>Extension aux fluids particulaires</h2>
+                    <h2><small>Dam Break</small></h2>
+                    <div class="row">
+                        <table class="noStyle-center">
+                            <tr>
+                                <td>
+                                    <img class="nostyle-img" style="width:085%;" data-src="./images/arps/arpsDamBreak1.jpg" alt="arpsDamBreak1">
+                                </td>
+                                <td>
+                                    <img class="nostyle-img" style="width:100%;" data-src="./images/arps/arpsDamBreak2.jpg" alt="arpsDamBreak2">
+                                </td>
+                                <td>
+                                    <img class="nostyle-img" style="width:100%;" data-src="./images/arps/arpsDamBreak3.jpg" alt="arpsDamBreak3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SPH</td>
+                                <td colspan="2">SPH + ARPS</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul>
+                                <li>Accélération: 3.85x</li>
+                                <li>Caractéristiques préservées</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ARPS - Extension to SPH VI -->
 				<section data-state="arpsPermanentFlow">
+                    <h2>Extension aux fluids particulaires</h2>
                     <div class="row">
                         <video class="noborder-video" id="video-arpsPermanentFlow" loop>
                             <source data-src="videos/arps/PermanentFlow.mp4" type="video/mp4"/>
                         </video>
                     </div>
                 </section>
-                -->
+
+                <!-- ARPS - Extension to SPH VII -->
+                <section>
+                    <h2>Extension aux fluids particulaires</h2>
+                    <h2><small>Flux permanent</small></h2>
+                    <div class="row">
+                        <table class="noStyle-center">
+                            <tr>
+                                <td>
+                                    <img class="nostyle-img" style="width:085%;" data-src="./images/arps/PermanentFlowSPH.jpg" alt="sphPermanentFlow">
+                                </td>
+                                <td>
+                                    <img class="nostyle-img" style="width:100%;" data-src="./images/arps/PermanentFlowARPSColor.jpg" alt="arpsPermanentFlow2">
+                                </td>
+                                <td>
+                                    <img class="nostyle-img" style="width:100%;" data-src="./images/arps/PermanentFlowARPSColor2.jpg" alt="arpsPermanentFlow2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SPH</td>
+                                <td colspan="2">SPH + ARPS</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <ul>
+                                <li>Accélération: 2.7x</li>
+                                <li>Transitions douces</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ARPS - Extension to Cloth Simulation I -->
+                <section>
+                    <h2>Extension à la simulation de vêtement</h2>
+                    <h2><small>Intégration implicite</small></h2>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <img class="noborder-img" style="width:90%;" data-src="./images/arps/Baraff98.png" alt="BaraffCloth">
+                            <figcaption class="figure-caption figure-caption-custom"><em>[Baraff&Witkin 1998]</em></figcaption>
+                        </div>
+                        <div class="col-sm-3">
+                            <p><small><strong>Explicite</strong></small></p>
+                            <p>
+                            <small>
+                            $$
+                            \left\lbrace
+                            \begin{array}{l}
+                            \displaystyle \mathbf{p}_{n+1} = \mathbf{p}_{n} + \Delta t \times \mathbf{f}(\mathbf{p}_{n},\mathbf{q}_{n}) \\
+                            \displaystyle \mathbf{q}_{n+1} = \mathbf{q}_{n} + \Delta t \times \frac{\mathbf{p}_{n+1}}{m}
+                            \end{array}
+                            \right.
+                            $$
+                            </small>
+                            </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p><small><strong>Implicite</strong></small></p>
+                            <p>
+                            <small>
+                                $$
+                                \left\lbrace
+                                \begin{array}{l}
+                                \displaystyle \mathbf{p}_{n+1} = \mathbf{p}_{n} + \Delta t \times \mathbf{f}(\mathbf{p}_{n+1},\mathbf{q}_{n+1}) \\
+                                \displaystyle \mathbf{q}_{n+1} = \mathbf{q}_{n} + \Delta t \times \frac{\mathbf{p}_{n+1}}{m}
+                                \end{array}
+                                \right.
+                                $$
+                                <br/>
+                                <img class="nostyle-img" style="width:30%;" data-src="./images/arps/taylorYoung.svg" alt="TaylorYoung">
+                                <br/>
+                                Système linéaire
+                                $$
+                                \displaystyle \left( I - \Delta t^{2}KM^{-1} \right)\Delta \mathbf{p} = \Delta t \left( \mathbf{f} + hKM^{-1}\mathbf{p} \right)
+                                $$
+                            </small></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>Idée : Réduire la taille du système linéaire avec ARPS</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ARPS - Extension to Cloth Simulation II -->
+                <section>
+                    <h2>Extension à la simulation de vêtement</h2>
+                    <h2><small>Intégration implicite</small></h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>
+                                $$
+                                \displaystyle \left( I - \Delta t^{2}K\mathbf{\textcolor{blue}{R}}M^{-1} \right)\Delta \mathbf{p} = \Delta t \left( \mathbf{f} + hKM^{-1}\mathbf{p}\mathbf{\textcolor{blue}{s}} \right)
+                                $$
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <small>
+                            <table class="noStyle">
+                                <tr>
+                                    <td>
+                                        $$
+                                        \left.
+                                        \begin{array}{ll}
+                                        \mathbf{\textcolor{blue}{R}} \text{ is a block diagonal matrix} & \\
+                                        \mathbf{\textcolor{blue}{s}} \text{ is a vector} &
+                                        \end{array}
+                                        \right\rbrace
+                                        $$
+                                    </td>
+                                    <td>
+                                    Encapsule la transition et l'état des particules
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="noStyle-spacing">
+                                <tr>
+                                    <td>Inactif</td>
+                                    <td>$$\left\lbrace\begin{array}{l}R=\mathbf{0}\\s=\mathbf{0}\end{array}\right.$$</td>
+                                    <td>$$I\Delta p = \Delta t \mathbf{f}$$</td>
+                                    <td>Explicite</td>
+                                </tr>
+                                <tr>
+                                    <td>Actif</td>
+                                    <td>$$\left\lbrace\begin{array}{l}R=I\\s=\mathbf{p}\end{array}\right.$$</td>
+                                    <td>$$\left( I-\Delta t^{2} KM^{-1}\right)\Delta p = \Delta t \left( \mathbf{f} + \Delta t KM^{-1}\mathbf{p}\right)$$</td>
+                                    <td>Implicite</td>
+                                </tr>
+                            </table>
+                            </small>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ARPS - Extension to Cloth Simulation III -->
+				<section data-state="arpsClothSimulation">
+                    <h2>Extension à la simulation de vêtement</h2>
+                    <div class="row">
+                       <video class="noborder-video" id="video-arpsClothSimulation" loop>
+                           <source data-src="videos/arps/ClothSimulation.mp4" type="video/mp4"/>
+                       </video>
+                    </div>
+                </section>
+
+                <!-- ARPS - Extension to Cloth Simulation IV -->
+                <section>
+                    <h2>Extension à la simulation de vêtement</h2>
+                    <div class="row row-center-align">
+                        <div class="col-sm-6 col-center-align">
+                            <img class="nostyle-img" style="width:90%;" data-src="./images/arps/arpsCloth.svg" alt="arpsCloth">
+                        </div>
+                        <div class="col-sm-6 col-center-align">
+                            <ul>
+                                <li>Accélération: 2.7x</li>
+                                <li>Réduction importante de la taille du système</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ARPS - Conclusion -->
+                <section>
+                    <h2>Conclusion</h2>
+                    <h2><small>Contribution : Approximation cohérente de simulation de particules pour l'informatique graphique</small></h2>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>
+                            <small>
+                            Fluides particulaires
+                            <ul>
+                                <li>Algorithme SPH + ARPS</li>
+                                <li>Forces de viscosité cohérente</li>
+                            </ul>
+                            </small>
+                            </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <p>
+                            <small>
+                            Simulation de vêtements
+                            <ul>
+                                <li>Intégrateur implicite</li>
+                                <li>Solveur Hybride</li>
+                            </ul>
+                            </small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p><small>Accélérations importantes dans les deux cas</small></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <small>
+                            <p><strong>Limitations : </strong> Instabilitées liées aux dérivées secondes de la fonction de restriction</p>
+                            <p><strong>Perspectives: </strong> Variation spatiale des seuils (distance à la caméra, ...)</p>
+                            </small>
+                        </div>
+                    </div>
+
+                </section>
 
                 <!--
                 ================================================
@@ -1760,9 +2140,21 @@ Reveal.addEventListener( 'customevent', function() {
                     tmpVideo.play();
                 });
 
+                Reveal.addEventListener( 'arpsDamBreak', function() 
+                {
+                    var tmpVideo = document.getElementById("video-arpsDamBreak");
+                    tmpVideo.play();
+                });
+
                 Reveal.addEventListener( 'arpsPermanentFlow', function() 
                 {
                     var tmpVideo = document.getElementById("video-arpsPermanentFlow");
+                    tmpVideo.play();
+                });
+
+                Reveal.addEventListener( 'arpsClothSimulation', function() 
+                {
+                    var tmpVideo = document.getElementById("video-arpsClothSimulation");
                     tmpVideo.play();
                 });
 
