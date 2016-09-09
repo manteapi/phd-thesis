@@ -14,6 +14,34 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
+        <!-- I love MathJax -->
+        <!-- <script type="text/javascript"
+        src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>-->
+        <!-- But MathJax + PSTricks is better -->
+        <script type="text/x-mathjax-config">
+        // <![CDATA[
+            MathJax.Hub.Config({ 
+                TeX: {extensions: ["AMSmath.js", "AMSsymbols.js"]},     
+                extensions: ["tex2jax.js"],
+                jax: ["input/TeX", "output/HTML-CSS"],
+                showProcessingMessages : false,
+                messageStyle : "none" ,    
+                showMathMenu: false ,
+                tex2jax: {
+                    processEnvironments: true,
+                    inlineMath: [ ['$','$'] ],
+                    displayMath: [ ['$$','$$'] ],
+                    preview : "none",
+                    processEscapes: true
+                },
+                "HTML-CSS": { linebreaks: { automatic:true, width: "latex-container"} }
+            });
+            // ]]>
+        </script>
+        <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+        <script type="text/javascript" src="latex2html5.min.js"></script> 
+
 
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -348,13 +376,75 @@
                 <!-- ARPS - Extension to SPH -->
                 <section>
                     <h2>Extension to Particle-based Fluids</h2>
-                    <h2><small>Smoothed Hydrodynamics Particles <em>[Becker&al. 2007]</em></small></h2>
+                    <h4><small>Smoothed Hydrodynamics Particles <em>[Becker&al. 2007]</em></small></h4>
                     <div class="row">
                         <div class="col-sm-6">
-                            <img class="nostyle-img" style="width:80%;" data-src="./images/arps/harmonicOscillatorPhasePortraitraw.jpeg" alt="arpsPhasePortrait">
+                            <img class="nostyle-img" style="width:80%;" data-src="./images/arps/sphIllustration1.svg" alt="sphIllustration1">
                         </div>
                         <div class="col-sm-6">
-
+                            <small>
+                            <!--<ul class="algoHeader">-->
+                            <table class="noStyle">
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <ul class="algoPrimaryBlock">
+                                            <li class="algoLine">Pour chaque particule</li>
+                                            <ul class="algoBlock">
+                                                <li class="algoLine">Calcul des voisins</li>
+                                            </ul>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="important">Champs scalaires</span></td>
+                                    <td>
+                                        <ul class="algoPrimaryBlock">
+                                            <li>Pour chaque particule $i$</li>
+                                            <ul class="algoBlock">
+                                                <li class="algoLine">Pour chaque voisin $j$</li>
+                                                <ul class="algoBlock">
+                                                    <li class="algoLine">Calcul densité, pression</li>
+                                                </ul>
+                                            </ul>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="important">Forces</span></td>
+                                    <td>
+                                        <ul class="algoPrimaryBlock">
+                                            <li>Pour chaque particule $i$</li>
+                                            <ul class="algoBlock">
+                                                <li class="algoLine">Pour chaque voisin $j < i$</li>
+                                                <ul class="algoBlock">
+                                                    <li class="algoLine"> $\mathbf{f}_{i} \mathrel{+}= \mathbf{F}_{i,j}^{pressure} + \mathbf{F}_{i,j}^{viscosity}$ </li>
+                                                    <li class="algoLine"> $\mathbf{f}_{i} \mathrel{+}= \mathbf{F}_{i,j}^{pressure} + \mathbf{F}_{i,j}^{viscosity}$ </li>
+                                                </ul>
+                                            </ul>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="important">Intégration</span></td>
+                                    <td>
+                                        <ul class="algoPrimaryBlock">
+                                            <li class="algoLine">Pour chaque particule</li>
+                                            <ul class="algoBlock">
+                                                <li class="algoLine">Intégrer équation du mouvement</li>
+                                            </ul>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </table>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>
+                            Coût le plus important: Recherche des voisins
+                            </p>
                         </div>
                     </div>
                 </section>

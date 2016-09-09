@@ -71,6 +71,29 @@ html
     font-style: oblique;
 }
 
+.reveal table.noStyle
+{
+    border-collapse: collapse;
+}
+
+.reveal table.noStyle td, tr
+{
+    padding-top: 0.0cm;
+    padding-bottom: 0.0cm;
+}
+
+.reveal .important
+{
+    color: red;
+}
+
+.reveal table.noStyle td
+{
+    font-family: "Times New Roman", Georgia, Serif;
+    vertical-align: middle;
+    border: none;
+}
+
 .reveal ol.upper-roman 
 {
     list-style-type: upper-roman;
@@ -91,6 +114,50 @@ html
 .reveal li
 {
     margin-top: 0.5cm;
+}
+
+.reveal ul.noStyle
+{
+    font-family: "Times New Roman", Georgia, Serif;
+    list-style-type: none;
+    text-align: left;
+    list-style-position: inside;
+}
+
+.reveal ul.algoHeader
+{
+    margin-top: 0cm;
+    margin-bottom: 0cm;
+    text-align: left;
+    list-style-position: inside;
+    list-style-type: none;
+}
+
+.reveal ul.algoPrimaryBlock
+{
+    margin-top: 0cm;
+    margin-bottom: 0.5cm;
+    text-align: left;
+    list-style-position: inside;
+    list-style-type: none;
+}
+
+.reveal ul.algoBlock
+{
+    margin-top: 0cm;
+    margin-bottom: 0cm;
+    text-align: left;
+    list-style-position: inside;
+    list-style-type: none;
+}
+
+.reveal li.algoLine
+{
+    margin-top: 0cm;
+    margin-bottom: 0cm;
+    text-align: left;
+    list-style-position: inside;
+    list-style-type: none;
 }
 
 .reveal ul
