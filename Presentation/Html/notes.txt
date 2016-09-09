@@ -1,5 +1,5 @@
-Mercredi 7 Septembre
-====================
+Mercredi 7 Septembre (J-25)
+============================
 
 La présentation sera en HTML.
 + aucun problème pour la gestion des vidéos
@@ -19,3 +19,16 @@ Observations:
 *Les anciennes présentations seront certainement raccourcis pour tenir les 45 minutes.
 *Plus vite le transfert sera fait, plus vite je pourrais affiner, travailler le discours, ...
 *L'idéal serait que ça soit terminé à la fin de la semaine, réaliste ? A voir.
+
+Jeudi 8 Septembre (J-24)
+=========================
+
+Done:
+*1/3 Présentation ARPS sur une 1/2 journée
+
+Observations:
+*La figure de fonction de restriction doit être refaite
+*Les vidéos doivent être modifiées si possible (fondus au blanc, redécoupage)
+
+Vendredi 9 Septembre (J-23)
+============================
