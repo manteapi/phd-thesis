@@ -148,6 +148,11 @@ html
     border: none;
 }
 
+.reveal td.large-cell
+{
+    width: 60%;
+}
+
 .reveal td.small-cell
 {
     width: 40%;
@@ -337,6 +342,20 @@ html
     display: table-cell;
     vertical-align: bottom;
     text-align: center;
+    float: none;
+}
+
+.slides .row-left-align
+{
+    display: table;
+    table-layout: fixed;
+}
+
+.slides .col-left-align
+{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
     float: none;
 }
 

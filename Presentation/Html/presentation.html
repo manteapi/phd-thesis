@@ -1189,7 +1189,7 @@
                     </div>
                 </section>
                     
-                <!-- Cutting - MAJ des fonctions de formes -->
+                <!-- Cutting - MAJ des fonctions de forme I -->
                 <section>
                 <h2>A. M.a.j des fonctions de forme</h2>
                 <div class="row">
@@ -1198,7 +1198,197 @@
                     </div>
                 </div>
                 </section>
-                <!--
+                    
+                <!-- Cutting - MAJ des fonctions de forme II -->
+                <section>
+                    <h2>A. M.a.j des fonctions de forme</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p><small><strong>Grille non-manifold</strong> : Les cellules de connectivités indépendantes sont dupliquées</small></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="nostyle-img" data-src="./images/detailedCutting/nonManifoldGrid.svg" style="width:100%;" alt="cuttingNonManifoldGrid">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <small>
+                            <ul>
+                                <li>
+                                    Indépendance entre la résolution de la grille et la complexité des découpes
+                                </li>
+                                <li>
+                                    Gestion simple des composantes connexes
+                                </li>
+                            </ul>
+                            </small>
+                        </div>
+                    </div>
+                </section>
+                    
+                <!-- Cutting - MAJ des fonctions de forme III -->
+                <section>
+                    <h2>A. M.a.j des fonctions de forme</h2>                
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="nostyle-img" data-src="./images/detailedCutting/nonManifoldGrid_Building.svg" style="width:100%;" alt="cuttingNonManifoldGridBuilding">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cutting - Ré-échantillonnage des repères -->
+                <section>
+                    <h2>B. Ré-échantillonnage des repères</h2>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img class="nostyle-img" data-src="./images/detailedCutting/technical/resampling_1.svg" style="width:70%;" alt="cuttingResampling">
+                        </div>
+                        <div class="col-sm-6">
+                            <img class="nostyle-img" data-src="./images/detailedCutting/exampleTeaser/Patchwork.png" style="width:100%;" alt="cuttingPatchwork">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <small>
+                            <ul>
+                                <li>Détecter régions vides - Algorithme de remplissage</li>
+                                <li>Échantillonnage uniforme - Relaxation de Lloyd</li>
+                                <li>Réduction des discontinuités - Interpolation de l'orientation/vitesse des repères</li>
+                            </ul>
+                            </small>
+                        </div>
+                    </div>
+                </section>
+                    
+                <!-- Cutting - M.a.j incrémentale -->
+                <section>
+                    <h2> C. M.a.j incrémentale </h2>
+                    <h6><small>Exploiter la localité des découpes</small></h6>
+                    <div class="row row-center-align">
+                        <div class="col-sm-5 col-center-align">
+                            <img class="nostyle-img" data-src="./images/detailedCutting/technical/incremental.svg" style="width:100%;" alt="cuttingLocality">
+                        </div>
+                        <div class="col-sm-7 col-center-align">
+                            <p><strong>Détecter les régions à m.a.j</strong><br/><small>Régions où les fonctions de formes ont changé</small></p>
+                            <img class="nostyle-img" data-src="./images/down.svg" style="width:20%;" alt="cuttingDown">
+                            <p>M.a.j des données de simulation<br/><strong>Ré-échantillonnage progressif</strong></p>
+                        </div>
+                    </div>
+                </section>
+                    
+                <!-- Cutting - Résultats I-->
+                <section data-state="cuttingIntersection">
+                    <h2>IV. Résultats</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <video class="noborder-video" id="video-cuttingIntersection" loop>
+                                <source data-src="videos/detailedCutting/output.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                </section>
+                          
+                <!-- Cutting - Résultats II-->
+                <section data-state="cuttingPatchwork">
+                    <h2>IV. Résultats</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <video class="noborder-video" id="video-cuttingPatchwork" loop>
+                                <source data-src="videos/detailedCutting/Patchwork.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                </section>
+                    
+                <!-- Cutting - Résultats III-->
+                <section data-state="cuttingKirigami">
+                    <h2>IV. Résultats</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <video class="noborder-video" id="video-cuttingKirigami" loop>
+                                <source data-src="videos/detailedCutting/Kirigami.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                </section>
+                    
+                <!-- Cutting - Résultats IV -->
+                <section>
+                    <h2>IV. Résultats</h2>
+                    <h6><small>Performances</small></h6>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <small>
+                            <table class="noStyle-center">
+                                <tr>
+                                    <td></td>
+                                    <td><img class="nostyle-img" data-src="./images/detailedCutting/exampleTeaser/ProgressiveSpiral.png" style="width:100%;" alt="cuttingSpiral"></td>
+                                    <td><img class="nostyle-img" data-src="./images/detailedCutting/exampleTeaser/Kirigami.png" style="width:100%;" alt="cuttingKirigami"></td>
+                                    <td><img class="nostyle-img" data-src="./images/detailedCutting/exampleTeaser/Patchwork.png" style="width:100%;" alt="cuttingPatchwork"></td>
+                                    <td><img class="nostyle-img" data-src="./images/detailedCutting/exampleTeaser/Vortex.png" style="width:100%;" alt="cuttingVortex"></td>
+                                </tr>
+                                <tr>
+                                    <td>#Repères</td>
+                                    <td>$5$</td>
+                                    <td>$47$</td>
+                                    <td>$5 \rightarrow 12$</td>
+                                    <td>$5$</td>                                    
+                                </tr>
+                                <tr>
+                                    <td style="width:20%;">FPS <br/> <small>Avant $\vert$ Pendant $\vert$ Après</small></td>
+                                    <td>$60~\vert~15~\vert~60$</td>
+                                    <td>$11~\vert~3~\vert~11$</td>
+                                    <td>$60~\vert~7~\vert~45$</td>
+                                    <td>$45~\vert~7~\vert~35$</td>                                    
+                                </tr>
+                                <tr>
+                                    <td>$\%$ m.a.j</td>
+                                    <td>$43$</td>
+                                    <td>$17$</td>
+                                    <td>$5$</td>
+                                    <td>$15$</td>
+                                </tr>
+                            </table>
+                            </small>
+                        </div>
+                    </div>
+                </section>
+                    
+                <!-- Cutting - Conclusion et perspectives -->
+                <section>
+                    <h2>Conclusion & perspectives</h2>
+                    <h6><small>Contribution : Découpe détaillée de feuilles fines avec très peu de repères</small></h6>
+                    <div class="row row-center-align">
+                        <div class="col-sm-6 col-center-align">
+                            <small>
+                            <ul>
+                                <li>M.a.j fonctions de forme</li>
+                                <li>Ré-échantillonnage des repères</li>
+                                <li>M.a.j incrémentale</li>
+                            </ul>
+                            </small>
+                        </div>        
+                        <div class="col-sm-6 col-center-align">
+                            <img class="nostyle-img" data-src="./images/detailedCutting/exampleTeaser/teaser.svg" style="width:60%;" alt="cuttingTeaser">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p><strong>Travaux futurs</strong></p>
+                            <small>
+                            <ul>
+                                <li>Matériaux 3D : Grille non-manifold à partir du contour</li>
+                                <li>Fracture + détails procéduraux</li>
+                                <li>Ré-échantillonnage robuste des repères</li>
+                            </ul>
+                            </small>
+                        </div>
+                    </div>
+                </section>
+                    
+                    <!--
 				<section data-state="cuttingPatchwork">
                     <div class="row">
                         <video class="noborder-video" id="video-cuttingPatchwork" loop>
@@ -2497,10 +2687,22 @@ Reveal.addEventListener( 'customevent', function() {
                     var tmpVideo = document.getElementById("video-cuttingSpiral");
                     tmpVideo.play();
                 });
+
+                Reveal.addEventListener( 'cuttingIntersection', function() 
+                {
+                    var tmpVideo = document.getElementById("video-cuttingIntersection");
+                    tmpVideo.play();
+                });
             
                 Reveal.addEventListener( 'cuttingPatchwork', function() 
                 {
                     var tmpVideo = document.getElementById("video-cuttingPatchwork");
+                    tmpVideo.play();
+                });
+            
+                Reveal.addEventListener( 'cuttingKirigami', function() 
+                {
+                    var tmpVideo = document.getElementById("video-cuttingKirigami");
                     tmpVideo.play();
                 });
             
