@@ -23,6 +23,31 @@ html
     margin-bottom: 0.5cm;
 }
 
+.reveal .overlay-container
+{
+    position: relative;
+}
+
+.reveal .overlay-text
+{
+    position: absolute;
+    left: 0;
+    top: 20%;
+    width: 100%;
+    text-align: center;
+}
+
+.reveal .figure-caption-closer
+{
+    font-family: "Times New Roman", Georgia, Serif;
+    font-style: normal;
+    font-size: x-large;
+    font-weight: normal;
+    text-transform: none;
+    margin-top: -0.65cm;
+    margin-bottom: 0cm;
+}
+
 .reveal .figure-caption-custom
 {
     font-family: "Times New Roman", Georgia, Serif;
