@@ -1129,10 +1129,75 @@
                     </div>
                 </section>
                     
-                <!-- Cutting - Processus de découpe -->
+                <!-- Cutting - Processus de découpe I -->
                 <section>
+                    <h2>II. Processus de découpe</h2>
+                    <div class="row row-align-center">
+                        <div class="col-sm-12 col-align-center">
+                            <img class="nostyle-img" data-src="./images/detailedCutting/cuttingPipeline.svg" style="width:100%;" alt="cuttingPipeline">
+                        </div>
+                    </div>
                 </section>
                     
+                <!-- Cutting - Processus de découpe II -->
+                <section data-state="cuttingPipeline">
+                    <h2>II. Processus de découpe</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <video class="noborder-video" id="video-cuttingPipeline" loop>
+                                <source data-src="videos/detailedCutting/Spiral_ShapeFunction.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                </section>       
+                    
+                <!-- Cutting - Contributions -->
+                <section>
+                <h2>Contributions</h2>
+                <h6><small>Découpe détaillée, très peu de DDL</small></h6>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="noStyle no-top-spacing">
+                                <tr>
+                                    <td class="align-left">
+                                        A. M.a.j fonctions de formes
+                                    </td>
+                                    <td class="align-center small-cell">
+                                        <img class="nostyle-img" data-src="./images/detailedCutting/technical/spiral_frame4.png" style="width:40%;" alt="cuttingSpiral">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-left">
+                                        B. Ré-échantillonnage des repères
+                                    </td>
+                                    <td class="align-center small-cell">
+                                        <img class="nostyle-img" data-src="./images/detailedCutting/exampleTeaser/Patchwork.png" style="width:60%;" alt="cuttingPatchwork">
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td class="align-left">
+                                        C. Mise à jour incrémentale
+                                    </td>
+                                    <td class="align-center small-cell">
+                                        <img class="nostyle-img" data-src="./images/detailedCutting/technical/performance.svg" style="width:40%;" alt="cuttingPerformance">
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                    
+                <!-- Cutting - MAJ des fonctions de formes -->
+                <section>
+                <h2>A. M.a.j des fonctions de forme</h2>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <img class="nostyle-img" data-src="./images/detailedCutting/shapeFunctionPipeline.svg" style="width:100%;" alt="cuttingShapeFunctionPipeline">
+                    </div>
+                </div>
+                </section>
                 <!--
 				<section data-state="cuttingPatchwork">
                     <div class="row">
@@ -2421,6 +2486,12 @@ Reveal.addEventListener( 'customevent', function() {
                     tmpVideo.play();
                 });
 
+                Reveal.addEventListener( 'cuttingPipeline', function() 
+                {
+                    var tmpVideo = document.getElementById("video-cuttingPipeline");
+                    tmpVideo.play();
+                });            
+            
                 Reveal.addEventListener( 'cuttingSpiral', function() 
                 {
                     var tmpVideo = document.getElementById("video-cuttingSpiral");

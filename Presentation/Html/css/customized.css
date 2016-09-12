@@ -116,6 +116,25 @@ html
     padding-bottom: 0.5cm;
 }
 
+.reveal .no-top-margin
+{
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.reveal table.noStyle-left
+{
+    border-collapse: collapse;
+}
+
+.reveal table.noStyle-left td
+{
+    font-family: "Times New Roman", Georgia, Serif;
+    vertical-align: middle;
+    text-align: left;
+    border: none;
+}
+
 .reveal table.noStyle-center
 {
     border-collapse: collapse;
@@ -127,6 +146,29 @@ html
     vertical-align: middle;
     text-align: center;
     border: none;
+}
+
+.reveal td.small-cell
+{
+    width: 40%;
+}
+
+.reveal td.align-right
+{
+    vertical-align: middle;
+    text-align: right;
+}
+
+.reveal td.align-left
+{
+    vertical-align: middle;
+    text-align: left;
+}
+
+.reveal td.align-center
+{
+    vertical-align: middle;
+    text-align: center;
 }
 
 .reveal table.noStyle
