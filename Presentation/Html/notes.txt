@@ -32,3 +32,27 @@ Observations:
 
 Vendredi 9 Septembre (J-23)
 ============================
+
+Done:
+*Fin présentation ARPS
+Observations:
+*La présentation devra être revu, surtout après la réception des rapports
+
+Samedi 10 / Dimanche 11 (J-22, J-21)
+====================================
+
+Lundi 12 Septembre (J-20)
+=========================
+
+Done: 
+*Transfert de la présentation découpe en HTML
+
+Mardi 13 Septembre (J-19)
+==========================
+
+Done:
+*Introduction, motivations, défis
+
+Observations:
+*Va falloir se grouiller pour la sculpture de fluide
+
