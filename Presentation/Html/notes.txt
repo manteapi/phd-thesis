@@ -51,8 +51,20 @@ Mardi 13 Septembre (J-19)
 ==========================
 
 Done:
-*Introduction, motivations, défis
+*Fluid sculpting: Introduction, motivations, défis
 
 Observations:
 *Va falloir se grouiller pour la sculpture de fluide
+
+Mercredi  14 Septembre (J-18)
+==============================
+
+Done:
+*Fluid sculpting: Etat de l'art, technique (baclé)
+
+Observations:
+*Édition vidéo sculpture de fluide
+*Commencer à répéter à répéter vendredi
+*Commencer l'introduction / l'état de l'art
+
 
