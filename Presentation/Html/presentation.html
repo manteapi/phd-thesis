@@ -216,7 +216,7 @@
                     <h2><small>Complexité calculatoire</small></h2>
                     <div class="row row-top-align">
                         <div class="col-sm-12 col-top-align">
-                            <img class="noborder-img" data-src="./images/introduction/challenges/computationalTime.png" style="width:50%;" alt="challengeTime">
+                            <img class="noborder-img" data-src="./images/introduction/challenges/computationalTime.png" style="width:70%;" alt="challengeTime">
                         </div>
                     </div>
                 </section>
@@ -226,7 +226,7 @@
                     <h2><small>Modélisation de nouveaux phénomènes</small></h2>
                     <div class="row row-top-align">
                         <div class="col-sm-12 col-top-align">
-                            <img class="noborder-img" data-src="./images/introduction/challenges/topologicalChanges.png" style="width:50%;" alt="challengePhenomena">
+                            <img class="noborder-img" data-src="./images/introduction/challenges/topologicalChanges.png" style="width:70%;" alt="challengePhenomena">
                         </div>
                     </div>
                 </section>
@@ -236,7 +236,7 @@
                     <h2><small>Contrôle intuitif</small></h2>
                     <div class="row row-top-align">
                         <div class="col-sm-12 col-top-align">
-                            <img class="noborder-img" data-src="./images/introduction/challenges/houdiniInterface.jpg" style="width:50%;" alt="challengeControl">
+                            <img class="noborder-img" data-src="./images/introduction/challenges/houdiniInterface.jpg" style="width:70%;" alt="challengeControl">
                         </div>
                     </div>
                 </section>
@@ -245,23 +245,115 @@
                     <h2>Contributions de cette thèse</h2>
                     <div class="row">
                         <div class="col-sm-4">
-                            <h4 style="margin-bottom:0cm;"><small>Adaptativité</small></h4>
+                            <h4 style="margin-bottom:0cm;"><small>Complexité calculatoire</small></h4>
+                            <h4 style="margin-bottom:0cm;"><small style="color:red;">Adaptativité</small></h4>
                             <figure class="figure">
                                 <img class="noborder-img" data-src="./images/introduction/teaser/adaptivityTeaser.png" style="width:100%;" alt="introSnowWhite">
                             </figure>
                         </div>
                         <div class="col-sm-4">
-                            <h4 style="margin-bottom:0cm;"><small>Changements topologiques</small></h4>
+                            <h4 style="margin-bottom:0cm;"><small>Nouveaux phénomènes</small></h4>
+                            <h4 style="margin-bottom:0cm;"><small style="color:red;">Découpe intéractive</small></h4>
                             <figure class="figure">
                                 <img class="noborder-img" data-src="./images/introduction/teaser/cuttingTeaser.png" style="width:100%;" alt="introSnowWhite">
                             </figure>
                         </div>
                         <div class="col-sm-4">
-                            <h4 style="margin-bottom:0cm;"><small>Contrôle</small></h4>
+                            <h4 style="margin-bottom:0cm;"><small>Contrôle intuitif</small></h4>
+                            <h4 style="margin-bottom:0cm;"><small style="color:red;">Sculpture d'animation</small></h4>
                             <figure class="figure">
                                 <img class="noborder-img" data-src="./images/introduction/teaser/fluidSculptingTeaser.png" style="width:100%;" alt="introSnowWhite">
                             </figure>
                         </div>
+                    </div>
+                </section>
+                
+                <!--
+                ================================================
+                ================================================
+                                    Adaptivity
+                ================================================
+                ================================================
+                -->
+                
+                <section>
+                    <h2>Des modèles physiques adaptatifs pour l'informatique graphique</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="noborder-img" data-src="./images/adaptivity/STAR_Teaser.jpg" style="width:100%;" alt="starAdaptivity">
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>Contexte : Le réalisme coûte cher</h2>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <img class="noborder-img" data-src="./images/complexity/complexity.png" style="width:100%;" alt="character">
+                        </div>
+                        <div class="col-sm-4">
+                            <small>
+                            <ul>
+                                <li>Changements topologiques</li>
+                                <li>Grandes déformations</li>
+                                <li>Détails multi-échelles</li>
+                            </ul>
+                            <img class="nostyle-img" data-src="./images/down.svg" style="width:30%;" alt="character">
+                            <ul>
+                                <li>Échantillonnage dense</li>
+                                <li>Coût prohibitif</li>
+                            </ul>                                    
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                        <small>
+                            <p class="fragment">Adapter les modèles pour obtenir le meilleur compromis précision/performance</p>
+                        </small>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>Contexte : Quoi et comment adapter ?</h2>
+                    <h4 class="nomargin"><small>Ré-échantillonnage : Performance et stabilité</small></h4>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h4 class="nomargin"><small>Spatial</small></h4>
+                            <img class="noborder-img nomargin" data-src="./images/adaptivity/spatial.png" style="width:70%;" alt="spatial">
+                        </div>
+                        <div class="col-sm-6">
+                            <h4 class="nomargin"><small>Temporel</small></h4>
+                            <img class="noborder-img nomargin" data-src="./images/adaptivity/time.png" style="width:70%;" alt="time">
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>Contexte : De nombreuses méthodes</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="noborder-img" data-src="./images/adaptivity/taxonomy.png" style="width:80%;" alt="taxonomy">
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-6">
+                        <small>
+                        <ul class="fragment">
+                            <li>Implémentation complexe/intrusive</li>
+                            <li>Ré-utilisation difficile</li>
+                        </ul>
+                        </small>
+                    </div>
+                    <div class="col-sm-6">
+                        <small>
+                        <ul class="fragment">
+                            <li>Artefacts : discontinuités</li>
+                            <li>Incompatibilités possibles avec accélération GPU</li>
+                        </ul>
+                        </small>
+                    </div>
                     </div>
                 </section>
 

@@ -127,6 +127,11 @@ html
     border-collapse: collapse;
 }
 
+.reveal small-font
+{
+    font-size: 10pt;
+}
+
 .reveal table.noStyle-left td
 {
     font-family: "Times New Roman", Georgia, Serif;
@@ -371,6 +376,12 @@ html
     vertical-align: middle;
     text-align: center;
     float: none;
+}
+
+.slides .nomargin
+{
+    margin-top: 0cm;
+    margin-bottom: 0cm;
 }
 
 .slides .nostyle-img
