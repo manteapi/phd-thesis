@@ -309,7 +309,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                         <small>
-                            <p class="fragment">Adapter les modèles pour obtenir le meilleur compromis précision/performance</p>
+                            <p>Adapter les modèles pour obtenir le meilleur compromis précision/performance</p>
                         </small>
                         </div>
                     </div>
@@ -334,13 +334,13 @@
                     <h2>Contexte : De nombreuses méthodes</h2>
                     <div class="row">
                         <div class="col-sm-12">
-                            <img class="noborder-img" data-src="./images/adaptivity/taxonomy.png" style="width:80%;" alt="taxonomy">
+                            <img class="nostyle-img" data-src="./images/adaptivity/taxonomy.png" style="width:100%;" alt="taxonomy">
                         </div>
                     </div>
                     <div class="row">
                     <div class="col-sm-6">
                         <small>
-                        <ul class="fragment">
+                        <ul style="color:red;">
                             <li>Implémentation complexe/intrusive</li>
                             <li>Ré-utilisation difficile</li>
                         </ul>
@@ -348,7 +348,35 @@
                     </div>
                     <div class="col-sm-6">
                         <small>
-                        <ul class="fragment">
+                        <ul style="color:red;">
+                            <li>Artefacts : discontinuités</li>
+                            <li>Incompatibilités possibles avec accélération GPU</li>
+                        </ul>
+                        </small>
+                    </div>
+                    </div>
+                </section>
+                
+                                
+                <section>
+                    <h2>Contexte : De nombreuses méthodes</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="nostyle-img" data-src="./images/adaptivity/taxonomy_focus.png" style="width:100%;" alt="taxonomy">
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-6">
+                        <small>
+                        <ul style="color:red;">
+                            <li>Implémentation complexe/intrusive</li>
+                            <li>Ré-utilisation difficile</li>
+                        </ul>
+                        </small>
+                    </div>
+                    <div class="col-sm-6">
+                        <small>
+                        <ul style="color:red;">
                             <li>Artefacts : discontinuités</li>
                             <li>Incompatibilités possibles avec accélération GPU</li>
                         </ul>
@@ -389,7 +417,7 @@
 
                 <!--Motivations-->
                 <section>
-                    <h2>Motivations</h2>
+                    <h2>Objectif des méthodes de freezing</h2>
                     <h6>Gagner du temps dans les situations quasi-statiques</h6>
                     <div class="row row-bottom-align image-row">
                         <div class="col-sm-6 col-bottom-align">
@@ -429,6 +457,48 @@
                 </section>
 
                 <!--Etat de l'art-->
+                <section>
+                    <h2>État de l'art: Freezing</h2>                    
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h6><small>Rigides</small></h6>
+                        </div>
+                        <div class="col-sm-4">
+                            <h6><small>Rigides Articulés</small></h6>
+                        </div>
+                        <div class="col-sm-4">
+                            <h6><small>Fluide</small></h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                        <figure class="figure">
+                            <img class="noborder-img" data-src="./images/freezing/freezing-rigid.png" style="width:100%;" alt="freezingRigid">
+                            <figcaption class="figure-caption text-xs-center figure-caption-custom">
+                            <small><em>[Schmidl et al. 2002], [Guendelman et al. 2003]</em></small>
+                            </figcaption>
+                        </figure>
+                        </div>
+                        <div class="col-sm-4">
+                            <figure class="figure">
+                                <img class="noborder-img" data-src="./images/freezing/redon.png" style="width:100%;" alt="freezing Articulated">
+                            <figcaption class="figure-caption text-xs-center figure-caption-custom"><small><em>[Kim et al. 2008]</em></small></figcaption>
+                        </figure>
+                        </div>
+                        <div class="col-sm-4">
+                            <figure class="figure">
+                                <img class="noborder-img" data-src="./images/freezing/freezing-fluid.svg" style="width:70%;" alt="freezing Articulated">
+                            <figcaption class="figure-caption text-xs-center figure-caption-custom"><small><em>[Goswami et al. 2011]</em></small></figcaption>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p>Défi: Réactiver de manière cohérente une simulation</p>
+                        </div>
+                    </div>
+                </section>
+
+<!--
                 <section>
                     <h2>État de l'art: adaptivité</h2>
                     <div class="row row-top-align image-row">
@@ -498,6 +568,7 @@
                         </div>
                     </div>
                 </section>
+-->
 
                 <!--ARPS - Artemova & Redon -->
                 <section>

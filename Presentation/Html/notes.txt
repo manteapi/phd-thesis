@@ -81,4 +81,5 @@ Lundi 19 Septembre (J-13)
 
 Todo:
 *Slide de présentation de la simulation physique
+*Répétition
 
