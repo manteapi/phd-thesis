@@ -1,0 +1,42 @@
+Introduction
+============
+
+Bonjour à tous.
+Je suis Pierre-Luc Manteaux et je vais vous présenter les travaux réalisés pendant ma thèse,
+intitulée "Simulation et contrôle de phénomènes physiques", qui a été supervisé par François
+Faure et Marie-Paule Cani, au sein de l'équipe IMAGINE du laboratoire Jean Kuntzmann.
+
+Cette thèse s'inscrit dans le domaine de l'informatique graphique que beaucoup de personnes 
+associent au cinéma d'animation. Je vais profiter de cet exemple pour introduire ce domaine.
+
+Pour la petite histoire, jusqu'au milieu des années 80, la plupart des dessins animés sont réalisés de manière traditionnelle. C'est à dire que chaque image est dessinée, coloriée à la main. Pour un long métrage de 90 minutes comme blanche neige et les sept nains, il faut 135000 images. Ça représente un travail colossale, mais qui en vaut la chandelle parce qu'il n'y a aucune limite à l'imagination et ça fait de l'argent. 
+
+Au milieu des années 80, avec la démocratisation de l'informatique, les principales étapes de création d'un film (dessin, interpolation, colorisation) sont réalisées à l'aide d'un ordinateur. Ça permet d'avoir un gain de temps considérable sur des tâches répétitives comme l'interpolation ou la colorisation. L'imagination et la capacité à transmettre des émotions, elles, restent préserver. C'est ce qui fait l'intérêt de l'informatique graphique sur l'animation traditionnelle. Et on voit émerger de nouveaux outils qui permettent de créer des animations toujours plus complexes en termes de phénomènes, d'échelle et de réalisme.
+
+Dans ce contexte, la simulation physique va jouer un rôle crucial. En implémentant, i.e en transférant dans un logiciel les lois physiques qui décrivent notre réalité, on va pouvoir simuler le comportement d'objets virtuels dans des environnements virtuels de manière réaliste et ainsi créer automatiquement des animations complexes et plausibles qui auraient été difficile, voire quasi-impossible à obtenir avec des méthodes traditionnelles. 
+
+On peut même aller plus loin, en transférant des règles qui ne décrivent pas une réalité physique 
+mais un objectif artistique, on peut créer des animations qui combine le réalisme d'une simulation physique avec l'expressivité d'une intention artistique. 
+
+Pour la petite histoire, dans le court métrage Luxo Jr. de Pixar, qui est illustré ici, le câble a été animé sans l'aide de simulation et le réalisateur a clairement dit que ça avait été une des tâches les plus longue et difficile à réaliser. Quand on pense, aujourd'hui, aux animations d'explosions, d'inondations, de vêtements, de muscles, etc..., que l'on rencontre dans les films, ça met bien en relief l'importance de la simulation physique.
+
+Au delà du cinéma, l'informatique graphique et la simulation physique ont de nombreuses applications. On les retrouve dans les jeux vidéos, dans les simulateurs chirurgicaux ou dans l'aide à la fabrication d'objets. Dans ces domaines, la capacité à générer automatiquement un comportement réaliste d'un phénomène complexe est très importante. Bien sûr, quand on parle de réalisme et de complexité, c'est très relatif à l'objectif visé. On peut avoir besoin d'une précision suffisante pour valider scientifiquement un protocole de chirurgie virtuelle ou la solidité d'un objet fabriqué avec un matériau précis, ou alors on peut se contenter d'un précision qui va garantir la plausibilité d'un phénomène sans se soucier si l'objet pourrait exister dans la réalité, comme ça peut être le cas dans un jeu vidéo. Il y a un second point qui rend la simulation physique importante pour ces différentes applications, c'est la capacité à pouvoir intéragir avec les phénomènes simulés. Dans le cas des jeux vidéos ou d'un simulateur chirurgical ça va permettre à l'utilisateur de s'immerger plus naturellement dans l'environnement virtuel et dans le cas de la fabrication, ça va permettre d'accélérer le processus de conception.
+
+Pour que ces applications remplissent leurs objectifs, les simulations doivent faire face à plusieurs défis. Je vais en présenter trois qui font échos aux travaux de ma thèse.
+
+Un des premiers défis que l'on rencontre quand on fait usage de la simulation, c'est celui de la complexité calculatoire. Une simulation nécessite des ressources informatiques importantes, que ce soit en terme de mémoire ou d'unité de calcul. Pour illustrer, j'ai pris une image d'un simulateur de liquide, dans lequel un bloc d'eau est lâché dans un bassin qui contient un obstacle. L'eau est représentée à l'aide de particules, ici 6 millions de particules, qui représentent chacune un petit volume d'eau qui intéragit avec ses voisins en suivant des équations qui décrivent l'écoulement d'un liquide. L'implémentation du simulateur, elle,  est loin d'être naïve, elle fait appel aux capacités de calcul de plusieurs cartes graphiques qui intéragissent pour équilibrer au mieux la charge de calcul. Au final, il faut 2 heures et demi pour simuler 53 secondes de temps réel. Ça illustre le besoin de techniques qui permettent d'accélérer le temps de calcul et de réduire les ressources informatiques nécessaires.
+
+Le second défi, lui, est relatif à la description des phénomènes que l'on cherche à simuler.
+Aujourd'hui on est capable de représenter de manière efficace des objets rigides, déformables, des fluides ou des liquides et donc on les retrouve fréquemment dans des environnements intéractifs grand publics : jeux vidéos, logiciel d'animation. En revanche, ce que l'on trouve moins, ce sont des phénomènes qui mettent en jeu des changements de formes et d'état important: on peut penser aux changements de phases d'un liquide, aux grandes déformations d'un objet visqueux, ou à la découpe/fracture d'objets déformables. Là il y a un besoin de modèles numériques qui permettent de simuler efficacement ces phénomènes complexes pour que l'on puisse les retrouver dans des contextes intéractifs.
+
+Le troisième défi concerne le design et le contrôle de simulation.
+Il y a plein de logiciels qui permettent de designer une simulation en laissant à l'utilisateur la main sur un certains nombre de paramètres : conditions aux bords, conditions initiales, paramètres matériaux. Par exemple le logiciel houdini, sur l'image, qui est utilisé par dreamworks dans ses productions. Donc ça marche. Quand on utilise ces logiciels et que l'on a une idée précise de ce que l'on souhaite obtenir, il y a trois difficultés principales. La première c'est la courbe d'apprentissage du logiciel, l'expertise qui est attendu de l'utilisateur sur les modèles physiques qui sont utilisés pour définir les paramètres et l'interface qui peut devenir écrasante. La seconde c'est le contrôle indirect que l'on a sur la simulation, on doit se débrouiller avec les conditions aux bords et les conditions initiales. C'est un savant jeu de relations de cause à effets. Enfin, c'est le temps de calcul, qui va restraindre l'exploration des paramètres de la simulation à la patience de l'utilisateur. Donc, concevoir et contrôler des simulations restent très fastidieux, surtout quand on est neophytes, et il y a un besoin d'outils simple, direct et intuitifs pour le contrôle de simulations.
+
+Ok, ce sont les trois défis autour desquelles s'articulent les contributions de cette thèse que je vais maintenant présenter. 
+
+Tout d'abord, pour répondre au défi sur l'efficacité des simulations, on a étudié les modèles adaptatifs existants en informatique graphique et on a introduit un nouveau modèle pour la simulation de liquide et de vêtements à l'aide de particules. C'est un modèle qui essaie de répondre à certaines limitations courantes des modèles adaptatifs existant tout en proposant un compromis précision/performance intéressant.
+
+Ensuite, on s'est intéressé à la simulation de découpe. On propose une technique qui permet de simuler de manière intéractive des découpes très détaillées d'objets fins.
+
+Enfin, sur le contrôle de simulation, on propose une nouvelle approche qui consiste à éditer des animations de liquide existantes à l'aide d'outils inspirés de la sculpture virtuelle.
+

@@ -79,7 +79,10 @@ Vendredi 16 Septembre (J-16)
 Lundi 19 Septembre (J-13)
 =========================
 
+Mardi 20 Septembre (J-20)
+=========================
 Todo:
 *Slide de présentation de la simulation physique
 *Répétition
+
 
