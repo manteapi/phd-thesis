@@ -1,5 +1,6 @@
-Introduction
-============
+=====================================================================================
+                                    Introduction
+=====================================================================================
 
 Bonjour à tous.
 Je suis Pierre-Luc Manteaux et je vais vous présenter les travaux réalisés pendant ma thèse,
@@ -9,28 +10,56 @@ Faure et Marie-Paule Cani, au sein de l'équipe IMAGINE du laboratoire Jean Kunt
 Cette thèse s'inscrit dans le domaine de l'informatique graphique que beaucoup de personnes 
 associent au cinéma d'animation. Je vais profiter de cet exemple pour introduire ce domaine.
 
-Pour la petite histoire, jusqu'au milieu des années 80, la plupart des dessins animés sont réalisés de manière traditionnelle. C'est à dire que chaque image est dessinée, coloriée à la main. Pour un long métrage de 90 minutes comme blanche neige et les sept nains, il faut 135000 images. Ça représente un travail colossale, mais qui en vaut la chandelle parce qu'il n'y a aucune limite à l'imagination et ça fait de l'argent. 
+Jusqu'au milieu des années 80, chaque image d'un dessin animé est dessinée, coloriée à la main.
+Pour un long métrage de 90 minutes, ça représente 135000 images sans compter les ébauches.
+C'est un travail colossale mais qui en vaut la chandelle. 
+Le succès est là, ça créé des bénéfices et tout une industrie se créé autour.
 
-Au milieu des années 80, avec la démocratisation de l'informatique, les principales étapes de création d'un film (dessin, interpolation, colorisation) sont réalisées à l'aide d'un ordinateur. Ça permet d'avoir un gain de temps considérable sur des tâches répétitives comme l'interpolation ou la colorisation. L'imagination et la capacité à transmettre des émotions, elles, restent préserver. C'est ce qui fait l'intérêt de l'informatique graphique sur l'animation traditionnelle. Et on voit émerger de nouveaux outils qui permettent de créer des animations toujours plus complexes en termes de phénomènes, d'échelle et de réalisme.
+A cette période, l'informatique se démocratise.
+Les principales étapes de création d'un dessin animé sont réalisées à l'aide d'ordinateurs.
+Ça permet d'économiser un temps considérable sur des tâches répétitives(interpolation,colorisation).
+Sans brider l'imagination et la capacité à transmettre des émotions.
+De nouveaux outils émergent, qui permettent de créer des animations toujours plus spectaculaires.
 
-Dans ce contexte, la simulation physique va jouer un rôle crucial. En implémentant, i.e en transférant dans un logiciel les lois physiques qui décrivent notre réalité, on va pouvoir simuler le comportement d'objets virtuels dans des environnements virtuels de manière réaliste et ainsi créer automatiquement des animations complexes et plausibles qui auraient été difficile, voire quasi-impossible à obtenir avec des méthodes traditionnelles. 
+Un de ces outils, qui va devenir indispensable, c'est la simulation physique.
+Qui fait partie des domaines dans lesquels s'inscrit ma thèse.
+Elle va permettre de créer automatiquement des animations complexes et réalistes.
+Des animations qui auraient été très difficile, voire quasi-impossible à obtenir par le dessin.
+On va même pouvoir la détourner pour intégrer des lois non pas physique mais artistique.
+Et ainsi créer des animations combinant le réalisme d'une simulation physique et l'expressivité d'une intention artistique.
 
-On peut même aller plus loin, en transférant des règles qui ne décrivent pas une réalité physique 
-mais un objectif artistique, on peut créer des animations qui combine le réalisme d'une simulation physique avec l'expressivité d'une intention artistique. 
+Au delà du cinéma, on retrouve l'IG et la SP dans d'autres applications pour le divertissement (JV).
+Mais aussi dans d'autres domaines, comme l'enseigment (simulateur), et la fabrication (design).
+D'une part, car ils permettent de simuler et visualiser des comportements réalistes/complexes.
+Le réalisme dépend bien sûr des objectifs de l'application.
+On aura pas les même attentes d'une simulation entre un jeu vidéo et un protocole de chirurgie.
+D'autre part, car ils permettent d'intéragir avec ces phénomènes.
+Les environnements virtuels deviennent plus immersifs.
+Les processus de design d'objets s'accélèrent.
 
-Pour la petite histoire, dans le court métrage Luxo Jr. de Pixar, qui est illustré ici, le câble a été animé sans l'aide de simulation et le réalisateur a clairement dit que ça avait été une des tâches les plus longue et difficile à réaliser. Quand on pense, aujourd'hui, aux animations d'explosions, d'inondations, de vêtements, de muscles, etc..., que l'on rencontre dans les films, ça met bien en relief l'importance de la simulation physique.
+Pour que ces applications remplissent leurs objectifs, 
+il y a plusieurs défis auxquels la simulation physique doit faire face. 
+Je vais en introduire trois qui font échos aux travaux de ma thèse.
 
-Au delà du cinéma, l'informatique graphique et la simulation physique ont de nombreuses applications. On les retrouve dans les jeux vidéos, dans les simulateurs chirurgicaux ou dans l'aide à la fabrication d'objets. Dans ces domaines, la capacité à générer automatiquement un comportement réaliste d'un phénomène complexe est très importante. Bien sûr, quand on parle de réalisme et de complexité, c'est très relatif à l'objectif visé. On peut avoir besoin d'une précision suffisante pour valider scientifiquement un protocole de chirurgie virtuelle ou la solidité d'un objet fabriqué avec un matériau précis, ou alors on peut se contenter d'un précision qui va garantir la plausibilité d'un phénomène sans se soucier si l'objet pourrait exister dans la réalité, comme ça peut être le cas dans un jeu vidéo. Il y a un second point qui rend la simulation physique importante pour ces différentes applications, c'est la capacité à pouvoir intéragir avec les phénomènes simulés. Dans le cas des jeux vidéos ou d'un simulateur chirurgical ça va permettre à l'utilisateur de s'immerger plus naturellement dans l'environnement virtuel et dans le cas de la fabrication, ça va permettre d'accélérer le processus de conception.
-
-Pour que ces applications remplissent leurs objectifs, les simulations doivent faire face à plusieurs défis. Je vais en présenter trois qui font échos aux travaux de ma thèse.
-
-Un des premiers défis que l'on rencontre quand on fait usage de la simulation, c'est celui de la complexité calculatoire. Une simulation nécessite des ressources informatiques importantes, que ce soit en terme de mémoire ou d'unité de calcul. Pour illustrer, j'ai pris une image d'un simulateur de liquide, dans lequel un bloc d'eau est lâché dans un bassin qui contient un obstacle. L'eau est représentée à l'aide de particules, ici 6 millions de particules, qui représentent chacune un petit volume d'eau qui intéragit avec ses voisins en suivant des équations qui décrivent l'écoulement d'un liquide. L'implémentation du simulateur, elle,  est loin d'être naïve, elle fait appel aux capacités de calcul de plusieurs cartes graphiques qui intéragissent pour équilibrer au mieux la charge de calcul. Au final, il faut 2 heures et demi pour simuler 53 secondes de temps réel. Ça illustre le besoin de techniques qui permettent d'accélérer le temps de calcul et de réduire les ressources informatiques nécessaires.
+Un des premiers défis qu'on rencontre, c'est celui de la complexité calculatoire.
+Une simulation nécessite des ressources informatiques importantes (mémoire, unité de calcul).
+Pour illustrer, j'ai pris une image d'un simulateur de liquide, dans lequel un bloc d'eau est lâché dans un bassin qui contient un obstacle. 
+L'eau est représentée à l'aide de particules, ici 6 millions de particules, qui représentent chacune un petit volume d'eau qui intéragit avec ses voisins en suivant des équations qui décrivent l'écoulement d'un liquide. 
+L'implémentation du simulateur, elle,  est loin d'être naïve, elle fait appel aux capacités de calcul de plusieurs cartes graphiques qui intéragissent pour équilibrer au mieux la charge de calcul. 
+Au final, il faut 2 heures et demi pour simuler 53 secondes de temps réel. 
 
 Le second défi, lui, est relatif à la description des phénomènes que l'on cherche à simuler.
-Aujourd'hui on est capable de représenter de manière efficace des objets rigides, déformables, des fluides ou des liquides et donc on les retrouve fréquemment dans des environnements intéractifs grand publics : jeux vidéos, logiciel d'animation. En revanche, ce que l'on trouve moins, ce sont des phénomènes qui mettent en jeu des changements de formes et d'état important: on peut penser aux changements de phases d'un liquide, aux grandes déformations d'un objet visqueux, ou à la découpe/fracture d'objets déformables. Là il y a un besoin de modèles numériques qui permettent de simuler efficacement ces phénomènes complexes pour que l'on puisse les retrouver dans des contextes intéractifs.
+Aujourd'hui on est capable de représenter de manière efficace des objets rigides, déformables, des fluides ou des liquides et donc on les retrouve fréquemment dans des environnements intéractifs grand publics : jeux vidéos, logiciel d'animation. 
+En revanche, ce que l'on trouve moins, ce sont des phénomènes qui mettent en jeu des changements de formes et d'état important: on peut penser aux changements de phases d'un liquide, aux grandes déformations d'un objet visqueux, ou à la découpe/fracture d'objets déformables. 
+Là il y a un besoin de modèles numériques qui permettent de simuler efficacement ces phénomènes complexes pour que l'on puisse les retrouver dans des contextes intéractifs.
 
 Le troisième défi concerne le design et le contrôle de simulation.
-Il y a plein de logiciels qui permettent de designer une simulation en laissant à l'utilisateur la main sur un certains nombre de paramètres : conditions aux bords, conditions initiales, paramètres matériaux. Par exemple le logiciel houdini, sur l'image, qui est utilisé par dreamworks dans ses productions. Donc ça marche. Quand on utilise ces logiciels et que l'on a une idée précise de ce que l'on souhaite obtenir, il y a trois difficultés principales. La première c'est la courbe d'apprentissage du logiciel, l'expertise qui est attendu de l'utilisateur sur les modèles physiques qui sont utilisés pour définir les paramètres et l'interface qui peut devenir écrasante. La seconde c'est le contrôle indirect que l'on a sur la simulation, on doit se débrouiller avec les conditions aux bords et les conditions initiales. C'est un savant jeu de relations de cause à effets. Enfin, c'est le temps de calcul, qui va restraindre l'exploration des paramètres de la simulation à la patience de l'utilisateur. Donc, concevoir et contrôler des simulations restent très fastidieux, surtout quand on est neophytes, et il y a un besoin d'outils simple, direct et intuitifs pour le contrôle de simulations.
+Il y a plein de logiciels qui permettent de designer une simulation en laissant à l'utilisateur la main sur un certains nombre de paramètres : conditions aux bords, conditions initiales, paramètres matériaux. 
+Par exemple le logiciel houdini, sur l'image, qui est utilisé par dreamworks dans ses productions. Donc ça marche. 
+Quand on utilise ces logiciels et que l'on a une idée précise de ce que l'on souhaite obtenir, il y a trois difficultés principales. 
+La première c'est la courbe d'apprentissage du logiciel, l'expertise qui est attendu de l'utilisateur sur les modèles physiques qui sont utilisés pour définir les paramètres et l'interface qui peut devenir écrasante. 
+La seconde c'est le contrôle indirect que l'on a sur la simulation, on doit se débrouiller avec les conditions aux bords et les conditions initiales. C'est un savant jeu de relations de cause à effets. 
+Enfin, c'est le temps de calcul, qui va restraindre l'exploration des paramètres de la simulation à la patience de l'utilisateur. Donc, concevoir et contrôler des simulations restent très fastidieux, surtout quand on est neophytes, et il y a un besoin d'outils simple, direct et intuitifs pour le contrôle de simulations.
 
 Ok, ce sont les trois défis autour desquelles s'articulent les contributions de cette thèse que je vais maintenant présenter. 
 
@@ -40,3 +69,91 @@ Ensuite, on s'est intéressé à la simulation de découpe. On propose une techn
 
 Enfin, sur le contrôle de simulation, on propose une nouvelle approche qui consiste à éditer des animations de liquide existantes à l'aide d'outils inspirés de la sculpture virtuelle.
 
+=====================================================================================
+                                        ARPS
+=====================================================================================
+
+Je vais commencer par introduire les modèles physiques adaptatifs pour l'informatique graphique.
+
+Comme je le disais précédemment, une simulation physique peut coûter très cher en temps de calcul.
+Pour schématiser, plus ce que l'on cherche à simuler est complexe et doit être proche de la réalité, plus le coût sera important. 
+Tout simplement parce qu'il faudra alors avoir un échantillonnage de noeuds de calculs suffisamment dense pour résoudre toute la complexité de la dynamique. 
+Les trois images qui sont ici illustrent bien ça. Peu importe que ce soit des triangles, des tétrahèdres ou des particules, on a besoin d'un échantillonnage suffisamment dense pour pouvoir capturer les plis d'un vêtement, les rides d'un visage ou les détails présent à la surface de l'eau.
+Et ça va résulter en un temps de calcul important.
+
+Une approche générale pour réduire ce temps de calcul, c'est d'utiliser des techniques adaptatives.
+Ça consiste à modifier les différents composants de la simulation et la représentation mathématiques de l'objet au cours de la simulation pour obtenir le meilleur compromis entre précision, performance et stabilité.
+
+Une grande partie de ces méthodes consistent à adapter dyn la discrétisation spatiale et temporelle.
+E.g, pour la discrétisation spatiale, ça va consister à rajouter des degrés de libertés dans les zones qui subissent de grandes déformations, à en enlever dans les régions qui sont éloignés de la caméra et qui présentent un intérêt visuel faible.
+Pour la discrétisation temporelle, ça consister à adapter le pas de temps de la simulation aux événements. Des événements très rapide comme des chocs vont nécessiter un pas de temps plus petit pour garantir la stabilité de la simulation alors que des événements lents pourront être simulé avec un pas de temps plus important et donc plus rapidement.
+
+En complément de ces deux grandes stratégies, il y a tout un panel de méthodes adaptatives que l'on peut étudier et ranger dans différentes catégories.
+Je vais pas les détailler ici, je vais juste m'arrêter sur des limitations communes à un grand nombre de ces méthodes et qui peuvent freiner leur utilisation.
+De prime abord, on imagine une méthode adaptative comme une sorte de boîte noire que l'on va pouvoir rajouter sur un modèle existant dans un simulateur donné pour le rendre adaptatif.
+En pratique c'est rarement le cas, c'est extrêmement difficile d'avoir un simulateur capable d'intégrer à la fois des modèles physiques différents de manière unifié et qui puisse accueillir des modules d'adaptativité sans remettre l'architecture du simulateur en question. 
+Il y a une difficulté qui est lié au côté intrusif de ces méthodes et qui du coup va compliquer également la ré-utilisation d'implémentation existante dans d'autres simulateurs. 
+C'est encore plus vrai quand on souhaite combiner une technique adaptative avec d'autres techniques d'accélérations comme le GPU où la on peut rencontrer des incompatibilités.
+
+Maintenant je vais vous présenter le modèle que l'on propose pour répondre en partie à ces limites.
+Si je devais le classer dans cet arbre, il serait dans la famille des méthodes de freezing (rouge).
+
+Ces méthodes de freezing ont pour objectif de gagner du temps dans ces situtations quasi-statiques.
+Ces situations, elles sont nombreuses. On peut penser à tout les scénarios de contact locaux.
+Comme l'intéraction entre la sphère et le canapé, ou alors entre l'outil et l'organe dans un sim.
+Pour les liquides on peut penser aux eaux profondes/stagnantes.
+Et on peut penser à des matériaux qui présente de la friction et qui vont s'arrêter rapidement.
+Ce que l'on veut dans ces situations, c'est concentrer les calculs dans les zones intéressantes.
+En mouvement, et économiser du temps dans les zones immobiles.
+
+C'est des méthodes que l'on retrouve dans les moteurs de jeux vidéos pour les objets rigides.
+Côté recherche, on trouve surtout des travaux concernant les rigides et rigides articulées.
+Pour les fluides, il n'y a qu'un seul travail à ma connaissance qui propose une méthode.
+Et on n'en n'a pas répertorié pour la simulation d'objets déformables.
+
+Pour les rigides, il y a deux travaux qui proposent d'utiliser le freezing pour accélerer le traitements des collisions dans des scénarios d'empilement.
+Les objets immobiles et en contact sont considérés comme inactif, il n'y a aucun traitement des contacts pour ces groupes. 
+Lors d'une collision avec un object actif, les objets inactifs sont réactivées par propagation pour prendre en compte les contacts.
+
+Pour les rigides articulées, Kim et al. propose de activé/désactivé certains joints en fonction de critères comme la distance à la caméra pour simplifier les objets et réduire la complexité.
+
+Pour les fluides Goswami et al. propose une méthode pour la simulation particulaire de liquide.
+Les particules qui sont lentes sont approximées par des particules immobiles pour réduire le temps de calcul. Malheureusement le principe d'action/réaction n'est pas respecté et donc le moment n'est pas conservé.
+
+Dans tout ces travaux, la question de comment/quand réactiver les objets/particules inactives de manière cohérente n'est pas addréssée ou alors suppose l'utilisation d'heuristiques spécifiques à des applications.
+
+En 2012, dans le domaine de la dynamique moléculaire.
+Artemova & Redon ont proposé une approche qui répond à cette question de manière élégante.
+Ils l'ont intitulé, Adaptively Restrained Particle Simulations (ARPS).
+Comme Goswami et al., les particules lentes sont approximées par des particules immobiles.
+Ce qui résulte en des forces inter-particules constantes, qui n'ont plus besoin d'être calculées.
+Toute la différence est dans le fait que la quantité de mouvement associée à ces forces constantes continuent d'être accumulés pour permettre aux particules de reprendre un mouvement qui soit physiquement cohérent.
+La méthode a été validée sur différents exemples, dont celui d'une collision en cascade(bas,droite).
+Une particule a été projeté contre un réseau 2D de particules.
+La couleur correspond au déplacement des particules.
+On peut observer l'onde de choc propagée à la suite de la collision collision.
+La simulation adaptative est 5x plus rapide que la simulation de référence.
+Et on peut observer que les caractéristiques du choc ont été très bien préservées.
+La méthode intègre deux seuils que l'utilisateur peut modifier pour préciser un compromis entre precision/performance.
+
+Nos contributions se limitent à l'étude et à l'extension de l'ARPS pour l'informatique graphique.
+Tout d'abord dans le cadre de la simulation de liquide où on propose un algorithme qui permet de combiner l'ARPS avec le modèle SPH et d'en tirer des accélérations significatives.
+Ensuite dans le cadre de la simulation de vêtement, où on a dérivé un intégrateur implicite qui s'appuie sur l'ARPS pour permettre l'utilisation de pas de temps important.
+Dans la suite de cette partie, je vais rappeler comment fonctionne l'ARPS.
+Ensuite je présenterais les deux contributions et terminerais avec des limitations et perspectives.
+
+I will show a brief video to better illustrate the principle of ARPS.
+On the left a classical harmonic oscillator.
+On the right the phase portrait of the simulation which represents the evolution of momentum whith respect to position.
+During a classic simulation, the interparticle force is computed at each time step, even if nothing visually important happen when the momentum is low.
+Here is the same harmonic oscillator but this time adaptively restrained.
+The phase portrait is a bit different. 
+It is divided in a restrained, transition and full dynamics.
+It corresponds to the state of the particle which can be inactive, transitive or active.
+During the restrained dynamics, the particle is immobile but accumulates momentum until a first threshold.
+Then the particle become transitive.
+The purpose of this phase is to spend the accumulated energy of the restrained dynamics in a certain time.
+Once it is done the particle become active and join back a classic full dynamic.
+Time is saved during restrained dynacmics where the interparticle force do not need to be computed at each time step.
+Using appropriate threshold the adaptive simulation can stay close to reference simulation.
+\paragraph{Slide 7}

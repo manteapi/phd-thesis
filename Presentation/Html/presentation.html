@@ -179,7 +179,7 @@
                         <div class="col-sm-4 col-top-align">                         
                             <figure class="figure">
                             <figcaption class="figure-caption text-xs-center figure-caption-custom">
-                                Jeux vidéos
+                                <h2><small>Divertissement</small></h2> <br/> Jeux vidéos
                             </figcaption>
                             <img class="noborder-img" data-src="./images/introduction/fields/videoGames.png" style="width:100%;" alt="introVideoGames">
                             </figure>
@@ -187,7 +187,7 @@
                         <div class="col-sm-4 col-top-align">                         
                             <figure class="figure">
                             <figcaption class="figure-caption text-xs-center figure-caption-custom">
-                                Enseignement
+                            <h2><small>Enseignement</small></h2> <br/> Chirurgie virtuelle
                             </figcaption>
                             <img class="noborder-img" data-src="./images/introduction/fields/surgery.png" style="width:100%;" alt="introVideoGames">
                             </figure>
@@ -195,7 +195,7 @@
                         <div class="col-sm-4 col-top-align">
                             <figure class="figure">
                             <figcaption class="figure-caption text-xs-center figure-caption-custom">
-                                Design
+                            <h2><small>Fabrication</small></h2> <br/> Design
                             </figcaption>
                             <img class="noborder-img" data-src="./images/introduction/fields/fabrication.jpg" style="width:100%;" alt="introDesign">
                             </figure>
@@ -291,9 +291,8 @@
                         <div class="col-sm-4">
                             <small>
                             <ul>
-                                <li>Changements topologiques</li>
-                                <li>Grandes déformations</li>
-                                <li>Détails multi-échelles</li>
+                                <li>Phénomène complexe</li>
+                                <li>Résultat réaliste</li>
                             </ul>
                             <img class="nostyle-img" data-src="./images/down.svg" style="width:30%;" alt="character">
                             <ul>
@@ -313,7 +312,7 @@
                 </section>
                 
                 <section>
-                    <h2>Contexte : Quoi et comment adapter ?</h2>
+                    <h2>Etat de l'art : Approches principales</h2>
                     <h4 class="nomargin"><small>Ré-échantillonnage : Performance et stabilité</small></h4>
                     <div class="row">
                         <div class="col-sm-6">
@@ -328,7 +327,7 @@
                 </section>
                 
                 <section>
-                    <h2>Contexte : De nombreuses méthodes</h2>
+                    <h2>Etat de l'art : Taxonomie et limitations</h2>
                     <div class="row">
                         <div class="col-sm-12">
                             <img class="nostyle-img" data-src="./images/adaptivity/taxonomy.png" style="width:100%;" alt="taxonomy">
@@ -340,13 +339,6 @@
                         <ul style="color:red;">
                             <li>Implémentation complexe/intrusive</li>
                             <li>Ré-utilisation difficile</li>
-                        </ul>
-                        </small>
-                    </div>
-                    <div class="col-sm-6">
-                        <small>
-                        <ul style="color:red;">
-                            <li>Artefacts : discontinuités</li>
                             <li>Incompatibilités possibles avec accélération GPU</li>
                         </ul>
                         </small>
@@ -356,7 +348,7 @@
                 
                                 
                 <section>
-                    <h2>Contexte : De nombreuses méthodes</h2>
+                    <h2>Etat de l'art : Taxonomie et limitations</h2>
                     <div class="row">
                         <div class="col-sm-12">
                             <img class="nostyle-img" data-src="./images/adaptivity/taxonomy_focus.png" style="width:100%;" alt="taxonomy">
@@ -368,13 +360,6 @@
                         <ul style="color:red;">
                             <li>Implémentation complexe/intrusive</li>
                             <li>Ré-utilisation difficile</li>
-                        </ul>
-                        </small>
-                    </div>
-                    <div class="col-sm-6">
-                        <small>
-                        <ul style="color:red;">
-                            <li>Artefacts : discontinuités</li>
                             <li>Incompatibilités possibles avec accélération GPU</li>
                         </ul>
                         </small>
@@ -391,6 +376,7 @@
                 -->
 
                 <!--Introduction-->
+                <!--
                 <section>
                     <h2>Exploration et étude de la méthode ARPS pour l'informatique graphique</h2>
                     <div class="row">
@@ -411,7 +397,8 @@
                         </p>
                     </aside>
                 </section>
-
+                -->
+                    
                 <!--Motivations-->
                 <section>
                     <h2>Objectif des méthodes de freezing</h2>
@@ -569,7 +556,7 @@
 
                 <!--ARPS - Artemova & Redon -->
                 <section>
-                    <h2><strong>A</strong>daptively <strong>R</strong>estrained <strong>P</strong>article <strong>S</strong>imulations</h2>
+                    <h2><strong>A</strong>daptively <strong>R</strong>estrained <strong>P</strong>article <strong>S</strong>imulations (ARPS)</h2>
                     <div class="row"> 
                         <div class="col-sm-12">
                             <p>
@@ -600,29 +587,34 @@
 
                 <!-- ARPS - Planning -->
                 <section>
-                    <h2>Plan</h2>
+                    <h2>Contributions</h2>
+                    <h2><small>Extension de ARPS aux simulations graphiques</small></h2>
                     <div class="row">
                         <div class="col-sm-12">
-                            <p>
-                            <strong>Objectif : </strong> Etendre ARPS aux simulations graphiques.
-                            </p>
+                            <h6 class="fragment">Principes de ARPS</h6>
+                        </div>
+                    </div>
+                    <div class="row  row-center-align">
+                        <div class="col-sm-6 col-center-align">
+                            <h6>Simulation de liquide</h6>
+                            <h6><small>ARPS + SPH</small></h6>
+                        </div>
+                        <div class="col-sm-6 col-center-align">
+                            <img style="width:50%;" class="nostyle-img" data-src="./images/arps/fluidTeaser.png" alt="arpsFluid">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-center-align">
+                            <h6>Simulation de vêtements</h6>
+                            <h6><small>Intégrateur implicite</small></h6>
+                        </div>
+                        <div class="col-sm-6 col-center-align">
+                            <img style="width:30%;" class="nostyle-img" data-src="./images/arps/clothTeaser.png" alt="arpsFluid">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <ol class="upper-roman">
-                                <li>Principes de <em>ARPS</em></li>
-                                <li>Extension à la simulation de fluides particulaires</li>
-                                <ol type="upper-alpha">
-                                    <li>Algorithme ARPS+SPH</li>
-                                    <li>Forces de viscosité</li>
-                                </ol>
-                                <li>Extension à la simulation de vêtements</li>
-                                <ol type="upper-alpha">
-                                    <li>Intégrateur implicite</li>
-                                </ol>
-                                <li>Limitations et perspectives</li>
-                            </ol>
+                            <h6 class="fragment">Limitations et perspectives</h6>
                         </div>
                     </div>
                 </section>
