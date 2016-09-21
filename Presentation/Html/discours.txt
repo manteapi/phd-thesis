@@ -142,18 +142,88 @@ Ensuite dans le cadre de la simulation de vêtement, où on a dérivé un intég
 Dans la suite de cette partie, je vais rappeler comment fonctionne l'ARPS.
 Ensuite je présenterais les deux contributions et terminerais avec des limitations et perspectives.
 
-I will show a brief video to better illustrate the principle of ARPS.
-On the left a classical harmonic oscillator.
-On the right the phase portrait of the simulation which represents the evolution of momentum whith respect to position.
-During a classic simulation, the interparticle force is computed at each time step, even if nothing visually important happen when the momentum is low.
-Here is the same harmonic oscillator but this time adaptively restrained.
-The phase portrait is a bit different. 
-It is divided in a restrained, transition and full dynamics.
-It corresponds to the state of the particle which can be inactive, transitive or active.
-During the restrained dynamics, the particle is immobile but accumulates momentum until a first threshold.
-Then the particle become transitive.
-The purpose of this phase is to spend the accumulated energy of the restrained dynamics in a certain time.
-Once it is done the particle become active and join back a classic full dynamic.
-Time is saved during restrained dynacmics where the interparticle force do not need to be computed at each time step.
-Using appropriate threshold the adaptive simulation can stay close to reference simulation.
-\paragraph{Slide 7}
+Voici une courte vidéo pour mieux illustrer le principe de l'ARPS.
+Sur la gauche un oscillateur harmonique, deux particules reliés par un ressort, une particule fixe.
+Sur la droite le protrait de phase de la simulation qui décrit l'évolution de la quantité de mouvement en fonction de la position de la particule. 
+Pendant une simulation classique, la force inter-particule est calculée à chaque pas de temps,
+même si rien d'intéressant ne se passe ou que la quantité de mouvement est faible.
+Maintenant, le même système mais simulé avec l'ARPS.
+Le portrait de phase est légèrement différent.
+Il est divisée en trois régions qui décrivent les différentes dynamiques(restr., trans., classique.)
+A ces dynamiques, correspond l'état de la particule, qui peut être inactive, trans., active.
+Pendant la dynamique restrainte, la particule est immobile mais accumule de la quantité de mouvement jusqu'à un certain seuil.
+Alors la particule devient transitive.
+L'objectif de cette phase est de dépensée l'énergie accumulée pendant la dynamique restreinte et retrouver une dynamique classique, la particule est alors active.
+Le temps de calcul est économisé pendant la dynamique restreinte où la force interparticule n'a pas à être calculé à chaque pas de temps.
+Et donc, en utilisant des seuils adaptés pour la zone de transition, on peut avoir une simulation adaptative qui reste proche de la simulation de référence.
+
+L'ARPS c'est avant tout un intégrateur qui permet de faire suivre aux degrés de liberté une dynamique restreinte ou classique en fonction de leur quantité de mouvement. A partir de ça, on peut imaginer des algorithmes qui en tire partie de la dynamique restreinte pour réduire les calculs.
+C'est ce que l'on a fait avec notre extension à la simulation de fluide particulaires.
+
+On a choisi le modèle SPH, Smoothed Particles Hydrodynamics, qui est courant en IG et qui semblait bien convenir pour appliquer l'ARPS.
+SPH consiste à interpoler les quantités d'un fluide(densité, vitesse, ...) via des particules.
+L'algorithme classique est le suivant.
+Pour chaque particule on va déterminer ses voisins.
+C'est le gouleau d'étranglement de l'algorithme.
+Ensuite de manière générale on va calculer les champs scalaires (pression, densité) 
+et les forces inter-particules (pression, viscosité).
+Finalement, on intègre les particules dans le temps.
+
+Comme je disais, la recherche des voisins correspond à l'étape la plus couteuse de l'algorithme.
+En combinant SPH avec l'ARPS, on va pouvoir réduire la recherche des voisins aux particules actives/transitives et le calcul des scalaires/forces aux particules actives/transitives et à leurs voisins.
+Le dernier point est possible car toutes les contributions entre particules sont symétriques.
+On arrive à un algorithme qui exploite au maximum l'inactivité des particules pour économiser du temps. Il est le suivant.
+
+On commence par soustraire les anciennes contributions des particules actives et de leur voisins.
+Ensuite on va calculer les voisins uniquement pour les particules actives/transitives.
+On va de nouveau calculer les champs scalaires/forces mais uniquement pour les particules actives.
+Enfin on intègre le mouvement de chaque particule à l'aide de l'ARPS et on met à jour l'état de particule en fonction de leur quantité de mouvement.
+A la fin de l'algorithme, on a calculé uniquement ce qui était nécessaire et on a respecté le principe d'action/réaction.
+
+Dans cette combinaison entre l'ARPS et le modèle SPH, il y a un point sur lequel on a buté.
+Ça concerne les forces de viscosités, qui impliquent non seulement les positions des particules, 
+mais également leur vitesse, et ce qui n'était pas le cas d'utilisation prévu par Artemova & Redon.
+Avec cette méthode on a deux notions de vitesses à prendre en compte.
+La vitesse accumulée qui définit l'état des particules et la vitesse effective qui est utilisée pour intégrer les positions des particules et qui prend en compte leur état.
+Alors bien sûr c'est la vitesse effective qui doit être utilisé lors du calcul des forces de viscosité de part son adéquation avec l'état de la particule. 
+Dans nos expériences, on a constaté un effet de bord que l'on ne sait pas expliqué clairement.
+La force de viscosité disparaît avec la vitesse effective et fait converger l'état de la particule vers l'inactivité sans jamais l'atteindre.
+Les particules bougent à peine mais aucune économie n'est faite car elles sont considérées comme active.
+Pour résoudre rapidement ce problème, on a ajouté un seuil supplémentaire pour empêcher ces situations mais ça reste un point à éclaircir dans des travaux futurs.
+
+Voici quelques résultats. 
+
+Tout d'abord une simulation d'un dam break où l'on compare SPH et l'ARPS.
+Ici la visualisation de l'état des particules. 
+Pour cette simulation on a obtenu une accélération moyenne de 3.8.
+On peut constate que l'on a un comportement très proche d'une simulation classique.
+
+Et un second exemple dans lequel on a créé un courant permanent.
+Une fois que le flux est installé, un grand nombre de particules bougent très peu mais réagissent aux intéractions avec les particules actives.
+L'accélération moyenne est de 2.7 et on voit bien dans cet exemple que l'activation/la désactivation des particules est bien gérée par l'algorithme.
+
+Passons maintenant à la simulation de vêtement.
+Pour des objets structurés comme les vêtements, l'intégration explicite nécessite de très petit pas de temps et ralentit considérablement la simulation.
+Une solution classique consiste à utiliser un intégrateur implicite comme celui proposé par Baraff et Witkin.
+Les éq. du mouvement sont alors discrétisés en considérant les forces à la fin du pas de temps.
+En utilisant un développement de Taylor Young, on arrive à un système linéaire qu'il faut résoudre.
+La résolution est cher mais permet d'utiliser un pas de temps beaucoup plus grand.
+Notre idée ici est de dériver un intégrateur implicite pour l'ARPS pour réduire la taille du système linéaire en accord avec le nombre de particules actives.
+
+On est tout simplement parti des équations du mouvement décrite par l'ARPS.
+On a suivi la même procédure que je viens de décrire : discrétisation, développement taylor.
+On obtient un système linéaire similaire à celui que l'on avait mais qui contient 2 nouveaux termes.
+Une matrice et un vecteur qui servent à encapsuler l'état des particules.
+On peut observer que lorsque les particules sont inactives, on retrouve une intégration explicite.
+Alors que lorsque les particules sont actives on retrouve l'intégration implicite.
+Donc on peut extraire les particules inactives du système linéaire et ainsi réduire sa taille.
+
+On a implémenté ce solveur hybride sur un cas extrêmement simple d'un vêtement qui tombe sous l'effet de la gravité.
+Dans cet exemple, les particules inactives sont intégrées explicitement, les particules actives sont intégrées implicitement et on a bien une réduction du système linéaire qui permet d'obtenir une accélération de 2.7.
+
+Voilà pour cette première partie, on a étendu à l'informatique graphique une nouvelle approche pour approximer de manière cohérente des simulations de particules.
+On l'a fait de deux manières, via une application aux fluides et via une application aux vêtements.
+Dans les deux cas, on a obtenu des accélérations encourageantes.
+La méthode n'est pas sans limite, on a observé des instabilités concernant l'intégration implicite, qui viennent de la fonction de restriction utilisée pour gérer la transition des particules.
+Ça nécessiterait de mieux comprendre l'origine du problème pour pouvoir apporter des solutions.
+Sinon, ça serait également intéressant d'étudier l'utilisation de critère visuel tel que la distance à la caméra pour déterminer l'état des particules et ainsi concentrer les ressouces là où elles contribuent le plus à l'intérêt visuel.
