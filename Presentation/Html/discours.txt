@@ -2,68 +2,84 @@
                                     Introduction
 =====================================================================================
 
+Slide 1
+========
+
 Bonjour à tous.
 Je suis Pierre-Luc Manteaux et je vais vous présenter les travaux réalisés pendant ma thèse,
 intitulée "Simulation et contrôle de phénomènes physiques", qui a été supervisé par François
 Faure et Marie-Paule Cani, au sein de l'équipe IMAGINE du laboratoire Jean Kuntzmann.
 
-Cette thèse s'inscrit dans le domaine de l'informatique graphique que beaucoup de personnes 
-associent au cinéma d'animation. Je vais profiter de cet exemple pour introduire ce domaine.
-
-Jusqu'au milieu des années 80, chaque image d'un dessin animé est dessinée, coloriée à la main.
-Pour un long métrage de 90 minutes, ça représente 135000 images sans compter les ébauches.
-C'est un travail colossale mais qui en vaut la chandelle. 
-Le succès est là, ça créé des bénéfices et tout une industrie se créé autour.
-
-A cette période, l'informatique se démocratise.
-Les principales étapes de création d'un dessin animé sont réalisées à l'aide d'ordinateurs.
+Slide 2
+========
+Cette thèse s'inscrit dans le domaine de l'informatique graphique, 
+qui étudie comment créer et intéragir avec des scènes virtuelles.
+Une des applications phare de l'IG, qui l'a fait connaître au grand public, c'est l'animation.
+Au milieu des années 80, les dessins animés, qui étaient traditionnellement réalisé à la main,
+vont être créér à l'aide d'ordinateurs.
 Ça permet d'économiser un temps considérable sur des tâches répétitives(interpolation,colorisation).
 Sans brider l'imagination et la capacité à transmettre des émotions.
-De nouveaux outils émergent, qui permettent de créer des animations toujours plus spectaculaires.
-
+Très rapidement, de nouveaux outils émergent, permettent de créer des animations toujours plus spec.(complexité, réalisme).
 Un de ces outils, qui va devenir indispensable, c'est la simulation physique.
-Qui fait partie des domaines dans lesquels s'inscrit ma thèse.
+Qui fait partie des domaines dans lesquels s'inscrit ma thèse également.
 Elle va permettre de créer automatiquement des animations complexes et réalistes.
 Des animations qui auraient été très difficile, voire quasi-impossible à obtenir par le dessin.
-On va même pouvoir la détourner pour intégrer des lois non pas physique mais artistique.
-Et ainsi créer des animations combinant le réalisme d'une simulation physique et l'expressivité d'une intention artistique.
 
+Slide 3
+========
 Au delà du cinéma, on retrouve l'IG et la SP dans d'autres applications pour le divertissement (JV).
 Mais aussi dans d'autres domaines, comme l'enseigment (simulateur), et la fabrication (design).
-D'une part, car ils permettent de simuler et visualiser des comportements réalistes/complexes.
-Le réalisme dépend bien sûr des objectifs de l'application.
-On aura pas les même attentes d'une simulation entre un jeu vidéo et un protocole de chirurgie.
-D'autre part, car ils permettent d'intéragir avec ces phénomènes.
-Les environnements virtuels deviennent plus immersifs.
-Les processus de design d'objets s'accélèrent.
-
+Dans ces applications, la capacité à simuler/visualiser des comportements réalistes est importante. 
+Mais également la capacité à pouvoir intéragir avec eux. 
+E.g pour les JV.Simulateurs, on va avoir des E.V plus immersifs.
+Pour les logiciels de fabrication on va pouvoir accélérer le processus de design.
 Pour que ces applications remplissent leurs objectifs, 
 il y a plusieurs défis auxquels la simulation physique doit faire face. 
 Je vais en introduire trois qui font échos aux travaux de ma thèse.
 
+Slide 4
+========
 Un des premiers défis qu'on rencontre, c'est celui de la complexité calculatoire.
-Une simulation nécessite des ressources informatiques importantes (mémoire, unité de calcul).
-Pour illustrer, j'ai pris une image d'un simulateur de liquide, dans lequel un bloc d'eau est lâché dans un bassin qui contient un obstacle. 
-L'eau est représentée à l'aide de particules, ici 6 millions de particules, qui représentent chacune un petit volume d'eau qui intéragit avec ses voisins en suivant des équations qui décrivent l'écoulement d'un liquide. 
-L'implémentation du simulateur, elle,  est loin d'être naïve, elle fait appel aux capacités de calcul de plusieurs cartes graphiques qui intéragissent pour équilibrer au mieux la charge de calcul. 
-Au final, il faut 2 heures et demi pour simuler 53 secondes de temps réel. 
+Une simulation peut nécessiter des ressources informatiques importantes (mémoire, unité de calcul).
+Pour vous donner une idée, avec un simulateur récent pour l'animation de liquide.
+Une scène à haute résolution comme celle-ci va nécessiter 30h de calcul pour 20s de simulation.
+Ça restreint l'utilisation de ce solver, tel quel, à des applications non interactives.
+La résolution des scènes est limitée au temps que l'on est prêt à attendre.
+Il y a un besoin constant de nouvelles techniques qui permettent de
+simuler des phénomènes à haute résolution avec des ressources informatiques qui sont limitées.
 
+Slide 5
+========
 Le second défi, lui, est relatif à la description des phénomènes que l'on cherche à simuler.
-Aujourd'hui on est capable de représenter de manière efficace des objets rigides, déformables, des fluides ou des liquides et donc on les retrouve fréquemment dans des environnements intéractifs grand publics : jeux vidéos, logiciel d'animation. 
-En revanche, ce que l'on trouve moins, ce sont des phénomènes qui mettent en jeu des changements de formes et d'état important: on peut penser aux changements de phases d'un liquide, aux grandes déformations d'un objet visqueux, ou à la découpe/fracture d'objets déformables. 
-Là il y a un besoin de modèles numériques qui permettent de simuler efficacement ces phénomènes complexes pour que l'on puisse les retrouver dans des contextes intéractifs.
+Aujourd'hui on est capable de représenter de manière efficace de nombreux phénomènes.
+(rigide,déformable,fluide,liquide).
+On les retrouve fréquemment dans des environnements intéractifs grand publics:jeux vidéos, logiciel.
+En revanche, ce que l'on trouve moins, ce sont des phénomènes qui mettent en jeu des changements de formes et d'état important comme la découpe/fracture d'objets déformables. 
+Pour retrouver ces phénomènes dans des contextes intéractifs, où ils sont très attendu.
+On a besoin de nouveaux modèles qui puissent les décrire efficacement.
+Ça rejoint le premier défis mais avec un accent sur le phénomène lui même et pas sa résolution.
 
+Slide 6
+========
 Le troisième défi concerne le design et le contrôle de simulation.
-Il y a plein de logiciels qui permettent de designer une simulation en laissant à l'utilisateur la main sur un certains nombre de paramètres : conditions aux bords, conditions initiales, paramètres matériaux. 
-Par exemple le logiciel houdini, sur l'image, qui est utilisé par dreamworks dans ses productions. Donc ça marche. 
-Quand on utilise ces logiciels et que l'on a une idée précise de ce que l'on souhaite obtenir, il y a trois difficultés principales. 
-La première c'est la courbe d'apprentissage du logiciel, l'expertise qui est attendu de l'utilisateur sur les modèles physiques qui sont utilisés pour définir les paramètres et l'interface qui peut devenir écrasante. 
-La seconde c'est le contrôle indirect que l'on a sur la simulation, on doit se débrouiller avec les conditions aux bords et les conditions initiales. C'est un savant jeu de relations de cause à effets. 
-Enfin, c'est le temps de calcul, qui va restraindre l'exploration des paramètres de la simulation à la patience de l'utilisateur. Donc, concevoir et contrôler des simulations restent très fastidieux, surtout quand on est neophytes, et il y a un besoin d'outils simple, direct et intuitifs pour le contrôle de simulations.
+Dans les logiciels existants, ça reste des tâches difficiles, qui demandent beaucoup de temps.
+Principalement pour trois raisons:
+-La première concerne l'interface. 
+C'est la première chose que l'on apprend à utiliser et c'est rarement convivial.
+-La second concerne le contrôle qui est indirect.
+Même en ayant une idée précise de ce que l'on souhaite obtenir, ça va rester difficile de définir les paramètres sur lesquels on à la main pour obtenir le résultat voulu.
+-La troisième, c'est le temps de calcul. Qui va limiter l'exploration des paramètres à la patience.
+Alors ça n'empêche pas ces logiciels de produire de superbes résultats.
+Mais ils restent peu accessible aux grands publics, même si certains sont gratuits.
+Il y un besoin d'outils simple, direct, intuitifs pour le contrôle de simulations.
 
-Ok, ce sont les trois défis autour desquelles s'articulent les contributions de cette thèse que je vais maintenant présenter. 
+Slide 7
+========
+Ok, ce sont les trois défis autour desquelles s'articulent les contributions de cette thèse.
 
-Tout d'abord, pour répondre au défi sur l'efficacité des simulations, on a étudié les modèles adaptatifs existants en informatique graphique et on a introduit un nouveau modèle pour la simulation de liquide et de vêtements à l'aide de particules. C'est un modèle qui essaie de répondre à certaines limitations courantes des modèles adaptatifs existant tout en proposant un compromis précision/performance intéressant.
+Tout d'abord, on a étudié les modèles adaptatifs existants.
+On a étendu un modèle issu du domaine de la dynamique moléculaire à l'informatique graphique, 
+pour la simulation de liquide/vêtement.
 
 Ensuite, on s'est intéressé à la simulation de découpe. On propose une technique qui permet de simuler de manière intéractive des découpes très détaillées d'objets fins.
 
@@ -73,6 +89,8 @@ Enfin, sur le contrôle de simulation, on propose une nouvelle approche qui cons
                                         ARPS
 =====================================================================================
 
+Slide 8
+========
 Je vais commencer par introduire les modèles physiques adaptatifs pour l'informatique graphique.
 
 Comme je le disais précédemment, une simulation physique peut coûter très cher en temps de calcul.

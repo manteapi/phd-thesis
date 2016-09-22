@@ -3,6 +3,38 @@ html
     background-color: inherit; 
 } 
 
+.reveal .rule-custom
+{
+    width:80%;
+    border-width: 3px;
+}
+
+.reveal .color-positive
+{
+    color: green;
+}
+
+.reveal p.color-positive
+{
+    color: green;
+}
+
+.reveal ul.item-plus
+{
+    list-style-type: none;
+}
+
+.reveal ul.item-plus li:before
+{
+    content: "+";
+    margin-right: 4px;
+}
+
+.reveal .align-left
+{
+    text-align: left;
+}
+
 .reveal .p-title
 {
     margin-top: 0.75cm;
@@ -195,6 +227,7 @@ html
 .reveal .important
 {
     color: red;
+    font-weight: bold;
 }
 
 .reveal table.noStyle td

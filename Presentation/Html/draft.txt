@@ -1,2 +1,29 @@
 Bien sûr, quand on parle de réalisme et de complexité, c'est très relatif à l'objectif visé. On peut avoir besoin d'une précision suffisante pour valider scientifiquement un protocole de chirurgie virtuelle ou la solidité d'un objet fabriqué avec un matériau précis, ou alors on peut se contenter d'un précision qui va garantir la plausibilité d'un phénomène sans se soucier si l'objet pourrait exister dans la réalité, comme ça peut être le cas dans un jeu vidéo. Il y a un second point qui rend la simulation physique importante pour ces différentes applications, c'est la capacité à pouvoir intéragir avec les phénomènes simulés. 
 
+C'est un domaine que beaucoup de personnes associent au cinéma d'animation. 
+Je vais profiter de cet exemple pour introduire ce domaine.
+Jusqu'au milieu des années 80, chaque image d'un dessin animé est dessinée, coloriée à la main.
+Pour un long métrage de 90 minutes, ça représente 135000 images sans compter les ébauches.
+C'est un travail colossale mais qui en vaut la chandelle. 
+Le succès est là, ça créé des bénéfices et tout une industrie se créé autour.
+A cette période, l'informatique se démocratise.
+Les principales étapes de création d'un dessin animé sont réalisées à l'aide d'ordinateurs.
+Ça permet d'économiser un temps considérable sur des tâches répétitives(interpolation,colorisation).
+Sans brider l'imagination et la capacité à transmettre des émotions.
+De nouveaux outils émergent, qui permettent de créer des animations toujours plus spectaculaires.
+Un de ces outils, qui va devenir indispensable, c'est la simulation physique.
+Qui fait partie des domaines dans lesquels s'inscrit ma thèse.
+Elle va permettre de créer automatiquement des animations complexes et réalistes.
+Des animations qui auraient été très difficile, voire quasi-impossible à obtenir par le dessin.
+On va même pouvoir la détourner pour intégrer des lois non pas physique mais artistique.
+Et ainsi créer des animations combinant le réalisme d'une simulation physique et l'expressivité d'une intention artistique.
+
+
+Le réalisme dépend bien sûr des objectifs de l'application.
+On aura pas les même attentes d'une simulation entre un jeu vidéo et un protocole de chirurgie.
+D'autre part, car ils permettent d'intéragir avec ces phénomènes.
+Les environnements virtuels deviennent plus immersifs.
+Les processus de design d'objets s'accélèrent.
+
+
+introduit un nouveau modèle pour la simulation de liquide et de vêtements à l'aide de particules. C'est un modèle qui essaie de répondre à certaines limitations courantes des modèles adaptatifs existant tout en proposant un compromis précision/performance intéressant.
