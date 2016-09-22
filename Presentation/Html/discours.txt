@@ -17,7 +17,7 @@ qui étudie comment créer et intéragir avec des scènes virtuelles.
 Une des applications phare de l'IG, qui l'a fait connaître au grand public, c'est l'animation.
 Au milieu des années 80, les dessins animés, qui étaient traditionnellement réalisé à la main,
 vont être créér à l'aide d'ordinateurs.
-Ça permet d'économiser un temps considérable sur des tâches répétitives(interpolation,colorisation).
+Ça permet d'économiser un temps considérable sur des tâches répétitives.
 Sans brider l'imagination et la capacité à transmettre des émotions.
 Très rapidement, de nouveaux outils émergent, permettent de créer des animations toujours plus spec.(complexité, réalisme).
 Un de ces outils, qui va devenir indispensable, c'est la simulation physique.
@@ -29,10 +29,8 @@ Slide 3
 ========
 Au delà du cinéma, on retrouve l'IG et la SP dans d'autres applications pour le divertissement (JV).
 Mais aussi dans d'autres domaines, comme l'enseigment (simulateur), et la fabrication (design).
-Dans ces applications, la capacité à simuler/visualiser des comportements réalistes est importante. 
-Mais également la capacité à pouvoir intéragir avec eux. 
-E.g pour les JV.Simulateurs, on va avoir des E.V plus immersifs.
-Pour les logiciels de fabrication on va pouvoir accélérer le processus de design.
+La capacité à simuler/visualiser/intéragir avec des comportements réalistes est importante. 
+Pour rendre les EV plus immersifs ou accélerer les processus de design.
 Pour que ces applications remplissent leurs objectifs, 
 il y a plusieurs défis auxquels la simulation physique doit faire face. 
 Je vais en introduire trois qui font échos aux travaux de ma thèse.
@@ -64,8 +62,7 @@ Slide 6
 Le troisième défi concerne le design et le contrôle de simulation.
 Dans les logiciels existants, ça reste des tâches difficiles, qui demandent beaucoup de temps.
 Principalement pour trois raisons:
--La première concerne l'interface. 
-C'est la première chose que l'on apprend à utiliser et c'est rarement convivial.
+-La première concerne l'interface très peu intuitive au premier abord.
 -La second concerne le contrôle qui est indirect.
 Même en ayant une idée précise de ce que l'on souhaite obtenir, ça va rester difficile de définir les paramètres sur lesquels on à la main pour obtenir le résultat voulu.
 -La troisième, c'est le temps de calcul. Qui va limiter l'exploration des paramètres à la patience.
@@ -76,13 +73,10 @@ Il y un besoin d'outils simple, direct, intuitifs pour le contrôle de simulatio
 Slide 7
 ========
 Ok, ce sont les trois défis autour desquelles s'articulent les contributions de cette thèse.
-
 Tout d'abord, on a étudié les modèles adaptatifs existants.
 On a étendu un modèle issu du domaine de la dynamique moléculaire à l'informatique graphique, 
 pour la simulation de liquide/vêtement.
-
 Ensuite, on s'est intéressé à la simulation de découpe. On propose une technique qui permet de simuler de manière intéractive des découpes très détaillées d'objets fins.
-
 Enfin, sur le contrôle de simulation, on propose une nouvelle approche qui consiste à éditer des animations de liquide existantes à l'aide d'outils inspirés de la sculpture virtuelle.
 
 =====================================================================================
@@ -93,133 +87,137 @@ Slide 8
 ========
 Je vais commencer par introduire les modèles physiques adaptatifs pour l'informatique graphique.
 
+Slide 9
+=======
 Comme je le disais précédemment, une simulation physique peut coûter très cher en temps de calcul.
-Pour schématiser, plus ce que l'on cherche à simuler est complexe et doit être proche de la réalité, plus le coût sera important. 
-Tout simplement parce qu'il faudra alors avoir un échantillonnage de noeuds de calculs suffisamment dense pour résoudre toute la complexité de la dynamique. 
-Les trois images qui sont ici illustrent bien ça. Peu importe que ce soit des triangles, des tétrahèdres ou des particules, on a besoin d'un échantillonnage suffisamment dense pour pouvoir capturer les plis d'un vêtement, les rides d'un visage ou les détails présent à la surface de l'eau.
-Et ça va résulter en un temps de calcul important.
+Pour schématiser, plus le phénomène est complexe et plus on cherche à avoir un résultat réaliste.
+Plus on va devoir utiliser un échantillonnage dense à la fois spatial et temporel pour représenter
+fidèlement les détails que l'on cherche à capturer. 
+Ça peut être les plis d'un vêtements, rides d'un personnage, vagues/eclaboussures pour l'eau.
+Dans tout ces cas, le nombre d'échantillons va résulter en un coût important, voire prohibitif.
+Les techniques adaptatives proposent une approche générale à ce problème.
+Qui consiste à modifier les différents composants de la simulation, dynamiquement,
+pour obtenir le meilleur compromis entre précision, performance et stabilité.
 
-Une approche générale pour réduire ce temps de calcul, c'est d'utiliser des techniques adaptatives.
-Ça consiste à modifier les différents composants de la simulation et la représentation mathématiques de l'objet au cours de la simulation pour obtenir le meilleur compromis entre précision, performance et stabilité.
+Slide 10
+========
+On distingue deux grandes familles de méthodes adaptatives.
+Selon qu'elles s'intéressent à l'aspect spatiale ou temporel de la simulation.
+Dans ces deux familles, on retrouve une stratégie similaire qui a donne lieu à beaucoup de rech.
+Et qui consiste à adapter dynamiquement la densité de l'échantillonnage selon certains critères.
+Pour l'aspect spatial:
+Ça va consister à raffiner la discrétisation dans les régions visuellement intéressantes, 
+comme la surface de l'eau et les régions de grandes déformations.
+Et à la simplifier dans celles qui le sont moins, pour pouvoir gagner du temps.
+Pour l'aspect temporel:
+Ça va consister à adapter le pas de temps aux événements.
+Pour des événements rapides (chocs), avoir un dt suffisamment petit pour la stabilité.
+Et à l'inverse, dès que la simulation le permet, avoir un dt + grand possible.
 
-Une grande partie de ces méthodes consistent à adapter dyn la discrétisation spatiale et temporelle.
-E.g, pour la discrétisation spatiale, ça va consister à rajouter des degrés de libertés dans les zones qui subissent de grandes déformations, à en enlever dans les régions qui sont éloignés de la caméra et qui présentent un intérêt visuel faible.
-Pour la discrétisation temporelle, ça consister à adapter le pas de temps de la simulation aux événements. Des événements très rapide comme des chocs vont nécessiter un pas de temps plus petit pour garantir la stabilité de la simulation alors que des événements lents pourront être simulé avec un pas de temps plus important et donc plus rapidement.
+Slide 11
+========
+L'adaptativité ne se résume pas seulement à ces deux familles et à cette stratégie.
+Il y en a bien d'autre et on peut les regrouper dans différentes catégories.
+Je ne vais pas les détailler, juste quelques limitations communes aux travaux précédents.
+Dans l'idéal, ces méthodes seraient des boîte noire que l'on pourrait ajouter à un modèle existant,
+dans un n'importe quel simulateur, pour le rendre adaptatif et le plier à nos besoins.
+En pratique c'est rarement le cas. 
+C'est souvent des techniques complexes à implémenter et assez intrusive. 
+i.e que pour les intégrer efficacement dans un simulateur existant, 
+il faudra peut être remettre en cause l'architecture du simulateur.
+Du coup la réutilisation d'implémentation est difficile.
+Et enfin on peut rencontrer des incompatibilités entre une méthode adaptative 
+et avec d'autres techniques d'accélération (GPU).
+Même si des résultats très impressionnants peuvent être obtenus, 
+Ces limitations freinent leur utilisation dans des logiciels grand publics.
 
-En complément de ces deux grandes stratégies, il y a tout un panel de méthodes adaptatives que l'on peut étudier et ranger dans différentes catégories.
-Je vais pas les détailler ici, je vais juste m'arrêter sur des limitations communes à un grand nombre de ces méthodes et qui peuvent freiner leur utilisation.
-De prime abord, on imagine une méthode adaptative comme une sorte de boîte noire que l'on va pouvoir rajouter sur un modèle existant dans un simulateur donné pour le rendre adaptatif.
-En pratique c'est rarement le cas, c'est extrêmement difficile d'avoir un simulateur capable d'intégrer à la fois des modèles physiques différents de manière unifié et qui puisse accueillir des modules d'adaptativité sans remettre l'architecture du simulateur en question. 
-Il y a une difficulté qui est lié au côté intrusif de ces méthodes et qui du coup va compliquer également la ré-utilisation d'implémentation existante dans d'autres simulateurs. 
-C'est encore plus vrai quand on souhaite combiner une technique adaptative avec d'autres techniques d'accélérations comme le GPU où la on peut rencontrer des incompatibilités.
+Slide 12
+========
+Le modèle adaptatif que je vais présenter répond en partie à ces limites.
+Il appartient à la famille des méthodes de freezing (rouge).
 
-Maintenant je vais vous présenter le modèle que l'on propose pour répondre en partie à ces limites.
-Si je devais le classer dans cet arbre, il serait dans la famille des méthodes de freezing (rouge).
+Slide 13
+========
+Elles ont pour objectif de gagner du temps dans des situations quasi-statiques. (no move).
+En restraignant la simulation aux zones actives, générallement visuellement intéressantes.
+On trouve essentiellement des travaux concernant les R et les RA. Et 1 travail pour liquide.
+Pour les R, le F est utilisé pour accélérer le traitement des collisions dans des scé. d'empilement.
+en ne traitant pas les groupes d'objets immobiles et en contact qui sont alors dit inactif.
+Pour les RA, les joints sont activés/désactivé en fonction de critère visuel, 
+comme la distance à la caméra pour simplifier les objets.
+Et enfin le travail de Goswami et al. sur les liquides particulaires.
+Qui consiste à approximer les particules lentes par des particules immobiles 
+et à ne simuler que les particules actives pour réduire compl.
+Ce travail est assez proche du notre puisqu'il traite du cas des liquide,
+mais malheureusement il ne respecte pas le principe d'action/réaction 
+et la question de quand/comment réactiver les particules de manière cohérente n'est pas addréssée.
 
-Ces méthodes de freezing ont pour objectif de gagner du temps dans ces situtations quasi-statiques.
-Ces situations, elles sont nombreuses. On peut penser à tout les scénarios de contact locaux.
-Comme l'intéraction entre la sphère et le canapé, ou alors entre l'outil et l'organe dans un sim.
-Pour les liquides on peut penser aux eaux profondes/stagnantes.
-Et on peut penser à des matériaux qui présente de la friction et qui vont s'arrêter rapidement.
-Ce que l'on veut dans ces situations, c'est concentrer les calculs dans les zones intéressantes.
-En mouvement, et économiser du temps dans les zones immobiles.
+Slide 14
+========
+En 2012, dans le domaine de la dynamique moléculaire, Artemova et Redon prop. un modèle de freezing.
+Qui intègre et résoud de manière simple cette question, et qui s'appelle ARPS.
+L'idée de base est similaire à celle de Goswami et al.
+Les particules lentes sont considérées immobile, inactives.
+Du coup les forces inter-particules sont constantes et n'ont plus à être calculées.
+La différence est dans l'intégration du mouvement des particules.
+Toute les particules, actives ou inactives sont intégrées.
+La quantité de mouvement associée aux forces constantes continuent d'être accumulée.
+Jusqu'à un certain seuil où la particule va redevenir active.
+Artemova et Redon ont proposé une légère modification des équations du mouvement qui permet à la
+particule ré-activée de suivre un mouvement physiquement cohérent et de ne pas partir comme un boulet de canon.
+La méthode a été validée sur différents exemples comme en bas à droite.
+Elle permet d'obtenir des accélérations intéressantes, 
+de préserver les caractéristiques de la simulation.
+Je vais prendre l'exemple d'un oscillateur pour mieux illustrer son fonctionnement.
 
-C'est des méthodes que l'on retrouve dans les moteurs de jeux vidéos pour les objets rigides.
-Côté recherche, on trouve surtout des travaux concernant les rigides et rigides articulées.
-Pour les fluides, il n'y a qu'un seul travail à ma connaissance qui propose une méthode.
-Et on n'en n'a pas répertorié pour la simulation d'objets déformables.
-
-Pour les rigides, il y a deux travaux qui proposent d'utiliser le freezing pour accélerer le traitements des collisions dans des scénarios d'empilement.
-Les objets immobiles et en contact sont considérés comme inactif, il n'y a aucun traitement des contacts pour ces groupes. 
-Lors d'une collision avec un object actif, les objets inactifs sont réactivées par propagation pour prendre en compte les contacts.
-
-Pour les rigides articulées, Kim et al. propose de activé/désactivé certains joints en fonction de critères comme la distance à la caméra pour simplifier les objets et réduire la complexité.
-
-Pour les fluides Goswami et al. propose une méthode pour la simulation particulaire de liquide.
-Les particules qui sont lentes sont approximées par des particules immobiles pour réduire le temps de calcul. Malheureusement le principe d'action/réaction n'est pas respecté et donc le moment n'est pas conservé.
-
-Dans tout ces travaux, la question de comment/quand réactiver les objets/particules inactives de manière cohérente n'est pas addréssée ou alors suppose l'utilisation d'heuristiques spécifiques à des applications.
-
-En 2012, dans le domaine de la dynamique moléculaire.
-Artemova & Redon ont proposé une approche qui répond à cette question de manière élégante.
-Ils l'ont intitulé, Adaptively Restrained Particle Simulations (ARPS).
-Comme Goswami et al., les particules lentes sont approximées par des particules immobiles.
-Ce qui résulte en des forces inter-particules constantes, qui n'ont plus besoin d'être calculées.
-Toute la différence est dans le fait que la quantité de mouvement associée à ces forces constantes continuent d'être accumulés pour permettre aux particules de reprendre un mouvement qui soit physiquement cohérent.
-La méthode a été validée sur différents exemples, dont celui d'une collision en cascade(bas,droite).
-Une particule a été projeté contre un réseau 2D de particules.
-La couleur correspond au déplacement des particules.
-On peut observer l'onde de choc propagée à la suite de la collision collision.
-La simulation adaptative est 5x plus rapide que la simulation de référence.
-Et on peut observer que les caractéristiques du choc ont été très bien préservées.
-La méthode intègre deux seuils que l'utilisateur peut modifier pour préciser un compromis entre precision/performance.
-
-Nos contributions se limitent à l'étude et à l'extension de l'ARPS pour l'informatique graphique.
-Tout d'abord dans le cadre de la simulation de liquide où on propose un algorithme qui permet de combiner l'ARPS avec le modèle SPH et d'en tirer des accélérations significatives.
-Ensuite dans le cadre de la simulation de vêtement, où on a dérivé un intégrateur implicite qui s'appuie sur l'ARPS pour permettre l'utilisation de pas de temps important.
-Dans la suite de cette partie, je vais rappeler comment fonctionne l'ARPS.
-Ensuite je présenterais les deux contributions et terminerais avec des limitations et perspectives.
-
-Voici une courte vidéo pour mieux illustrer le principe de l'ARPS.
+Slide 15
+=========
 Sur la gauche un oscillateur harmonique, deux particules reliés par un ressort, une particule fixe.
 Sur la droite le protrait de phase de la simulation qui décrit l'évolution de la quantité de mouvement en fonction de la position de la particule. 
 Pendant une simulation classique, la force inter-particule est calculée à chaque pas de temps,
-même si rien d'intéressant ne se passe ou que la quantité de mouvement est faible.
 Maintenant, le même système mais simulé avec l'ARPS.
 Le portrait de phase est légèrement différent.
 Il est divisée en trois régions qui décrivent les différentes dynamiques(restr., trans., classique.)
 A ces dynamiques, correspond l'état de la particule, qui peut être inactive, trans., active.
-Pendant la dynamique restrainte, la particule est immobile mais accumule de la quantité de mouvement jusqu'à un certain seuil.
+Pendant la dynamique restrainte, la particule est immobile aucune force n'est calculée, 
+mais la particule accumule de la quantité de mouvement jusqu'à un certain seuil. 
 Alors la particule devient transitive.
-L'objectif de cette phase est de dépensée l'énergie accumulée pendant la dynamique restreinte et retrouver une dynamique classique, la particule est alors active.
-Le temps de calcul est économisé pendant la dynamique restreinte où la force interparticule n'a pas à être calculé à chaque pas de temps.
+L'objectif de cette phase est de faire le lien entre la dynamique restreinte et classique.
+Ensuite la particule redevient active et suit une dynamique classique.
 Et donc, en utilisant des seuils adaptés pour la zone de transition, on peut avoir une simulation adaptative qui reste proche de la simulation de référence.
 
-L'ARPS c'est avant tout un intégrateur qui permet de faire suivre aux degrés de liberté une dynamique restreinte ou classique en fonction de leur quantité de mouvement. A partir de ça, on peut imaginer des algorithmes qui en tire partie de la dynamique restreinte pour réduire les calculs.
-C'est ce que l'on a fait avec notre extension à la simulation de fluide particulaires.
+Slide 16
+========
+Nos contributions, ici, se limitent à l'extension de cette méthode à des applications pour l'IG.
+Tout d'abord, on propose d'appliquer l'ARPS à la simulation de liquide.
+Ensuite, dans le cadre de la simulation de vêtement, on propose un intégrateur implicite, dérivé de l'ARPS.
 
-On a choisi le modèle SPH, Smoothed Particles Hydrodynamics, qui est courant en IG et qui semblait bien convenir pour appliquer l'ARPS.
-SPH consiste à interpoler les quantités d'un fluide(densité, vitesse, ...) via des particules.
-L'algorithme classique est le suivant.
-Pour chaque particule on va déterminer ses voisins.
-C'est le gouleau d'étranglement de l'algorithme.
-Ensuite de manière générale on va calculer les champs scalaires (pression, densité) 
-et les forces inter-particules (pression, viscosité).
-Finalement, on intègre les particules dans le temps.
+Slide 17
+=========
+Pour la simulation de liquide, on a choisi de combiner l'ARPS avec le modèle SPH de Becker et al.
+Ce modèle permet de simuler un liquide à l'aide de particules qui interpolent les différentes 
+quantités qui décrivent le liquide (pression, densité, vitesse, ...).
+Il est assez gourmand parce que pour chaque particule on fait une recherche de voisinage.
+En utilisant l'intégrateur proposé par Artemova et Redon, on peut écrire un algorithme incrémentale
+qui restreint les calculs aux particules inactives: forces/scalaires qui interviennent mais 
+plus important la recherche des voisins qui est le gouleau d'étranglement de la méthode.
 
-Comme je disais, la recherche des voisins correspond à l'étape la plus couteuse de l'algorithme.
-En combinant SPH avec l'ARPS, on va pouvoir réduire la recherche des voisins aux particules actives/transitives et le calcul des scalaires/forces aux particules actives/transitives et à leurs voisins.
-Le dernier point est possible car toutes les contributions entre particules sont symétriques.
-On arrive à un algorithme qui exploite au maximum l'inactivité des particules pour économiser du temps. Il est le suivant.
-
-On commence par soustraire les anciennes contributions des particules actives et de leur voisins.
-Ensuite on va calculer les voisins uniquement pour les particules actives/transitives.
-On va de nouveau calculer les champs scalaires/forces mais uniquement pour les particules actives.
-Enfin on intègre le mouvement de chaque particule à l'aide de l'ARPS et on met à jour l'état de particule en fonction de leur quantité de mouvement.
-A la fin de l'algorithme, on a calculé uniquement ce qui était nécessaire et on a respecté le principe d'action/réaction.
-
-Dans cette combinaison entre l'ARPS et le modèle SPH, il y a un point sur lequel on a buté.
-Ça concerne les forces de viscosités, qui impliquent non seulement les positions des particules, 
-mais également leur vitesse, et ce qui n'était pas le cas d'utilisation prévu par Artemova & Redon.
-Avec cette méthode on a deux notions de vitesses à prendre en compte.
-La vitesse accumulée qui définit l'état des particules et la vitesse effective qui est utilisée pour intégrer les positions des particules et qui prend en compte leur état.
-Alors bien sûr c'est la vitesse effective qui doit être utilisé lors du calcul des forces de viscosité de part son adéquation avec l'état de la particule. 
-Dans nos expériences, on a constaté un effet de bord que l'on ne sait pas expliqué clairement.
-La force de viscosité disparaît avec la vitesse effective et fait converger l'état de la particule vers l'inactivité sans jamais l'atteindre.
-Les particules bougent à peine mais aucune économie n'est faite car elles sont considérées comme active.
-Pour résoudre rapidement ce problème, on a ajouté un seuil supplémentaire pour empêcher ces situations mais ça reste un point à éclaircir dans des travaux futurs.
-
+Slide 18
+========
 Voici quelques résultats. 
-
 Tout d'abord une simulation d'un dam break où l'on compare SPH et l'ARPS.
 Ici la visualisation de l'état des particules. 
 Pour cette simulation on a obtenu une accélération moyenne de 3.8.
 On peut constate que l'on a un comportement très proche d'une simulation classique.
 
+Slide 19
+========
 Et un second exemple dans lequel on a créé un courant permanent.
 Une fois que le flux est installé, un grand nombre de particules bougent très peu mais réagissent aux intéractions avec les particules actives.
 L'accélération moyenne est de 2.7 et on voit bien dans cet exemple que l'activation/la désactivation des particules est bien gérée par l'algorithme.
 
+Slide 20
+========
 Passons maintenant à la simulation de vêtement.
 Pour des objets structurés comme les vêtements, l'intégration explicite nécessite de très petit pas de temps et ralentit considérablement la simulation.
 Une solution classique consiste à utiliser un intégrateur implicite comme celui proposé par Baraff et Witkin.
@@ -228,6 +226,8 @@ En utilisant un développement de Taylor Young, on arrive à un système linéai
 La résolution est cher mais permet d'utiliser un pas de temps beaucoup plus grand.
 Notre idée ici est de dériver un intégrateur implicite pour l'ARPS pour réduire la taille du système linéaire en accord avec le nombre de particules actives.
 
+Slide 21
+========
 On est tout simplement parti des équations du mouvement décrite par l'ARPS.
 On a suivi la même procédure que je viens de décrire : discrétisation, développement taylor.
 On obtient un système linéaire similaire à celui que l'on avait mais qui contient 2 nouveaux termes.
@@ -236,11 +236,20 @@ On peut observer que lorsque les particules sont inactives, on retrouve une int�
 Alors que lorsque les particules sont actives on retrouve l'intégration implicite.
 Donc on peut extraire les particules inactives du système linéaire et ainsi réduire sa taille.
 
+Slide 22
+========
 On a implémenté ce solveur hybride sur un cas extrêmement simple d'un vêtement qui tombe sous l'effet de la gravité.
 Dans cet exemple, les particules inactives sont intégrées explicitement, les particules actives sont intégrées implicitement et on a bien une réduction du système linéaire qui permet d'obtenir une accélération de 2.7.
 
-Voilà pour cette première partie, on a étendu à l'informatique graphique une nouvelle approche pour approximer de manière cohérente des simulations de particules.
+Slide 23
+========
+Voilà pour cette première partie.
+On a étendu à l'informatique graphique une nouvelle approche 
+pour approximer de manière cohérente des simulations de particules.
+Pour les
+
 On l'a fait de deux manières, via une application aux fluides et via une application aux vêtements.
+
 Dans les deux cas, on a obtenu des accélérations encourageantes.
 La méthode n'est pas sans limite, on a observé des instabilités concernant l'intégration implicite, qui viennent de la fonction de restriction utilisée pour gérer la transition des particules.
 Ça nécessiterait de mieux comprendre l'origine du problème pour pouvoir apporter des solutions.

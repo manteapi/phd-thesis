@@ -27,3 +27,16 @@ Les processus de design d'objets s'accélèrent.
 
 
 introduit un nouveau modèle pour la simulation de liquide et de vêtements à l'aide de particules. C'est un modèle qui essaie de répondre à certaines limitations courantes des modèles adaptatifs existant tout en proposant un compromis précision/performance intéressant.
+
+Slide 18
+========
+Dans cette combinaison entre l'ARPS et le modèle SPH, il y a un point sur lequel on a buté.
+Ça concerne les forces de viscosités, qui impliquent non seulement les positions des particules, 
+mais également leur vitesse, et ce qui n'était pas le cas d'utilisation prévu par Artemova & Redon.
+Avec cette méthode on a deux notions de vitesses à prendre en compte.
+La vitesse accumulée qui définit l'état des particules et la vitesse effective qui est utilisée pour intégrer les positions des particules et qui prend en compte leur état.
+Alors bien sûr c'est la vitesse effective qui doit être utilisé lors du calcul des forces de viscosité de part son adéquation avec l'état de la particule. 
+Dans nos expériences, on a constaté un effet de bord que l'on ne sait pas expliqué clairement.
+La force de viscosité disparaît avec la vitesse effective et fait converger l'état de la particule vers l'inactivité sans jamais l'atteindre.
+Les particules bougent à peine mais aucune économie n'est faite car elles sont considérées comme active.
+Pour résoudre rapidement ce problème, on a ajouté un seuil supplémentaire pour empêcher ces situations mais ça reste un point à éclaircir dans des travaux futurs.
