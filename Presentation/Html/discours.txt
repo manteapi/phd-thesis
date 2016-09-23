@@ -292,7 +292,7 @@ L’idée clé étant que chacun des repères possède une grande région d’in
 appelée fonction de forme. 
 C'est une méthode d'embarquement, i.e que le modèle visuel et le modèle physique sont distincts.
 A gauche, un modèle échantillonée de repères en bleu, et à droite les régions d’influences. 
-Elles décroissent en fontion de la distance géodésique. 
+Elles décroient en fontion de la distance géodésique. 
 
 Slide 30
 ========
