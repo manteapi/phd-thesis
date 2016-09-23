@@ -40,3 +40,35 @@ Dans nos expériences, on a constaté un effet de bord que l'on ne sait pas expl
 La force de viscosité disparaît avec la vitesse effective et fait converger l'état de la particule vers l'inactivité sans jamais l'atteindre.
 Les particules bougent à peine mais aucune économie n'est faite car elles sont considérées comme active.
 Pour résoudre rapidement ce problème, on a ajouté un seuil supplémentaire pour empêcher ces situations mais ça reste un point à éclaircir dans des travaux futurs.
+
+Slide 10
+========
+On distingue deux grandes familles de méthodes adaptatives.
+Selon qu'elles s'intéressent à l'aspect spatiale ou temporel de la simulation.
+Dans ces deux familles, on retrouve une stratégie similaire qui a donne lieu à beaucoup de rech.
+Et qui consiste à adapter dynamiquement la densité de l'échantillonnage selon certains critères.
+Pour l'aspect spatial:
+Ça va consister à raffiner la discrétisation dans les régions visuellement intéressantes, 
+comme la surface de l'eau et les régions de grandes déformations.
+Et à la simplifier dans celles qui le sont moins, pour pouvoir gagner du temps.
+Pour l'aspect temporel:
+Ça va consister à adapter le pas de temps aux événements.
+Pour des événements rapides (chocs), avoir un dt suffisamment petit pour la stabilité.
+Et à l'inverse, dès que la simulation le permet, avoir un dt + grand possible.
+
+Slide 11
+========
+L'adaptativité ne se résume pas seulement à ces deux familles et à cette stratégie.
+Il y en a bien d'autre et on peut les regrouper dans différentes catégories.
+Je ne vais pas les détailler, juste quelques limitations communes aux travaux précédents.
+Dans l'idéal, ces méthodes seraient des boîte noire que l'on pourrait ajouter à un modèle existant,
+dans un n'importe quel simulateur, pour le rendre adaptatif et le plier à nos besoins.
+En pratique c'est rarement le cas. 
+C'est souvent des techniques complexes à implémenter et assez intrusive. 
+i.e que pour les intégrer efficacement dans un simulateur existant, 
+il faudra peut être remettre en cause l'architecture du simulateur.
+Du coup la réutilisation d'implémentation est difficile.
+Et enfin on peut rencontrer des incompatibilités entre une méthode adaptative 
+et avec d'autres techniques d'accélération (GPU).
+Même si des résultats très impressionnants peuvent être obtenus, 
+Ces limitations freinent leur utilisation dans des logiciels grand publics.

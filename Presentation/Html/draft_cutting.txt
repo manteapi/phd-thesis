@@ -1,0 +1,26 @@
+Slide 10
+=======
+Une fois le modèle échantillonnée et les fonctions de forme calculées.
+Toute la dynamique, tirée de la mécanique des milieux continus, va être calculé au niveau des repères.
+On va utiliser une méthode d'interpolation, ici le linear blend skinning, et les fonctions de forme comme poids de skinning pour embarquer différentes couches.
+Une première couche, visuel i.e un maillage, qui va suivre le mouvement des repères.
+Une seconde couche, qui va calculer la déformation du modèle physique et faire remonter les forces internes au repères pour la résolution de la dynamique.
+Cette couche est constitué d'un échantillonnage uniforme de points d'intégrations.
+Une dernière couche, dont l'objectif est de calculer les collisions et qui va permettre de faire remonter les forces externes au repères.
+L'idée importante étant que chacun de ces modèles peuvent avoir des natures et des résolutions différentes.
+Typiquement, la couche visuel est un maillage assez fin. La couche de collision peut être un nuage de point ou un maillage. La couche d'intégration peut avoir une résolution assez basse selon le comportement souhaitée. Un grand nombre de compromis sont donc possibles.
+La seule chose manquante est un système permettant la gestion de changements topologiques tout en conservant les avantages du modèle.
+
+Slide 19
+=======
+
+Pour constuire cette grille.
+On part du maillage embarqué dans une grille uniforme.
+Pour chaque cellule de la grille, on commence par détecter les éléments qui chevauchent la cellule. Par mi ces éléments on détecte les composantes connexes. Pour chacune d’entre elle, on crée un duplicat de la cellule. Et enfin, pour chaque duplicat, on détermine la connectivité à partir du voisinage des éléments qui ont constitué le duplicat.
+
+Slide 21
+=======
+
+Au début de la présentation, j’ai rapidement présenté les différentes couches qui communique avec les repères: la couche visuelle, la couche de déformation et la couche de collision. Chacune de ces couches stockent des valeurs et dérivées des fonctions de formes. A chacune des découpes, il est essentiel que ces données soit mise à jour à partir des fonctions de forme. Ça représente une quantité importante de données. 
+Dans ce travail, on exploite le fait qu’une découpe est un phénomène qui a très souvent un impact locale, pour identifier les régions affectées par la découpe et ne mettre à jour les données de simulations que dans ces régions.
+Les points d’intégrations et de collisions doivent également être ré-échantillonnée dans les régions découpées. Généralement le nombre d’échantillons est beaucoup plus important que le nombre de repères. Plutôt que de rajouter de nouveaux échantillons, on peut appliquer des relaxations de Lloyd pour ré-échantillonner progressivement le modèle.

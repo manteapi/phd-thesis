@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="708.22547"
-     inkscape:cy="146.31433"
+     inkscape:zoom="0.7"
+     inkscape:cx="634.83931"
+     inkscape:cy="123.19012"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -348,7 +348,7 @@
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
            y="344.2287"
            x="331.67841"
-           sodipodi:role="line">6 voisins chacun</tspan></text>
+           sodipodi:role="line">5 voisins chacun</tspan></text>
     </g>
     <g
        id="g8289"
