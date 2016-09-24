@@ -390,7 +390,7 @@
                             </figure>
                         </div>
                         <div class="col-sm-4">
-                            <h4 style="margin-bottom:0cm;"><small>Nouveaux phénomènes</small></h4>
+                            <h4 style="margin-bottom:0cm;"><small>Changements topologiques</small></h4>
                             <h4 style="margin-bottom:0cm;"><small style="color:red;">Découpe intéractive</small></h4>
                             <figure class="figure">
                                 <img class="noborder-img" data-src="./images/introduction/teaser/cuttingTeaser.png" style="width:100%;" alt="introSnowWhite">
@@ -1837,7 +1837,7 @@
                 <!-- Fluid sculpting - Défis II-->
                 <section>
                     <h2>Défis</h2>
-                    <h6><small>Processus essai-erreur</small></h6>
+                    <h6><small>Approche classique : Processus essai-erreur</small></h6>
                     <div class="row">
                         <div class="col-sm-12">
                         <img class="nostyle-img" style="width:100%;" data-src="./images/starSimulationControl/trialError.svg" alt="fluidSculptingTrialError">
@@ -1846,10 +1846,10 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <small>
-                            <ul>
-                                <li>Paramètres nombreux et indirect</li>
-                                <li>Coût calculatoire élevé</li>
-                                <li>Comportement chaotique</li>
+                            <ul class="noStyle">
+                                <li style="color:red;">-Paramètres nombreux et indirect</li>
+                                <li style="color:red;">-Coût calculatoire élevé</li>
+                                <li style="color:red;">-Passage à l'échelle</li>
                             </ul>
                             </small>
                         </div>
@@ -1858,20 +1858,28 @@
                 
                 <!-- Fluid sculpting - État de l'art I -->
                 <section>
-                    <h2>État de l'art</h2>
-                    <h6><small>Contraintes spatio-temporelles</small></h6>
+                    <h2>État de l'art : Contrôle de simulation</h2>
+                    <h6><small>Contraintes spatio-temporelles <em>[Witkin and Kass, 1988]</em></small></h6>
                     <div class="row">
                         <div class="col-sm-12">
                             <img class="nostyle-img" style="width:100%;" data-src="./images/starSimulationControl/spaceTimeConstraints.svg" alt="fluidSculptingSpaceTimeConstraints">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <small>
-                            <ul>
-                                <li>Choix des paramètres</li>
-                                <li>Choix et formulation des contraintes</li>
-                                <li>Résolution numérique</li>
+                            <ul class="noStyle">
+                                <li style="color:green;">+Contrôle direct</li>
+                                <li style="color:red;">-Coût Elevé</li>
+                            </ul>
+                            </small>
+                        </div>
+                        <div class="col-sm-6">
+                            <small>
+                            <ul class="noStyle">
+                                <li style="color:blue;">Formulation intuitive des contraintes</li>
+                                <li style="color:blue;">Choix des paramètres</li>
+                                <li style="color:blue;">Résolution numérique efficace</li>
                             </ul>
                             </small>
                         </div>
@@ -1880,154 +1888,143 @@
                                     
                 <!-- Fluid sculpting - État de l'art II -->
                 <section>
-                    <h2>État de l'art</h2>
-                    <div class="row row-top-align">
-                        <div class="col-sm-4 col-top-align">
-                            <h6><small>Choix des paramètres</small></h6>
-                            <img class="nostyle-img" style="width:100%;" data-src="./images/fluidSculpting/relatedWork/coros2012.png" alt="fluidSculptingCoros2012">
-                            <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
-                            <em><small>[Coros et al. 2012]</small></em>
+                    <h2>État de l'art : Contrôle de simulation</h2>
+                    <div class="row row-center-align">
+                        <div class="col-sm-4 col-center-align">
+                            <figcaption style="margin-bottom:1.0cm; margin-top:1cm;" class="figure-caption text-xs-center figure-caption-custom">
+                            <strong>Rigides</strong>
                             </figcaption>
-                        </div>
-                        <div class="col-sm-4 col-top-align">
-                            <h6><small>Choix des contraintes</small></h6>
                             <img class="nostyle-img" style="width:100%;" data-src="./images/fluidSculpting/relatedWork/popovic2003.png" alt="fluidSculptingPopovic2003">
                             <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
                             <em><small>[Popovic et al. 2003]</small></em>
                             </figcaption>
                         </div>
-                        <div class="col-sm-4 col-top-align">
-                            <h6><small>Formulation des contraintes</small></h6>
+                        <div class="col-sm-4 col-center-align">
+                            <figcaption style="margin-bottom:1.0cm; margin-top:1cm" class="figure-caption text-xs-center figure-caption-custom">
+                            <strong>Déformables</strong>
+                            </figcaption>
                             <img class="nostyle-img" style="width:100%;" data-src="./images/fluidSculpting/relatedWork/barbic2012Teaser.png" alt="fluidSculptingBarbic2012">
                             <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
                             <em><small>[Barbic et al. 2012]</small></em>
                             </figcaption>
                         </div>
-                    </div>
-                    <div class="row row-top-align">
-                        <div class="col-sm-4 col-top-align">
-                            <img class="nostyle-img" style="width:100%;" data-src="./images/fluidSculpting/relatedWork/li2014.png" alt="fluidSculptingLi2014">
-                            <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
-                            <em><small>[Li et al. 2014]</small></em>
-                            </figcaption>
+                        <div class="col-sm-4 col-center-align">
+                            <small>
+                            <ul class="noStyle">
+                                <li style="color:green;">+Contrôle direct</li>
+                                <li style="color:green;">+Méthodes intéractives</li>
+                                <li style="color:red;">-Pas de changements de formes</li>
+                            </ul>
+                            </small>
                         </div>
-                        <div class="col-sm-4 col-top-align">
+                    </div>
+                    <div class="row row-center-align">
+                        <div class="col-sm-8 col-center-align">
+                            <figcaption style="margin-bottom:0.5cm; margin-top:1cm" class="figure-caption text-xs-center figure-caption-custom">
+                            <strong>Liquide</strong>
+                            </figcaption>
                             <img class="nostyle-img" style="width:100%;" data-src="./images/fluidSculpting/relatedWork/mcnamara2004.png" alt="fluidSculptingMcnamara2004">
                             <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
                             <em><small>[McNamara et al. 2004]</small></em>
                             </figcaption>
                         </div>
-                        <div class="col-sm-4 col-top-align">
-                            <img class="nostyle-img" style="width:100%;" data-src="./images/fluidSculpting/relatedWork/pan2013Teaser.png" alt="fluidSculptingPan2013">
-                            <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
-                            <em><small>[Pan et al. 2013]</small></em>
-                            </figcaption>
-                        </div>
-                    </div>
-                </section>
-                    
-                <section>
-                    <h2>État de l'art</h2>
-                    <h6><small>Enrichissement d'animation</small></h6>
-                    <div class="row row-center-align">
-                        <div class="col-sm-12 col-center-align">
-                            <img class="nostyle-img" style="width:60%;" data-src="./images/fluidSculpting/relatedWork/bergou2007Teaser.png" alt="fluidSculptingBergou2007">
-                            <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
-                            <em>[Bergou et al. 2007]</em>
-                            </figcaption>
-                        </div>
-                    </div>
-                    <div class="row row-center-align">
-                        <div class="col-sm-12 col-center-align">
-                            <img class="nostyle-img" style="width:60%;" data-src="./images/fluidSculpting/relatedWork/mercier2015Teaser.png" alt="fluidSculptingMercier2015">
-                            <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
-                            <em>[Mercier et al. 2015]</em>
-                            </figcaption>
-                        </div>
-                    </div>
-                </section>
-                    
-                <section>
-                    <h2>État de l'art</h2>
-                    <h6><small>Guide de simulation</small></h6>
-                    <div class="row row-center-align">
-                        <div class="col-sm-12 col-center-align">
-                            <img class="nostyle-img" style="width:50%;" data-src="./images/fluidSculpting/relatedWork/martin2011Teaser.png" alt="fluidSculptingMartin2011">
-                            <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
-                            <em>[Martin et al. 2011]</em>
-                            </figcaption>
-                        </div>
-                    </div>
-                    <div class="row row-center-align">
-                        <div class="col-sm-12 col-center-align">
-                            <img class="nostyle-img" style="width:50%;" data-src="./images/fluidSculpting/relatedWork/nielsen2011Teaser.png" alt="fluidSculptingNielsen2011">
-                            <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
-                            <em>[Nielsen et al. 2011]</em>
-                            </figcaption>
-                        </div>
-                    </div>
-                    <div class="row row-center-align">
-                        <div class="col-sm-12 col-center-align">
-                            <img class="nostyle-img" style="width:50%;" data-src="./images/fluidSculpting/relatedWork/raveendran2012Teaser.png" alt="fluidSculptingRaveendran2012">
-                            <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
-                            <em>[Raveendran et al. 2012]</em>
-                            </figcaption>
-                        </div>
-                    </div>
-                </section>
-                    
-                <section>
-                    <h2>État de l'art</h2>
-                    <h6><small>Édition d'animation</small></h6>
-                    <div class="row row-center-align">
-                        <div class="col-sm-12 col-center-align">
-                            <img class="nostyle-img" style="width:55%;" data-src="./images/fluidSculpting/relatedWork/pighin2004Teaser.png" alt="fluidSculptingPighin2004">
-                            <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
-                            <em>[Pighin et al. 2004]</em>
-                            </figcaption>
-                        </div>
-                    </div>
-                    <div class="row row-center-align">
-                        <div class="col-sm-12 col-center-align">
-                            <img class="nostyle-img" style="width:55%;" data-src="./images/fluidSculpting/relatedWork/raveendran2014Teaser.png" alt="fluidSculptingRaveendran2014">
-                            <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
-                            <em>[Raveendran et al. 2014]</em>
-                            </figcaption>
+                        <div class="col-sm-4 col-center-align">
+                            <small>
+                            <ul class="noStyle">
+                                <li style="color:orange;">+Contrôle direct</li>
+                                <li style="color:red;">-Coût prohibitif</li>
+                            </ul>
+                            </small>
                         </div>
                     </div>
                 </section>
 
+                <section>
+                    <h2>État de l'art : Contrôle de simulation</h2>
+                    <div class="row row-center-align">
+                        <div class="col-sm-8 col-center-align">
+                            <img class="nostyle-img" style="width:100%;" data-src="./images/fluidSculpting/relatedWork/nielsen2011Teaser.png" alt="fluidSculptingNielsen2011">
+                            <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
+                            <strong>Simulation guide</strong>, <em style="font-size:12pt;">[Nielsen et al. 2011]</em>
+                            </figcaption>
+                        </div>
+                        <div class="col-sm-4 col-center-align">
+                            <small>
+                            <ul class="noStyle">
+                                <li style="color:green;">+Passage à l'échelle</li>
+                                <li style="color:green;">+Coût réduit</li>
+                                <li style="color:red;">-Contrôle indirect</li>
+                            </ul>
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row row-center-align">
+                        <div class="col-sm-8 col-center-align">
+                                <h6></h6>
+                                <img class="nostyle-img" style="width:100%;" data-src="./images/fluidSculpting/relatedWork/raveendran2014Teaser.png" alt="fluidSculptingRaveendran2014">
+                                <figcaption style="margin-bottom:0.5cm;" class="figure-caption text-xs-center figure-caption-custom">
+                                <strong>Interpolation d'animation</strong>, <em style="font-size:12pt;">[Raveendran et al. 2014]</em>
+                                </figcaption>
+                        </div>
+                        <div class="col-sm-4 col-center-align">
+                            <small>
+                            <ul class="noStyle">
+                                <li style="color:green;">+Exploration simple</li>
+                                <li style="color:green;">+Ré-utilisation simulation</li>
+                                <li style="color:red;">-Contrôle indirect</li>
+                            </ul>
+                            </small>
+                        </div>
+                    </div>
+                </section>            
+
                 <!-- Fluid sculpting - Présentation de la méthode -->
                 <section>
-                    <h2>Édition d'animation de liquide</h2>
-                    <h2><small>Cahier des charges</small></h2>
+                    <h2>Objectifs</h2>
+                    <h2><small>Édition d'animations de liquide</small></h2>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-3">
+                            <img class="nostyle-img" data-src="./images/fluidSculpting/teaser/fluid_004.png" alt="fluidSculptingTeaser1">
+                        </div>
+                        <div class="col-sm-3">
+                            <img class="nostyle-img" data-src="./images/fluidSculpting/teaser/fluid_012.png" alt="fluidSculptingTeaser2">
+                        </div>
+                        <div class="col-sm-3">
+                            <img class="nostyle-img" data-src="./images/fluidSculpting/teaser/bunny_04.png" alt="fluidSculptingTeaser3">
+                        </div>
+                        <div class="col-sm-3">
+                            <img class="nostyle-img" data-src="./images/fluidSculpting/teaser/bunny_12.png" alt="fluidSculptingTeaser4">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
                             <small>
-                            <ul>
+                            <ul style="color:blue;">
                                 <li>Édition intéractive</li>
                                 <li>Intéraction intuitive</li>
                                 <li>Ré-utilisation de simulations</li>
                             </ul>
                             </small>
                         </div>
-                        <div class="col-sm-6">
-                            <small>
-                            <ul>
-                                <li>Pas de re-simulation</li>
-                                <li>Inspiration système de sculpture virtuelle</li>                                
-                                <li>Approche géométrique</li>
-                            </ul>
-                            </small>
-                        </div>
                     </div>
                 </section>
                     
                 <section>
-                    <h2>Sculpture espace-temps</h2>
+                    <h2>Sculpture d'animations d'espace-temps</h2>
                     <div class="row">
                         <div class="col-sm-12">
                             <img class="nostyle-img" style="width:100%;" data-src="./images/fluidSculpting/overview_3.svg" alt="fluidSculptingOverview">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <small>
+                            <ul class="noStyle">
+                                <li style="color:green;">+Pas de re-simulation : Édition/Combinaison d'animations existantes</li>
+                                <li style="color:green;">+Outils simples : inspiration sculpture virtuelle</li>
+                                <li style="color:green;">+Méthode indépendante du type de simulation : SPH, FLIP, ...</li>
+                            </ul>
+                            </small>
                         </div>
                     </div>
                 </section>
@@ -2081,845 +2078,171 @@
                 </section>
                     
                 <!-- Fluid sculpting - Résultats -->
-                <section>
+                <section data-state="fluidSculptingBunny">
                     <h2>Résultats</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <video class="noborder-video" id="video-fluidSculptingBunny" muted>
+                                <source data-src="videos/fluidSculpting/fluidSculpting_Bunny.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                </section>
+            
+                <section data-state="fluidSculptingBoats">
+                    <h2>Résultats</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <video class="noborder-video" id="video-fluidSculptingBoats" muted>
+                                <source data-src="videos/fluidSculpting/fluidSculpting_Boats.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                </section>
+            
+                <section data-state="fluidSculptingDrops">
+                    <h2>Résultats</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <video class="noborder-video" id="video-fluidSculptingDrops" muted>
+                                <source data-src="videos/fluidSculpting/fluidSculpting_Drop.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
                 </section>
                     
                 <!-- Fluid sculpting - Conclusion & perspectives -->
                 <section>
-                    <h2>Conclusion & perspectives</h2>
-                    <h6><small>Combiner réalisme et expressivité</small></h6>
-                    <small>
+                    <h2>Synthèse</h2>   
+                    <h2 style="margin-bottom:-0.5cm;"><small>Edition intéractive et simple d'animations de liquide</small></h2>
                     <div class="row">
-                        <div class="col-sm-6">
-                            <img class="nostyle-img" style="width:100%;" data-src="./images/fluidSculpting/motivations/anAmericanTail.png" alt="fluidSculptingMotivations5">
+                        <div class="col-sm-6 col-left-align">
+                            <p>Contributions</p>
+                        <small>
+                            <ul>
+                                <li>Extraction de caractéristique visuelle et cohérente</li>
+                                <li>Outils de sélection, d'édition, d'insertion</li>
+                            </ul>
+                        </small>
+                            <p>Limitations</p>                            
+                            <small>
+                            <ul>
+                                <li>Sélection semi-automatique</li>
+                                <li>Robustesse de l'aggrégation</li>
+                                <li>Consommation mémoire</li>
+                                <li>Édition rigide</li>
+                            </ul>
+                            </small>
                         </div>
-                        <div class="col-sm-6">
-                            <img class="nostyle-img" style="width:100%;" data-src="./images/fluidSculpting/motivations/ponyo.jpg" alt="fluidSculptingMotivations6">
-                        </div>                    
+                        <div class="col-sm-6 col-center-align">
+                            <img class="nostyle-img" style="width:70%;" data-src="./images/introduction/teaser/fluidSculptingTeaser.png" alt="fluidSculptingMotivations5">
+                        </div>
                     </div>
-                    <ul>
-                        <li>Réalisme physique</li>
-                        <li>Résolution des textures</li>
-                        <li>Robustesse de l'aggrégation</li>
-                        <li>Consommation mémoire</li>
-                        <li>Édition des caractéristiques</li>
-                    </ul>
-                    </small>
                 </section>
-                    
+
                 <!--
-				<section data-state="fluidSculptingBunny">
+                ================================================
+                ================================================
+                                    Synthèse 
+                ================================================
+                ================================================
+                -->
+                <section>
+                    <h2>Synthèse</h2>
                     <div class="row">
-                        <video class="noborder-video" id="video-fluidSculptingBunny">
-                            <source data-src="videos/fluidSculpting/fluidSculpting_mig2016.mp4" type="video/mp4"/>
-                        </video>
-                    </div>
-                </section>
-                -->
-
-                <!--
-                ================================================
-                ================================================
-                                    Conclusion 
-                ================================================
-                ================================================
-                -->
-                <section>
-                    <h2>Conclusion</h2>
-                    <small>
-                    <ul>
-                        <li>ARPS</li>
-                        <li>Detailed cutting</li>
-                        <li>Fluid sculpting</li>
-                    </ul>
-                    </small>
-                </section>
-
-                <!--
-                ================================================
-                ================================================
-                                Old 
-                ================================================
-                ================================================
-                -->
-
-
-                <!--
-				<section>
-                    <h2>Qu'est-ce qu'un dessin animé ?</h2>
-					<h3>Une suite d'images</h3>
-                    <div class="im-centered">
-                        <div class="row">
-					        <img class="default-img" data-src="./images/walkCycle.png" alt="walkCycle">
+                        <div class="col-sm-4">
+                            <h4><small>Complexité calculatoire</small></h4>
+                            <ul style="font-size:16pt; margin-top:-1.0cm;">
+                                <li style="margin-bottom:-0.5cm;">Étude des modèles adaptatifs</li>
+                                <li style="margin-bottom:-0.5cm;">Extension de l'ARPS</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <h4><small>Découpe d'objets fins déformable</small></h4>
+                            <ul style="font-size:16pt; margin-top:-1.0cm;">
+                                <li style="margin-bottom:-0.5cm;">Découplage détails/physique</li>
+                                <li style="margin-bottom:-0.5cm;">Découpe intéractive/détaillée</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <h4><small>Édition d'animation de liquide</small></h4>
+                            <ul style="font-size:16pt; margin-top:-1.0cm;">
+                                <li style="margin-bottom:-0.5cm;">Extraction de features cohérentes</li>
+                                <li style="margin-bottom:-0.5cm;">Outils intéractifs/intuitifs</li>
+                            </ul>
                         </div>
                     </div>
-                </section>
-
-				<section>
-					<h2>Comment faire un dessin animé ?</h2>
-				</section>
-
-				<section data-state="footageBouncingBall">
-					<h2>Comment faire un dessin animé ?</h2>
-					<h3>Étape 1 : Imaginer/Observer</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <video class="default-video" id="video-footageBouncingBall" loop>
-                                <source data-src="videos/footageBouncingBall.mp4" type="video/mp4" />
-                            </video>
-                        </div>
-                    </div>
-                </section>
-
-				<section>
-					<h2>Comment faire un dessin animé ?</h2>
-					<h3>Étape 2 : Esquisser</h3>
-                    <div class="im-centered">
-                        <div class="row">
-					        <img class="default-img" data-src="./images/trajectory.png" alt="trajectory">
-                        </div>
-                    </div>
-				</section>
-
-				<section>
-					<h2>Comment faire un dessin animé ?</h2>
-					<h3>Étape 3 : Les images clés</h3>
-                    <div class="im-centered">
-                        <div class="row">
-					        <img class="default-img" data-src="./images/keyframes.png" alt="keyframes">
-                        </div>
-                    </div>
-				</section>
-
-				<section>
-					<h2>Comment faire un dessin animé ?</h2>
-					<h3>Étape 4 : L'interpolation</h3>
-                    <div class="im-centered">
-                        <div class="row">
-					        <img class="default-img" data-src="./images/interpolation.png" alt="interpolation">
-                        </div>
-                    </div>
-                </section>
-
-				<section data-state="bouncingBall">
-					<h2>Comment faire un dessin animé ?</h2>
-                    <h3> <span style="color:rgb(170,40,40);">1 seconde de film</span> = <span style="color:rgb(40,40,170);">25 images</span></h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <video class="default-video" id="video-bouncingBall">
-                                <source data-src="videos/blender/orthographicBouncingBall.mp4" type="video/mp4" />
-                            </video>
-                        </div>
-                    </div>
-                </section>
-
-                <section data-state="whiteSnowSlap">
-                    <h2>Dessin professionnel</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-3">
-                            <img class="default-img" data-src="./images/snowWhiteKeyframes/Keyframe1.png" alt="snowWhitekeyframe">
-                            </div>
-                            <div class="col-sm-3">
-                            <img class="default-img" data-src="./images/snowWhiteKeyframes/Keyframe3.png" alt="snowWhitekeyframe">
-                            </div>
-                            <div class="col-sm-3">
-                            <img class="default-img" data-src="./images/snowWhiteKeyframes/Keyframe5.png" alt="snowWhitekeyframe">
-                            </div>
-                            <div class="col-sm-3">
-                            <img class="default-img" data-src="./images/snowWhiteKeyframes/Keyframe8.png" alt="snowWhitekeyframe">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <video style="border-width: 0px; border-style: solid; border-color: black;" width="360" height="288" id="video-whiteSnowSlap" loop>
-                                <source data-src="videos/whiteSnow/whiteSnowSlap.mp4" type="video/mp4" />
-                            </video>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Depuis 1937...</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-2">
-                            <img data-src="./images/moviePoster/snowwhite.jpg" alt="snowwhite">
-                            </div>
-                            <div class="col-sm-2">
-                            <img data-src="./images/moviePoster/pinocchio.jpg" alt="pinocchio">
-                            </div>
-                            <div class="col-sm-2">
-                            <img data-src="./images/moviePoster/bambi.jpg" alt="bambi">
-                            </div>
-                            <div class="col-sm-2">
-                            <img data-src="./images/moviePoster/aladdin.jpg" alt="aladdin">
-                            </div>
-                            <div class="col-sm-2">
-                            <img data-src="./images/moviePoster/lionKing.jpg" alt="lionKing">
-                            </div>
-                            <div class="col-sm-2">
-                            <img data-src="./images/moviePoster/princessAndTheFrog.jpg" alt="princess and the frog">
-                            </div>
-                        </div>
-                    </div>
-                    <p><span style="color: red;">1 film de 90 minutes = 135 000 images</span></p>
-                </section>
-
-                <section>
-                    <h2>... à nos jours</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-3">
-                            <img data-src="./images/moviePoster/titeuf.jpg" alt="pinocchio">
-                            </div>
-                            <div class="col-sm-3">
-                            <img data-src="./images/moviePoster/totallySpies.jpg" alt="totally spies">
-                            </div>
-                            <div class="col-sm-3">
-                            <img data-src="./images/moviePoster/xMenEvolution.jpg" alt="pinocchio">
-                            </div>
-                            <div class="col-sm-3">
-                            <img data-src="./images/moviePoster/gravityFalls.jpg" alt="pinocchio">
-                            </div>
-                        </div>
-                    </div>
-                    <p><span style="color: red;">1 épisode de 25 minutes = 37 500 images</span></p>
-                </section>
-
-                <section>
-                    <h2>Entre temps, que s'est-il passé ?</h2>
-                    <h3 class="fragment">L'ordinateur et la 3D sont apparus</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-6">
-                            <img class="noborder-img" data-src="./images/genie.png" alt="genie">
-                            </div>
-                            <div class="col-sm-6">
-                            <img class="noborder-img" data-src="./images/mikeAndSulley.jpg" alt="mike and sulley">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Un dessin 2D</h2>
-                    <div class="im-centered">
-                        <div class="row">
-					        <img class="default-img" data-src="./images/flat.png" alt="trajectory">
-                        </div>
-                    </div>
-                </section>
-                -->
-
-                <!--
-                <section>
-                    <h2>Un objet 3D</h2>
-                    <div class="im-centered">
-                        <div class="row">
-					        <img class="default-img" data-src="./images/orthographique.png" alt="trajectory">
-                        </div>
-                    </div>
-                </section>
-
-				<section data-state="orthographicBouncingBall">
-                    <h2>Un objet 3D</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <video style="margin-bottom:15px;" class="default-video" id="video-orthographicBouncingBall">
-                                <source data-src="videos/blender/orthographic.mp4" type="video/mp4" />
-                            </video>
-                        </div>
-                    </div>
-                </section>
-                -->
-
-                <!--
-                <section>
-                    <h2>Un objet 3D...</h2>
-                    <div class="im-centered">
-                        <div class="row">
-					        <img class="default-img" data-src="./images/perspective.png" alt="trajectory">
-                        </div>
-                    </div>
-					<aside class="notes">
-                        <p>
-                            Décrire un objet 3D
-                            Perspective = objets loins sont plus petits
-                        </p>
-                    </aside>
-                </section>
-
-				<section data-state="perspectiveBouncingBall">
-                    <h2>Un objet 3D...</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <video style="margin-bottom:15px;" class="default-video" id="video-perspectiveBouncingBall">
-                                <source data-src="videos/blender/perspective.mp4" type="video/mp4" />
-                            </video>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>avec une peinture spéciale.</h2>
-                    <div class="im-centered">
-                        <div class="row">
-					        <img class="default-img" data-src="./images/material.png" alt="trajectory">
-                        </div>
-                    </div>
-                </section>
-
-				<section data-state="renderedBouncingBall">
-                    <h2>avec une peinture spéciale.</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <video style="margin-bottom:15px;" class="default-video" id="video-renderedBouncingBall">
-                                <source data-src="videos/blender/renderedBouncingBall.mp4" type="video/mp4" />
-                            </video>
-                        </div>
-                    </div>
-                </section>
-
-				<section data-background-video="./videos/breakdownCG/frozenShotProgression.mp4" data-background-color="#000000" controls>
-				</section>
-
-                <section>
-                    <h2>Les dessins animés 3D</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-2">
-                            <img data-src="./images/moviePoster/toyStory.jpg" alt="toy story">
-                            </div>
-                            <div class="col-sm-2">
-                            <img data-src="./images/moviePoster/up.jpg" alt="up">
-                            </div>
-                            <div class="col-sm-2">
-                            <img data-src="./images/moviePoster/despicableMe.jpg" alt="despicable me">
-                            </div>
-                            <div class="col-sm-2">
-                            <img data-src="./images/moviePoster/dragon2.jpg" alt="dragon2">
-                            </div>
-                            <div class="col-sm-2">
-                            <img data-src="./images/moviePoster/monsterUniversity.jpg" alt="monsterUniversity">
-                            </div>
-                            <div class="col-sm-2">
-                            <img data-src="./images/moviePoster/insideOut.jpg" alt="inside out">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Ordinateur = efficacité + réalisme + ...</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                            <img class="nostyle-img" data-src="./images/friseComputerGraphics.png" alt="computer">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>... + d'imagination<h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-6">
-                            <img class="noborder-img" data-src="./images/escherWaterfall.jpg" alt="escher">
-                            </div>
-                            <div class="col-sm-6">
-                            <img class="noborder-img" data-src="./images/monumentsValley.jpg" alt="monuments valley">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>L'informatique graphique</h2>
-                    <div class="im-centered">
-					    <blockquote class="default-quote">
-					    	&ldquo;
-                            Créer et intéragir avec des mondes virtuels
-                            &rdquo;
-					    </blockquote>
-                        <div class="col-sm-12">
-                            <img class="nostyle-img" data-src="./images/pipeline.svg" alt="pipeline">
-                        </div>
-                    </div>
-					<aside class="notes">
-                    <p>
-                    Applications: Jeux vidéos, architecture, enseignement, chirurgie virtuelle,visualisation, ...
-                    </p>
-                    <p>
-                        Décrire un monde virtuel et ses règles. Proche de notre monde...ou pas
-                    </p>
-                    <p>
-                        A chaque fois on part d'observations ou d'imaginations.
-                    </p>
-					</aside>
-                </section>
-
-                <section>
-                    <h2>Les trois piliers</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <figure class="figure">
-                                <img class="figure-img" data-src="./images/research/modelisation/modelisationTeaser.png" alt="modelisation">
-                                <figcaption class="figure-caption closer-caption">Modélisation</figcaption>
-                                </figure>
-                            </div>
-                            <div class="col-sm-4">
-                                <figure>
-                                <img class="figure-img" data-src="./images/research/animation/animationTeaser.png" alt="animation">
-                                <figcaption class="figure-caption closer-caption">Animation</figcaption>
-                                </figure>
-                            </div>
-                            <div class="col-sm-4">
-                                <figure>
-                                <img class="figure-img" data-src="./images/research/rendu/renduTeaser.png" alt="rendu">
-                                <figcaption class="figure-caption closer-caption">Rendu</figcaption>
-                                </figure>
-                            </div>
-                            -->
-                            <!--
-                            <blockquote class="default-quote">
-                                <small>
-                                    &ldquo;
-                                    Rendre les outils aussi invisible aux artistes que les effets spéciaux le sont désormais au public. 
-                                    &rdquo; <br/>
-                                    Rob Cook, directeur scientifique de Pixar
-                                </small>
-                            </blockquote>
-                            -->
-                            <!--
-                        </div>
-                    </div>
-                </section>
-                -->
-               <!-- 
-                <section>
-                    <h2>Modélisation</h2>
-                    <div class="col-sm-12">
-                        <img style="width:40%" class="figure-img" data-src="./images/research/modelisation/modelisationTeaser.png" alt="modelisation">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Modélisation</h2>
-                    <h3>Sculpture virtuelle</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <figure>
-                                <img class="figure-img nostyle-img" style="width:75%;" data-src="./images/suzanne.png" alt="animation">
-                                <figcaption class="figure-caption closer-caption">Maillage = Sommets + arêtes + facettes</figcaption>
-                                </figure>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section data-state="stanlucescu">
-                    <h2>Modélisation</h2>
-                    <h3>Imiter la matière et le geste</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <video class="noborder-video" id="video-stanlucescu">
-                                <source data-src="videos/research/stanlucescu.mp4" type="video/mp4"/>
-                            </video>
-                        </div>
-                    </div>
-                </section>
-                
-                <section>
-                    <h2>Modélisation</h2>
-                    <h3>Imiter la nature</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="nostyle-img" style="width:60%" data-src="./images/research/modelisation/treeZanni.png" alt="tree">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Modélisation</h2>
-                    <h3>Imiter la nature</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="default-img" style="width:70%" data-src="./images/research/modelisation/procedural/terragen.png" alt="terragen">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-				<section data-state="proland">
-					<h2>Modélisation</h2>
-					<h3>Voyager dans un monde virtuel</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <video style="width:61%;" class="noborder-video" id="video-proland" loop>
-                                <source data-src="videos/research/proland.mp4" type="video/mp4"/>
-                            </video>
-                        </div>
-                    </div>
-                </section>
-
-				<section data-state="worldBrush">
-					<h2>Modélisation</h2>
-					<h3>Créer des mondes virtuels</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <video style="width:70%;" class="noborder-video" id="video-worldBrush">
-                                <source data-src="videos/research/worldBrush.mp4" type="video/mp4"/>
-                            </video>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Animation</h2>
-                    <div class="col-sm-12">
-                        <img style="width:40%" class="figure-img" data-src="./images/research/animation/animationTeaser.png" alt="animation">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Animation</h2>
-                    <h3>Décrire une trajectoire</h3>
-                    <div class="col-sm-12">
-                        <img style="width:80%" class="nostyle-img figure-img" data-src="./images/research/animation/animationGuay.png" alt="lineOfAction">
-                    </div>
-                </section>
-
-				<section data-state="lineOfAction">
-					<h2>Animation</h2>
-                    <h3>Décrire une trajectoire</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <video class="noborder-video" id="video-lineOfAction" loop>
-                                <source data-src="videos/research/lineOfAction.mp4" type="video/mp4"/>
-                            </video>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Animation</h2>
-                    <h3>Décrire un objectif </h3>
-                    <div class="col-sm-12">
-                        <img style="width:80%" class="nostyle-img figure-img" data-src="./images/punching.jpg" alt="punching">
-                    </div>
-                </section>
-
-				<section data-state="geodesic">
-					<h2>Animation</h2>
-					<h3>Décrire un objectif</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <video style="width:60%;" class="noborder-video" id="video-geodesic" loop>
-                                <source data-src="videos/research/geodesicTournier.mp4" type="video/mp4"/>
-                            </video>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Animation</h2>
-                    <h3>Capturer et réutiliser un mouvement</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="default-img" style="width:75%" data-src="./images/motionCapture.jpg" alt="kinect">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section data-state="faceShift">
-                    <h2>Animation</h2>
-                    <h3>Capturer et réutiliser un mouvement</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <video style="width:70%;" class="noborder-video" id="video-faceShift" loop>
-                                <source data-src="videos/research/faceShift.mp4" type="video/mp4"/>
-                            </video>
-                            <div class="col-sm-12">
-                                <img class="default-img" style="width:20%" data-src="./images/Kinect_Symbol.png" alt="kinect">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-					<h2>Animation</h2>
-					<h3>Simuler un phénomène physique</h3>
                     <div class="row">
-                            <div class="col-sm-2">
-                                <img class="default-img" style="width:85%" data-src="./images/newton.jpg" alt="newton">
-                                <img class="default-img" style="width:85%" data-src="./images/stokes.jpg" alt="stokes">
-                            </div>
-                            <div class="col-sm-10">
-                                <img class="default-img" style="width:85%" data-src="./images/storm.jpg" alt="storm">
-                            </div>
-                    </div>
-                </section>
-
-				<section data-state="nvidiaFlex">
-					<h2>Animation</h2>
-					<h3>Simuler un phénomène physique</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                            <video style="width:70%;" class="noborder-video" id="video-nvidiaFlex" loop>
-                                <source data-src="videos/research/nvidiaFlex.mp4" type="video/mp4"/>
-                            </video>
-                            </div>
+                        <div class="col-sm-4">
+                            <figure class="figure">
+                                <img class="noborder-img" data-src="./images/introduction/teaser/adaptivityTeaser.png" style="width:100%;" alt="introSnowWhite">
+                            </figure>
+                        </div>
+                        <div class="col-sm-4">
+                            <figure class="figure">
+                                <img class="noborder-img" data-src="./images/introduction/teaser/cuttingTeaser.png" style="width:100%;" alt="introSnowWhite">
+                            </figure>
+                        </div>
+                        <div class="col-sm-4">
+                            <figure class="figure">
+                                <img class="noborder-img" data-src="./images/introduction/teaser/fluidSculptingTeaser.png" style="width:100%;" alt="introSnowWhite">
+                            </figure>
                         </div>
                     </div>
                 </section>
-
+            
                 <section>
-                    <h2>Rendu</h2>
-                    <div class="col-sm-12">
-                        <img style="width:40%;" class="figure-img" data-src="./images/research/rendu/renduTeaser.png" alt="rendu">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Rendu réaliste</h2>
-                    <div class="col-sm-12">
-                        <img style="width:60%;" class="figure-img" data-src="./images/research/rendu/realiste/scarfJakob.png" alt="rendu">
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Rendu réaliste</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="default-img" style="width:80%" data-src="./images/helico-1.png" alt="helico">
-                            </div>
+                    <h2>Perspectives</h2>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <h4><small>Modèles réduits</small></h4>
+                            <ul style="font-size:16pt; margin-top:-1.0cm;">
+                                <li style="margin-bottom:-0.5cm;">Couplage solution analytiques</li>
+                                <li style="margin-bottom:-0.5cm;">Changements topologiques</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <h4><small>Enrichissement de simulation</small></h4>
+                            <ul style="font-size:16pt; margin-top:-1.0cm;">
+                                <li style="margin-bottom:-0.5cm;">Simulation post-process</li>
+                                <li style="margin-bottom:-0.5cm;">Détails procéduraux</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <h4><small>Réalisme et expressivité</small></h4>
+                            <ul style="font-size:16pt; margin-top:-1.0cm;">
+                                <li style="margin-bottom:-0.5cm;">Déformation physique</li>
+                                <li style="margin-bottom:-0.5cm;">Interface intuitive</li>
+                            </ul>
                         </div>
                     </div>
-                </section>
-
-                <section>
-                    <h2>Rendu réaliste</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="default-img" style="width:80%" data-src="./images/helico0.png" alt="helico">
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <figure class="figure">
+                                <img class="noborder-img" data-src="./images/perspectives/adaptivityTeaser.png" style="width:100%;" alt="perspectivesAdaptivity">
+                            </figure>
                         </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Rendu réaliste</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="default-img" style="width:80%" data-src="./images/helico1.png" alt="helico">
-                            </div>
+                        <div class="col-sm-4">
+                            <figure class="figure">
+                                <img class="noborder-img" data-src="./images/perspectives/cuttingTeaser.png" style="width:100%;" alt="introSnowWhite">
+                            </figure>
+                        </div>
+                        <div class="col-sm-4">
+                            <figure class="figure">
+                                <img class="noborder-img" data-src="./images/perspectives/fluidSculptingTeaser.png" style="width:100%;" alt="introSnowWhite">
+                            </figure>
                         </div>
                     </div>
                 </section>
-
-                <section>
-                    <h2>Rendu réaliste</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="default-img" style="width:80%" data-src="./images/helico2.png" alt="helico">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Rendu réaliste</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="default-img" style="width:80%" data-src="./images/helico3.png" alt="helico">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Rendu réaliste</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="default-img" style="width:80%" data-src="./images/helico4.png" alt="helico">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Rendu réaliste</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="default-img" style="width:80%" data-src="./images/helico5.png" alt="helico">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Rendu réaliste</h2>
-                    <h3>Jusqu'à quel point ?</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <img class="default-img" style="width:100%" data-src="./images/blueUmbrella.jpg" alt="umbrella">
-                            </div>
-                            <div class="col-sm-6">
-                                <img class="default-img" style="width:100%" data-src="./images/newYork.jpg" alt="new york">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Rendu réaliste</h2>
-                    <h3>Jusqu'à quel point ?</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <img class="default-img" style="width:100%" data-src="./images/geekRoom.jpg" alt="room 1">
-                            </div>
-                            <div class="col-sm-6">
-                                <img class="default-img" style="width:100%" data-src="./images/geekRoom2.jpg" alt="room 2">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Rendu réaliste</h2>
-                    <h3>Jusqu'à quel point ?</h3>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <img class="default-img" style="width:80%" data-src="./images/research/rendu/realiste/tintin.png" alt="tintin">
-                            </div>
-                            <div class="col-sm-6">
-                                <img class="default-img" style="width:80%" data-src="./images/research/rendu/realiste/virtualEdHarris.jpg" alt="ed harris">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <h2>Rendu expressif</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="nostyle-img" style="width:55%" data-src="./images/research/rendu/npr/comp.png" alt="comparison">
-                            </div>
-                        </div>
-                    <div>
-                </section>
-
-                <section>
-                    <h2>Rendu expressif</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <img class="default-img" style="width:100%" data-src="./images/research/rendu/npr/diffusionBousseau.png" alt="diffusion curve">
-                            </div>
-                            <div class="col-sm-4">
-                                <img class="default-img" style="width:100%" data-src="./images/research/rendu/npr/ink3.png" alt="ink">
-                            </div>
-                            <div class="col-sm-4">
-                                <img class="default-img" style="width:100%" data-src="./images/research/rendu/npr/paperman.png" alt="ink">
-                            </div>
-                        </div>
-                    <div>
-                </section>
-
-                <section>
-                    <h2>Rendu expressif</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="nostyle-img" style="width:80%" data-src="./images/research/rendu/npr/devresearch_sanjay_2_04.png" alt="comparison">
-                            </div>
-                        </div>
-                    <div>
-                </section>
-
-                <section>
-                    <h2>Conclusion</h2>
-                    <div class="im-centered">
-                        <div class="row">
-                        <div class="col-sm-12">
-                            <img class="nostyle-img" data-src="./images/pipeline.svg" alt="pipeline">
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <figure>
-                                <img class="default-img" style="width:100%" data-src="./images/videoGame.jpg" alt="jeu vidéo">
-                                <figcaption class="figure-caption small-caption">Jeux vidéos</figcaption>
-                                </figure>
-                            </div>
-                            <div class="col-sm-3">
-                                <figure>
-                                <img class="default-img" style="width:100%" data-src="./images/teaching.png" alt="sofa">
-                                <figcaption class="figure-caption small-caption">Apprentissage</figcaption>
-                                </figure>
-                            </div>
-                            <div class="col-sm-3">
-                                <figure>
-                                <img class="default-img" style="width:100%" data-src="./images/communication.jpg" alt="communication">
-                                <figcaption class="figure-caption small-caption">Communication</figcaption>
-                                </figure>
-                            </div>
-                            <div class="col-sm-3">
-                                <figure>
-                                <img class="default-img" style="width:100%" data-src="./images/architecture.png" alt="architecture">
-                                <figcaption class="figure-caption small-caption">Architecture</figcaption>
-                                </figure>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <img class="nostyle-img" style="width:20%;" data-src="./images/dots.png" alt="etc">
-                        </div>
-                    <div>
-                </section>
-
-				<section data-background-video="./videos/paperman.mp4" data-background-color="#000000" controls>
-				</section>
-                        -->
+            
+                        
 
                 <!--
-                <section>
-                    <h2>Retour aux sources</h2>
-                    <p>
-                    Observation/Imagination + Description Mathématiques + Logiciel Informatique + Création
-                    </p>
-                    <ul>
-                        <li>Approche par raffinement: Du grossier au fin.</li>
-                        <li>Observation/Imagination: La création, la description mathématiques et l'implémentation s'alimente de l'observation et de l'imagination.</li>
-                        <li>Exemple: La plupart des animateurs ont des connaissances en dessins traditionnels, anatomie,...</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>Conclusion</h2>
-                    <p>
-                    Observation/Imagination + Description Mathématiques + Logiciel Informatique + Création
-                    </p>
-                </section>
+                ================================================
+                ================================================
+                                Tutorial 
+                ================================================
+                ================================================
                 -->
 
 				<!-- Example of nested vertical slides -->
@@ -3389,6 +2712,18 @@ Reveal.addEventListener( 'customevent', function() {
                 Reveal.addEventListener( 'fluidSculptingBunny', function() 
                 {
                     var tmpVideo = document.getElementById("video-fluidSculptingBunny");
+                    tmpVideo.play();
+                });
+            
+                Reveal.addEventListener( 'fluidSculptingBoats', function() 
+                {
+                    var tmpVideo = document.getElementById("video-fluidSculptingBoats");
+                    tmpVideo.play();
+                });
+            
+                Reveal.addEventListener( 'fluidSculptingDrops', function() 
+                {
+                    var tmpVideo = document.getElementById("video-fluidSculptingDrops");
                     tmpVideo.play();
                 });
 
