@@ -214,34 +214,154 @@
                 </section>
                 
                 <section>
+                    <h2>Contexte : Simulation physique</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <figure class="figure">
+                            <img class="noborder-img" data-src="./images/introduction/simulation/spatial.png" style="width:70%;" alt="bunnyTextured">
+                            <figcaption class="figure-caption text-xs-center figure-caption-custom" style="margin-top:0cm; margin-bottom:0.5cm">
+                            <span class="important">Discrétisation spatiale</span>
+                            </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <figure class="figure">
+                            <img class="noborder-img" data-src="./images/introduction/simulation/temporal.png" style="width:90%;" alt="bunnyTextured">
+                            <figcaption class="figure-caption text-xs-center figure-caption-custom" style="margin-top:0cm; margin-bottom:0.5cm">
+                            <span class="important">Discrétisation temporelle</span>
+                            </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </section>            
+                               
+                <!--
+                <section>
+                    <h2>Contexte : Discrétisation spatiale</h2>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img class="noborder-img" data-src="./images/introduction/simulation/bunnyTextured.png" style="width:100%;" alt="bunnyTextured">
+                        </div>
+                        <div class="col-sm-4">
+                            <img class="noborder-img" data-src="./images/introduction/simulation/bunnyMidRes.png" style="width:100%;" alt="bunnyTextured">
+                        </div>
+                        <div class="col-sm-4">
+                            <img class="noborder-img" data-src="./images/introduction/simulation/bunnyHighRes.png" style="width:100%;" alt="bunnyTextured">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <ul class="noStyle">
+                                <li style="color:green">+Rapide</li>
+                                <li style="color:red">-Précis</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4">
+                            <ul class="noStyle">
+                                <li style="color:red">-Rapide</li>
+                                <li style="color:green">+Précis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                            
+                <section>
+                    <h2>Contexte : Discrétisation temporelle</h2>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img class="noborder-img" data-src="./images/introduction/simulation/bunnyTravel_lowRes.png" style="width:100%;" alt="bunnyTextured">
+                        </div>
+                        <div class="col-sm-6">
+                            <img class="noborder-img" data-src="./images/introduction/simulation/bunnyTravel_highRes.png" style="width:100%;" alt="bunnyTextured">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul class="noStyle">
+                                <li style="color:green">+Rapide</li>
+                                <li style="color:red">-Stable</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul class="noStyle">
+                                <li style="color:red">-Rapide</li>
+                                <li style="color:green">+Stable</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                -->
+                
+                <section>
                     <h2>Défis en simulation physique</h2>
                     <h2><small>Haute résolution = Complexité calculatoire</small></h2>
                     <div class="row row-top-align">
                         <div class="col-sm-12 col-top-align">
                             <figure class="figure" style="margin-top:-1cm;">
+                            <img class="noborder-img" data-src="./images/introduction/challenges/resolution.png" style="width:100%;" alt="challengeTime">
+                            </figure>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="row">                    
+                        <div class="col-sm-4">
+                            <img class="noborder-img" data-src="./images/introduction/simulation/bunnyMidRes2.png" style="width:70%;" alt="bunnyTextured">
+                            <img class="noborder-img" data-src="./images/introduction/simulation/bunnyTravel_lowRes.png" style="width:70%;" alt="bunnyTextured">
+                        </div>
+                        <div class="col-sm-4">
+                            <img class="noborder-img" data-src="./images/introduction/simulation/bunnyHighRes2.png" style="width:70%;" alt="bunnyTextured">
+                            <img class="noborder-img" data-src="./images/introduction/simulation/bunnyTravel_highRes.png" style="width:70%;" alt="bunnyTextured">
+                        </div>
+                    </div>
+                    -->
+                    <!--
+                    <div class="row row-top-align">
+                        <div class="col-sm-12 col-top-align">
+                            <figure class="figure" style="margin-top:-1cm;">
                             <img class="noborder-img" data-src="./images/introduction/challenges/complexity.png" style="width:70%;" alt="challengeTime">
                             <figcaption class="figure-caption text-xs-center figure-caption-custom">
-                                [Koschier et al. 2016] 6M particules, <span class="important">20s simulation = 30h calcul</span>
+                                [Koschier et al. 2016] 6M particules, <span class="important">20s simulation = 11calcul</span>
                             </figcaption>
                             </figure>
                         </div>
                     </div>
+                    -->
                 </section>
                 
                 <section>
                     <h2>Défis en simulation physique</h2>
-                    <h2><small>Modélisation efficace de nouveaux phénomènes</small></h2>
+                    <h2><small>Modélisation efficace de changements d'état</small></h2>
                     <div class="row row-top-align">
-                        <div class="col-sm-12 col-top-align">
+                        <div class="col-sm-8 col-top-align">
                             <figure class="figure" style="margin-top:-1cm;">
-                            <img class="noborder-img" data-src="./images/introduction/challenges/topologicalChanges.png" style="width:80%;" alt="challengePhenomena">
-                            <figcaption class="figure-caption text-xs-center figure-caption-custom">
-                                <p style="margin-top:-0.5cm;">
-                                [Ram et al., 2015], [Paulus et al., 2015], [Pfaff et al., 2014]<br/><span class="important">Peu présent dans des contextes intéractifs</span>
-                                </p>
-                            </figcaption>
+                            <img class="noborder-img" data-src="./images/introduction/challenges/fracture.png" style="width:100%;" alt="challengePhenomena">
                             </figure>
                         </div>
+                        <div class="col-sm-4 col-top-align">
+                            <figure class="figure" style="margin-top:-1cm;">
+                            <img class="noborder-img" data-src="./images/introduction/challenges/complexFracture.png" style="width:70%;" alt="challengePhenomena">
+
+<!--                                <figcaption class="figure-caption text-xs-center figure-caption-custom">
+                                <p style="margin-top:-0.5cm;">
+                                    <em>[Pfaff et al 2014]</em>
+                                    <br/>
+                                    <span class="important">2s simulation = 1h calcul</span>
+                                </p>
+                            </figcaption>-->
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-sm-12">
+                                <p>
+                                    <span class="important">
+                                        Peu présent dans contexte intéractif
+                                    </span>
+                                </p>
+                            </div>
                     </div>
                 </section>
 
