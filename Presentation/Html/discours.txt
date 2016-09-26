@@ -146,8 +146,8 @@ et la question de quand/comment réactiver les particules de manière cohérente
 
 Slide 13
 ========
-En 2012, dans le domaine de la dynamique moléculaire, Artemova et Redon prop. un modèle de freezing.
-Qui intègre et résoud de manière simple cette question, et qui s'appelle ARPS.
+Le modèle de freezing qu'on propose d'étudier répond à cette question de manière assez simple.
+Ce modèle s'appelle ARPS, a été init. proposé dans le domaine de la dyn. mol par A & R.
 L'idée de base est similaire à celle de Goswami et al.
 Les particules lentes sont considérées immobile, inactives.
 Du coup les forces inter-particules sont constantes et n'ont plus à être calculées.
@@ -294,7 +294,7 @@ Les deux modèles peuvent avoir des natures et des résolutions différentes.
 En pratique, le modèle visuel est détaillé et le modèle physique est grossier. 
 Sur l'image de droite, on voit un modèle visuel détaillé de lapin en gris, 
 embarqué dans un modèle élément finis hexahédrique assez grossier en vert.  
-En procédant ainsi on peut limiter le nombre de DDL nécessaire pour de la découpe détaillée.
+En procédant ainsi on peut limiter le nombre de DDL nécessaire pour de la découpe.
 Les résultats de ces deux approches sont très impressionnant. 
 La méthode d'embarquement permet de faire de la découpe d'objet 3D en temps réel. 
 Cependant, dans les deux cas, le nombre de DDL varie beaucoup fonction du nombre/détail découpes.
@@ -380,7 +380,6 @@ Si une découpe passe en travers d’une cellule. Celle-ci sera dupliquée.
 Chacun des duplicats aura une connectivité de 5 voisins.
 Pourquoi cette structure pour représenter la topologie du modèle ? 
 Le principal intérêt est de découpler autant que possible la résolution de la grille de la complexité géométrique des découpes.
-Sur cette slide, le meilleur exemple est celui où on a de nombreux débris à l’intérieur d’une même cellule. 
 Peu importe le niveau de détail le long des contours des découpes, peu importe le nombre de débris,
 on est capable de les représenter au niveau d’une grille basse résolution.
 
