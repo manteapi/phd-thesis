@@ -186,9 +186,7 @@
                             <em>NVIDIA</em> <br/>
                             </small>
                             </figcaption>
-                            </figure>
-                                
-                            </figure>
+                            </figure>                                
                         </div>
                         <div class="col-sm-4 col-top-align">                         
                             <figure class="figure">
@@ -231,13 +229,20 @@
                 
                 <section>
                     <h2>Contexte : Simulation physique</h2>
+                    <h2><small>Approximation continue du comportement d'un objet</small></h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="noborder-img" data-src="./images/introduction/simulation/physic.png" style="width:70%;" alt="physic">
+                        </div>
+                    </div>
+                </section>  
+                
+                <section>
+                    <h2>Contexte : Simulation physique</h2>
                     <div class="row">
                         <div class="col-sm-12">
                             <figure class="figure">
                             <img class="noborder-img" data-src="./images/introduction/simulation/spatial.png" style="width:70%;" alt="bunnyTextured">
-                            <figcaption class="figure-caption text-xs-center figure-caption-custom" style="margin-top:0cm; margin-bottom:0.5cm">
-                            <span class="important">Discrétisation spatiale</span>
-                            </figcaption>
                             </figure>
                         </div>
                     </div>
@@ -246,7 +251,7 @@
                             <figure class="figure">
                             <img class="noborder-img" data-src="./images/introduction/simulation/temporal.png" style="width:90%;" alt="bunnyTextured">
                             <figcaption class="figure-caption text-xs-center figure-caption-custom" style="margin-top:0cm; margin-bottom:0.5cm">
-                            <span class="important">Discrétisation temporelle</span>
+                            <span class="important" style="font-size:24pt;  ">Discrétisation temporelle</span>
                             </figcaption>
                             </figure>
                         </div>
@@ -459,12 +464,45 @@
                     </div>
                 </section>
                 
-                <section>
-                    <h2>Contexte : Le réalisme coûte cher</h2>
+                <section data-state="arpsPermanentFlowSPH">
+                    <h2>Motivations</h2>
+                    <h2><small>Si peu de mouvement, Tant de calcul</small></h2>
                     <div class="row">
-                        <div class="col-sm-8">
-                            <img class="noborder-img" data-src="./images/complexity/complexity2.png" style="width:100%;" alt="character">
+                        <div class="col-sm-2">
                         </div>
+                        <div class="col-sm-8">
+                        <video class="noborder-video" id="video-arpsPermanentFlowSPH">
+                            <source data-src="videos/arps/PermanentFlowSPH.mp4" type="video/mp4"/>
+                        </video>
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+                </section>
+            
+                <section data-state="arpsPermanentFlowSPHARPS">
+                    <h2>Notre approche</h2>
+                    <h2><small>Concentrer les calculs dans les zones <em>intéressantes</em></small></h2>
+                    <div class="row">
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-8">
+                        <video class="noborder-video" id="video-arpsPermanentFlowSPHARPS">
+                            <source data-src="videos/arps/PermanentFlowSPHARPS.mp4" type="video/mp4"/>
+                        </video>
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>État de l'art : Modèles adaptatifs</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="noborder-img" data-src="./images/complexity/complexity2.png" style="width:70%;" alt="character">
+                        </div>
+                        <!--
                         <div class="col-sm-4">
                             <small>
                             <ul>
@@ -478,16 +516,14 @@
                             </ul>                                    
                             </small>
                         </div>
+                        -->
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                        <small>
-                        <ul>
-                            <li>Adapter <strong>dynamiquement</strong> les modèles</li>
-                            <li>Obtenir le meilleur compromis <strong>précision/performance/stabilité</strong></li>
-                        </ul>
-                        </small>
-                        </div>
+                        <p>
+                            Mise à jour <strong>dynamique</strong> les modèles <br/> pour le
+                            meilleur compromis <strong>précision/performance/stabilité</strong>
+                        </p>
                     </div>
                 </section>
                                 
@@ -713,6 +749,7 @@
 -->
 
                 <!--ARPS - Artemova & Redon -->
+                <!--
                 <section>
                     <h2><strong>A</strong>daptively <strong>R</strong>estrained <strong>P</strong>article <strong>S</strong>imulations (ARPS)</h2>
                     <div class="row"> 
@@ -743,7 +780,6 @@
                     </div>
                 </section>
 
-                <!-- ARPS - Principes I -->
 				<section data-state="arpsPrinciplesI">
                     <h2>Principes de <em>ARPS</em></h2>
                     <div class="row">
@@ -754,7 +790,88 @@
                         </div>
                     </div>
                 </section>
-                
+                -->
+            
+                <section>
+                    <h2><strong>A</strong>daptively <strong>R</strong>estrained <strong>P</strong>article <strong>S</strong>imulations (ARPS)</h2>
+                    <div class="row"> 
+                        <div class="col-sm-12">
+                            <p>
+                            <small>Proposé par <em>[Artemova & Redon 2012]</em> dans le contexte de la <strong>Dynamique Moléculaire</strong></small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="nostyle-img" style="width:100%;" data-src="./images/arps/arpsQuick1.png" alt="arpsPipeline">
+                        </div>
+                    </div>
+                </section>
+            
+                <section>
+                    <h2><strong>A</strong>daptively <strong>R</strong>estrained <strong>P</strong>article <strong>S</strong>imulations (ARPS)</h2>
+                    <div class="row"> 
+                        <div class="col-sm-12">
+                            <p>
+                            <small>Proposé par <em>[Artemova & Redon 2012]</em> dans le contexte de la <strong>Dynamique Moléculaire</strong></small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="nostyle-img" style="width:100%;" data-src="./images/arps/arpsQuick2.png" alt="arpsPipeline">
+                        </div>
+                    </div>
+                </section>
+            
+                <section>
+                    <h2><strong>A</strong>daptively <strong>R</strong>estrained <strong>P</strong>article <strong>S</strong>imulations (ARPS)</h2>
+                    <div class="row"> 
+                        <div class="col-sm-12">
+                            <p>
+                            <small>Proposé par <em>[Artemova & Redon 2012]</em> dans le contexte de la <strong>Dynamique Moléculaire</strong></small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="nostyle-img" style="width:100%;" data-src="./images/arps/arpsQuick3.png" alt="arpsPipeline">
+                        </div>
+                    </div>
+                </section>
+            
+                <section>
+                    <h2><strong>A</strong>daptively <strong>R</strong>estrained <strong>P</strong>article <strong>S</strong>imulations (ARPS)</h2>
+                    <div class="row"> 
+                        <div class="col-sm-12">
+                            <p>
+                            <small>Proposé par <em>[Artemova & Redon 2012]</em> dans le contexte de la <strong>Dynamique Moléculaire</strong></small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="nostyle-img" style="width:100%;" data-src="./images/arps/arpsQuick4.png" alt="arpsPipeline">
+                        </div>
+                    </div>
+                </section>
+            
+                <section>
+                    <h2><strong>A</strong>daptively <strong>R</strong>estrained <strong>P</strong>article <strong>S</strong>imulations (ARPS)</h2>
+                    <div class="row"> 
+                        <div class="col-sm-12">
+                            <p>
+                            <small>Proposé par <em>[Artemova & Redon 2012]</em> dans le contexte de la <strong>Dynamique Moléculaire</strong></small>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="nostyle-img" style="width:100%;" data-src="./images/arps/arpsQuick5.png" alt="arpsPipeline">
+                        </div>
+                    </div>
+                </section>
+
                 <!-- ARPS - Planning -->
                 <section>
                     <h2>Contributions</h2>
@@ -973,19 +1090,24 @@
                 -->
 
                 <!-- ARPS - Extension to SPH IV -->
-				<section data-state="arpsDamBreak">
+				<section data-state="arpsDamBreakSPHARPS">
                     <h2>Extension aux liquides particulaires</h2>
+                    <h2><small>Dam Break - 5000 particules</small></h2>
                     <div class="row">
-                        <video class="noborder-video" id="video-arpsDamBreak">
-                            <source data-src="videos/arps/DamBreak.mp4" type="video/mp4"/>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-8">
+                        <video class="noborder-video" id="video-arpsDamBreakSPHARPS">
+                            <source data-src="videos/arps/ReposSPHARPSColor.mp4" type="video/mp4"/>
                         </video>
+                        </div>
+                        <div class="col-sm-2"></div>
                     </div>
                 </section>
 
                 <!-- ARPS - Extension to SPH V -->
                 <section>
                     <h2>Extension aux liquides particulaires</h2>
-                    <h2><small>Dam Break</small></h2>
+                    <h2><small>Dam Break - 5000 particules</small></h2>
                     <div class="row">
                         <table class="noStyle-center">
                             <tr>
@@ -1016,6 +1138,7 @@
                 </section>
 
                 <!-- ARPS - Extension to SPH VI -->
+                <!--
 				<section data-state="arpsPermanentFlow">
                     <h2>Extension aux liquides particulaires</h2>
                     <div class="row">
@@ -1024,11 +1147,12 @@
                         </video>
                     </div>
                 </section>
-
+                -->
+                    
                 <!-- ARPS - Extension to SPH VII -->
                 <section>
                     <h2>Extension aux liquides particulaires</h2>
-                    <h2><small>Flux permanent</small></h2>
+                    <h2><small>Flux permanent - 4240 particules</small></h2>
                     <div class="row">
                         <table class="noStyle-center">
                             <tr>
@@ -1061,56 +1185,59 @@
                 <!-- ARPS - Extension to Cloth Simulation I -->
                 <section>
                     <h2>Extension à la simulation de vêtement</h2>
-                    <h2><small>Intégration implicite</small></h2>
-                    <div class="row row-center-align">
-                        <div class="col-sm-4 col-center-align">
-                            <img class="noborder-img" style="width:60%;" data-src="./images/arps/Baraff98.png" alt="BaraffCloth">
-                            <figcaption class="figure-caption figure-caption-custom"><em><small>[Baraff&Witkin 1998]</small></em></figcaption>
+                    <div class="row row-top-align">
+                        <div class="col-sm-4 col-top-align">
+                            <img class="noborder-img" style="width:70%;" data-src="./images/arps/Baraff98.png" alt="BaraffCloth">
+                            <figcaption class="figure-caption figure-caption-custom" style="margin-top:0cm; margin-bottom:0.75cm;"><em>[Baraff&Witkin 1998]</em></figcaption>
                         </div>
-                        <div class="col-sm-4 col-center-align">
-                            <p>
-                            <small>
-                                $$
-                                \left\lbrace
-                                \begin{array}{l}
-                                \displaystyle \mathbf{p}_{n+1} = \mathbf{p}_{n} + \Delta t \times \mathbf{f}(\mathbf{p}_{n+1},\mathbf{x}_{n+1}) \\
-                                \displaystyle \mathbf{x}_{n+1} = \mathbf{x}_{n} + \Delta t \times \frac{\mathbf{p}_{n+1}}{m}
-                                \end{array}
-                                \right.
-                                $$
-                                <br/>
-                                <img class="nostyle-img" style="width:30%;" data-src="./images/arps/taylorYoung.svg" alt="TaylorYoung">
-                                <br/>
-                                Système linéaire
-                                $$
-                                \displaystyle \left( I - \Delta t^{2}KM^{-1} \right)\Delta \mathbf{p} = \Delta t \left( \mathbf{f} + \Delta t K M^{-1}\mathbf{p} \right)
-                                $$
-                            </small></p>
+                        <div class="col-sm-4 col-top-align">
+                            <h3 style="margin-bottom:-0.5cm;"><small>Explicite</small></h3>
+                            <ul class="normal-font" style="color:red;">
+                                <li>Instable</li>
+                                <li>Petit $\Delta t$</li>
+                            </ul>
                         </div>
+                        <div class="col-sm-4 col-top-align">
+                            <h3 style="margin-bottom:-0.5cm;"><small>Implicite</small></h3>
+                            <ul class="normal-font" style="color:green;">
+                                <li>Stable</li>
+                                <li>Grand $\Delta t$</li>
+                            </ul>
+                            <ul class="normal-font" style="color:red;">
+                                <li>Coûteux</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-4 col-center-align">
                             <small>
-                            <table class="noStyle">
-                                <tr><td>$\mathbf{x}$</td><td>position</td></tr>
-                                <tr><td>$\mathbf{p}$</td><td>quantité de mouvement</td></tr>
+                            <table class="noStyle" style="margin-top:0.5cm;">
                                 <tr><td>$m$</td><td>masse</td></tr>
+                                <tr><td>$\mathbf{p}$</td><td>quantité de mouvement</td></tr>
+                                <tr><td>$\mathbf{f}$</td><td>force</td></tr>
                                 <tr><td>$M$</td><td>Matrice de masse</td></tr>
                                 <tr><td>$K$</td><td>Matrice de raideur</td></tr>
                             </table>
                             </small>
                         </div>
-
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <p>Idée : Réduire la taille du système linéaire avec ARPS</p>
+                        <div class="col-sm-8 col-center-align">
+                        <p style="font-size:24pt; color:red;">
+                            Résolution d'un système linéaire
+                        </p>
+                        <p style="font-size:24pt;">
+                            $$
+                            \displaystyle \left( I - \Delta t^{2}KM^{-1} \right)\Delta \mathbf{p} = \Delta t \left( \mathbf{f} + \Delta t K M^{-1}\mathbf{p} \right)
+                            $$
+                        </p>
                         </div>
                     </div>
                 </section>
+                
 
                 <!-- ARPS - Extension to Cloth Simulation II -->
                 <section>
                     <h2>Extension à la simulation de vêtement</h2>
-                    <h2><small>Intégration implicite</small></h2>
+                    <h2><small>Intégration implicite de l'ARPS</small></h2>
                     <div class="row">
                         <div class="col-sm-12">
                             <p>
@@ -1268,7 +1395,7 @@
                 <!-- Cutting - Motivations -->
                 <section>
                     <h2>Motivations</h2>
-                    <h2><small>Intéractions réalistes = immersion</small></h2>
+                    <h2><small>Changements topologiques limités</small></h2>
                     <div class="row">
                         <div class="col-sm-6">
                             <img class="noborder-img" data-src="./images/detailedCutting/games/Havok.png" style="width:86%;" alt="cuttingHavok">
@@ -1285,11 +1412,39 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <p>$\text{Détails}=f\left(\text{degrés de liberté}\right)$</p>
+                            <p>
+                            $\text{Détails}=f\left(\text{degrés de liberté}\right)$
+                            </p>
                         </div>                    
                     </div>
-                </section>                
+                </section>
                     
+                <!-- Cutting - Objectifs -->
+                <section data-state="cuttingSpiral">
+                    <h2>Notre approche</h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="overlay-container">
+                                <img class="nostyle-img" data-src="./images/slashed.svg" style="width:60%;" alt="cuttingSlashed">
+                                <div class="overlay-text">
+                                    $\text{Détails}=f\left(\text{degrés de liberté}\right)$
+                                </div>
+                            </div>
+                        </div>                  
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-8">
+                            <video class="noborder-video" id="video-cuttingSpiral">
+                                <source data-src="videos/detailedCutting/ProgressiveSpiral.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                    </div>
+                </section>
+
                 <!-- Cutting - Défis II -->
                 <!--
                 <section>
@@ -1348,42 +1503,7 @@
                             </tr>
                         </table>
                     </div>
-                </section>
-                    
-                <!-- Cutting - Objectifs -->
-                <section>
-                    <h2>Objectifs</h2>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <img class="noborder-img" data-src="./images/detailedCutting/realworld/Simple_Kirigami.jpg" style="width:100%;" alt="cuttingObjectif1">
-                            <figcaption class="figure-caption text-xs-center figure-caption-custom">
-                                <small><em>@copyright, nature</em></small>
-                            </figcaption>
-                        </div>
-                        <div class="col-sm-4">
-                            <img class="noborder-img" data-src="./images/detailedCutting/realworld/Pyramide_Kirigami.jpg" style="width:100%;" alt="cuttingObjectif2">
-                            <figcaption class="figure-caption text-xs-center figure-caption-custom">
-                                <small><em>@copyright, nature</em></small>
-                            </figcaption>
-                        </div>
-                        <div class="col-sm-4">
-                            <img class="noborder-img" data-src="./images/detailedCutting/realworld/Spiral_Kirigami.jpg" style="width:100%;" alt="cuttingObjectif3">
-                            <figcaption class="figure-caption text-xs-center figure-caption-custom">
-                                <small><em>@copyright, nature</em></small>
-                            </figcaption>
-                        </div>                        
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="overlay-container">
-                                <img class="nostyle-img" data-src="./images/slashed.svg" style="width:60%;" alt="cuttingSlashed">
-                                <div class="overlay-text">
-                                    $\text{Détails}=f\left(\text{degrés de liberté}\right)$
-                                </div>
-                            </div>
-                        </div>                  
-                    </div>
-                </section>
+                </section>                
                                         
                 <!-- Cutting - Planning -->
                 <!--
@@ -1509,18 +1629,7 @@
                         </div>
                     </div>
                 </section>       
-                    
-                <!-- Cutting - Starter -->
-                <section data-state="cuttingSpiral">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <video class="noborder-video" id="video-cuttingSpiral">
-                                <source data-src="videos/detailedCutting/ProgressiveSpiral.mp4" type="video/mp4"/>
-                            </video>
-                        </div>
-                    </div>
-                </section>                                    
-                
+                                    
                 <!-- Cutting - Contributions -->
                 <section>
                 <h2>Contributions</h2>
@@ -1711,11 +1820,11 @@
                                     <td>$5$</td>                                    
                                 </tr>
                                 <tr>
-                                    <td style="width:20%;">FPS <br/> <small>Avant $\vert$ Pendant $\vert$ Après</small></td>
-                                    <td>$60~\vert~15~\vert~60$</td>
-                                    <td>$11~\vert~3~\vert~11$</td>
-                                    <td>$60~\vert~7~\vert~45$</td>
-                                    <td>$45~\vert~7~\vert~35$</td>                                    
+                                    <td style="width:20%;">FPS <br/> <small>Avant $\vert$ Après</small></td>
+                                    <td>$60~\vert~60$</td>
+                                    <td>$11~\vert~11$</td>
+                                    <td>$60~\vert~45$</td>
+                                    <td>$45~\vert~35$</td>                                    
                                 </tr>
                                 <tr>
                                     <td>$\%$ m.a.j</td>
@@ -1809,24 +1918,43 @@
                 <!-- Fluid sculpting - Motivations I-->
                 <section>
                     <h2>Motivations</h2>
+                    <h2><small>Des centaines de simulations avant la bonne</small></h2>
                     <div class="row">
-                        <div class="col-sm-6">
-                            <img class="nostyle-img" style="width:90%;" data-src="./images/fluidSculpting/motivations/lifeOfPi_whale.jpg" alt="fluidSculptingMotivations1">
+                        <div class="col-sm-6 col-center-align">
+                            <figure class="figure">
+                            <img class="noborder-img" data-src="./images/introduction/challenges/houdiniInterface.png" style="width:100%;" alt="challengeControl">
+                            <figcaption class="figure-caption text-xs-center figure-caption-custom" style="margin-top:-0.25cm;">
+                            [Houdini, DreamWorks]
+                            </figcaption>
+                            </figure>
                         </div>
-                        <div class="col-sm-6">
-                            <img class="nostyle-img" style="width:90%;" data-src="./images/fluidSculpting/motivations/xmen_quicksilver.jpg" alt="fluidSculptingMotivations2">
-                        </div>                    
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <img class="nostyle-img" style="width:90%;" data-src="./images/fluidSculpting/motivations/fusionCI.jpg" alt="fluidSculptingMotivations3">
-                        </div>
-                        <div class="col-sm-6">
-                            <img class="nostyle-img" style="width:90%;" data-src="./images/fluidSculpting/motivations/assassinCreed.jpg" alt="fluidSculptingMotivations4">
+                        <div class="col-sm-6 col-center-align">
+                            <figure class="figure">
+                            <img class="nostyle-img" style="width:100%; margin-top:-0.5cm;" data-src="./images/fluidSculpting/motivations/lifeOfPi_whale.jpg" alt="fluidSculptingMotivations1">
+                            <figcaption class="figure-caption text-xs-center figure-caption-custom"  style="margin-top:-0.25cm; margin-bottom:0.5cm;">
+                            <em>Life of Pi</em>
+                            </figcaption>
+                            </figure>
+                            <figure class="figure">
+                            <img class="nostyle-img" style="width:100%;" data-src="./images/fluidSculpting/motivations/xmen_quicksilver.jpg" alt="fluidSculptingMotivations2">
+                            <figcaption class="figure-caption text-xs-center figure-caption-custom" style="margin-top:-0.25cm;">
+                            <em>X-men : days of future past</em>
+                            </figcaption>
+                            </figure>
                         </div>
                     </div>
                 </section>
 
+                <section data-state="fluidSculptingBunny">
+                    <h2>Notre approche</h2>
+                    <h2><small>Édition Intéractive - Intuitive - Réutilisable</small></h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <video class="noborder-video" id="video-fluidSculptingBunny" muted>
+                                <source data-src="videos/fluidSculpting/fluidSculpting_Bunny.mp4" type="video/mp4"/>
+                            </video>
+                        </div>
+                    </div>
                 </section>
                     
                 <!-- Fluid sculpting - Défis II-->
@@ -1971,34 +2099,7 @@
                             </small>
                         </div>
                     </div>
-                </section>            
-
-                <!-- Fluid sculpting - Présentation de la méthode -->
-                <section>
-                    <h2>Objectifs</h2>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <img class="nostyle-img" data-src="./images/fluidSculpting/teaser/fluid_004.png" alt="fluidSculptingTeaser1">
-                        </div>
-                        <div class="col-sm-3">
-                            <img class="nostyle-img" data-src="./images/fluidSculpting/teaser/fluid_012.png" alt="fluidSculptingTeaser2">
-                        </div>
-                        <div class="col-sm-3">
-                            <img class="nostyle-img" data-src="./images/fluidSculpting/teaser/bunny_04.png" alt="fluidSculptingTeaser3">
-                        </div>
-                        <div class="col-sm-3">
-                            <img class="nostyle-img" data-src="./images/fluidSculpting/teaser/bunny_12.png" alt="fluidSculptingTeaser4">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <p>Édition d'animations de liquide</p>
-                            <p style="color:blue;">
-                                Interactive -  Intuitive - Réutilisable
-                            </p>
-                        </div>
-                    </div>
-                </section>
+                </section> 
                     
                 <section>
                     <h2>Contributions</h2>
@@ -2068,6 +2169,7 @@
                     </div>
                 </section>
 
+                <!--
                 <section>
                     <h2>Aggrégation</h2>
                     <h2><small>Combinaison des régions d'intérêts en <em>features</em></small></h2>
@@ -2077,6 +2179,7 @@
                         </div>
                     </div>
                 </section>
+                -->
             
                 <!-- Fluid sculpting - Représentation des caractéristiques -->
                 <section>
@@ -2143,18 +2246,7 @@
                     </div>
                 </section>
                     
-                <!-- Fluid sculpting - Résultats -->
-                <section data-state="fluidSculptingBunny">
-                    <h2>Résultats</h2>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <video class="noborder-video" id="video-fluidSculptingBunny" muted>
-                                <source data-src="videos/fluidSculpting/fluidSculpting_Bunny.mp4" type="video/mp4"/>
-                            </video>
-                        </div>
-                    </div>
-                </section>
-            
+                <!-- Fluid sculpting - Résultats -->            
                 <section data-state="fluidSculptingBoats">
                     <h2>Résultats</h2>
                     <div class="row">
@@ -2739,9 +2831,21 @@ Reveal.addEventListener( 'customevent', function() {
                     tmpVideo.play();
                 });
 
-                Reveal.addEventListener( 'arpsDamBreak', function() 
+                Reveal.addEventListener( 'arpsPermanentFlowSPH', function() 
                 {
-                    var tmpVideo = document.getElementById("video-arpsDamBreak");
+                    var tmpVideo = document.getElementById("video-arpsPermanentFlowSPH");
+                    tmpVideo.play();
+                });
+            
+                Reveal.addEventListener( 'arpsPermanentFlowSPHARPS', function() 
+                {
+                    var tmpVideo = document.getElementById("video-arpsPermanentFlowSPHARPS");
+                    tmpVideo.play();
+                });
+            
+                Reveal.addEventListener( 'arpsDamBreakSPHARPS', function() 
+                {
+                    var tmpVideo = document.getElementById("video-arpsDamBreakSPHARPS");
                     tmpVideo.play();
                 });
 

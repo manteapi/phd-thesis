@@ -35,6 +35,21 @@ html
     text-align: left;
 }
 
+.reveal .no-top-margin
+{
+    margin-top:0cm;
+}
+
+.reveal .no-bottom-margin
+{
+    margin-bottom:0cm;
+}
+
+.reveal .normal-font
+{
+    font-size: 24pt;
+}
+
 .reveal .p-title
 {
     margin-top: 0.75cm;
