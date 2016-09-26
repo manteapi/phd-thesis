@@ -1,0 +1,24 @@
+Remarques générales : 
+-Police trop petite
+-Couleur grise/orange bof bof
+
+Remarques sur les contributions :
+I. Motivations
+II. Etre précis sur ce que l'on veut -> ! Idée générale !
+III. Contributions
+
+Slide 3 : titre -> Informatique Graphique & Simulation Physique
+Slide 4 : Approximation continue / Approximation discrète
+          Equations du mouvement locales
+Slide 5 : Trop rapide, mots clés (maillage grossier / maillage fins)
+Slide 6 : Pourquoi est-ce que c'est compliqué ?
+Slide 7 : Exemple police trop petite
+          Peu de degrés de liberté pour efficacité/changements topo/sculpt.
+          Transitions entre les parties
+Slide 13 : Présenter les portraits de phase
+Slide 16 : Mouvement particule = f(voisins) -> cher
+           Calcul DYNAMIQUE des voisins
+Slide 17 : Explication video
+Slide 18 : Enlever "Idée : Réduire la taille du systm. linéaire"
+           Juste mettre le système linéaire
+Slide 19 : 
