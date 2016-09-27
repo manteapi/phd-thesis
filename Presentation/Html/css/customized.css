@@ -45,9 +45,24 @@ html
     margin-bottom:0cm;
 }
 
+.reveal .footnotesize-font
+{
+    font-size: 14pt;
+}
+
+.reveal .small-font
+{
+    font-size: 18pt;
+}
+
 .reveal .normal-font
 {
     font-size: 24pt;
+}
+
+.reveal .big-font
+{
+    font-size: 32pt;
 }
 
 .reveal .p-title
@@ -409,6 +424,14 @@ html
     display: table-cell;
     vertical-align: middle;
     text-align: left;
+    float: none;
+}
+
+.slides .col-left-align
+{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
     float: none;
 }
 

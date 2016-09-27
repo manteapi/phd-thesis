@@ -13,9 +13,9 @@
    inkscape:version="0.91 r"
    version="1.1"
    id="svg2"
-   viewBox="0 0 1187.3487 556.56934"
-   height="556.56934"
-   width="1187.3488"
+   viewBox="0 0 1196.7764 606.547"
+   height="606.547"
+   width="1196.7765"
    inkscape:export-filename="/home/manteapi/Depot/github/phd-thesis/Presentation/Html/images/fluidSculpting/featureRepresentation.png"
    inkscape:export-xdpi="400"
    inkscape:export-ydpi="400">
@@ -32,8 +32,8 @@
      showgrid="false"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
-     inkscape:cy="222.5797"
-     inkscape:cx="535.01542"
+     inkscape:cy="240.09918"
+     inkscape:cx="489.30107"
      inkscape:zoom="0.70000001"
      inkscape:pageshadow="2"
      inkscape:pageopacity="1"
@@ -323,7 +323,7 @@
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(610.20701,-46.958633)"
+     transform="translate(610.20695,-33.071915)"
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1">
@@ -758,12 +758,12 @@
        sodipodi:linespacing="125%"
        id="text9176"
        y="67.788712"
-       x="-204.38438"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-332.28476"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, '"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, '"
          y="67.788712"
-         x="-204.38438"
+         x="-332.28476"
          id="tspan9178"
          sodipodi:role="line">Régions d'intérêts = {Sommets}</tspan></text>
     <g
@@ -889,13 +889,13 @@
     <text
        sodipodi:linespacing="125%"
        id="text9176-7"
-       y="560.08069"
-       x="-493.94626"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       y="580.08069"
+       x="-531.10443"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, '"
-         y="560.08069"
-         x="-493.94626"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:50px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, '"
+         y="580.08069"
+         x="-531.10443"
          id="tspan9178-1"
          sodipodi:role="line">Maillage</tspan></text>
     <g
@@ -1028,33 +1028,28 @@
     <text
        sodipodi:linespacing="125%"
        id="text9176-7-1"
-       y="559.61194"
-       x="405.18759"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       y="579.29944"
+       x="405.21689"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:30px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
-         y="559.61194"
-         x="405.18759"
-         id="tspan9178-1-5"
-         sodipodi:role="line">Textures</tspan><tspan
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
-         y="597.11194"
-         x="405.18759"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:50px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
+         y="579.29944"
+         x="405.21689"
          sodipodi:role="line"
-         id="tspan8375">Déplacement / Normal</tspan></text>
+         id="tspan8375">Textures</tspan></text>
     <g
        id="g10961"
-       transform="translate(-547.51492,163.42857)">
+       transform="translate(-519.51492,183.42857)">
       <text
          sodipodi:linespacing="125%"
          id="text10957"
-         y="122.22865"
-         x="103.1448"
+         y="102.22865"
+         x="24.57337"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
-           style="font-size:30px"
-           y="122.22865"
-           x="103.1448"
+           style="font-size:40px"
+           y="102.22865"
+           x="24.57337"
            id="tspan10959"
            sodipodi:role="line">Bord fermé</tspan></text>
     </g>
@@ -1070,15 +1065,27 @@
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:22.5px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;line-height:125%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="286.26465"
        y="285.65723"
        id="text10957-3"
        sodipodi:linespacing="125%"><tspan
-         style="font-size:30px"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, '"
          sodipodi:role="line"
          id="tspan10959-6"
          x="286.26465"
          y="285.65723">Bord ouvert</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="223.22958"
+       y="631.06421"
+       id="text8463"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan8465"
+         x="223.22958"
+         y="631.06421"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, '">Déplacement / Normal</tspan></text>
   </g>
 </svg>

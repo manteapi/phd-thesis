@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="723.46796mm"
+   width="639.36572mm"
    height="252.52844mm"
-   viewBox="0 0 2563.4691 894.78582"
+   viewBox="0 0 2265.4691 894.78582"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r"
@@ -26,11 +26,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="1139.9222"
-     inkscape:cy="399.56092"
+     inkscape:zoom="0.24748738"
+     inkscape:cx="1132.3599"
+     inkscape:cy="37.520147"
      inkscape:document-units="px"
-     inkscape:current-layer="g12306"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="984"
@@ -133,6 +133,36 @@
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mstart-1-0"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path8773-0-6"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,4,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-6-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path8776-3-2"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
   </defs>
   <metadata
      id="metadata7">
@@ -142,7 +172,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -150,9 +180,10 @@
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Calque 1"
-     transform="translate(1015.698,-89.944883)">
+     transform="translate(1000.8993,848.5915)">
     <g
-       id="g12349">
+       id="g12349"
+       transform="translate(14.7986,-938.53638)">
       <g
          id="g12360">
         <circle
@@ -212,7 +243,8 @@
       </g>
     </g>
     <g
-       id="g12306">
+       id="g18969"
+       transform="translate(-259.2013,-938.53638)">
       <rect
          y="247.45915"
          x="116.34503"
@@ -363,19 +395,6 @@
                id="path8120-1" /></g>        </g>
       </g>
       <text
-         transform="matrix(0,-1,1,0,0,0)"
-         sodipodi:linespacing="125%"
-         id="text8430"
-         y="-74.797707"
-         x="-713.32013"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, '"
-           y="-74.797707"
-           x="-713.32013"
-           id="tspan8432"
-           sodipodi:role="line">Quantité de mouvement</tspan></text>
-      <text
          sodipodi:linespacing="125%"
          id="text8430-0"
          y="984.04712"
@@ -405,18 +424,31 @@
          id="path8081"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="ccc" />
-      <text
-         sodipodi:linespacing="125%"
-         id="text8581-3"
-         y="491.44513"
-         x="859.37262"
-         style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#d40000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:80px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';fill:#d40000;fill-opacity:1"
-           y="491.44513"
-           x="859.37262"
-           id="tspan8583-1"
-           sodipodi:role="line">Dynamique restreinte</tspan></text>
     </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#d40000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="576.17133"
+       y="-447.09125"
+       id="text8581-3-3"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan8583-1-7"
+         x="576.17133"
+         y="-447.09125"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:80px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';fill:#d40000;fill-opacity:1">Dynamique restreinte</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="225.21625"
+       y="-319.99905"
+       id="text8430-4"
+       sodipodi:linespacing="125%"
+       transform="matrix(0,-1,1,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan8432-5"
+         x="225.21625"
+         y="-319.99905"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, '">Quantité de mouvement</tspan></text>
   </g>
 </svg>

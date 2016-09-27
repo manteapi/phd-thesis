@@ -17,9 +17,9 @@
    inkscape:version="0.91 r"
    version="1.1"
    id="svg2"
-   viewBox="0 0 5812.1283 1350"
+   viewBox="0 0 6122.1806 1350"
    height="381mm"
-   width="1640.3118mm">
+   width="1727.8154mm">
   <sodipodi:namedview
      fit-margin-bottom="0"
      fit-margin-right="0"
@@ -31,11 +31,11 @@
      inkscape:window-height="984"
      inkscape:window-width="1920"
      showgrid="false"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g8203"
      inkscape:document-units="px"
-     inkscape:cy="901.65263"
-     inkscape:cx="2485.8434"
-     inkscape:zoom="0.15045945"
+     inkscape:cy="838.84992"
+     inkscape:cx="1689.7355"
+     inkscape:zoom="0.3009189"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -248,7 +248,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -284,12 +284,12 @@
          style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
            id="tspan8122-3-2-6"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:187.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;text-anchor:start"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:225px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;text-anchor:start"
            y="469.12372"
            x="-540.42352"
            sodipodi:role="line">Géométrie</tspan><tspan
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:187.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;text-anchor:start"
-           y="703.49872"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:225px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;text-anchor:start"
+           y="750.37372"
            x="-540.42352"
            sodipodi:role="line"
            id="tspan8197">Propriétés physiques</tspan></text>
@@ -306,36 +306,36 @@
            x="2007.1853"
            y="1715.547" /></flowRegion><flowPara
          id="flowPara8185" /></flowRoot>    <g
-       id="g8951"
-       transform="translate(40.063916,0)">
+       id="g8203"
+       transform="translate(-159.76152,0)">
       <path
          sodipodi:nodetypes="cc"
          inkscape:connector-curvature="0"
          id="path13513"
-         d="m -2904.3629,408.18944 923.837,0"
+         d="m -2802.5374,378.43742 923.837,0"
          style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker19106)" />
       <text
          sodipodi:linespacing="125%"
          id="text8101-3-6-3-0"
-         y="327.80042"
-         x="-3157.1089"
+         y="309.80029"
+         x="-3238.7246"
          style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:250px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;text-anchor:start;fill:#d40000"
-           y="327.80042"
-           x="-3157.1089"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:312.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;text-anchor:start;fill:#ff0000"
+           y="309.80029"
+           x="-3238.7246"
            sodipodi:role="line"
            id="tspan8197-3">Discrétisation</tspan></text>
       <text
          sodipodi:linespacing="125%"
          id="text8101-3-6-3-0-1"
          y="654.59406"
-         x="-2835.0874"
+         x="-2836.1978"
          style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          xml:space="preserve"><tspan
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:250px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;text-anchor:start;fill:#d40000"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:312.5px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:start;text-anchor:start;fill:#ff0000"
            y="654.59406"
-           x="-2835.0874"
+           x="-2836.1978"
            sodipodi:role="line"
            id="tspan8197-3-8">spatiale</tspan></text>
     </g>

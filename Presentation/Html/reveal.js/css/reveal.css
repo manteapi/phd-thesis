@@ -277,7 +277,7 @@ html:-moz-full-screen-ancestor {
   bottom: 8px;
   z-index: 31;
   font-family: Helvetica, sans-serif;
-  font-size: 12px;
+  font-size: 18px;
   line-height: 1;
   color: rgba(1.0,1.0,1.0,1.0);
   /*background-color: rgba(0, 0, 0, 0.4);*/
