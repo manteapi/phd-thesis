@@ -14,7 +14,7 @@
    viewBox="0 0 1185.1737 584.11905"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="taxonomy_freezing.svg"
    inkscape:export-filename="/home/manteapi/Depot/github/phd-thesis/Presentation/Html/images/adaptivity/taxonomy_freezing.png"
    inkscape:export-xdpi="400"
@@ -29,15 +29,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7071068"
-     inkscape:cx="462.96906"
-     inkscape:cy="213.26894"
+     inkscape:cx="762.78233"
+     inkscape:cy="242.96742"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="984"
-     inkscape:window-x="0"
-     inkscape:window-y="27"
+     inkscape:window-width="1615"
+     inkscape:window-height="1026"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -51,7 +51,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -165,7 +165,7 @@
          x="941.34607"
          y="349.36749"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
-         id="tspan8348">Grille</tspan><tspan
+         id="tspan8348">Grilles</tspan><tspan
          sodipodi:role="line"
          x="941.34607"
          y="389.36749"
@@ -238,6 +238,6 @@
          sodipodi:role="line"
          x="62.256023"
          y="561.20374"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle">adaptatif</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle">adaptatifs</tspan></text>
   </g>
 </svg>
