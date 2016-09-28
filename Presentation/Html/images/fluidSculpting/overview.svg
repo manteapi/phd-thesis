@@ -11,7 +11,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1179.6079"
-   height="432.00592"
+   height="430.00592"
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r"
@@ -306,9 +306,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.06"
-     inkscape:cx="566.67482"
-     inkscape:cy="182.34946"
+     inkscape:zoom="0.74953319"
+     inkscape:cx="519.67408"
+     inkscape:cy="144.5516"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -326,19 +326,19 @@
      inkscape:snap-global="false">
     <sodipodi:guide
        orientation="0,1"
-       position="187.60768,213.93627"
+       position="187.60768,211.93626"
        id="guide3838" />
     <sodipodi:guide
        orientation="0,1"
-       position="171.17911,401.79342"
+       position="171.17911,399.79341"
        id="guide3840" />
     <sodipodi:guide
        orientation="0,1"
-       position="706.64697,313.67763"
+       position="706.64697,311.67762"
        id="guide5812" />
     <sodipodi:guide
        orientation="0,1"
-       position="371.12746,189.07325"
+       position="371.12746,187.07324"
        id="guide5386" />
     <inkscape:grid
        type="xygrid"
@@ -348,7 +348,7 @@
        enabled="true"
        snapvisiblegridlinesonly="true"
        originx="121.68152"
-       originy="83.85865" />
+       originy="81.858636" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -387,7 +387,7 @@
        sodipodi:nodetypes="cc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker3241)"
-       d="m 688.26418,468.61091 -266.17931,-0.2771 -0.55418,-237.79116"
+       d="m 762.26418,469.41665 -410.17931,-0.2771 -0.55418,-116.45318"
        id="path6070"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccc" />
@@ -925,7 +925,7 @@
       </g>
     </g>
     <g
-       transform="matrix(0.2203555,0,0,0.2203555,650.45459,411.76023)"
+       transform="matrix(0.2203555,0,0,0.2203555,740.32691,409.76023)"
        id="g3011">
       <g
          id="g3790-8"
@@ -1983,18 +1983,18 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="886.85736"
-       y="455.31912"
+       x="978.85736"
+       y="453.31912"
        id="text8523-3-6"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="886.85736"
-         y="455.31912"
+         x="978.85736"
+         y="453.31912"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
          id="tspan9077">Base de données</tspan><tspan
          sodipodi:role="line"
-         x="886.85736"
-         y="486.56912"
+         x="978.85736"
+         y="484.56912"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
          id="tspan8540">caractéristiques exportées</tspan></text>
     <text
@@ -2492,12 +2492,12 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="322.242"
+       x="351.30179"
        y="332.12817"
        id="text8523-3"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="322.242"
+         x="351.30179"
          y="332.12817"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:25px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';text-align:center;text-anchor:middle"
          id="tspan9040">Caractéristiques</tspan></text>
@@ -2604,7 +2604,7 @@
     </g>
     <path
        style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
-       d="m 717.24394,225.21862 0.19973,205.46946"
+       d="m 807.05116,349.88063 0.19973,78.80745"
        id="path5876-1"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />

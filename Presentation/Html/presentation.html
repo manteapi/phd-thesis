@@ -342,7 +342,7 @@
                 
                 <section>
                     <h2>Défis en simulation physique</h2>
-                    <h2><small>Modélisation efficace de changements d'état</small></h2>
+                    <h2><small>Modélisation efficace de changements topologiques</small></h2>
                     <div class="row row-top-align">
                         <div class="col-sm-8 col-top-align">
                             <figure class="figure" style="margin-top:-1cm;">
@@ -553,7 +553,7 @@
                 
                                 
                 <section>
-                    <h2>Etat de l'art : Taxonomie</h2>
+                    <h2>État de l'art : Taxonomie</h2>
                     <div class="row">
                         <div class="col-sm-12">
                             <img class="nostyle-img" data-src="./images/adaptivity/taxonomy_freezing.png" style="width:100%;" alt="taxonomy">
@@ -629,7 +629,7 @@
                             <h3><small>Rigides Articulés</small></h3>
                         </div>
                         <div class="col-sm-4">
-                            <h3><small>Liquide</small></h3>
+                            <h3><small>Liquides</small></h3>
                         </div>
                     </div>
                     <div class="row">
@@ -658,7 +658,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <p class="normal-font important" style="margin-top:1cm;">Défi: Réactiver de manière cohérente une simulation</p>
+                            <p class="normal-font color-positive" style="margin-top:0.5cm;"><strong>Nombre constants de degrés de liberté </strong></p>
+                            <p class="normal-font important" style="margin-top:0.5cm;">Défi : Réactiver de manière cohérente une simulation</p>
                         </div>
                     </div>
                 </section>
@@ -1191,7 +1192,7 @@
                     <h2><small>Intégration implicite de l'ARPS</small></h2>
                     <div class="row">
                         <div class="col-sm-12">
-                            <p class="normal-font">
+                            <p class="normal-font" style="margin-top:0cm;">
                                 $$
                                 \displaystyle \left( I - \Delta t^{2}K\mathbf{\textcolor{blue}{R}}M^{-1} \right)\Delta \mathbf{p} = \Delta t \left( \mathbf{f} + \Delta t K M^{-1} \mathbf{\textcolor{blue}{s}} \right)
                                 $$
@@ -1235,6 +1236,7 @@
                                     <td><strong>Implicite</strong></td>
                                 </tr>
                             </table>
+                            <p class="important normal-font" style="margin-top:1cm;">Réduire la taille du système linéaire aux particules actives/transitives</p>
                         </div>
                     </div>
                 </section>
@@ -1412,7 +1414,7 @@
                 </section>
                 -->
                 
-                <!-- Cutting - Etat de l'art -->
+                <!-- Cutting - État de l'art -->
                 <section>
                     <h2>État de l'art</h2>
                     <h2><small>Changements topologiques</small></h2>
@@ -1733,7 +1735,7 @@
                     <h2>Résultats</h2>
                     <div class="row">
                         <div class="col-sm-12">
-                            <video class="noborder-video" id="video-cuttingKirigami">
+                            <video class="noborder-video" id="video-cuttingKirigami" loop>
                                 <source data-src="videos/detailedCutting/Kirigami.mp4" type="video/mp4"/>
                             </video>
                         </div>
@@ -2062,7 +2064,7 @@
                     <h2><small>Marquage des sommets visuellement intéressant</small></h2>
                     <div class="row">
                         <div class="col-sm-12">
-                            <video class="noborder-video" id="video-fluidSculptingDetection" muted>
+                            <video class="noborder-video" id="video-fluidSculptingDetection" muted loop>
                                 <source data-src="videos/fluidSculpting/fluidSculpting_Detection.mp4" type="video/mp4"/>
                             </video>
                         </div>
@@ -2074,7 +2076,7 @@
                     <h2><small>Regroupement en régions d'intérêts</small></h2>
                     <div class="row">
                         <div class="col-sm-12">
-                            <video class="noborder-video" id="video-fluidSculptingSegmentation" muted>
+                            <video class="noborder-video" id="video-fluidSculptingSegmentation" muted loop>
                                 <source data-src="videos/fluidSculpting/fluidSculpting_Segmentation.mp4" type="video/mp4"/>
                             </video>
                         </div>
@@ -2086,7 +2088,7 @@
                     <h2><small>Combinaison des régions d'intérêts en <em>caractéristiques</em></small></h2>
                     <div class="row">
                         <div class="col-sm-12">
-                            <video class="noborder-video" id="video-fluidSculptingAggregation" muted>
+                            <video class="noborder-video" id="video-fluidSculptingAggregation" muted loop>
                                 <source data-src="videos/fluidSculpting/fluidSculpting_Aggregation.mp4" type="video/mp4"/>
                             </video>
                         </div>
@@ -2188,7 +2190,7 @@
                                 <li>Extraction de caractéristique cohérente</li>
                                 <li>Outils de sélection, d'édition, d'insertion</li>
                             </ul>
-                            <p class="normal-font">Limitations</p>                            
+                            <p class="normal-font">Limitations & perspectives</p>                            
                             <ul class="small-font">
                                 <li>Sélection semi-automatique</li>
                                 <li>Robustesse de l'aggrégation</li>
