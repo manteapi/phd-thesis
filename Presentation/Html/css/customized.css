@@ -9,9 +9,30 @@ html
     border-width: 3px;
 }
 
+.reveal .important
+{
+    color: hsl(0, 80%, 50%);
+    font-weight: bold;
+}
+
+.reveal .color-objective
+{
+    color: hsl(230, 80%, 50%);
+}
+
+.reveal .color-neutral
+{
+    color: gray;
+}
+
+.reveal .color-negative
+{
+    color: hsl(0, 80%, 50%);
+}
+
 .reveal .color-positive
 {
-    color: green;
+    color: hsl(110, 50%, 40%);
 }
 
 .reveal p.color-positive
@@ -252,12 +273,6 @@ html
 {
     padding-top: 0.0cm;
     padding-bottom: 0.0cm;
-}
-
-.reveal .important
-{
-    color: red;
-    font-weight: bold;
 }
 
 .reveal table.noStyle td
