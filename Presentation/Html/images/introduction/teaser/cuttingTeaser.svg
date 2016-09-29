@@ -18,8 +18,8 @@
    inkscape:version="0.91 r"
    sodipodi:docname="cuttingTeaser.svg"
    inkscape:export-filename="/home/manteapi/Depot/github/phd-thesis/Presentation/Html/images/introduction/teaser/cuttingTeaser.png"
-   inkscape:export-xdpi="400"
-   inkscape:export-ydpi="400">
+   inkscape:export-xdpi="100"
+   inkscape:export-ydpi="100">
   <defs
      id="defs8156" />
   <sodipodi:namedview
@@ -30,8 +30,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35355339"
-     inkscape:cx="-285.89299"
-     inkscape:cy="424.49053"
+     inkscape:cx="81.802537"
+     inkscape:cy="551.76975"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -53,7 +53,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
