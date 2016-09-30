@@ -1,7 +1,12 @@
 html
 { 
     background-color: inherit; 
-} 
+}
+
+.reveal .vertical-text
+{
+	transform: rotate(-90deg);
+}
 
 .reveal .rule-custom
 {
