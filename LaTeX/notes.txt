@@ -1,0 +1,3 @@
+Corrections de Paul:
+
+cite{}~propose (next chapter : chapter 4)

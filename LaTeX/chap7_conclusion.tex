@@ -9,12 +9,12 @@ We can divide this work into two main types of contributions.
 \paragraph*{}
 The first focus was the study of new techniques towards the efficient simulation of mechanical models. 
 Aside from our state of the art on adaptive models, we proposed two approaches tackling this goal.
-First we introduced a new adaptive method that allows to speed-up simulations with very few modifications of an existing simulator. 
-In contrast with the usual re-sampling schemes, the method only requires to adapt the time integrator. 
+First we introduced a new adaptive method that allows the acceleration of simulations with very few modifications of an existing simulator. 
+In contrast with the usual re-sampling schemes, the method only requires the adaptattion of the time integrator. 
 We demonstrated the efficiency of this method on particle-based fluid and on cloth simulation.
 Second we proposed a method to handle detailed topological changes while keeping a very low number of degrees of freedom. 
 This was made possible by a dynamic update of the shape functions associated to each degrees of freedom in order to take into account the new topology into the dynamics. 
-Combined with an incremental update of the simulation data and an interpolation of the positions and velocities of the degrees of freedom, this method allows to simulate detailed cutting of thin sheets at interactive rates.
+Combined with an incremental update of the simulation data and an interpolation of the positions and velocities of the degrees of freedom, this method allows the simulation of detailed cutting of thin sheets at interactive rates.
 
 Our second focus was on the control of physics-based animation. We proposed a new system to edit an animation of liquid. 
 Instead of enforcing a simulation with user constraints, we proposed to build tools that would allow the user to edit existing animations.

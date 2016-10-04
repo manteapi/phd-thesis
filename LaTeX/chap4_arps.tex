@@ -3,7 +3,7 @@
 
 \Lettrine{C}{ombining} efficiency with visual realism has been one of the main goals of computer graphics research in the last decade. 
 In Chapter~\ref{chap:starAdaptivity}, we presented adaptive models, a general strategy to concentrate the computational time on the most interesting parts of an animated scene. 
-We observed that the two main approaches consist in adapting time or spatial sampling. 
+We observed that the two main approaches consist of adapting time or spatial sampling. 
 Although they can achieve impressive results, they are often difficult to implement, they may be restricted to specific applications and they sometimes generate discontinuity artifacts due to sudden simplifications.
 \paragraph*{}
 A different approach for adaptive simulation~\cite{Artemova2012} was proposed in the context of molecular dynamics~(MD). Contrary to most of the methods reviewed in Chapter~\ref{chap:starAdaptivity}, Adaptively Restrained Particle Simulations (ARPS) do not adapt time or spatial sampling, but rather switch the positional degrees of freedom of particles on and off, while letting their momenta evolve. The key idea is that since most of the computation time is spent in computing interaction forces based on positions, particles with low velocity could be considered fixed in space - and the corresponding interaction forces constant - until they accumulate enough momentum to start moving again. Therefore, inter-particles forces do not have to be updated at each time step, in contrast with traditional methods that spend a lot of time there.
@@ -124,7 +124,7 @@ Due to the similarity of the adaptive kinetic energy with the standard kinetic e
 	\caption[ARPS: Collision Cascade from~\cite{Artemova2012}]{\label{fig:cascadeCollision} 
 		A particle is launched at high velocity toward a 2D static particle system made of $5390$ particles, resulting into a collision cascade~\cite{Artemova2012}. 
 		On the left, the result of a full dynamics simulation. 
-		The three other images are the result of ARPS with different thresholds which allow to obtain a smooth trade between efficiency and precision.}
+		The three other images are the result of ARPS with different thresholds which allow a smooth trade between efficiency and precision.}
 \end{figure}
 
 %-------------------------------------------------------------------------
@@ -486,9 +486,9 @@ A first step in this direction would be to conduct a careful study of the restra
 Second, we think that better results could be achieved by employing non-physically-based transition criteria. 
 Indeed, the current one, based on kinetic energy, is well adapted to molecular dynamics simulation. 
 However, in computer graphics, we are more interested in visual results.
-Therefore, transition thresholds, based on visibility or distance to camera, would certainly allow to even more focus the computational power where it most contributes to the quality of the result.
+Therefore, transition thresholds, based on visibility or distance to camera, would certainly allow an even more focused computational power where it most contributes to the quality of the result.
 \paragraph*{}
-While ARPS allows to save computational time and to maintain a constant number of degrees of freedom,
+While ARPS allows one to save computational time and to maintain a constant number of degrees of freedom,
 particle systems generally require a dense sampling in order to produce visually plausible behavior.
 The large number of degrees of freedom resulting from this sampling imposes a strict limit on computational time and memory consumption.
 Recently, new deformable models have been proposed to achieve complex elastic behaviors with interactive performance by using a very small number of degrees of freedom. 

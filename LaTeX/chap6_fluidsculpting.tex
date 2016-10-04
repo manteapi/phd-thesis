@@ -82,7 +82,7 @@ While detection is semi-automatic (it is interleaved with user interaction to de
  	\centering
  	\includegraphics[width=\linewidth]{images/fluidsculpting-mig2016/feature_extraction_2.png}
  	\caption[Fluid sculpting: Feature extraction]{Feature extraction process, from left to right: an initial mesh sequence representing a fluid animation is subjected to a feature detection process, followed by a segmentation step, which results in a frame feature representation. 
- 		A final aggregation step allows to build a temporally coherent feature structure.}
+ 		A final aggregation step allows the building of a temporally coherent feature structure.}
  	\label{fig:feature_extraction}
  \end{figure}
 
@@ -104,7 +104,7 @@ This tool is based on two key components that we describe in detail below:
 curvature analysis and topological filtering.
 Combined together they let the user define $R$ in a coarse-to-fine manner: 
 First, curvature analysis is used to automatically detect salient features at each frame and initialize $R$. 
-Then, topological filtering allows to interactively adjust $R$. 
+Then, topological filtering allows one to interactively adjust $R$. 
 We also added a painting tool that allows the user to fine-tune each $R^t$ if needed by locally removing or adding vertices from $R$ by clicking.
 
 \paragraph*{Multi-resolution curvature analysis.}
@@ -365,7 +365,7 @@ we progressively dilate $\Pi$ until it fills the bounding box of size $L(F^{t'}_
 Once $\Pi$ has been computed, we compute its smooth version $\Pi'$ on which we project $\tau_d(F^{t'}_i)$ and $\tau_n(F^{t'}_i)$, yielding two attributes for each vertex $n \in N_{\Pi'}$, a displacement $disp_0(n, \Pi')$ and a normal $norm_0(n, \Pi')$.
 We define a new attribute $rot(n, \Pi') = rot(norm_0(n, \Pi'), norm(n, \Pi'))$, a rotation matrix mapping $norm_0(n, \Pi')$ into $norm(n, \Pi')$.
 Each vertex $n \in N_{\Pi}$ is displaced of $rot(n, \Pi') \times disp_0(n, \Pi')$, yielding the deformed surface $\Pi''$.
-These operations allow to counter the effects of low-resolution shapes of both $S(F^t_i)$ and $\Pi$. Figure~\ref{fig:displacement:insertion} illustrates these steps.
+These operations allow one to counter the effects of low-resolution shapes of both $S(F^t_i)$ and $\Pi$. Figure~\ref{fig:displacement:insertion} illustrates these steps.
 
 \section{Sculpting Tools}
 \label{sec:manipulation}
@@ -452,14 +452,14 @@ Then we extract the boat wake and paste it on the ocean animation at three diffe
 		\caption{\label{fig:result_detail:paste_2}\scriptsize{Multiple pasting}}
 	\end{subfigure}
 	\caption[Fluid sculpting: Boat wake]{\label{fig:result:boatWake}
-		From the animation of boat generated using a FLIP simulation (left), our sculpting system allows to extract the wake of the boat in a single \emph{space-time feature}. Then we can manipulate this feature and paste it into an ocean animation generated procedurally (middle). Editing the feature and pasting it multiple times allows to interactively model a complex scene (right) without re-simulating.
+		From the animation of boat generated using a FLIP simulation (left), our sculpting system allows the extraction of the wake of the boat in a single \emph{space-time feature}. Then we can manipulate this feature and paste it into an ocean animation generated procedurally (middle). Editing the feature and pasting it multiple times allows the interactively modeling a complex scene (right) without re-simulating.
 	}
 \end{figure}
 
 \paragraph{Animation enrichment}
 An interesting aspect of our method is that it can be used to enrich static objects or non-fluid objects with a fluid-like behavior. 
 In Figure~\ref{fig:result:teaser}, we enriched a static object with a splash extracted from an animation of liquid.
-More generally, our method allows to combines results obtained with very different methods such as procedural animation, Eulerian and Lagrangian simulations, shallow water simulation, or artist-created animations.
+More generally, our method allows the combination of results obtained with very different methods such as procedural animation, Eulerian and Lagrangian simulations, shallow water simulation, or artist-created animations.
 
 \begin{figure}[!h]
 	\centering

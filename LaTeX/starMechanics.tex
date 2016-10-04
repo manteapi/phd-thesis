@@ -1,10 +1,10 @@
 \section{Continuum mechanics}
 \label{sec:continuumMechanics}
-Continuum mechanics allow to define general equations of motion for a wide range of phenomena from liquids to deformable solids. 
+Continuum mechanics allow the definition of general equations of motion for a wide range of phenomena from liquids to deformable solids. 
 In this section, we propose a progressive introduction to the basics of continuum mechanics and provide details about the physical models used in the following chapters. 
 Firstly, we describe how to formulate general equations of motion and we present the different concepts and numerical tools used to solve them.
 Secondly, we present a constitutive law for fluid mechanics leading to Navier-Stokes equations and we detail their discretization using the Smoothed-Particle Hydrodynamics (SPH) model that will serve as background for our contribution in Chapter~\ref{chap:arps}.
-Finally, we present a constitutive law for solid mechanics which allows to simulate elastic solids and we detail the discretization of the equations of motion using the frame-based model that we use in Chapter~\ref{chap:cutting}.
+Finally, we present a constitutive law for solid mechanics which allows the simulation of elastic solids and we detail the discretization of the equations of motion using the frame-based model that we use in Chapter~\ref{chap:cutting}.
 If the reader looks for a wider presentation of the existing deformable models in computer graphics, we suggest the survey of Nealen et al.~\cite{Nealen2006}.
 %\subsection{Notation}
 %
@@ -209,14 +209,14 @@ As the deformable models used in Chapter~\ref{chap:arps} and Chapter~\ref{chap:c
 Once the equations of motion are stated, they are discretized in space and time in order to be numerically solved.
 
 \paragraph{Spatial discretization}
-The spatial discretization consists in approximating the object to simulate using a finite number of samples. 
+The spatial discretization consists of approximating the object to simulate using a finite number of samples. 
 These samples carry the \emph{degrees of freedom} used to numerically solve the equations of motion.
 Then, by using an \emph{interpolation method}, it is possible to continuously approximate quantities such as position, velocity, density and so on, at any location on the domain. 
 Finally, an integration rule, also called \emph{quadrature rule}, is needed in order to integrate these quantities over the domain. 
 These are the main components for solving the equations of motion:
 degrees of freedom, an interpolation method and a quadrature rule for the numerical integration over the simulation domain.
 
-There are multiple possibilities for these components. It is crucial to choose them based on the goals of the simulation: What do we want to measure ? How will boundaries be represented ? Will any topological changes occur ? Are there restrictions in terms of computational or memory cost ? In the following we briefly introduce the most commonly used solutions in computer graphics.
+There are multiple possibilities for these components. It is crucial to choose them based on the goals of the simulation: What do we want to measure? How will boundaries be represented? Will any topological changes occur? Are there restrictions in terms of computational or memory cost? In the following we briefly introduce the most commonly used solutions in computer graphics.
 
 \subparagraph{Degrees of freedom}
 In Eulerian simulation, velocities are the most common independent degrees of freedom while Lagrangian simulations generally use positions and velocities. 
@@ -229,8 +229,8 @@ Usually, we distinguish two types of sampling of the degrees of freedom: mesh-ba
 	\caption[STAR mechanics: Discretization]{\label{fig:discretization} On the left a grid discretization, commonly used in Eulerian simulations. In the middle an unstructured mesh discretization, commonly used in mesh-based Lagrangian simulations. On the right, a point-based discretization, commonly used in mesh-less Lagrangian simulations.}
 \end{figure}
 
-In mesh-based methods, the vertices of a mesh are used to sample the degrees of freedom. For instance, Eulerian simulations usually use a cartesian grid which allows to accurately compute derivatives. 
-In contrast, Lagrangian simulations are mostly based on unstructured triangular meshes which allows to handle complex boundaries.
+In mesh-based methods, the vertices of a mesh are used to sample the degrees of freedom. For instance, Eulerian simulations usually use a cartesian grid which allows the accurate computation of derivatives. 
+In contrast, Lagrangian simulations are mostly based on unstructured triangular meshes which allows the handling of complex boundaries.
 In mesh-less methods, the samples are uniformly distributed over the domain. Depending on the simulated phenomena, the structure may be quasi-nonexistent which brings a lot of flexibility. For fluids, the neighborhood of the samples will change every time whereas for elastic solids their neighborhood will remain the same as long as the object does not undergo topological changes such as fracture or cutting.
 Each of these samplings can benefit from adaptivity. We will detail the different possibilities of spatial adaptivity in Section~\ref{sec:spatial_refinement}.
 
@@ -318,7 +318,7 @@ By applying Equation~\eqref{eq:taylorExpansion} on $\mathbf{v}$ with $k=0$, we h
 \begin{equation}
 \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \int_{t_{n}}^{t_{n+1}} \frac{d\mathbf{v}}{dt}dt
 \end{equation}
-which allows to rewrite Equation~\eqref{eq:timeIntegration1} as
+which allows one to rewrite Equation~\eqref{eq:timeIntegration1} as
 \begin{equation}
 \label{eq:timeIntegration2}
 \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \int_{t_{n}}^{t_{n+1}} M^{-1}\mathbf{f}dt
@@ -514,7 +514,7 @@ First of all, let us discretize Navier-Stokes equation (Equation~\eqref{eq:navie
 \end{array}
 \right.
 \end{equation}
-We can omit the mass conservation as we did before, by assuming that the particles have a fixed mass through the simulation. Recently, Bender and Koschier~\cite{Bender2015} demonstrated that this simplification prevents from using larger time steps. But for the sake of simplicity, we will keep this approximation in the remainder of this manuscript. Now, we can discretize each term of the equations for a particle $i$ using the SPH technique from Equation~\eqref{eq:sphFunction}.
+We can omit the mass conservation as we did before, by assuming that the particles have a fixed mass through the simulation. Recently, Bender and Koschier~\cite{Bender2015}~demonstrated that this simplification prevents from using larger time steps. But for the sake of simplicity, we will keep this approximation in the remainder of this manuscript. Now, we can discretize each term of the equations for a particle $i$ using the SPH technique from Equation~\eqref{eq:sphFunction}.
 \subparagraph{Density}
 \begin{equation}
 \label{eq:densitySPH}
@@ -574,7 +574,7 @@ Same as for the pressure gradient, this would result in a non-symmetric inter-pa
 If we assume that the density is constant, which is the case in theory, we could obtain symmetric forces by using Equation~\eqref{eq:hackSPH} with $\Phi=\rho_{i}$. However, in practice, the density is not constant and the evaluation of the Laplacian of the kernel is sensitive to particles sampling, which makes this solution inadequate.
 Actually, it is quite hard to correctly handle viscosity using SPH and this is still an area of research, especially for liquids exhibiting complex viscous behaviors such as coiling or buckling.
 We refer the reader to the recent work of Peer et al.~\cite{Peer2015} and Takahashi et al.~\cite{Takahashi2015} about this topic.
-For fluid with a low viscosity, Monaghan~\cite{Monaghan2005} proposed a gradient-based formulation of the Laplacian which results in symmetric forces,
+For fluid with a low viscosity, Monaghan~\cite{Monaghan2005}~proposed a gradient-based formulation of the Laplacian which results in symmetric forces,
 \begin{equation}
 \label{eq:velocityLaplacianSPH}
 \left(\Delta \mathbf{v}\right)_{i} = 
@@ -710,7 +710,7 @@ There are many models to discretize the equations of motion for an elastic solid
 Here we choose to discretize these equations using the frame-based model, as we will use it in Chapter~\ref{chap:cutting} to handle interactive and detailed cutting of thin elastic objects.
 
 The frame-based model was introduced by Gilles et al.~\cite{Gilles2011} to simulate deformable objects. 
-In contrast to other deformable models, it allows to simulate complex object with very few degrees of freedom and to handle heterogeneous materials easily~\cite{Faure2011}. 
+In contrast to other deformable models, it allows the simulation of complex object with very few degrees of freedom and to handle heterogeneous materials easily~\cite{Faure2011}. 
 Additionally, this work formalized the concept of multi-layer physical framework. 
 In the following, we first describe what is a multi-layer framework and illustrate it in the case of the frame-based model. 
 Then we detail a standard choice for the different components of the frame-based model: degrees of freedom, interpolation and integration. 
@@ -730,7 +730,7 @@ Secondly, as each layer can be discretized at its own resolution, the granularit
 For instance, in the case of the frame-based model, the sampling of the degrees of freedom is sparse to accelerate the time integration while a denser sampling is used for the integration points in order to accurately compute the deformation.
 Finally, embedding techniques, used to display a fine visual model or to handles collision with a coarse representation, fits well in this framework by using the displacement field to map these models to the degrees of freedom.
 
-In their work, Gilles et al.~\cite{Gilles2011} proposed such an alternative by decomposing the computation of force using the derivation chain rule:
+In their work, Gilles et al.~\cite{Gilles2011}~proposed such an alternative by decomposing the computation of force using the derivation chain rule:
 \begin{equation}
 \label{eq:forceChainRule}
 \displaystyle \mathbf{f} = -\int_{V} \left(\frac{\partial \Psi}{\partial \mathbf{x}}\right)^{T} dv
@@ -789,7 +789,7 @@ w_{i}\left( A_{i}A_{0,i}^{-1} \right)
 
 Any quadrature rule can be used. Here, for the sake of simplicity, we suppose that we use the midpoint rule (see Equation~\eqref{eq:midpointRule}) briefly described in Figure~\ref{fig:spatialIntegration}.
 In contrast with the SPH model that we described in Section~\ref{subsubsec:starSPH}, the sampling of the frames is very sparse.
-On one hand this allows to integrate the equations of motion over time very efficiently. 
+On one hand this allows the integration of the equations of motion over time very efficiently. 
 On the other hand, there are not enough samples to accurately measure the deformation.
 To remedy this, an additional denser sampling is used for the integration points.
 Let assume that we sampled the object with $M$ integration points, then we can use the midpoint rule to compute the internal forces for one frame as
@@ -858,9 +858,9 @@ For the formulation of implicit Euler and a survey of collision detection techni
 In this section, we briefly presented the basics of continuum mechanics.
 First, we described how to design equations of motion and which numerical tools are involved in their solving. 
 Then, for fluids and solids mechanics, we mentioned their specificities and detailed a deformable model.
-We illustrated the fact that continuum mechanics allows to automatically compute realistic motion from a wide range of phenomena.
+We illustrated the fact that continuum mechanics allows the automatic computation of realistic motion from a wide range of phenomena.
 This strength mainly explains why hand-made animations of physical phenomena have been replaced by physics-based animation.
 However, controlling a physics-based model remains a tedious task. 
-It usually consists in tweaking parameters whose understanding require advanced knowledge of the underlying model. 
+It usually consists of tweaking parameters whose understanding require advanced knowledge of the underlying model. 
 In the end, the user apply a trial-and-error process to find the parameters which produce a result close enough to its expectations.
 In the following section, we present different methods for the control of physics-based animation.

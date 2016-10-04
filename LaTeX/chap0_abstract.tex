@@ -9,11 +9,11 @@ This growing complexity introduces new challenges in order to offer control on t
 In many cases, this control is reduced to a trial-and-error process in order to determine the parameters of the simulation which best meet the objectives of the user.
 
 In this thesis, we propose three techniques to tackle these challenges.
-First, we introduce a new adaptive model which allows to reduce the computational cost in Lagrangian simulations of particles.
+First, we introduce a new adaptive model which allows the reduction of the computational cost in Lagrangian simulations of particles.
 In contrast with re-sampling strategies, the number of degrees of freedom remains constant throughout the simulation.
 Therefore, the method is simpler to integrate into an existing simulator and the memory consumption remains constant, which can be an advantage in an interactive context.
 Then, we propose an algorithm which allows the detailed cutting of thin deformable objects.
-Our method relies on a dynamic update of the shape functions associated to the degrees of freedom, which therefore allows to keep a very low number of degrees of freedom while performing detailed topological changes.
+Our method relies on a dynamic update of the shape functions associated to the degrees of freedom, which therefore allows the use of a very low number of degrees of freedom while performing detailed topological changes.
 Finally, we focus on the control of animations of liquid and take inspiration from interactive methods of shape editing in the field of 3D modeling.
 We introduce a system where the user directly edits the result of the simulation, i.e. a sequence of meshes representing the surface of the liquid.
 We propose selection and editing spatio-temporal tools inspired from static shapes sculpting software.
