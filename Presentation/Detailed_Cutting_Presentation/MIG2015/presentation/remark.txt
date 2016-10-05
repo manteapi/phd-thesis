@@ -1,6 +1,0 @@
-L'introduction est trop longue.
-La transition avec l'état de l'art se fait mal.
-Intro : 5:00
-Plan : 6:20
-Slide 19: Montrer sur les slides / Montrer les couleurs
-Slide 20: Expliquer les itérations de Lloyd

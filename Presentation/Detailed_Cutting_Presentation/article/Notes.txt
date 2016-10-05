@@ -1,2 +1,0 @@
-Why would you focus on improving computational efficiency if you have never strongly experience the need for faster simulations ?
-It seems more natural that this quest is a side effect of a more meaningful project, for instance exploring new physical behaviors.
