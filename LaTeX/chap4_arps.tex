@@ -36,13 +36,13 @@ They rely on Hamiltonian mechanics, where the state of a particle system is desc
 \frac{d\vp}{dt} &=& -\frac{\partial \H}{\partial \vx} \\
 \frac{d\vx}{dt} &=& +\frac{\partial \H}{\partial \vp}
 \end{eqnarray*}
-Here, the Hamiltonian $\H$ is the total mechanical energy given by:
+Here, the Hamiltonian $\H$ is the total mechanical energy given by
 \begin{equation}
     \label{eq:hamiltonian}
     \H(\vx,\vp) = \frac{1}{2} \vp^{T}M^{-1}\vp + V(\vx)
 \end{equation}
 where the first term corresponds to the kinetic energy, while the second represents the potential energy.
-In~\cite{Artemova2012}, an \textit{adaptively restrained} (AR) Hamiltonian is introduced:
+In~\cite{Artemova2012}, an \textit{adaptively restrained} (AR) Hamiltonian is introduced.
 \begin{equation}
     \label{eq:arhamiltonian}
     \H_{AR}(\vx, \vp) = \frac{1}{2} \vp^{T}\Phi(\vx,\vp)\vp + V(\vx)
@@ -57,7 +57,7 @@ When $\rho_{i} = 1$, $\Phi_{i} = 0$ and the particle is \textit{inactive} (not m
 The restraining function $\rho_{i}$ of each particle is used to decide \emph{when} to switch positional degrees of freedom on or off.
 In~\cite{Artemova2012}, $\rho_{i}$ depends on the particle kinetic energy.
 The function uses two thresholds, a restrained-dynamics threshold $\epsilon^{r}$ and a full-dynamics threshold $\epsilon^{f}$.
-It is defined as :
+It is defined as
 \begin{equation}
     \label{eq:restrainingfunction}
     \rho_{i}(\vp_{i}) =
@@ -73,7 +73,7 @@ where $K_i=\vp_{i}^2/2m_{i}$ is the kinetic energy, and
 $s$ is a twice-differentiable function. In practice a $5^{th}$-order spline is used.
 %-------------------------------------------------------------------------
 \paragraph*{Adaptive equations of motion:}
-The adaptive equations of motions are derived from the AR Hamiltonian (Equation~\eqref{eq:arhamiltonian}):
+The adaptive equations of motions are derived from the AR Hamiltonian (Equation~\eqref{eq:arhamiltonian}).
 \begin{equation}
    \label{eq:armotionequation}
     \displaystyle
@@ -93,7 +93,7 @@ In general, particles switch between active and inactive states during the simul
 \paragraph*{}
 Notice that $\displaystyle -\frac{\partial V(\mathbf{x})}{\partial \mathbf{x}}$ is equal to $\mathbf{f}(\mathbf{x})$, the forces applied on the particle system. In the initial formulation presented in Equation~\ref{eq:arhamiltonian}, these forces are conservative and only depend on positions. In Section~\ref{sec:arps_sph} and Section~\ref{sec:arps_implicit}, we detail how to use ARPS in dissipative systems where damping forces based on velocity are used.
 \paragraph*{}
-Finally, we introduce a notion that we will use in the following sections: the \textit{effective velocity}. It is the rate of position change of a particle $i$ and can be expressed by the following equation:
+Finally, we introduce a notion that we will use in the following sections: the \textit{effective velocity}. It is the rate of position change of a particle $i$ and can be expressed by the following equation.
 \begin{equation}
     \label{eq:adaptiveVelocity}
     \mathbf{v}_{i}^{eff} = \frac{1}{m_{i}} \left( (1-\rho_{i}(\vp_{i}))\vp_{i} - \frac{1}{2} \parallel \vp_{i} \parallel^2 \frac{\partial \rho_{i}(\vp_{i})}{\partial \vp_{i}}\right)
@@ -323,7 +323,7 @@ An introduction to implicit integration is proposed in~\cite{Witkin2001}.
 While originally formulated on velocity, it can be straightforwardly expressed on momentum.
 Instead of integrating the momentum using the forces at the current time step, implicit integration uses the forces at the end of the current step.
 As we do not know these forces we end up with a non linear function.
-We can linearize this function and solve the resulting linear system to obtain the next momentum:
+We can linearize this function and solve the resulting linear system to obtain the next momentum
 \begin{equation}
     \label{eq:implicit}
     ( I -\Delta t^{2}KM^{-1} ) \Delta \vp = \Delta t( \vf + \Delta t KM^{-1}\vp ) \;,
@@ -335,7 +335,7 @@ For our experiments, we used simple spring forces between particles.
 \subsection{ ARPS Implicit Integration }
 We derive an implicit integration scheme from Adaptively Restrained equations of motion.
 The linear system has to take into account the state of the particles.
-The discrete equations of motions for implicit Euler are:
+The discrete equations of motions for implicit Euler are
 \begin{equation}
 	\label{eq:implicitEqMotion}
 	\begin{array}{l}
@@ -344,14 +344,15 @@ The discrete equations of motions for implicit Euler are:
 	\displaystyle \Delta \vx = \Delta t \left( M^{-1}(1-\rho(\vp_{n+1}))\vp_{n+1} \right. \\
 	\displaystyle \left. - \frac{1}{2}\vp_{n+1}^{T} M^{-1} \frac{\partial \rho(\vp_{n+1})}{\partial \vp}\vp_{n+1} \right)
 	\end{array}
+    .
 \end{equation}
 We perform a Taylor-Young expansion of $\vf(\vx_{n+1}, \vp_{n+1})$ and introduce $\Delta \vx$ in the expended momenta equation.
-We then perform a Taylor-Young expansion of $\rho(\vp_{n+1})$ in the momentum equation, which gives us the following equation system:
+We then perform a Taylor-Young expansion of $\rho(\vp_{n+1})$ in the momentum equation, which gives us the following equation system.
 \begin{equation}
 	\label{eq:arpsLinearSystem}
 	( I -\Delta t^{2}KRM^{-1} ) \Delta \vp = \Delta t( \vf + \Delta t KM^{-1}s )
 \end{equation}
-$R$ is a block-diagonal matrix where each $3\times 3$ block $R_{ii}$ is:
+$R$ is a block-diagonal matrix where each $3\times 3$ block $R_{ii}$ is
 \begin{equation}
 	\label{eq:Ri}
 	\begin{array}{l}
@@ -360,12 +361,12 @@ $R$ is a block-diagonal matrix where each $3\times 3$ block $R_{ii}$ is:
 	\displaystyle \frac{\partial \rho(\vp^{i}_{n})}{\partial \vp_{i}} \vp^{i^{T}}_{n} \;,
 	\end{array}
 \end{equation}
-while $s$ is a $3N$ vector where $N$ is the number of particles, and each $s_{i}$ is :
+while $s$ is a $3N$ vector where $N$ is the number of particles, and each $s_{i}$ is
 \begin{equation}
 	\label{eq:si}
-	\displaystyle s_{i} = \vp^{i}_{n} - \rho(\vp^{i}_{n})\vp^{i}_{n} - \frac{1}{2	}\vp^{i^{T}}_{n}\vp^{i}_{n}\frac{\partial \rho(\vp^{i}_{n})}{\partial \vp_{i}}
+	\displaystyle s_{i} = \vp^{i}_{n} - \rho(\vp^{i}_{n})\vp^{i}_{n} - \frac{1}{2	}\vp^{i^{T}}_{n}\vp^{i}_{n}\frac{\partial \rho(\vp^{i}_{n})}{\partial \vp_{i}}.
 \end{equation}
-Note that if all particles are inactive then we have $R = 0$ and $s = 0$ and we get an explicit formulation:
+Note that if all particles are inactive then we have $R = 0$ and $s = 0$ and we get an explicit formulation.
 \begin{equation}
     \label{eq:ARPSImplicitRestrained}
     I \Delta \vp = \Delta t \vf
@@ -398,7 +399,7 @@ As expected, the well-known numerical damping effect of implicit Euler provides 
 	\caption[ARPS: Phase portrait of an implicit ARPS harmonic oscillator]{\label{fig:implicitHOPP} Phase portrait of an implicit ARPS harmonic oscillator.}
 \end{figure}
 
-To include a more controllable damping term in the physical model, we derived an implicit formulation which includes a damping term $\vf_{d} = -\gamma \mathbf{v}^{eff}$:
+To include a more controllable damping term in the physical model, we derived an implicit formulation which includes a damping term $\vf_{d} = -\gamma \mathbf{v}^{eff}$.
 \begin{equation}
 	\label{eq:arpsLinearSystemDamped}
 	( I + \Delta t \gamma M^{-1}R -\Delta t^{2}KRM^{-1} ) \Delta \vp = \Delta t( \vf + \Delta t KM^{-1}s + \vf_{d})

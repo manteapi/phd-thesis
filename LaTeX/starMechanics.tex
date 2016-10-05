@@ -6,26 +6,6 @@ Firstly, we describe how to formulate general equations of motion and we present
 Secondly, we present a constitutive law for fluid mechanics leading to Navier-Stokes equations and we detail their discretization using the Smoothed-Particle Hydrodynamics (SPH) model that will serve as background for our contribution in Chapter~\ref{chap:arps}.
 Finally, we present a constitutive law for solid mechanics which allows the simulation of elastic solids and we detail the discretization of the equations of motion using the frame-based model that we use in Chapter~\ref{chap:cutting}.
 If the reader looks for a wider presentation of the existing deformable models in computer graphics, we suggest the survey of Nealen et al.~\cite{Nealen2006}.
-%\subsection{Notation}
-%
-%We will use the following notations throughout this manuscript.
-%\begin{table}[!h]
-%\begin{tabular}{ll}
-%$t$ & time \\
-%$m$ &  mass \\
-%$\rho$ & mass density \\
-%$\mathbf{n}$ & normal \\
-%$\mathbf{x}$ & position \\
-%$\mathbf{v}$ & velocity \\
-%$\mathbf{f}$ & total forces \\
-%$\mathbf{f}_{int}$ & internal forces \\
-%$\mathbf{f}_{ext}$ & external forces \\
-%$F$ & Deformation gradient \\
-%$\epsilon$ & Strain tensor \\
-%$\sigma$ & Stress tensor \\
-%$\Psi$ & Energy density \\
-%\end{tabular}
-%\end{table}
 \subsection{Equations of motion}
 \label{subsec:starMechanics_motionEquation}
 The equations of motion describe the behavior of an object over time.
@@ -43,7 +23,7 @@ At a time $t_{1}$, the mass of the water should be equal to its mass at time $t_
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\linewidth]{images/continuum_mechanics/massConservation.png}
-	\caption[STAR mechanics: Mass conservation]{\label{fig:massConservation} Mass conservation. $M(t_{1}) = M(t_{0}) + M_{in} - M_{out}$}
+	\caption[STAR mechanics: Mass conservation]{\label{fig:massConservation} Mass conservation. $M(t_{1}) = M(t_{0}) + M_{in} - M_{out}$.}
 \end{figure}
 
 Mathematically, we can write the conservation of mass as
@@ -54,7 +34,7 @@ Mathematically, we can write the conservation of mass as
     =
     - \int_{\mathcal{\partial V}}\rho(t,\mathbf{x})\mathbf{v}(t,\mathbf{x}) \cdot \mathbf{n}(\mathbf{x}) ds
 \end{equation}
-where
+where:
 \begin{itemize}
 	\item $\rho(t,\mathbf{x})$ is the density at a point $\mathbf{x}$ and at a time $t$.
 	\item $\mathbf{v}(t,\mathbf{x})$ is the velocity at a point $\mathbf{x}$ and at a time $t$.
@@ -75,7 +55,7 @@ and we can rewrite Equation~\eqref{eq:massConservation} as a single integral ove
 \label{eq:volumetricMassConservation}
 \displaystyle 
 \int_{\mathcal{V}} 
-\left( \frac{\partial \rho}{\partial t} + \nabla \cdot \left( \rho  \mathbf{v} \right) \right) dv = \mathbf{0}
+\left( \frac{\partial \rho}{\partial t} + \nabla \cdot \left( \rho  \mathbf{v} \right) \right) dv = \mathbf{0}.
 \end{equation}
 
 \subsubsection{Conservation of momentum}
@@ -97,7 +77,7 @@ Mathematically, this law can be written as
 = 
 \int_{\mathcal{V}} \mathbf{f}(t,\mathbf{x}) dv
 \end{equation}
-where
+where:
 \begin{itemize}
 	\item $\mathbf{a}(t,\mathbf{x})$ is the acceleration at a point $\mathbf{x}$ and at a time $t$.
 		\item $\mathbf{f}(t,\mathbf{x})$ is the force applied on a point $\mathbf{x}$ and at a time $t$.
@@ -109,28 +89,28 @@ By performing a Taylor-Young expansion on the acceleration, we can re-write the 
 \int_{\mathcal{V}} 
 \rho(t,\mathbf{x}) \left( \frac{\partial\mathbf{v}}{\partial t} + \mathbf{v} \cdot \nabla \mathbf{v} \right)(t,\mathbf{x}) dv 
 = 
-\int_{\mathcal{V}} \mathbf{f}(t,\mathbf{x}) dv
+\int_{\mathcal{V}} \mathbf{f}(t,\mathbf{x}) dv.
 \end{equation}
 Two kind of forces are generally applied on an object, the \emph{external} forces and the \emph{internal} forces.
-External forces describe the action of the surrounding environment on the object. 
-The simplest example is the weight, i.e. the force applied by the constant gravity $\mathbf{g}$ on the object:
+External forces describe the action of the surrounding environment on the object.
+The simplest example is the weight, i.e. the force applied by the constant gravity $\mathbf{g}$ on the object.
 \begin{equation}
 \label{eq:externalForces}
 \displaystyle \int_{\mathcal{V}} \mathbf{f}_{ext}(t,\mathbf{x})dv = \int_{\mathcal{V}} \rho(t,\mathbf{x}) \mathbf{g} dv
 \end{equation}
 Internal forces describe the reaction of the object to an external deformation.
-Generally, they are defined by using a stress tensor $\sigma(t,\mathbf{x})$ as 
+Generally, they are defined by using a stress tensor $\sigma(t,\mathbf{x})$ as
 \begin{equation}
 \displaystyle 
 \int_{\mathcal{V}} \mathbf{f}_{int}(t,\mathbf{x}) dv 
-= \int_{\partial \mathcal{V}} \sigma(t,\mathbf{x}) \mathbf{n}(\mathbf{x}) ds
+= \int_{\partial \mathcal{V}} \sigma(t,\mathbf{x}) \mathbf{n}(\mathbf{x}) ds.
 \end{equation}
 Basically, the stress relates the deformation of the object to its material properties by using a constitutive law.
 A constitutive law is specific to the phenomena which is simulated.
 In Section~\ref{subsec:fluidMechanics} and Section~\ref{subsec:solidMechanics}, we will respectively describe the most common constitutive laws for incompressible fluids and solids.
 For a detailed and intuitive definition of the stress tensor we refer the reader to the \emph{SIGGRAPH} course about real-time physics~\cite{Muller2008} by M\"{u}ller et al.
 
-Same as for the conservation of mass, we can use Stokes' theorem to get a single integral over $\mathcal{V}$,
+Same as for the conservation of mass, we can use Stokes' theorem to get a single integral over $\mathcal{V}$.
 \begin{equation}
 \label{eq:internalForces}
 \displaystyle 
@@ -138,14 +118,14 @@ Same as for the conservation of mass, we can use Stokes' theorem to get a single
 =
 \int_{\mathcal{V}} \nabla \cdot \sigma\left(t,\mathbf{x}\right) dv
 \end{equation}
-and we can rewrite Equation~\eqref{eq:momentumConservation} as
+Then, we can rewrite Equation~\eqref{eq:momentumConservation} as 
 \begin{equation}
 \label{eq:volumetricMomentumConservation}
 \displaystyle
 \int_{\mathcal{V}} 
 \left( 
 \rho \left( \frac{\partial\mathbf{v}}{\partial t} + \mathbf{v} \cdot \nabla \mathbf{v} \right)
-- \nabla \cdot \sigma - \rho \mathbf{g}  \right) dv = \mathbf{0}
+- \nabla \cdot \sigma - \rho \mathbf{g}  \right) dv = \mathbf{0}.
 \end{equation}
 
 \subsubsection{Eulerian vs. Lagrangian formulations}
@@ -159,7 +139,7 @@ A first possibility would be to measure it at a fixed location, similarly to a b
 	\includegraphics[width=\linewidth]{images/continuum_mechanics/eulerianVsLagrangian.png}
 	\caption[STAR mechanics: Eulerian vs. Lagrangian]{\label{fig:EulerianVsLagrangian} Eulerian vs. Lagrangian viewpoint. On the left, buoys are put at fixed positions on a river and measure properties such as velocity, temperature, etc. The Eulerian approach takes a similar approach. On the right, we represent the river with particles of water which follows the flow of the river and carry properties with them. This is similar to the Lagrangian viewpoint.}
 \end{figure}
-Equation~\eqref{eq:volumetricMassConservation} and Equation~\eqref{eq:volumetricMomentumConservation} are described for fixed locations. Put together, they define the equations of motion from an Eulerian viewpoint.
+Equation~\eqref{eq:volumetricMassConservation} and Equation~\eqref{eq:volumetricMomentumConservation} are described for fixed locations. Put together, they define the equations of motion from an Eulerian viewpoint:
 \begin{equation}
 \label{eq:eulerianMotionEquation}
 \left\lbrace
@@ -175,6 +155,7 @@ Equation~\eqref{eq:volumetricMassConservation} and Equation~\eqref{eq:volumetric
 \left( \frac{\partial \rho}{\partial t} + \nabla \cdot \left( \rho  \mathbf{v} \right) \right) dv = 0
 \end{array}
 \right.
+.
 \end{equation}
 In order to adopt the Lagrangian viewpoint, let us suppose that the fluid properties are carried by particles and that $q(t,\mathbf{x})$ denote one of this property at a time $t$ for a particle which is at a position $\mathbf{x}$. 
 If we want to compute the derivative of $q$ for the particle at position $\mathbf{x}$, we have to use the total derivative:
@@ -182,11 +163,11 @@ If we want to compute the derivative of $q$ for the particle at position $\mathb
 \label{eq:totalDerivative}
 \frac{dq(t,\mathbf{x})}{dt} = 
 \frac{\partial q}{\partial t}\cdot\frac{dt}{dt} + \frac{\partial q}{\partial \mathbf{x}} \cdot \frac{d\mathbf{x}}{dt} 
-= \frac{\partial q}{\partial t}(t,\mathbf{x}) + \left(\nabla q(t,\mathbf{x}) \cdot \mathbf{v}\right)(t,\mathbf{x})
+= \frac{\partial q}{\partial t}(t,\mathbf{x}) + \left(\nabla q(t,\mathbf{x}) \cdot \mathbf{v}\right)(t,\mathbf{x}).
 \end{equation}
 In Equation~\eqref{eq:volumetricMomentumConservation} which describes the momentum conservation, we can directly use Equation~\eqref{eq:totalDerivative} to adopt a Lagrangian viewpoint. 
 For the mass conservation described in Equation~\eqref{eq:volumetricMassConservation}, we first need to develop the divergence of the product between density and velocity and then Equation~\eqref{eq:totalDerivative} can be used.
-Finally, we can write the equations of motion from a Lagrangian viewpoint as
+Finally, we can write the equations of motion from a Lagrangian viewpoint:
 \begin{equation}
 \label{eq:lagrangianMotionEquation}
 \left\lbrace
@@ -202,6 +183,7 @@ Finally, we can write the equations of motion from a Lagrangian viewpoint as
 \left( \frac{d\rho}{dt} + \rho \nabla \cdot \mathbf{v} \right) dv = 0
 \end{array}
 \right.
+.
 \end{equation}
 As the deformable models used in Chapter~\ref{chap:arps} and Chapter~\ref{chap:cutting} are used to solve Lagrangian equations of motion, we will keep Equation~\eqref{eq:lagrangianMotionEquation} in the following sections.
 \subsubsection{Numerical solution}
@@ -278,10 +260,10 @@ Many exist, most of the time the simple midpoint rule is chosen (see Figure~\ref
 The domain is decomposed in a set of partitions, where each partition has an associated volume $V_{i}$. 
 \emph{Mid}-Points $\mathbf{x}_{i}'$ are sampled at the center of each partition.
 They are called \emph{integration points}. 
-Then the integral of a function $f$ of class $C^{k+1}$ over a domain $\Omega$ is approximated by:
+Then the integral of a function $f$ of class $C^{k+1}$ over a domain $\Omega$ is approximated by
 \begin{equation}
 \label{eq:midpointRule}
-\int_{\Omega} f(\mathbf{x})dv \simeq \sum_{i} V_{i}f(\mathbf{x}_{i}')
+\int_{\Omega} f(\mathbf{x})dv \simeq \sum_{i} V_{i}f(\mathbf{x}_{i}').
 \end{equation}
 In mesh-based methods, it is common to consider one integration point at the center of each element and integrate over the volume of the element.
 In mesh-less methods, when the sampling is dense, integration points are often co-located with the material samples and integrated over their associated volume. 
@@ -302,17 +284,17 @@ M \frac{d\mathbf{v}}{dt} dt
 =
 \int_{t_{n}}^{t_{n+1}}\mathbf{f} dt
 \end{equation}
-where
+where:
 \begin{itemize}
 	\item $\mathbf{v} \in \mathbb{R}^{3N}$ concatenates the velocity of each sample.
 	\item $\mathbf{f} \in \mathbb{R}^{3N}$ concatenates the forces applied on each sample.
 	\item $M \in \mathbb{R}^{3N \times 3N}$ concatenates the mass of each sample.
 \end{itemize}
-Many integration schemes can be used. Most of them can be explained using the Taylor expansion of a function $f$,
+Many integration schemes can be used. Most of them can be explained using the Taylor expansion of a function $f$:
 \begin{equation}
 \label{eq:taylorExpansion}
 \displaystyle
-f(x) = \sum_{\alpha=0}^{k}\frac{\left(x-a\right)^{\alpha}}{\alpha!}f^{(\alpha)}(a) + \int_{a}^{x}\frac{\left(x-t\right)^{k}}{k!}f^{(k+1)}(t)dt
+f(x) = \sum_{\alpha=0}^{k}\frac{\left(x-a\right)^{\alpha}}{\alpha!}f^{(\alpha)}(a) + \int_{a}^{x}\frac{\left(x-t\right)^{k}}{k!}f^{(k+1)}(t)dt.
 \end{equation}
 By applying Equation~\eqref{eq:taylorExpansion} on $\mathbf{v}$ with $k=0$, we have
 \begin{equation}
@@ -321,7 +303,7 @@ By applying Equation~\eqref{eq:taylorExpansion} on $\mathbf{v}$ with $k=0$, we h
 which allows one to rewrite Equation~\eqref{eq:timeIntegration1} as
 \begin{equation}
 \label{eq:timeIntegration2}
-\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \int_{t_{n}}^{t_{n+1}} M^{-1}\mathbf{f}dt
+\mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \int_{t_{n}}^{t_{n+1}} M^{-1}\mathbf{f}dt.
 \end{equation}
 This expression can be further expanded in order to get more accurate results. In computer graphics, this is the most used expansion. Finally, the integral term in Equation~\eqref{eq:timeIntegration2} is generally computed with the rectangle quadrature rule which we illustrate in Figure~\ref{fig:rectangleRules}.
 \begin{figure}[!ht]
@@ -341,15 +323,17 @@ This expression can be further expanded in order to get more accurate results. I
 		Illustrations of the rectangle integration rules. A function $f$ can be integrated over a regularly sampled domain using either the left rectangle rule~(a) or the right rectangle rule~(b).}
 \end{figure}
 
-For a left rectangle method, we get an explicit integration of the velocity
+For a left rectangle method, we get an explicit integration of the velocity:
 \begin{equation}
 \label{eq:explicitIntegration}
 \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \Delta t M^{-1}\mathbf{f}(t_{n})
+.
 \end{equation}
-For a right rectangle method, we get an implicit integration of the velocity
+For a right rectangle method, we get an implicit integration of the velocity:
 \begin{equation}
 \label{eq:implicitIntegration}
 \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \Delta t M^{-1}\mathbf{f}(t_{n+1})
+.
 \end{equation}
 We can apply the same rule for the integration of the positions.
 Depending on which quantity is integrated first and which integration rule is used, we can distinguish three main schemes used in computer graphics: forward Euler, symplectic Euler and backward Euler.
@@ -358,10 +342,10 @@ Depending on which quantity is integrated first and which integration rule is us
 	\includegraphics[width=0.7\linewidth]{images/continuum_mechanics/timeIntegration.png}
 	\caption[STAR mechanics: Temporal integration]{\label{fig:timeIntegration} 
 		Illustration of a 1D forward Euler time integration. 
-		$x(t)$ describes the solution and $x'(t)$ describes the numerical approximation.}
+		The solution is described by $x(t)$ and the numerical approximation by $x'(t)$.}
 \end{figure}
 Forward Euler is the explicit integration of both position and velocity.
-Figure~\ref{fig:timeIntegration} illustrates the integration of position in 1D,
+Figure~\ref{fig:timeIntegration} illustrates the integration of position in 1D.
 \begin{equation}
 \label{eq:explicitEuler}
 \begin{array}{l}
@@ -369,21 +353,23 @@ Figure~\ref{fig:timeIntegration} illustrates the integration of position in 1D,
 \displaystyle \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \Delta t M^{-1}\mathbf{f}(t_{n})
 \end{array}
 \end{equation}
-Symplectic Euler is the explicit integration of velocity and implicit integration of position,
+Symplectic Euler is the explicit integration of velocity and implicit integration of position:
 \begin{equation}
 \label{eq:symplecticEuler}
 \begin{array}{l}
 \displaystyle \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \Delta t M^{-1} \mathbf{f}(t_{n}) \\ \\
 \displaystyle \mathbf{x}(t_{n+1}) = \mathbf{x}(t_{n}) + \Delta t \mathbf{v}(t_{n+1})
 \end{array}
+.
 \end{equation}
-Backward Euler is the implicit integration of both position and velocity,
+Backward Euler is the implicit integration of both position and velocity:
 \begin{equation}
 \label{eq:backwardEuler}
 \begin{array}{ll}
 \displaystyle \mathbf{v}(t_{n+1}) = \mathbf{v}(t_{n}) + \Delta t M^{-1} \mathbf{f}(t_{n+1}) \\ \\
 \displaystyle \mathbf{x}(t_{n+1}) = \mathbf{x}(t_{n}) + \Delta t \mathbf{v}(t_{n+1})
 \end{array}
+.
 \end{equation}
 On one hand, forward and symplectic Euler are easy to implement and cheap to compute but stability is guaranteed for a restricted range of time steps. 
 On the other hand, backward Euler is more expensive as it requires the solution of an equation but this is greatly compensated by the larger time steps which can be used while ensuring stability.
@@ -396,28 +382,28 @@ In Section~\ref{sec:arps_implicit}, we describe the linear system resulting from
 In this section, we describe a constitutive law for incompressible fluids such as water and we detail how to solve the equations of motion by using the Smoothed-Particle Hydrodynamics~(SPH) model that we will use in Section~\ref{sec:arps_sph}.
 \subsubsection{Constitutive Law}
 Fluids, for instance smoke, mainly react to pressure and viscosity.
-The stress tensor that we introduced in Section~\ref{subsubsec:starMechanics_momentumConservation} is used to relate the deformation of the fluid to this two properties in the following constitutive law
+The stress tensor that we introduced in Section~\ref{subsubsec:starMechanics_momentumConservation} is used to relate the deformation of the fluid to this two properties in the following constitutive law:
 \begin{equation}
 \label{eq:fluidConstitutiveLaw}
 \sigma = -pI_{3 \times 3} + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right)
 \end{equation}
-where
+where:
 \begin{itemize}
     \item $I_{3 \times 3}$ is the identity.
 	\item $p$ is the pressure applied on the fluid.
 	\item $\eta$ is the viscosity of the fluid.
 \end{itemize}
-By injecting this equation into Equation~\eqref{eq:internalForces}, we get the internal forces of the fluid:
+By injecting this equation into Equation~\eqref{eq:internalForces}, we get the internal forces of the fluid.
 \begin{equation}
 \label{eq:internalForces_liquids}
 \mathbf{f}_{int} = \nabla \cdot \sigma = \nabla \cdot \left( -pI + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right) \right) = -\nabla p + \eta \Delta \mathbf{v}
 \end{equation}
-If we want to describe an incompressible fluid such as water, we need to specify that the mass should not vary over time which means
+If we want to describe an incompressible fluid such as water, we need to specify that the mass should not vary over time:
 \begin{equation}
 \label{eq:incompressibility}
-\frac{d\rho}{dt} = 0
+\frac{d\rho}{dt} = 0.
 \end{equation}
-By using Equation~\eqref{eq:internalForces_liquids}~and~\eqref{eq:incompressibility} in the equations of motion described in Equation~\eqref{eq:lagrangianMotionEquation}, we now describe an incompressible fluid. These new equations of motion are called the Navier-Stokes equations for an incompressible fluid
+By using Equation~\eqref{eq:internalForces_liquids}~and~\eqref{eq:incompressibility} in the equations of motion described in Equation~\eqref{eq:lagrangianMotionEquation}, we now describe an incompressible fluid. These new equations of motion are called the Navier-Stokes equations for an incompressible fluid:
 \begin{equation}
 \label{eq:navierStokes}
 \left\lbrace
@@ -426,6 +412,7 @@ By using Equation~\eqref{eq:internalForces_liquids}~and~\eqref{eq:incompressibil
 \displaystyle \int_{\mathcal{V}} \nabla \cdot \mathbf{v} dv = 0
 \end{array}
 \right.
+.
 \end{equation}
 \subsubsection{Smoothed-Particle Hydrodynamics model}
 \label{subsubsec:starSPH}
@@ -434,7 +421,7 @@ SPH was initially proposed by Monaghan~\cite{Monaghan1992} and introduced in gra
 The fluid is discretized into particles which represent small volumes of the whole fluid and each quantity carried by the particle is interpolated using SPH.
 In Chapter~\ref{chap:arps}, we will describe how to easily combine SPH with an adaptive model in order to save computational time.
 \paragraph{SPH interpolation}
-The interpolation of a function $f$ and its derivatives of order $\alpha$ at a position $\mathbf{x}$ using SPH are defined as
+The interpolation of a function $f$ and its derivatives of order $\alpha$ at a position $\mathbf{x}$ using SPH are defined by these equations:
 \begin{equation}
 \label{eq:sphInterpolation}
 \left\lbrace
@@ -443,8 +430,9 @@ The interpolation of a function $f$ and its derivatives of order $\alpha$ at a p
 \displaystyle D^{\alpha} f(\mathbf{x}) = \int_{\mathcal{V}} f(\mathbf{x'}) D^{\alpha} W(\mathbf{x}-\mathbf{x'}, h)d\mathbf{x'}
 \end{array}
 \right.
+.
 \end{equation}
-where 
+where:
 \begin{itemize}
 	\item $W$ is a function called \emph{kernel}.
 	\item $h$ is the smoothing radius, also called length scale, which represents the support of $W$.
@@ -460,7 +448,7 @@ These particles play two roles: First they carry the degrees of freedom and the 
 \end{array}
 \right.
 \end{equation}
-where 
+where:
 \begin{itemize}
 	\item $V_{i} = m_{i}/\rho_{i}$ is the volume of particle $i$.
 	\item $m_{i}$ is the mass of particle $i$.
@@ -474,7 +462,7 @@ The choice of the kernel varies depending on the function to interpolate. In pra
 	\caption[STAR mechanics: Cubic kernel]{\label{fig:cubicKernel}
     Illustration of the 1D cubic kernel (in blue) used by Monaghan et al.~\cite{Monaghan1992} and its derivative (in red) for $h=1$. Note that the support of $W$ is $2h$.}
 \end{figure}
-This kernel meets properties which are generally required from $W$
+This kernel meets properties which are generally required from $W$:
 \begin{itemize}
 \item $W$ is normalized. Thus, constants are interpolated exactly.
 \begin{equation}
@@ -488,7 +476,7 @@ This kernel meets properties which are generally required from $W$
 \begin{equation}
 \lim_{h \rightarrow 0} W(x,h) = \delta(x)
 \end{equation}
-\item $W$ should be symmetric to enforce invariance under rotation
+\item $W$ should be symmetric to enforce invariance under rotation.
 \begin{equation}
 W(-x,h) = W(x,h)
 \end{equation}
@@ -497,10 +485,10 @@ W(-x,h) = W(x,h)
 W \geq 0
 \end{equation}
 \end{itemize}
-Here we can notice a first limitation of SPH: For a constant function $f$, the approximation of its derivatives using Equation~\eqref{eq:sphFunction} will not necessarily vanish depending on $W$. In practice, we only need the first derivative. A common practice to fix that is to consider the derivative of the product of $f$ with an arbitrary differentiable function that we note $\Phi$
+Here we can notice a first limitation of SPH: For a constant function $f$, the approximation of its derivatives using Equation~\eqref{eq:sphFunction} will not necessarily vanish depending on $W$. In practice, we only need the first derivative. A common practice to fix that is to consider the derivative of the product of $f$ with an arbitrary differentiable function that we note $\Phi$:
 \begin{equation}
 \label{eq:hackSPH}
-\nabla f = \frac{1}{\Phi}\left(\nabla (f \Phi) - f \nabla \Phi \right)
+\nabla f = \frac{1}{\Phi}\left(\nabla (f \Phi) - f \nabla \Phi \right).
 \end{equation}
 In this case, we can approximate $\nabla(f\Phi)$ and $\nabla \Phi$ using Equation~\eqref{eq:sphFunction}. If $f$ is constant, we will get $\nabla f = 0$. In practice the density $\rho$ is often used for $\Phi$. In the following paragraph, we will see another usage of this technique.
 \paragraph{Application to Navier-Stokes equations}
@@ -513,6 +501,7 @@ First of all, let us discretize Navier-Stokes equation (Equation~\eqref{eq:navie
 \displaystyle \sum_{i=1}^{N} \nabla \cdot \mathbf{v}_{i} V_{i} = 0
 \end{array}
 \right.
+.
 \end{equation}
 We can omit the mass conservation as we did before, by assuming that the particles have a fixed mass through the simulation. Recently, Bender and Koschier~\cite{Bender2015}~demonstrated that this simplification prevents from using larger time steps. But for the sake of simplicity, we will keep this approximation in the remainder of this manuscript. Now, we can discretize each term of the equations for a particle $i$ using the SPH technique from Equation~\eqref{eq:sphFunction}.
 \subparagraph{Density}
@@ -525,7 +514,7 @@ We can omit the mass conservation as we did before, by assuming that the particl
 \label{eq:pressureSPH}
 p_{i} = k\left(\rho_{i}-\rho_{0}\right)
 \end{equation}
-where 
+where:
 \begin{itemize}
 \item $\rho_{0}$ is the rest density of the fluid ($1000\kilo\gram\per\meter\cubed$).
 \item $k$ is a stiffness parameter.
@@ -539,20 +528,21 @@ However, a high stiffness is generally needed to get close to incompressibility.
 Here we can notice that the resulting pressure force between two particles $i$ and $j$ is not symmetric and therefore does not conserve linear and angular momentum:
 \begin{equation}
 \label{eq:nonSymmetricPressureForce}
-\mathbf{f}^{pressure}_{ij} = -\frac{m_{i}m_{j}}{\rho_{i}\rho_{j}}p_{j}\nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\mathbf{f}^{pressure}_{ij} = -\frac{m_{i}m_{j}}{\rho_{i}\rho_{j}}p_{j}\nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h).
 \end{equation}
-To remedy this problem, we can use Equation~\eqref{eq:hackSPH} with $\displaystyle \Phi = \frac{1}{\rho_{i}}$
+To remedy this problem, we can use Equation~\eqref{eq:hackSPH} with $\displaystyle \Phi = \frac{1}{\rho_{i}}$:
 \begin{equation}
-\left(\nabla p\right)_{i} = \rho_{i} \left( \nabla \left(\frac{p_{i}}{\rho_{i}}\right) + p_{i}\frac{\nabla \rho_{i}}{\rho_{i}^{2}}\right)
+\left(\nabla p\right)_{i} = \rho_{i} \left( \nabla \left(\frac{p_{i}}{\rho_{i}}\right) + p_{i}\frac{\nabla \rho_{i}}{\rho_{i}^{2}}\right).
 \end{equation}
-and re-use SPH interpolation to get a new approximation of the pressure gradient
+Finaly, we re-use SPH interpolation to get a new approximation of the pressure gradient:
 \begin{equation}
 \label{eq:pressureGradientSPH}
 \left(\nabla p\right)_{i} = 
 \rho_{i}
 \sum_{j=1}^{N} m_{j} \left( \frac{p_{i}}{\rho_{i}^{2}} + \frac{p_{j}}{\rho_{j}^{2}} \right) \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+.
 \end{equation}
-which results into symmetric pressure forces between two particles $i$ and $j$:
+This results into symmetric pressure forces between two particles $i$ and $j$
 \begin{equation}
 \label{eq:symmetricPressureForce}
 \mathbf{f}^{pressure}_{ij} = 
@@ -561,6 +551,7 @@ which results into symmetric pressure forces between two particles $i$ and $j$:
 \frac{p_{i}}{\rho_{i}^{2}} + \frac{p_{j}}{\rho_{j}^{2}} 
 \right) 
 \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+.
 \end{equation}
 \subparagraph{Velocity Laplacian}
 \begin{equation}
@@ -569,25 +560,25 @@ which results into symmetric pressure forces between two particles $i$ and $j$:
 Same as for the pressure gradient, this would result in a non-symmetric inter-particle viscosity force:
 \begin{equation}
 \label{eq:nonSymmetricViscosityForce}
-\mathbf{f}^{viscosity}_{ij} = \eta\frac{m_{i}m_{j}}{\rho_{i}\rho_{j}}\mathbf{v}_{j}\Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
+\mathbf{f}^{viscosity}_{ij} = \eta\frac{m_{i}m_{j}}{\rho_{i}\rho_{j}}\mathbf{v}_{j}\Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h).
 \end{equation}
 If we assume that the density is constant, which is the case in theory, we could obtain symmetric forces by using Equation~\eqref{eq:hackSPH} with $\Phi=\rho_{i}$. However, in practice, the density is not constant and the evaluation of the Laplacian of the kernel is sensitive to particles sampling, which makes this solution inadequate.
 Actually, it is quite hard to correctly handle viscosity using SPH and this is still an area of research, especially for liquids exhibiting complex viscous behaviors such as coiling or buckling.
 We refer the reader to the recent work of Peer et al.~\cite{Peer2015} and Takahashi et al.~\cite{Takahashi2015} about this topic.
-For fluid with a low viscosity, Monaghan~\cite{Monaghan2005}~proposed a gradient-based formulation of the Laplacian which results in symmetric forces,
+For fluid with a low viscosity, Monaghan~\cite{Monaghan2005}~proposed a gradient-based formulation of the Laplacian which results in symmetric forces:
 \begin{equation}
 \label{eq:velocityLaplacianSPH}
 \left(\Delta \mathbf{v}\right)_{i} = 
 \frac{1}{\rho_{i}}
 \sum_{j=1}^{N} m_{j} \Pi_{ij} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
-where 
+where:
 \begin{equation}
     \Pi_{ij} = -\frac{2hc_{s}}{\rho_{i}+\rho_{j}}\frac{\mathbf{v}_{ij}^{T}\mathbf{x}_{ij}}{\vert \mathbf{x}_{ij} \vert^{2} + \epsilon h^{2}}
 \end{equation}
 and $c_{s}$ is the speed of sound in the media and $\epsilon$ is a numerical constant to avoid singularities.
 In practice, $\epsilon=0.01$ works well. We will use this formulation in Section~\ref{sec:arps_sph}.
-\subparagraph{Time integration} If we assume a uniform discretization of the time based on a time step $\Delta t$, symplectic Euler is common choice to integrate the equations of motion over time and for a particle $i$ we get
+\subparagraph{Time integration} If we assume a uniform discretization of the time based on a time step $\Delta t$, symplectic Euler is common choice to integrate the equations of motion over time and for a particle $i$ we get the following equations.
 \begin{equation}
 \begin{array}{ll}
 \displaystyle \mathbf{v}_{i}(t_{n+1}) = \mathbf{v}_{i}(t_{n}) + \frac{\Delta t}{m_{i}}\left( \sum_{j=1}^{N}\left(\mathbf{f}_{ij}^{pressure}(t_{n})+\mathbf{f}_{ij}^{viscosity}(t_{n})\right)+m_{i}\mathbf{g}\right) \\ \\
@@ -605,14 +596,14 @@ For other references related to the handling of viscosity, multiphase simulation
 \label{subsec:solidMechanics}
 In this section, we focus on the simulation of elastic objects. When submitted to external forces, an elastic object reacts so that it comes back to its rest shape. In contrast with fluids, internal forces are history dependent, they depend on how much the object deformed compared to its rest shape. It becomes crucial to be able to describe the deformation of an object in order to express its reaction. 
 
-The deformation is modeled by a mapping $\Phi$ between the undeformed configuration $\Omega_{0}$ and the deformed configuration $\Omega$ (see Figure~\ref{fig:displacementField}). $\Phi$ is called the \emph{displacement field}
+The deformation is modeled by a mapping $\Phi$ between the undeformed configuration $\Omega_{0}$ and the deformed configuration $\Omega$ (see Figure~\ref{fig:displacementField}). $\Phi$ is called the \emph{displacement field}:
 \begin{equation}
 \begin{array}{lllll}
 \Phi & : & \mathbb{R} \times \Omega_{0} & \longrightarrow & \Omega \\
 	 &  & \left(t, \mathbf{X}\right) & \longrightarrow & \mathbf{x}
 \end{array}
 \end{equation}
-where 
+where:
 \begin{itemize}
 \item $t$ is the time.
 \item $\mathbf{X}$ is a point in the undeformed configuration.
@@ -624,46 +615,47 @@ where
 \caption[STAR mechanics: Displacement field]{\label{fig:displacementField}
  The displacement field $\Phi$ maps each point $\mathbf{X}$ from the rest configuration $\Omega_{0}$ to a point $\mathbf{x}$ in the deformed configuration $\Omega$.}
 \end{figure}
-The deformation gradient $F$ describes the local state subject to rigid and/or deformable displacement with respect to the undeformed configuration. It is defined as
+The deformation gradient $F$ describes the local state subject to rigid and/or deformable displacement with respect to the undeformed configuration. It is defined by the following equation.
 \begin{equation}
 \label{eq:deformationGradient}
 \displaystyle F = \frac{\partial \Phi}{\partial \mathbf{X}}
 \end{equation}
 The strain tensor $\epsilon$ measures the deformation.
-There are many strain measures such as the Green-Lagrange strain
+There are many strain measures such as the Green-Lagrange strain:
 \begin{equation}
 \label{eq:greenLagrangeStrain}
 \displaystyle \epsilon = \frac{1}{2}\left(F^{T}F - I\right)
 \end{equation}
-or its linearized version, the Cauchy strain 
+or its linearized version, the Cauchy strain:
 \begin{equation}
 \label{eq:cauchyStrain}
-\displaystyle \epsilon = \frac{1}{2}\left( F + F^{T} \right)-I
+\displaystyle \epsilon = \frac{1}{2}\left( F + F^{T} \right)-I.
 \end{equation}
 In contrast with the Green-Lagrange strain, the Cauchy strain does not capture well large rotations and therefore is mainly used for small deformations. In Chapter~\ref{chap:cutting}, we use the Green-Lagrange strain for the simulation of elastic thin sheets.
 
 The displacement field, deformation gradient and strain tensor are the main components of the constitutive law that relates the deformation to the material properties of the object.
 
 \subsubsection{Constitutive Law}
-For elastic materials, the stress tensor $\sigma$ can be described using constitutive density energy $\Psi$ that is derived with respect to the strain tensor $\epsilon$
+For elastic materials, the stress tensor $\sigma$ can be described using constitutive density energy $\Psi$ that is derived with respect to the strain tensor $\epsilon$:
 \begin{equation}
 \label{eq:constitutiveLaw}
 \sigma = \frac{\partial \Psi}{\partial \epsilon}
+.
 \end{equation}
 Different forms of energy exist. 
-For an elastic material, also called Hookean material, the density energy is
+For an elastic material, also called Hookean material, the density energy is the following equation,
 \begin{equation}
 \label{eq:densityEnergy}
 \Psi = \frac{1}{2}H\epsilon^{2}
 \end{equation}
-where $H$ is called the stiffness tensor and is a $3\times3\times3\times3$ tensor. By injecting Equation~\eqref{eq:densityEnergy} into Equation~\eqref{eq:constitutiveLaw}, we get the constitutive law
+where $H$ is called the stiffness tensor and is a $3\times3\times3\times3$ tensor. By injecting Equation~\eqref{eq:densityEnergy} into Equation~\eqref{eq:constitutiveLaw}, we get the following constitutive law:
 \begin{equation}
 \label{eq:hookeLaw}
-\sigma = H\epsilon
+\sigma = H\epsilon.
 \end{equation}
 For isotropic materials, the number of material parameters in $H$ can be reduced to two, the Young's modulus $E$ and the Poisson's ratio $\nu$.
 These parameters respectively describes the resistance of the object to extension and to shearing.
-Moreover, the strain and stress tensor are symmetric which simplifies Equation~\eqref{eq:hookeLaw} to
+Moreover, the strain and stress tensor are symmetric which simplifies Equation~\eqref{eq:hookeLaw}:
 \begin{equation}
 \sigma = 
 \begin{bmatrix}
@@ -697,11 +689,12 @@ where
 0 & 0 & 0 & 0 & \frac{1-2\nu}{2} & 0 \\
 0 & 0 & 0 & 0 & 0 & \frac{1-2\nu}{2} \\
 \end{bmatrix}
+.
 \end{equation}
-Instead of computing internal forces as the divergence of the stress, they can be computed as the derivative of the density energy with respect to the degrees of freedom
+Instead of computing internal forces as the divergence of the stress, they can be computed as the derivative of the density energy with respect to the degrees of freedom:
 \begin{equation}
 \label{eq:internalForces_solids}
-\mathbf{f} = -\int_{\mathcal{V}} \frac{\partial \Psi}{\partial \mathbf{x}}^{T} dv
+\mathbf{f} = -\int_{\mathcal{V}} \frac{\partial \Psi}{\partial \mathbf{x}}^{T} dv.
 \end{equation}
 
 \subsubsection{Frame-based model}
@@ -737,7 +730,7 @@ In their work, Gilles et al.~\cite{Gilles2011}~proposed such an alternative by d
 =
 -\int_{V} \left(\frac{\partial F}{\partial \mathbf{x}}\right)^{T}
 \left(\frac{\partial \epsilon}{\partial F}\right)^{T}
-\left(\frac{\partial \Psi}{\partial \epsilon}\right)^{T} dv
+\left(\frac{\partial \Psi}{\partial \epsilon}\right)^{T} dv.
 \end{equation}
 The three different layers are now visible: the degrees of freedom, the deformation gradient, the strain tensor and the constitutive density energy.
 Moreover, we can distinguish the Jacobian of the mappings that link degrees of freedom to deformation gradient and deformation gradient to strain.
@@ -755,7 +748,7 @@ Affine frames are expressed with respect to their initial configuration~$T_{0} =
 
 \paragraph{Interpolation}
 Linear blend skinning is used to interpolate the displacement field and other quantities of the simulation. 
-A deformed position $\mathbf{x}$ can be interpolated as a weighted sum of the affine transformations applied to the rest position $\mathbf{x}_{0}$.
+A deformed position $\mathbf{x}$ can be interpolated as a weighted sum of the affine transformations applied to the rest position $\mathbf{x}_{0}$:
 \begin{equation}
 \label{eq:frameBasedDisplacementField}
 \begin{array}{l}
@@ -763,12 +756,13 @@ A deformed position $\mathbf{x}$ can be interpolated as a weighted sum of the af
 \displaystyle \mathbf{x}_{0,i}^{rel} = A_{0,i}^{-1}\left( \mathbf{x}_{0} - \mathbf{t}_{0,i} \right)
 \end{array}
 \end{equation}
-where 
+where:
 \begin{itemize}
 \item $\mathbf{x}_{0,i}^{rel}$ is the relative position of $\mathbf{x}_{0}$ in the frame defined by $T_{0,i}$.
 \item $w_{i}$ is the shape function associated to the frame $i$.
 \end{itemize}
-Different shape functions can be used. Three properties are important in order to represent a physical behavior. 
+Different shape functions can be used. 
+When using linear interpolation, three properties are important in order to represent a physical behavior. 
 First, the shape function should linearly decrease with respect to distance in the material. 
 Otherwise, the deformation will not be uniform with respect to the distance from the frame. 
 Second, the shape function should be positive. 
@@ -782,7 +776,7 @@ From the description of the displacement field (Equation~\eqref{eq:frameBasedDis
 F\left(\mathbf{x}\right) = 
 \frac{\partial \mathbf{x}}{\partial \mathbf{x}_{0}} =
 \sum_{i=1}^{N} \nabla w_{i}(\mathbf{x}_{0}) \left( \mathbf{t}_{i}+A_{i}\mathbf{x}_{0,i}^{rel}\right) + 
-w_{i}\left( A_{i}A_{0,i}^{-1} \right)
+w_{i}\left( A_{i}A_{0,i}^{-1} \right).
 \end{equation}
 
 \paragraph{Spatial integration}
@@ -792,7 +786,7 @@ In contrast with the SPH model that we described in Section~\ref{subsubsec:starS
 On one hand this allows the integration of the equations of motion over time very efficiently. 
 On the other hand, there are not enough samples to accurately measure the deformation.
 To remedy this, an additional denser sampling is used for the integration points.
-Let assume that we sampled the object with $M$ integration points, then we can use the midpoint rule to compute the internal forces for one frame as
+Let assume that we sampled the object with $M$ integration points, then we can use the midpoint rule to compute the internal forces for one frame,
 \begin{equation}
 \label{eq:frameForceComputation}
 \displaystyle
@@ -802,14 +796,14 @@ Let assume that we sampled the object with $M$ integration points, then we can u
 \left( \frac{\partial \epsilon}{\partial F} \right)^{T}
 \left( \frac{\partial \Psi}{\partial \epsilon} \right)^{T} \left(\mathbf{x}_{j}\right) V_{j} 
 \end{equation}
-where 
+where:
 \begin{itemize}
 \item $\mathbf{x}_{j}$ is the position of the integration point $j$.
 \item $V_{j}$ is volume associated to integration point $j$.
 \end{itemize}
 
 \paragraph{Temporal integration}
-Assuming the mass matrix is lumped and that we use symplectic Euler, the time integration of one frame $i$ is:
+Assuming the mass matrix is lumped and that we use symplectic Euler, the time integration of one frame $i$ is the following.
 \begin{equation}
 \displaystyle
 \begin{array}{l}
@@ -843,7 +837,7 @@ A_{i}(t_{n})
 \end{pmatrix} 
 \end{array}
 \end{equation}
-where $M_{i}$ is the mass matrix of the frame $i$:
+Where $M_{i}$ is the mass matrix of the frame $i$.
 \begin{equation}
 \label{eq:massMatrix}
 M_{i} = \int_{V} w_{i}^{T} \rho w_{i} dv

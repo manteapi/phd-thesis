@@ -110,16 +110,16 @@ We also added a painting tool that allows the user to fine-tune each $R^t$ if ne
 \paragraph*{Multi-resolution curvature analysis.}
 We chose a curvature criteria to extract features as it is a natural asset for detecting waves and ripples in animations of liquid. Moreover, the intimate relationship between surface curvature and liquid surface dynamics had already led previous work to use curvature as a tool to enrich liquid simulations, for example with splashes~\cite{Takahashi2003}, foam~\cite{Ihmsen2012} and textures~\cite{Narain2007}.
 
-Curvature is computed at each vertex $n$ of the animation meshes $M^t$ using the following formula:
+Curvature is computed at each vertex $n$ of the animation meshes $M^t$ using the following formula,
 \begin{equation}
-curv(n,M^t) = norm(n,M^t) \cdot \Delta_{pos}(n,M^t)
+curv(n,M^t) = norm(n,M^t) \cdot \Delta_{pos}(n,M^t).
 \end{equation}
 Vertices are colored with respect to their curvature magnitude, enabling the user to interactively observe the curved regions and their deformations on the fluid surface while playing the animation (see Figure~\ref{fig:nonSmoothedCurvature}). 
 Then we provide two sliders that the user can interactively tune to filter the curvature and select meaningful regions.
 These sliders represent:
 \begin{itemize}
 \item A number of iterations $\beta$ of Laplacian diffusion on the curvature values.
-We define the $i$-th iteration of the Laplacian curvature diffusion as:
+We define the $i$-th iteration of the Laplacian curvature diffusion as
 \begin{equation}
     curv^{i+1}(n,M^t) = curv^i(n,M^t) - \lambda . \Delta_{curv^i}(n,M^t)
 \end{equation}
@@ -129,9 +129,9 @@ Laplacian diffusion of the computed curvature values is used to decrease the spa
 This allows the user to select broader regions in an efficient way without actually smoothing the geometric details on the mesh (see Figure~\ref{fig:smoothedCurvature}). 
 \item A threshold $\gamma$ on the curvature of $R$. All the vertices whose curvature is above $\gamma$ are added to $R$. This allows the user to control the extent of $R$ (see Figure~\ref{fig:curvatureThreshold}). 
 
-In the end, we can mathematically define a region of interest for a frame $t$ as:
+In the end, we can mathematically define a region of interest for a frame $t$ as
 \begin{equation}
- R^t = \{ n\in N_{M^t} \vert curv^{\beta}(n,M^t) > \gamma \}
+ R^t = \{ n\in N_{M^t} \vert curv^{\beta}(n,M^t) > \gamma \}.
 \end{equation}
 \end{itemize}
 
@@ -180,9 +180,9 @@ In practice, these tools were particularly useful for selecting regions such as 
 For a detail overview of MMOs, we refer the reader to the work of Serra~\cite{Serra1986}.%and to Appendix~\ref{sec:mesh_part}.
 
 \subsection{Segmentation}\label{sec:features:segmentation}
-Once $R$ has been computed, the segmentation step decomposes each $R^t$ into connected components $(C_k^t)_{k,t}$, where $k$ is the index of the component. Mathematically, a region of interest for a frame $t$ can be defined as the disjoint union of its connected components:
+Once $R$ has been computed, the segmentation step decomposes each $R^t$ into connected components $(C_k^t)_{k,t}$, where $k$ is the index of the component. Mathematically, a region of interest for a frame $t$ can be defined as the disjoint union of its connected components,
 \begin{equation}
- R^t = \bigsqcup_k C_k^t \text{~~} \vert \text{~~} \forall t \in [0, T(M)-1]
+ R^t = \bigsqcup_k C_k^t \text{~~} \vert \text{~~} \forall t \in [0, T(M)-1].
 \end{equation}
 The decomposition is computed using the straightforward breadth-first search on each frame in parallel. 
 We call each $C_{k}^{t}$ a \emph{frame feature}.
@@ -227,13 +227,14 @@ We divided \(\omega_{ij}\) into three terms:
     \item $s_{ij}$: The difference of the surface area between $v_{i}$ and $v_{j}$.
     \item $v_{ij}$: The difference of volume between $v_{i}$ and $v_{j}$. $v_{ij}$ is computed only if both $v_{i}$ and $v_{j}$ are closed.
 \end{itemize}
-The edge cost $\omega_{ij}$ is a weighted sum of these terms, normalized by the appropriate power of $l=L(M)$, the characteristic size of the bounding box of $M$:
+The edge cost $\omega_{ij}$ is a weighted sum of these terms, normalized by the appropriate power of $l=L(M)$, the characteristic size of the bounding box of $M$,
 \begin{equation}
 \label{eq:costfunction}
 \displaystyle \omega_{ij} = 
 \omega_{d}\, \left(\frac{d_{ij}}{l  }\right)^2 +
 \omega_{s}\, \left(\frac{s_{ij}}{l^2}\right)^2 + 
 \omega_{v}\, \left(\frac{v_{ij}}{l^3}\right)^2
+.
 \end{equation}
 For all the examples of this chapter we used $\left( \omega_{d}, \omega_{s}, \omega_{v} \right)$ = $\left(0.6,0.2,0.2\right)$. We chose to favor the closeness between frame features and consider difference of surface and volume equally. After the cost computation, we discard edges whose cost is below a threshold $\epsilon$ that we set to $0.3 \times l$ in our examples. Higher thresholds lead to fewer edges in the graph and more disconnected paths.
 
@@ -342,9 +343,9 @@ Building the differential representation of a frame feature is slightly more com
 The process is described in Figure~\ref{fig:displacement:copy} and consists of three steps:
 Starting from the initial frame feature surface $S(F^t_i)$ we compute a smooth version $S'(F^t_i)$ using Laplacian smoothing on the inner part of the surface $S(F^t_i) \setminus \partial S(F^t_i)$.
 We note $pos(n, S)$ the position of vertex $n$ on surface $S$; note that $S(F^t_i)$ and $S'(F^t_i)$ describes the same vertices, but with different positions.
-Then we compute the displacement of each vertex $n \in N$ from $S'(F^t_i)$ to $S(F^t_i)$:
+Then we compute the displacement of each vertex $n \in N$ from $S'(F^t_i)$ to $S(F^t_i)$,
 \begin{equation}
-    disp(n,S'(F^t_i), S(F^t_i) ) = pos(n, S(F^t_i)) - pos(n, S'(F^t_i))
+    disp(n,S'(F^t_i), S(F^t_i) ) = pos(n, S(F^t_i)) - pos(n, S'(F^t_i)).
 \end{equation}
 Finally, we map for every vertex $n$, $disp(n,S'(F^t_i), S(F^t_i))$ onto $S'(F^t_i)$, and sample the linearly interpolated values into the texture $\tau_d(F^t_i)$.
 We similarly sample the normals of $S'(F^t_i)$ into $\tau_n(F^t_i)$.
@@ -358,7 +359,7 @@ Mesh representations are trivially inserted by copying $M(F^{t'}_i)$ into $M^t$.
 To insert a feature representation $(\tau_d(F^{t'}_i), \tau_n(F^{t'}_i))$ into $M^t$ at location $p$, we first need to identify the part $\Pi \subset M^t$ which will be deformed.
 Starting from $N_{\Pi} = \{n_0\}$ where
 \begin{equation}
-n_0=\underset{n\in N_{M^t}}{\operatorname{argmin}}(\|pos(n, M^t) - p\|)
+n_0=\underset{n\in N_{M^t}}{\operatorname{argmin}}(\|pos(n, M^t) - p\|),
 \end{equation}
 we progressively dilate $\Pi$ until it fills the bounding box of size $L(F^{t'}_i)$ centered in $p$.
 

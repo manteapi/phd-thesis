@@ -143,7 +143,7 @@ We illustrate this with a generic two-dimensional system,
   q_1'(t) &= f_1\big(t, q_1(t), q_2(t)\big), \\
   q_2'(t) &= f_2\big(t, q_1(t), q_2(t)\big).
 \end{align}
-If at time $t$, $q_2$ requires a very small time step $\Delta t_2$, one can still integrate $q_1$ with its own time step $\Delta t_1$, giving
+If at time $t$, $q_2$ requires a very small time step $\Delta t_2$, one can still integrate $q_1$ with its own time step $\Delta t_1$, giving the following.
 \begin{equation}
   q_1(t+\Delta t_1) = q_1(t) + \Delta t_1 f_1\big(t, q_1(t), q_2(t)\big).
 \end{equation}
@@ -212,12 +212,12 @@ In rigid objects simulation (see the survey of Bender et al.~\cite{Bender2012:ri
 This process becomes unnecessarily expensive when stacking occurs and nothing moves.
 In these cases, freezing techniques prove to be useful for saving computational time without compromising the plausibility of the simulation.
 
-Schmidl~\cite{Schmidl2002}~uses a heuristic based on kinetic energy to determine whether to freeze a body or not:
+Schmidl~\cite{Schmidl2002}~uses a heuristic based on kinetic energy to determine whether to freeze a body or not.
 \begin{equation}
 \label{eq:shmidl_freezing}
 \frac{1}{2}m\mathbf{v}^{2} + \frac{1}{2}\mathbf{\omega}^{T}\mathbf{I}\mathbf{\omega} < \frac{\mathbf{p}_{g}^{2}}{2m}
 \end{equation}
-where $\mathbf{v}$ and $\mathbf{\omega}$ respectively denote the linear and angular velocity of the rigid body of mass $m$ and inertia tensor $\mathbf{I}$, and $\mathbf{p}_{g}=m\mathbf{g}\Delta t$ is the momentum that the body accumulates during a time step $\Delta t$ from gravity.
+Where $\mathbf{v}$ and $\mathbf{\omega}$ respectively denote the linear and angular velocity of the rigid body of mass $m$ and inertia tensor $\mathbf{I}$, and $\mathbf{p}_{g}=m\mathbf{g}\Delta t$ is the momentum that the body accumulates during a time step $\Delta t$ from gravity.
 If condition \eqref{eq:shmidl_freezing} is fulfilled by the body during a user-defined number of consecutive time steps, then it is frozen.
 Note that a single frozen body by itself does not save computation time.
 Time is saved when multiple neighboring objects become frozen, as their contact forces no longer need to be computed.
@@ -689,7 +689,7 @@ Thus, instead of having a complexity dependent on the simulation mesh resolution
 A cubature scheme is used to perform integration on only a reduced sets of well-chosen samples. In the end, this allows simulation of nonlinear deformable models with orders of magnitude speed-up.
 
 The drawbacks are that the creation of the basis requires heavy precomputation, and that the motion of the model is constrained to lie in this basis. Furthermore, while the full finite element simulations often have local compact basis functions and sparse system matrices (because each degree of freedom is a vertex that only influences its neighbors locally), reduced simulations tend to have global basis functions and dense system matrices (because each degree of freedom impacts all points in space simultaneously). Small dense systems are often more efficient than large sparse ones, but the increased storage requirement limits how many modes can be feasibly included in model-reduced simulations, and it limits the use of model reduction in settings where large numbers of modes are essential for visually-plausible behavior (like cloth and fluids).
-Therefore model reduction is only truly efficient for smooth global deformations and predictable scenarios where it is possible to build a basis that remains constant over time. It is also only useful in situations where a limited number of modes can adequately describe the system.
+Therefore model reduction, \emph{alone}, is truly efficient for smooth global deformations and predictable scenarios where it is possible to build a basis that remains constant over time. It is also only useful in situations where a limited number of modes can adequately describe the system.
 
 Several strategies have been proposed to overcome some of these drawbacks by adaptively improving the reduced basis. Common components to those strategies are the different processes to update the basis and the criteria used to decide when the basis should be adapted. Moreover, a common challenge is to ensure temporal coherence while adapting the basis.
 Kim and James~\cite{Kim2009Skipping}~combine a full nonlinear simulation with subspace simulation in order to exploit coherence in the global motion of the model.
