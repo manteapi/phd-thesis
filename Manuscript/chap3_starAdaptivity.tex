@@ -329,7 +329,7 @@ In this context, geometrical curvature and the presence of contacts (which are l
 However, the interaction between stretching and bending leads to additional considerations.
 
 First, in the context of cloth simulation, Simnett et al.~\cite{Simnett2009} and Narain et al.~\cite{Narain2012}~point out that elements under compression are likely to buckle and should therefore also be refined, otherwise the wrinkles that would arise in subsequent time steps will fail to be represented on the coarse mesh.
-By considering the trade-off between bending and stretching energy, Narain et al. estimate that a sheet under compressive strain $\epsilon$ is likely to form wrinkles of width proportional to $\sqrt{k_b/(k_s\epsilon)}$ where $k_b$ and $k_s$ are the bending and stretching stiffnesses respectively, providing an estimate of the extent of refinement necessary.
+By considering the trade-off between bending and stretching energy, Narain~et~al.~ estimate that a sheet under compressive strain $\epsilon$ is likely to form wrinkles of width proportional to $\sqrt{k_b/(k_s\epsilon)}$ where $k_b$ and $k_s$ are the bending and stretching stiffnesses respectively, providing an estimate of the extent of refinement necessary.
 In the physics literature, Cerda and Mahadevan~\cite{Cerda2003}~have provided a detailed semi-analytical analysis of wrinkle geometry that is valid far from the small-deformation limit, and may be useful for future work in graphics.
 
 Second, finer meshes allow higher-frequency modes of transverse oscillation, leading to time step constraints and stability problems that can be fatal for interactive applications.

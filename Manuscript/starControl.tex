@@ -5,12 +5,12 @@ As we mentioned in the introduction, computer were used for producing animations
 First, principles of traditional animation were adopted, leaving the animator to describe the key-frames that would bring life and style to characters. 
 Second, physics was used to animate objects whose complexity in terms of scale and behavior would have been intractable for a single animator. 
 Nowadays, these two use cases are only the extremities of a large spectrum. 
-In between lies the control of physics-based animations which tends to take into account both user directions, that will bring life and style, and physics, that will handle the exciting complexity and dynamics of the physical behavior.
+In between lies the control of physics-based animations which tends to take into account user directions, that will bring life and style, and physics, that will handle the exciting complexity and dynamics of the physical behavior.
 In this section, we illustrate the problem of simulation control and describe the main solutions proposed so far.
 \subsection{Problem: The trial and error process}
 How to control a physics-based animation is an old problem in computer graphics. In order to understand the different problems that arise, it is good to start from the most naive way of controlling a physics-based animation: trial and error.
 
-Let's say we have to design an animation of a ball launched on the ground that bounces twice before hitting the center of a target on the ground. 
+Let us say we have to design an animation of a ball launched on the ground that bounces twice before hitting the center of a target on the ground. 
 The elastic behavior of the ball and the changes of speed make it a hard animation for a key-framing animator. 
 Using physically-based simulation methods, the behavior takes some time to compute but can be easily solved.
 As the simulation is an initial value problem, the whole behavior of the ball is dictated by the initial and boundary conditions of the simulation, the material parameters of the ball and the external forces that can be set to help guiding the animation. 
@@ -45,7 +45,7 @@ A general approach for controlling a physics-based animation is to formulate it 
 \caption[STAR control: Space-time constraints]{\label{fig:spaceTimeConstraints} Space-time constraints. 
 An optimization problem is defined to find the value of the parameters which solve the equations of motion while respecting constraints defined by the user.
 In this example, the parameters are the initial height $h$ and velocity $\mathbf{v}$ of the ball and the constraints are the position of the ball at different time.
-The ball has a mass of $1\kilo\gram$ and is only submitted to the gravity $\mathbf{g}$.}
+The ball has a mass of $1 \kilo\gram$ and is only submitted to the gravity $\mathbf{g}$.}
 \end{figure}
 
 Four challenges arise: What are the parameters we want to control, what are the user constraints, how to formulate them and finally how to numerically solve the problem?

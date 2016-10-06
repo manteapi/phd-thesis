@@ -36,7 +36,7 @@ Finally, adaptive techniques propose to adapt in space and time the representati
 In this manuscript we focus on this last method and present an extensive study of adaptive models for physics-based animation in Chapter~\ref{chap:starAdaptivity}.
 
 
-Adaptive techniques have a great history in classical mechanics and computer graphics. The most common form of adaptivity consists of re-sampling a new set of degrees of freedom along the simulation in order to concentrate computational time where and when it is most needed based on accuracy and visual criteria. Among the most common criticisms concerning adaptive techniques, we retained two of them. First, adaptive techniques are notoriously hard to integrate in existing simulation frameworks: tey may require to \emph{bend} the technique to the framework or vice-versa. Therefore, even if they can bring great speed ups, the amount of implementation work makes them unattractive. Therefore, there is a great need for more general approach of adaptivity producing less intrusive techniques. Second, adaptive methods are often subject to popping artifacts when updating the resolution of the simulation. Especially in computer graphics, these artifacts should be prevented.
+Adaptive techniques have a great history in classical mechanics and computer graphics. The most common form of adaptivity consists of re-sampling a new set of degrees of freedom along the simulation in order to concentrate computational time where and when it is most needed based on accuracy and visual criteria. Among the most common criticisms concerning adaptive techniques, we retained two of them. First, adaptive techniques are notoriously hard to integrate in existing simulation frameworks: tey may require to \emph{bend} the technique to the framework or vice-versa. Even if they can bring great speed ups, the amount of implementation work makes them unattractive. Therefore, there is a great need for more general approach of adaptivity producing less intrusive techniques. Second, adaptive methods are often subject to popping artifacts when updating the resolution of the simulation. Especially in computer graphics, these artifacts should be prevented.
 
 
 In Chapter~\ref{chap:arps}, we propose a new adaptive model to address these challenges.
@@ -47,7 +47,7 @@ Complex simulations are often characterized by objects undergoing strong changes
 
 In the context of cutting and fracture, handling detailed topological changes interactively remains a challenge. Games and surgical simulators need a detailed and efficient representation of these topological changes. Because of restrictions on the amount of memory and computational time for the simulation, they cannot always afford adaptive techniques to handle the increasing computational cost due to the changes.
 
-Aside from the computational challenge, the discontinuities induced by topological changes remain hard to be faithfully represented. However, they are a key ingredient to predict how an object will react under cutting or tearing.
+Aside from the computational challenge, the discontinuities induced by topological changes remain hard to faithfully represent. However, they are a key ingredient to predict how an object will react under cutting or tearing.
 This is particularly important when the user interaction needs to be taken into account precisely, such as in surgical simulators.
 
 
@@ -61,7 +61,7 @@ Unfortunately, controlling a simulation to match specific goals is a hard proble
 Simulations are formulated as an initial value problem, meaning that the whole behavior is determined by the parameters of the simulation such as initial and boundary conditions or material parameters. 
 Finding the right set of parameters is often the result of a tedious trial and error process.
 
-In contrast with animation, there is still no strong pipeline that let a user design a physics-based animation from scratch. 
+In contrast with animation, there is still no strong pipeline that leave a user design a physics-based animation from scratch. 
 The main challenge remains to build high level control tools that would help the user to intuitively design animations or prototypes. 
 In the case of prototyping, these tools should produce viable objects that respect the underlying mechanics. 
 In the case of animation, they should provide a way to adjust between what makes the animation looks realistic and the artistic constraints which convey emotions.
@@ -72,7 +72,7 @@ Our last contribution, presented in Chapter~\ref{chap:fluidsculpting} falls in t
 \section{Contributions}
 The contributions of this work are as follows:
 \begin{itemize}
-    \item First, we transfer and extend a new adaptive physically-based animation technique from Nanosystems simulation to computer graphics. In contrast with classical methods, our technique is less intrusive, it requires minimal changes in an existing simulator and retains physical accuracy. We demonstrate its use in the case of particle-based fluid simulation and extend it by proposing an implicit integrator enabling to achieve elastic solids animations as well.
+    \item First, we transfer and extend a new adaptive physically-based animation technique from nanosystems simulation to computer graphics. In contrast with classical methods, our technique is less intrusive, it requires minimal changes in an existing simulator and retains physical accuracy. We demonstrate its use in the case of particle-based fluid simulation and extend it by proposing an implicit integrator for the simulation of elastic solids animations.
     \item Second, we propose an algorithm for the efficient cutting of thin deformable objects using the frame-based deformable model. By dynamically adapting the shape functions associated with the different degrees of freedom, we take into account detailed topological changes in the dynamics while keeping a very low number of degrees of freedom.
     \item Finally, we present a new technique to design an animation of liquid. In contrast with previous work which focus on the control of the simulation, we propose to directly sculpt liquid simulation results. The input of our method is a sequence of meshes representing the surface of the liquid over time. In our system the user can select sub-parts of the animation and copy, cut, paste them at different space-time locations, in different target animations.
 \end{itemize}

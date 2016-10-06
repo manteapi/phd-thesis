@@ -100,7 +100,7 @@ Finally, we introduce a notion that we will use in the following sections: the \
 \end{equation}
 
 \paragraph*{A simple example:}
-Consider a 1D harmonic oscillator : a particle attached to the origin with a perfect spring.
+Consider a 1D harmonic oscillator: a particle attached to the origin with a perfect spring.
 Figure~\ref{fig:harmonicOscillatorPhasePortrait} shows a phase portrait of the corresponding
 AR system.
 
@@ -318,8 +318,8 @@ These examples show that ARPS can effectively be extended to speed up liquid sim
 \section{Extension to stiff objects: Implicit Integration} 
 \label{sec:arps_implicit}
 In this section we explore the application of ARPS to stiff objects simulations, such as clothes, and propose an implicit integration scheme which saves computation time for particles at rest.
-Implicit integration for cloth simulation was introduced in~\cite{Baraff1998}. 
-An introduction to implicit integration is proposed in~\cite{Witkin2001}.
+Implicit integration for cloth simulation was introduced by Baraff~and~Witking~\cite{Baraff1998}. 
+An introduction to implicit integration is proposed by Witkin et al.~\cite{Witkin2001}.
 While originally formulated on velocity, it can be straightforwardly expressed on momentum.
 Instead of integrating the momentum using the forces at the current time step, implicit integration uses the forces at the end of the current step.
 As we do not know these forces we end up with a non linear function.

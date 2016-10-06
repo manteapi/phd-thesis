@@ -34,7 +34,7 @@ Mathematically, we can write the conservation of mass as
     =
     - \int_{\mathcal{\partial V}}\rho(t,\mathbf{x})\mathbf{v}(t,\mathbf{x}) \cdot \mathbf{n}(\mathbf{x}) ds
 \end{equation}
-where:
+where
 \begin{itemize}
 	\item $\rho(t,\mathbf{x})$ is the density at a point $\mathbf{x}$ and at a time $t$.
 	\item $\mathbf{v}(t,\mathbf{x})$ is the velocity at a point $\mathbf{x}$ and at a time $t$.
@@ -77,7 +77,7 @@ Mathematically, this law can be written as
 = 
 \int_{\mathcal{V}} \mathbf{f}(t,\mathbf{x}) dv
 \end{equation}
-where:
+where
 \begin{itemize}
 	\item $\mathbf{a}(t,\mathbf{x})$ is the acceleration at a point $\mathbf{x}$ and at a time $t$.
 		\item $\mathbf{f}(t,\mathbf{x})$ is the force applied on a point $\mathbf{x}$ and at a time $t$.
@@ -185,7 +185,7 @@ Finally, we can write the equations of motion from a Lagrangian viewpoint:
 \right.
 .
 \end{equation}
-As the deformable models used in Chapter~\ref{chap:arps} and Chapter~\ref{chap:cutting} are used to solve Lagrangian equations of motion, we will keep Equation~\eqref{eq:lagrangianMotionEquation} in the following sections.
+In the following sections, we will keep Equation~\eqref{eq:lagrangianMotionEquation} which will be used by the deformable models used in Chapter~\ref{chap:arps} and Chapter~\ref{chap:cutting}.
 \subsubsection{Numerical solution}
 \label{subsubsec:starMechanics_numericalSolution}
 Once the equations of motion are stated, they are discretized in space and time in order to be numerically solved.
@@ -284,7 +284,7 @@ M \frac{d\mathbf{v}}{dt} dt
 =
 \int_{t_{n}}^{t_{n+1}}\mathbf{f} dt
 \end{equation}
-where:
+where
 \begin{itemize}
 	\item $\mathbf{v} \in \mathbb{R}^{3N}$ concatenates the velocity of each sample.
 	\item $\mathbf{f} \in \mathbb{R}^{3N}$ concatenates the forces applied on each sample.
@@ -387,7 +387,7 @@ The stress tensor that we introduced in Section~\ref{subsubsec:starMechanics_mom
 \label{eq:fluidConstitutiveLaw}
 \sigma = -pI_{3 \times 3} + \eta \left( \nabla \mathbf{v} + \nabla \mathbf{v}^{T} \right)
 \end{equation}
-where:
+where
 \begin{itemize}
     \item $I_{3 \times 3}$ is the identity.
 	\item $p$ is the pressure applied on the fluid.
@@ -432,7 +432,7 @@ The interpolation of a function $f$ and its derivatives of order $\alpha$ at a p
 \right.
 .
 \end{equation}
-where:
+where
 \begin{itemize}
 	\item $W$ is a function called \emph{kernel}.
 	\item $h$ is the smoothing radius, also called length scale, which represents the support of $W$.
@@ -448,7 +448,7 @@ These particles play two roles: First they carry the degrees of freedom and the 
 \end{array}
 \right.
 \end{equation}
-where:
+where
 \begin{itemize}
 	\item $V_{i} = m_{i}/\rho_{i}$ is the volume of particle $i$.
 	\item $m_{i}$ is the mass of particle $i$.
@@ -514,7 +514,7 @@ We can omit the mass conservation as we did before, by assuming that the particl
 \label{eq:pressureSPH}
 p_{i} = k\left(\rho_{i}-\rho_{0}\right)
 \end{equation}
-where:
+where
 \begin{itemize}
 \item $\rho_{0}$ is the rest density of the fluid ($1000\kilo\gram\per\meter\cubed$).
 \item $k$ is a stiffness parameter.
@@ -562,7 +562,7 @@ Same as for the pressure gradient, this would result in a non-symmetric inter-pa
 \label{eq:nonSymmetricViscosityForce}
 \mathbf{f}^{viscosity}_{ij} = \eta\frac{m_{i}m_{j}}{\rho_{i}\rho_{j}}\mathbf{v}_{j}\Delta W(\mathbf{x_{i}}-\mathbf{x_{j}},h).
 \end{equation}
-If we assume that the density is constant, which is the case in theory, we could obtain symmetric forces by using Equation~\eqref{eq:hackSPH} with $\Phi=\rho_{i}$. However, in practice, the density is not constant and the evaluation of the Laplacian of the kernel is sensitive to particles sampling, which makes this solution inadequate.
+If we assume that the density is constant, which is the case in theory, we could obtain symmetric forces by using Equation~\eqref{eq:hackSPH} with $\Phi=\rho_{i}$. However, in practice, the density is not constant and the evaluation of the Laplacian of the kernel is sensitive to particle sampling, which makes this solution inadequate.
 Actually, it is quite hard to correctly handle viscosity using SPH and this is still an area of research, especially for liquids exhibiting complex viscous behaviors such as coiling or buckling.
 We refer the reader to the recent work of Peer et al.~\cite{Peer2015} and Takahashi et al.~\cite{Takahashi2015} about this topic.
 For fluid with a low viscosity, Monaghan~\cite{Monaghan2005}~proposed a gradient-based formulation of the Laplacian which results in symmetric forces:
@@ -572,7 +572,7 @@ For fluid with a low viscosity, Monaghan~\cite{Monaghan2005}~proposed a gradient
 \frac{1}{\rho_{i}}
 \sum_{j=1}^{N} m_{j} \Pi_{ij} \nabla W(\mathbf{x_{i}}-\mathbf{x_{j}},h)
 \end{equation}
-where:
+where
 \begin{equation}
     \Pi_{ij} = -\frac{2hc_{s}}{\rho_{i}+\rho_{j}}\frac{\mathbf{v}_{ij}^{T}\mathbf{x}_{ij}}{\vert \mathbf{x}_{ij} \vert^{2} + \epsilon h^{2}}
 \end{equation}
@@ -603,7 +603,7 @@ The deformation is modeled by a mapping $\Phi$ between the undeformed configurat
 	 &  & \left(t, \mathbf{X}\right) & \longrightarrow & \mathbf{x}
 \end{array}
 \end{equation}
-where:
+where
 \begin{itemize}
 \item $t$ is the time.
 \item $\mathbf{X}$ is a point in the undeformed configuration.
@@ -756,7 +756,7 @@ A deformed position $\mathbf{x}$ can be interpolated as a weighted sum of the af
 \displaystyle \mathbf{x}_{0,i}^{rel} = A_{0,i}^{-1}\left( \mathbf{x}_{0} - \mathbf{t}_{0,i} \right)
 \end{array}
 \end{equation}
-where:
+where
 \begin{itemize}
 \item $\mathbf{x}_{0,i}^{rel}$ is the relative position of $\mathbf{x}_{0}$ in the frame defined by $T_{0,i}$.
 \item $w_{i}$ is the shape function associated to the frame $i$.
@@ -796,7 +796,7 @@ Let assume that we sampled the object with $M$ integration points, then we can u
 \left( \frac{\partial \epsilon}{\partial F} \right)^{T}
 \left( \frac{\partial \Psi}{\partial \epsilon} \right)^{T} \left(\mathbf{x}_{j}\right) V_{j} 
 \end{equation}
-where:
+where
 \begin{itemize}
 \item $\mathbf{x}_{j}$ is the position of the integration point $j$.
 \item $V_{j}$ is volume associated to integration point $j$.
@@ -850,7 +850,7 @@ For the formulation of implicit Euler and a survey of collision detection techni
 
 \subsection{Conclusion on continuum mechanics}
 In this section, we briefly presented the basics of continuum mechanics.
-First, we described how to design equations of motion and which numerical tools are involved in their solving. 
+First, we described how to design equations of motion and which numerical tools are used to solve them. 
 Then, for fluids and solids mechanics, we mentioned their specificities and detailed a deformable model.
 We illustrated the fact that continuum mechanics allows the automatic computation of realistic motion from a wide range of phenomena.
 This strength mainly explains why hand-made animations of physical phenomena have been replaced by physics-based animation.

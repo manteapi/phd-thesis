@@ -355,14 +355,12 @@ The samplings are performed on the GPU using the standard off-screen rasterizati
 \label{sec:representation:insertion}
 
 Mesh representations are trivially inserted by copying $M(F^{t'}_i)$ into $M^t$.
-
 To insert a feature representation $(\tau_d(F^{t'}_i), \tau_n(F^{t'}_i))$ into $M^t$ at location $p$, we first need to identify the part $\Pi \subset M^t$ which will be deformed.
 Starting from $N_{\Pi} = \{n_0\}$ where
 \begin{equation}
 n_0=\underset{n\in N_{M^t}}{\operatorname{argmin}}(\|pos(n, M^t) - p\|),
 \end{equation}
 we progressively dilate $\Pi$ until it fills the bounding box of size $L(F^{t'}_i)$ centered in $p$.
-
 Once $\Pi$ has been computed, we compute its smooth version $\Pi'$ on which we project $\tau_d(F^{t'}_i)$ and $\tau_n(F^{t'}_i)$, yielding two attributes for each vertex $n \in N_{\Pi'}$, a displacement $disp_0(n, \Pi')$ and a normal $norm_0(n, \Pi')$.
 We define a new attribute $rot(n, \Pi') = rot(norm_0(n, \Pi'), norm(n, \Pi'))$, a rotation matrix mapping $norm_0(n, \Pi')$ into $norm(n, \Pi')$.
 Each vertex $n \in N_{\Pi}$ is displaced of $rot(n, \Pi') \times disp_0(n, \Pi')$, yielding the deformed surface $\Pi''$.
@@ -417,7 +415,7 @@ This tool allows a user to displace the representation of a feature at a given f
 
 \section{Results} \label{sec:fluidsculpting:results}
 In this section, we detail results achieved using our sculpting system.
-They illustrate the different tools described in the Section~\ref{sec:manipulation} and alternative usage of our method that we found interesting.
+They illustrate the different tools described in the Section~\ref{sec:manipulation} and how we used them.
 
 \paragraph{Boat wake}
 In Figure~\ref{fig:result:boatWake}, we illustrate the capability of our method to extract \emph{space-time features} from arbitrary inputs (e.g. Eulerian or Lagrangian simulation, spectral methods, shallow water, real liquid surface acquisition) and combine them to create a plausible animation.
